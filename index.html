@@ -22,33 +22,71 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome.css" rel="stylesheet" media="screen">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
+    <![endif]-->
     <script src="js/jquery.1.9.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <style type="text/css">
-        #loading-indicator {
-            display: none;
-            width: 100%;
-            height: 500px;
-            position: fixed;
-            background: url(img/ajax-loader.gif) no-repeat center rgba(0, 0, 0, .2);
-            text-align: center;
-            padding: 10px;
-            font: normal 16px Tahoma, Geneva, sans-serif;
-            border: 0;
-            z-index: 999;
-            overflow: hidden;
-        }
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/elastichq.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#connectionURL').focus();
 
-        ​
-    </style>
+            $("[rel=tipRight]").tooltip(
+                    {
+                        'animation':true
+                    }
+
+            );
+            $("[rel=popRight]").popover(
+                    {
+                        'trigger':'hover',
+                        'animation':true
+                    }
+            );
+        });
+    </script>
 </head>
 <body>
-<div id="loading-indicator" style="display:none">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="http://www.elastichq.org"><i class="icon-dashboard"></i> Elastic HQ</a>
 
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li>
+                        <form class="form-search" style="margin:0;padding: 0;" method="GET"
+                              action="" id="connform_top">
+                            <div class="input-prepend input-append" style="width: 300px;padding-top: 5px;">
+                                <span class="add-on"><i class="icon-sitemap"></i></span>
+                                <input type="text" placeholder="Enter REST URL..." name="connectionURL"
+                                       style="width: 250px;"
+                                       id="connectionURL">
+                                <button class="btn btn-info" type="submit">Connect</button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="nav pull-right">
+                    <a class="btn" href="https://github.com/royrusso/elasticsearch-HQ"><i
+                            class="icon-github icon-large"></i> Star us on GitHub</a>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
 </div>
-<div class="container">
-    <div class="lead"></div>
-    <div id="theresult"></div>
+
+<div class="container-fluid">
+    <br/>
 </div>
 </body>
 </html>
