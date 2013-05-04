@@ -31,6 +31,16 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     <script src="js/underscore.js"></script>
     <script src="js/backbone.js"></script>
     <script src="js/elastichq.js"></script>
+
+    <!-- Base Model -->
+    <script src="js/model/ModelUtil.js"></script>
+
+    <!-- Models -->
+    <script src="js/model/cluster/ClusterHealth.js"></script>
+
+    <!-- Util -->
+    <script src="js/util/logger.js"></script>
+
     <script>
         $(document).ready(function () {
             $('#connectionURL').focus();
@@ -63,14 +73,13 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li>
-                        <form class="form-search" style="margin:0;padding: 0;" method="GET"
-                              action="" id="connform_top">
+                        <form class="form-search" style="margin:0;padding: 0;" id="connform_top">
                             <div class="input-prepend input-append" style="width: 300px;padding-top: 5px;">
                                 <span class="add-on"><i class="icon-sitemap"></i></span>
                                 <input type="text" placeholder="Enter REST URL..." name="connectionURL"
                                        style="width: 250px;"
                                        id="connectionURL">
-                                <button class="btn btn-info" type="submit">Connect</button>
+                                <button class="btn btn-info" type="button" id="connectButton">Connect</button>
                             </div>
                         </form>
                     </li>

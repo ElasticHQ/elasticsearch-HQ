@@ -16,7 +16,37 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
+// log =1, no-log =0.
+var debugMode = 1;
+
 $(document).ready(
     function ($) {
 
+        if (debugMode == 1) {
+            logger.enableLogger()
+        }
+        else {
+            logger.disableLogger();
+        }
+
+        var connectButton = $('#connectButton');
+        var connectionURL = $('#connectionURL');
+
+        // bind click even on connect button
+        connectButton.click(function () {
+            connect(connectionURL.val());
+        });
+
+
     });
+
+function connect(connectionURL) {
+    var clusterHealth = new ClusterHealth({connectionRootURL:connectionURL});
+    clusterHealth.fetch({
+        success:function (model, response) {
+            var clusterName = model.get("cluster_name");
+            console.log('Connected to: ' + clusterName);
+        }
+    });
+
+}
