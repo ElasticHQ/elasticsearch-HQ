@@ -63,6 +63,16 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     </div>
 </div>
 
+<div id="error-loc"></div>
+
+<script type="text/template" id="error-template">
+    <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4><%- warningTitle %></h4>
+        <%- warningMessage %>
+    </div>
+</script>
+
 <script type="text/template" id="clusterHealth-template">
     <a class="btn btn-<%- statusClass %> btn-large" rel="popRight" data-trigger="hover"
        data-content="Status: <%- status %>.<br/> Click for Cluster Information." data-html="true"
@@ -146,10 +156,12 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <!-- Models -->
 <script src="js/model/ModelUtil.js"></script>
+<script src="js/model/ErrorMessageModel.js"></script>
 <script src="js/model/cluster/ClusterHealthModel.js"></script>
 
 <!-- View -->
 <script src="js/view/cluster/ClusterHealthView.js"></script>
+<script src="js/view/ErrorMessageView.js"></script>
 
 <!-- Util -->
 <script src="js/util/logger.js"></script>

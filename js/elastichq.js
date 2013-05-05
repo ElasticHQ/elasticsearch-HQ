@@ -34,6 +34,8 @@ $(document).ready(
 
         // bind click even on connect button
         connectButton.click(function () {
+            // TODO: change in url should clear many of the templates.
+            $("#error-loc").empty();
             connect(connectionURL.val());
         });
 
@@ -45,6 +47,16 @@ $(document).ready(
                     console.log('Connected to: ' + clusterName);
                     var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
                     clusterView.render();
+                },
+                error:function (model, response, options) {
+                    var err = 'Unable to Connect to Server! ';
+                    if (response) {
+                        err += 'Received Status Code: ' + response.status;
+                    }
+                    console.log('Error! ' + err);
+                    var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
+                    var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
+                    errorMsgView.render();
                 }
             });
         }
