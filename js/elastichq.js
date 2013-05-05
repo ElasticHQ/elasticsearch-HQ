@@ -37,16 +37,15 @@ $(document).ready(
             connect(connectionURL.val());
         });
 
-
-    });
-
-function connect(connectionURL) {
-    var clusterHealth = new ClusterHealth({connectionRootURL:connectionURL});
-    clusterHealth.fetch({
-        success:function (model, response) {
-            var clusterName = model.get("cluster_name");
-            console.log('Connected to: ' + clusterName);
+        var connect = function (connectionURL) {
+            var clusterHealth = new ClusterHealth({connectionRootURL:connectionURL});
+            clusterHealth.fetch({
+                success:function (healthModel, response) {
+                    var clusterName = healthModel.get("cluster_name");
+                    console.log('Connected to: ' + clusterName);
+                    var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
+                    clusterView.render();
+                }
+            });
         }
     });
-
-}

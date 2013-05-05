@@ -16,50 +16,18 @@ limitations under the License.
 Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 -->
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="css/elastichq.css" rel="stylesheet" media="screen">
     <link href="css/font-awesome.css" rel="stylesheet" media="screen">
     <!--[if IE 7]>
     <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
     <![endif]-->
-    <script src="js/jquery.1.9.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/underscore.js"></script>
-    <script src="js/backbone.js"></script>
-    <script src="js/elastichq.js"></script>
-
-    <!-- Base Model -->
-    <script src="js/model/ModelUtil.js"></script>
-
-    <!-- Models -->
-    <script src="js/model/cluster/ClusterHealth.js"></script>
-
-    <!-- Util -->
-    <script src="js/util/logger.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#connectionURL').focus();
-
-            $("[rel=tipRight]").tooltip(
-                    {
-                        'animation':true
-                    }
-
-            );
-            $("[rel=popRight]").popover(
-                    {
-                        'trigger':'hover',
-                        'animation':true
-                    }
-            );
-        });
-    </script>
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
@@ -95,8 +63,114 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     </div>
 </div>
 
+<script type="text/template" id="clusterHealth-template">
+    <a class="btn btn-<%- statusClass %> btn-large" rel="popRight" data-trigger="hover"
+       data-content="Status: <%- status %>.<br/> Click for Cluster Information." data-html="true"
+       href="#clusterHealthModal" data-title=' '
+       role="button"
+       data-toggle="modal">
+        <i class="icon-info-sign"></i> <%- cluster_name %></a>
+</script>
+
 <div class="container-fluid">
-    <br/>
+    <div class="row-fluid text-center">
+        <div id="clusterHealth-loc" style="padding-bottom: 8px;"></div>
+    </div>
+    <div class="row-fluid text-center">
+        <button class="btn btn-primary btn-large"><i class="icon-bolt"></i> Action</button>
+        <button class="btn btn-info btn-large">Action</button>
+        <button class="btn btn-info btn-large">Action</button>
+    </div>
 </div>
+
+<!-- Modals -->
+<div id="clusterHealthModal" class="modal hide fade" tabindex="-1" role="dialog"
+     aria-labelledby="clusterHealthModalLabel" aria-hidden="true">
+    <script type="text/template" id="clusterHealth-modal-template">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 id="clusterHealthModalLabel"><%- cluster_name %></h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped">
+                <tr>
+                    <td>Status</td>
+                    <td><%- status %></td>
+                </tr>
+                <tr>
+                    <td>Timed Out?</td>
+                    <td><%- timed_out %></td>
+                </tr>
+                <tr>
+                    <td># Nodes</td>
+                    <td><%-number_of_nodes %></td>
+                </tr>
+                <tr>
+                    <td># Data Nodes</td>
+                    <td><%-number_of_data_nodes %></td>
+                </tr>
+                <tr>
+                    <td>Active Primary Shards</td>
+                    <td><%-active_primary_shards %></td>
+                </tr>
+                <tr>
+                    <td>Active Shards</td>
+                    <td><%- active_shards%></td>
+                </tr>
+                <tr>
+                    <td>Reloacting Shards</td>
+                    <td><%- relocating_shards%></td>
+                </tr>
+                <tr>
+                    <td>Initializing Shards</td>
+                    <td><%- initializing_shards%></td>
+                </tr>
+                <tr>
+                    <td>Unassigned Shards</td>
+                    <td><%- unassigned_shards%></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </script>
+</div>
+
+
+<script src="js/jquery.1.9.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/underscore.js"></script>
+<script src="js/backbone.js"></script>
+<script src="js/elastichq.js"></script>
+
+<!-- Models -->
+<script src="js/model/ModelUtil.js"></script>
+<script src="js/model/cluster/ClusterHealthModel.js"></script>
+
+<!-- View -->
+<script src="js/view/cluster/ClusterHealthView.js"></script>
+
+<!-- Util -->
+<script src="js/util/logger.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#connectionURL').focus();
+
+        $("[rel=tipRight]").tooltip(
+                {
+                    'animation':true
+                }
+
+        );
+        $("[rel=popRight]").popover(
+                {
+                    'trigger':'hover',
+                    'animation':true
+                }
+        );
+    });
+</script>
 </body>
 </html>
