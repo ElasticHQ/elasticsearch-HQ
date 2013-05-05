@@ -47,6 +47,16 @@ $(document).ready(
                     console.log('Connected to: ' + clusterName);
                     var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
                     clusterView.render();
+
+                    // now call for cluster state for node data...
+                    var clusterState = new ClusterState({connectionRootURL:connectionURL, filter_nodes:false, filter_indices:false});
+                    clusterState.fetch(
+                        {
+                            success:function (healthModel, response) {
+                                console.log('Cluster State retrieved');
+                            }
+                        }
+                    );
                 },
                 error:function (model, response, options) {
                     var err = 'Unable to Connect to Server! ';
