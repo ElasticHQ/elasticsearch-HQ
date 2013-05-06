@@ -41,3 +41,20 @@ Backbone.Model = Backbone.Model.extend({
         }
     }
 });
+
+Backbone.Collection = Backbone.Collection.extend({
+    sync:function (method, model, options) {
+        var url = _.isFunction(model.url) ? model.url() : model.url;
+
+        if (url) {  // If no url, don't override, let Backbone.sync do its normal fail
+            options = options || {};
+            options.url = this.get('connectionRootURL') + url;
+        }
+        return Backbone.sync(method, model, options);
+    },
+    initialize:function (attributes, options) {
+        if (options && options.connectionRootURL) {
+            this.setConnectionRootURL(options.connectionRootURL);
+        }
+    }
+});
