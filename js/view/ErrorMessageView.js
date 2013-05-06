@@ -17,11 +17,10 @@
  */
 
 var ErrorMessageView = Backbone.View.extend({
-    template:_.template($('#error-template').html()),
     initialize:function () {
         console.log("Inside ErrorMessage");
     },
     render:function () {
-        $(this.el).html(this.template(this.model.attributes));
+        $(this.el).html(_.template(messageTemplate.error, this.model.attributes));
     }
 });

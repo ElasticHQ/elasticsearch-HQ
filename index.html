@@ -65,22 +65,6 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <div id="error-loc"></div>
 
-<script type="text/template" id="error-template">
-    <div class="alert alert-error">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h4><%- warningTitle %></h4>
-        <%- warningMessage %>
-    </div>
-</script>
-
-<script type="text/template" id="nodeList-template">
-    <% _.each(nodes.models, function(node) { %>
-    <button class="btn btn-info btn-large"><%= node.attributes.name %></button>
-    <%= node.transport_address %>
-    <%= node.name %>
-    <% }); %>
-</script>
-
 <div class="container-fluid">
     <div class="row-fluid text-center">
         <div id="clusterHealth-loc" style="padding-bottom: 8px;"></div>
@@ -155,6 +139,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <!-- Templates -->
 <script src="js/template/ClusterTemplates.js"></script>
 <script src="js/template/NodeTemplates.js"></script>
+<script src="js/template/MessageTemplate.js"></script>
 
 <!-- Models -->
 <script src="js/model/ModelUtil.js"></script>

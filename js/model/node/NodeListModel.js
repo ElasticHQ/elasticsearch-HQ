@@ -23,6 +23,17 @@
  * fetch() will cast all response to NodeSimple
  *
  curl -XGET 'http://localhost:9200/_cluster/state?filter_nodes=false, etc...'
+ TODO consider using http://localhost:9200/_cluster/nodes, instead.{
+ok: true,
+cluster_name: "elasticsearch",
+nodes: {
+T85nBl4PQwe-wupFiMworw: {
+name: "Aardwolf",
+transport_address: "inet[192.168.1.129/192.168.1.129:9302]",
+hostname: "TYR",
+version: "0.90.0",
+http_address: "inet[/192.168.1.129:9200]"
+}...
  */
 
 var NodeListModel = Backbone.Collection.extend({
