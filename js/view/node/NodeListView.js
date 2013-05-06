@@ -16,6 +16,17 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-var NodeSimple = Backbone.Model.extend({
-
+/**
+ Draw the list of nodes at top of screen.
+ */
+var NodeListView = Backbone.View.extend({
+    render:function () {
+        var nodeList = this.model;
+        if (nodeList) {
+            var template = _.template(nodeTemplate.nodeList , {nodes:nodeList});
+            $(this.el).html(template);
+        }
+        $("[rel=popRight]").popover({});
+        return this;
+    }
 });

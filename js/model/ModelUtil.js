@@ -42,13 +42,16 @@ Backbone.Model = Backbone.Model.extend({
     }
 });
 
+/*
+ Difference with collections, is that we need to explicitly get/set the params.
+ */
 Backbone.Collection = Backbone.Collection.extend({
     sync:function (method, model, options) {
         var url = _.isFunction(model.url) ? model.url() : model.url;
 
         if (url) {  // If no url, don't override, let Backbone.sync do its normal fail
             options = options || {};
-            options.url = this.get('connectionRootURL') + url;
+            options.url = this.getConnectionRootURL() + url;
         }
         return Backbone.sync(method, model, options);
     },
@@ -56,5 +59,11 @@ Backbone.Collection = Backbone.Collection.extend({
         if (options && options.connectionRootURL) {
             this.setConnectionRootURL(options.connectionRootURL);
         }
+    },
+    getConnectionRootURL:function () {
+        return this.connectionRootURL;
+    },
+    setConnectionRootURL:function (url) {
+        this.connectionRootURL = url;
     }
 });

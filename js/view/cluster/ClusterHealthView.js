@@ -20,7 +20,6 @@
  Following the backbone vernacular. This obj simply handles the draw on the upper main screen.
  */
 var ClusterHealthView = Backbone.View.extend({
-    template:_.template($('#clusterHealth-template').html()),
     modalTemplate:_.template($('#clusterHealth-modal-template').html()),
     render:function () {
         var clusterHealth = this.model;
@@ -36,7 +35,8 @@ var ClusterHealthView = Backbone.View.extend({
             else if (status == 'red') {
                 clusterHealth.set({statusClass:'danger'});
             }
-            $(this.el).html(this.template(clusterHealth.attributes));
+            var t = _.template(clusterTemplate.Health);
+            $(this.el).html(t(clusterHealth.attributes));
 
             // populate the modal, just in case.
             $('#clusterHealthModal').html(this.modalTemplate(clusterHealth.attributes));

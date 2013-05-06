@@ -73,13 +73,12 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     </div>
 </script>
 
-<script type="text/template" id="clusterHealth-template">
-    <a class="btn btn-<%- statusClass %> btn-large" rel="popRight" data-trigger="hover"
-       data-content="Status: <%- status %>.<br/> Click for Cluster Information." data-html="true"
-       href="#clusterHealthModal" data-title=' '
-       role="button"
-       data-toggle="modal">
-        <i class="icon-info-sign"></i> <%- cluster_name %></a>
+<script type="text/template" id="nodeList-template">
+    <% _.each(nodes.models, function(node) { %>
+    <button class="btn btn-info btn-large"><%= node.attributes.name %></button>
+    <%= node.transport_address %>
+    <%= node.name %>
+    <% }); %>
 </script>
 
 <div class="container-fluid">
@@ -87,11 +86,10 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
         <div id="clusterHealth-loc" style="padding-bottom: 8px;"></div>
     </div>
     <div class="row-fluid text-center">
-        <button class="btn btn-primary btn-large"><i class="icon-bolt"></i> Action</button>
-        <button class="btn btn-info btn-large">Action</button>
-        <button class="btn btn-info btn-large">Action</button>
+        <div id="nodeList-loc" style="padding-bottom: 8px;"></div>
     </div>
 </div>
+
 
 <!-- Modals -->
 <div id="clusterHealthModal" class="modal hide fade" tabindex="-1" role="dialog"
@@ -154,6 +152,10 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/backbone.js"></script>
 <script src="js/elastichq.js"></script>
 
+<!-- Templates -->
+<script src="js/template/ClusterTemplates.js"></script>
+<script src="js/template/NodeTemplates.js"></script>
+
 <!-- Models -->
 <script src="js/model/ModelUtil.js"></script>
 <script src="js/model/ErrorMessageModel.js"></script>
@@ -164,10 +166,12 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <!-- View -->
 <script src="js/view/cluster/ClusterHealthView.js"></script>
+<script src="js/view/node/NodeListView.js"></script>
 <script src="js/view/ErrorMessageView.js"></script>
 
 <!-- Util -->
 <script src="js/util/logger.js"></script>
+
 
 <script>
     $(document).ready(function () {

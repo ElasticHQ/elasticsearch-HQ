@@ -49,11 +49,18 @@ $(document).ready(
                     clusterView.render();
 
                     // now call for cluster state for node data...
-                    var clusterState = new ClusterState({connectionRootURL:connectionURL, filter_nodes:false, filter_indices:false});
-                    clusterState.fetch(
+                    console.log(connectionURL);
+                    var nodeList = new NodeListModel();
+                    nodeList.setConnectionRootURL(connectionURL);
+                    nodeList.fetch(
                         {
-                            success:function (healthModel, response) {
-                                console.log('Cluster State retrieved');
+                            success:function (model, response) {
+                                console.log('Node List retrieved');
+                                var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:nodeList});
+                                nodeListView.render();
+                            },
+                            error:function (model, response, options) {
+// TODO
                             }
                         }
                     );
