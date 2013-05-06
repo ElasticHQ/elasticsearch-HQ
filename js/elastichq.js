@@ -45,8 +45,10 @@ $(document).ready(
                 success:function (healthModel, response) {
                     var clusterName = healthModel.get("cluster_name");
                     console.log('Connected to: ' + clusterName);
+
                     var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
                     clusterView.render();
+                    $("#toolbar").css("visibility", "visible");
 
                     // now call for cluster state for node data...
                     console.log(connectionURL);
@@ -58,6 +60,8 @@ $(document).ready(
                                 console.log('Node List retrieved');
                                 var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:nodeList});
                                 nodeListView.render();
+
+                                renderClusterHealthWorkspace(connectionURL);
                             },
                             error:function (model, response, options) {
 // TODO
@@ -74,6 +78,16 @@ $(document).ready(
                     var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                     var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                     errorMsgView.render();
+                }
+            });
+        }
+
+        function renderClusterHealthWorkspace(connectionURL) {
+            var clusterHealthWS = new NodeInfosListModel();
+            clusterHealthWS.setConnectionRootURL(connectionURL);
+            clusterHealthWS.fetch({
+                success:function () {
+
                 }
             });
         }

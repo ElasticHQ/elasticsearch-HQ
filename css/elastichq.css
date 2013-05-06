@@ -4,6 +4,65 @@ body {
     /*background-color: #f5f5f5;*/
 }
 
+.center-table {
+    margin: 0 auto !important;
+    float: none !important;
+}
+
 .popover {
     max-width: 600px;
+}
+
+.chart-container {
+    box-sizing: border-box;
+    width: 400px;
+    height: 300px;
+    padding: 15px 5px 5px 5px;
+    margin: 5px auto 15px auto;
+    border: 1px solid #ddd;
+    background: #fff;
+    background: linear-gradient(#f6f6f6 0, #fff 20px);
+    background: -o-linear-gradient(#f6f6f6 0, #fff 20px);
+    background: -ms-linear-gradient(#f6f6f6 0, #fff 20px);
+    background: -moz-linear-gradient(#f6f6f6 0, #fff 20px);
+    background: -webkit-linear-gradient(#f6f6f6 0, #fff 20px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart-placeholder {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    line-height: 1.2em;
+}
+
+.axisLabel {
+    position: absolute;
+    text-align: center;
+    font-size: 12px;
+}
+
+.yaxisLabel {
+    top: 50%;
+    left: 2px;
+    transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+.ie7 .yaxisLabel, .ie8 .yaxisLabel {
+    top: 40%;
+    font-size: 36px;
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11 = 0.0, M12 = 0.33, M21 = -0.33, M22 = 0.0, sizingMethod = 'auto expand');
 }

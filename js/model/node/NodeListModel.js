@@ -54,11 +54,15 @@ var NodeListModel = Backbone.Collection.extend({
         // nodes are keyed by their id, so we need to get the key and add it to the value object foreach
         var nodes = data.nodes;
         nodes[this.masterNode].master = true; // all the others appear as false, by default.
+        nodes = _.sortBy(nodes, function (node) { // put masternode first in line
+            return node.master;
+        });
         var nodeKeys = _.keys(nodes);
         var nodeValues = _.values(nodes);
         for (var i = 0; i < nodeKeys.length; i++) {
             nodeValues[i].id = nodeKeys[i];
         }
+
         return nodeValues;
     }
 });

@@ -21,6 +21,17 @@
  */
 var ClusterHealthView = Backbone.View.extend({
     modalTemplate:_.template($('#clusterHealth-modal-template').html()),
+    events:{
+        "click #clusterHealthButton":"clicked"
+    },
+    clicked:function (e) {
+        this.renderWorkspace();
+    },
+    renderWorkspace:function () {
+        var clusterHealth = this.model;
+        $('#clusterHealthModal').html(this.modalTemplate(clusterHealth.attributes));
+        return this;
+    },
     render:function () {
         var clusterHealth = this.model;
         console.log('Drawing clusterHealth ' + clusterHealth.get('cluster_name'));
@@ -38,8 +49,7 @@ var ClusterHealthView = Backbone.View.extend({
             var t = _.template(clusterTemplate.Health);
             $(this.el).html(t(clusterHealth.attributes));
 
-            // populate the modal, just in case.
-            $('#clusterHealthModal').html(this.modalTemplate(clusterHealth.attributes));
+            this.renderWorkspace();
 
             $("[rel=popRight]").popover({});
         }
