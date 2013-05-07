@@ -73,15 +73,15 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
         <div id="toolbar" style="padding:0;margin:0;visibility: hidden;">
             <div class="btn-group pull-right ">
-                <button class="btn btn-large" rel="tipRight" data-placement="bottom"
-                        data-title="Administration & Configuration"><i
-                        class="icon-cogs"></i></button>
-                <button class="btn btn-large" rel="tipRight" data-placement="bottom" data-title="Indices"><i
+                <a href="#admin" class="btn btn-large" rel="tipRight" data-placement="bottom"
+                   data-title="Administration & Configuration"><i
+                        class="icon-cogs"></i></a>
+                <a href="#indices" class="btn btn-large" rel="tipRight" data-placement="bottom" data-title="Indices"><i
                         class="icon-list"></i>
-                </button>
-                <button class="btn btn-large" rel="tipRight" data-placement="bottom"
-                        data-title="Query the Cluster."><i
-                        class="icon-search"></i></button>
+                </a>
+                <a href="#query" class="btn btn-large" rel="tipRight" data-placement="bottom"
+                   data-title="Query the Cluster."><i
+                        class="icon-search"></i></a>
             </div>
         </div>
     </div>
@@ -100,19 +100,10 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
         <div id="clusterHealthModal">
             <script type="text/template" id="clusterHealth-modal-template">
-                <h3>Cluster Health:</h3>
+                <div class="text-center" style="font-size: 28px;padding:20px 0 20px 0;">Cluster Health</div>
 
                 <div class="span5 center-table">
                     <table class="table table-striped table-hover table-bordered  center-table">
-                        <!--
-                                                <caption><h4>Cluster Health</h4></caption>
-                        -->
-                        <!--                        <thead>
-                                                <tr>
-                                                    <th>qqq</th>
-                                                    <th>www</th>
-                                                </tr>
-                                                </thead> -->
                         <tr>
                             <td>Status</td>
                             <td><span style="color:<%- status %>"><i class="icon-circle icon-large"></i></span></td>
@@ -168,6 +159,10 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/lib/underscore/underscore.js"></script>
 <script src="js/lib/backbone/backbone.js"></script>
 <script src="js/elastichq.js"></script>
+<script src="js/router.js"></script>
+
+<!-- Overrides/Extensions must go first! -->
+<script src="js/model/ModelUtil.js"></script>
 
 <!-- Templates -->
 <script src="js/template/ClusterTemplates.js"></script>
@@ -175,12 +170,13 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/template/MessageTemplate.js"></script>
 
 <!-- Models -->
-<script src="js/model/ModelUtil.js"></script>
+<script src="js/model/core/Ping.js"></script>
 <script src="js/model/ErrorMessageModel.js"></script>
+<script src="js/model/cluster/ClusterModel.js"></script>
 <script src="js/model/cluster/ClusterHealthModel.js"></script>
 <script src="js/model/node/NodeSimpleModel.js"></script>
 <script src="js/model/node/NodeListModel.js"></script>
-<script src="js/model/node/NodesInfoListModel.js"></script>
+<script src="js/model/node/NodeInfoModel.js"></script>
 
 <!-- View -->
 <script src="js/view/cluster/ClusterHealthView.js"></script>

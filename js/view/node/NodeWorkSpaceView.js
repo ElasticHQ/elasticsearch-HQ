@@ -17,7 +17,7 @@
  */
 
 /**
- Draw the list of nodes(buttons) at top of screen.
+ Draw the node data in the workspace
  */
 var NodeListView = Backbone.View.extend({
     render:function () {

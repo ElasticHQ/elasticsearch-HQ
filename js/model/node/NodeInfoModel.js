@@ -14,19 +14,19 @@
  limitations under the License.
 
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
+
+ http://localhost:9200/_cluster/nodes
  */
 
-/**
- Draw the list of nodes(buttons) at top of screen.
+/*****
+ * settings, os, process, jvm, thread_pool, network, transport, http and plugin, all
+ * @type {*}
  */
-var NodeListView = Backbone.View.extend({
-    render:function () {
-        var nodeList = this.model;
-        if (nodeList) {
-            var template = _.template(nodeTemplate.nodeList, {nodes:nodeList});
-            $(this.el).html(template);
-        }
-        $("[rel=popRight]").popover({});
-        return this;
+var NodeInfoModel = Backbone.Model.extend({
+    initialize:function () {
+        console.log("Inside NodeInfoModel");
+    },
+    url:function () {
+        return '/_cluster/nodes/' + this.nodeId;
     }
 });

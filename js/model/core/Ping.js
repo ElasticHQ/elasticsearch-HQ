@@ -17,16 +17,11 @@
  */
 
 /**
- Draw the list of nodes(buttons) at top of screen.
+ * pings REST endpoint for connection validation
+ * @type {*}
  */
-var NodeListView = Backbone.View.extend({
-    render:function () {
-        var nodeList = this.model;
-        if (nodeList) {
-            var template = _.template(nodeTemplate.nodeList, {nodes:nodeList});
-            $(this.el).html(template);
-        }
-        $("[rel=popRight]").popover({});
-        return this;
+var Ping = Backbone.Model.extend({
+    url:function () {
+        return '/'; // "You Know, for Search"
     }
 });

@@ -22,18 +22,7 @@
  * Leverages the ClusterState api call, allowing for filtering of information needed or not.
  * fetch() will cast all response to NodeSimple
  *
- curl -XGET 'http://localhost:9200/_cluster/state?filter_nodes=false, etc...'
- TODO consider using http://localhost:9200/_cluster/nodes, instead.{
-ok: true,
-cluster_name: "elasticsearch",
-nodes: {
-T85nBl4PQwe-wupFiMworw: {
-name: "Aardwolf",
-transport_address: "inet[192.168.1.129/192.168.1.129:9302]",
-hostname: "TYR",
-version: "0.90.0",
-http_address: "inet[/192.168.1.129:9200]"
-}...
+ * curl -XGET 'http://localhost:9200/_cluster/state?filter_nodes=false, etc...'
  */
 
 var NodeListModel = Backbone.Collection.extend({
@@ -54,7 +43,7 @@ var NodeListModel = Backbone.Collection.extend({
         // nodes are keyed by their id, so we need to get the key and add it to the value object foreach
         var nodes = data.nodes;
         nodes[this.masterNode].master = true; // all the others appear as false, by default.
-        nodes = _.sortBy(nodes, function (node) { // put masternode first in line
+        _.sortBy(nodes, function (node) { // put masternode first in line
             return node.master;
         });
         var nodeKeys = _.keys(nodes);

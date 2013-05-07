@@ -2,11 +2,11 @@ var nodeTemplate = {};
 
 nodeTemplate.nodeList = [
     '<% _.each(nodes.models, function(node) { %>',
-    '<button class="btn btn-info" rel="popRight" data-trigger="hover" data-placement="bottom"',
+    '<a href="#nodes/<%- node.attributes.id %>" class="btn btn-info" rel="popRight" data-trigger="hover" data-placement="bottom" data-nodeid="<%- node.id %>"',
     'data-content="<b>IP:</b> <%- node.attributes.transport_address %>.<br/><b>ID:</b> <%- node.id %>" data-html="true" data-title="Click for Node Information.">',
     '<% if (node.attributes.master == true) { %>',
     '<i class="icon-bolt"></i> ',
     '<% } %>',
-    '<%= node.attributes.name %></button>',
+    '<%= node.attributes.name %></a>',
     '<% }); %>'
 ].join("\n");
