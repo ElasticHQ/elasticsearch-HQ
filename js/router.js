@@ -16,6 +16,7 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
+var nodePoller;
 $(document).ready(
     function ($) {
 
@@ -32,9 +33,11 @@ $(document).ready(
                 "*actions":"defaultRoute"
             },
             cluster:function () {
+                cleanDefaults();
                 console.log('cluster route');
             },
             nodes:function (nodeId) {
+                cleanDefaults();
                 console.log("route nodeId: " + nodeId);
                 var nodeInfo = new NodeInfoModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
 
@@ -43,9 +46,9 @@ $(document).ready(
                 cluster.set({monitorNode:nodeInfo});
 
                 var polloptions = {delay:3000};
-                var poller = Backbone.Poller.get(nodeInfo, polloptions);
-                poller.start();
-                poller.on('success', function (nodeInfo) {
+                nodePoller = Backbone.Poller.get(nodeInfo, polloptions);
+                nodePoller.start();
+                nodePoller.on('success', function (nodeInfo) {
                     console.log('another successful fetch!');
                     nodeInfoView.render();
 //                    updateChart();
@@ -57,12 +60,13 @@ $(document).ready(
                  console.log('hurray! we are done!');
                  });
                  */
-                poller.on('error', function (nodeInfo) {
+                nodePoller.on('error', function (nodeInfo) {
                     console.log('oops! something went wrong');
                 });
 
             },
             defaultRoute:function () {
+                cleanDefaults();
                 console.log('defaultRoute');
             }
         });
@@ -73,17 +77,10 @@ $(document).ready(
 
     });
 
-var updateChart = function () {
-    var res = [];
-    for (var i = 0; i < 5000; ++i) {
-        res.push([i, 34])
+var cleanDefaults = function () {
+    if (nodePoller != undefined) {
+        nodePoller.stop();
     }
-
-    plot.setData([res]);
-
-    // Since the axes don't change, we don't need to call plot.setupGrid()
-
-    plot.draw();
 }
 
 var doChart = function () {
