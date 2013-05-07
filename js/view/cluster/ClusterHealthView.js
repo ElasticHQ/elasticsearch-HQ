@@ -20,7 +20,6 @@
  Following the backbone vernacular. This obj simply handles the draw on the upper main screen.
  */
 var ClusterHealthView = Backbone.View.extend({
-    modalTemplate:_.template($('#clusterHealth-modal-template').html()),
     events:{
         "click #clusterHealthButton":"clicked"
     },
@@ -29,7 +28,8 @@ var ClusterHealthView = Backbone.View.extend({
     },
     renderWorkspace:function () {
         var clusterHealth = this.model;
-        $('#workspace').html(this.modalTemplate(clusterHealth.attributes));
+        var tpl = _.template(clusterTemplate.HealthDescribe);
+        $('#workspace').html(tpl(clusterHealth.attributes));
         return this;
     },
     render:function () {
