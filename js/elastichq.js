@@ -66,8 +66,6 @@ var doConnect = function (connectionRootURL) {
                         console.log('Node List retrieved');
                         var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:nodeList});
                         nodeListView.render();
-
-
                     },
                     error:function (model, response, options) {
                         // TODO

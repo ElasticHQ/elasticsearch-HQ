@@ -29,7 +29,7 @@ var ClusterHealthView = Backbone.View.extend({
     },
     renderWorkspace:function () {
         var clusterHealth = this.model;
-        $('#clusterHealthModal').html(this.modalTemplate(clusterHealth.attributes));
+        $('#workspace').html(this.modalTemplate(clusterHealth.attributes));
         return this;
     },
     render:function () {

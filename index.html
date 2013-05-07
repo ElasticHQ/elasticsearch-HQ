@@ -95,69 +95,66 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     <li class="divider"></li>
 </ul>
 
-<div id="workspace" class="container-fluid">
+<div class="container-fluid">
     <div class="row-fluid">
-
-        <div id="clusterHealthModal">
-            <script type="text/template" id="clusterHealth-modal-template">
-                <div class="text-center" style="font-size: 28px;padding:20px 0 20px 0;">Cluster Health</div>
-
-                <div class="span5 center-table">
-                    <table class="table table-striped table-hover table-bordered  center-table">
-                        <tr>
-                            <td>Status</td>
-                            <td><span style="color:<%- status %>"><i class="icon-circle icon-large"></i></span></td>
-                        </tr>
-                        <tr>
-                            <td>Timed Out?</td>
-                            <td><%- timed_out %></td>
-                        </tr>
-                        <tr>
-                            <td># Nodes</td>
-                            <td><%-number_of_nodes %></td>
-                        </tr>
-                        <tr>
-                            <td># Data Nodes</td>
-                            <td><%-number_of_data_nodes %></td>
-                        </tr>
-                        <tr>
-                            <td>Active Primary Shards</td>
-                            <td><%-active_primary_shards %></td>
-                        </tr>
-                        <tr>
-                            <td>Active Shards</td>
-                            <td><%- active_shards%></td>
-                        </tr>
-                        <tr>
-                            <td>Reloacting Shards</td>
-                            <td><%- relocating_shards%></td>
-                        </tr>
-                        <tr>
-                            <td>Initializing Shards</td>
-                            <td><%- initializing_shards%></td>
-                        </tr>
-                        <tr>
-                            <td>Unassigned Shards</td>
-                            <td><%- unassigned_shards%></td>
-                        </tr>
-                    </table>
-                </div>
-            </script>
+        <div id="workspace">
         </div>
-
     </div>
 </div>
 
+<script type="text/template" id="clusterHealth-modal-template">
+    <div class="text-center" style="font-size: 28px;padding:20px 0 20px 0;">Cluster Health</div>
 
-<div class="chart-container">
-    <div id="placeholder" class="chart-placeholder"></div>
-    <div id="legend"></div>
-</div>
+    <div class="span5 center-table">
+        <table class="table table-striped table-hover table-bordered  center-table">
+            <tr>
+                <td>Status</td>
+                <td><span style="color:<%- status %>"><i class="icon-circle icon-large"></i></span></td>
+            </tr>
+            <tr>
+                <td>Timed Out?</td>
+                <td><%- timed_out %></td>
+            </tr>
+            <tr>
+                <td># Nodes</td>
+                <td><%-number_of_nodes %></td>
+            </tr>
+            <tr>
+                <td># Data Nodes</td>
+                <td><%-number_of_data_nodes %></td>
+            </tr>
+            <tr>
+                <td>Active Primary Shards</td>
+                <td><%-active_primary_shards %></td>
+            </tr>
+            <tr>
+                <td>Active Shards</td>
+                <td><%- active_shards%></td>
+            </tr>
+            <tr>
+                <td>Reloacting Shards</td>
+                <td><%- relocating_shards%></td>
+            </tr>
+            <tr>
+                <td>Initializing Shards</td>
+                <td><%- initializing_shards%></td>
+            </tr>
+            <tr>
+                <td>Unassigned Shards</td>
+                <td><%- unassigned_shards%></td>
+            </tr>
+        </table>
+    </div>
+</script>
+
 
 <script src="js/lib/jquery/jquery.1.9.1.min.js"></script>
 <script src="js/lib/bootstrap/bootstrap.min.js"></script>
 <script src="js/lib/underscore/underscore.js"></script>
 <script src="js/lib/backbone/backbone.js"></script>
+<script src="js/lib/backbone-poller/backbone.poller.min.js"></script>
+
+<!-- App -->
 <script src="js/elastichq.js"></script>
 <script src="js/router.js"></script>
 
@@ -180,6 +177,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <!-- View -->
 <script src="js/view/cluster/ClusterHealthView.js"></script>
+<script src="js/view/node/NodeInfoView.js"></script>
 <script src="js/view/node/NodeListView.js"></script>
 <script src="js/view/ErrorMessageView.js"></script>
 
@@ -188,126 +186,6 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <!-- Charts -->
 <script language="javascript" type="text/javascript" src="js/lib/flot/jquery.flot.js"></script>
-<script type="text/javascript">
-
-    $(function () {
-
-        // We use an inline data source in the example, usually data would
-        // be fetched from a server
-
-        var data = [],
-                totalPoints = 300;
-
-        function getRandomData() {
-
-            if (data.length > 0)
-                data = data.slice(1);
-
-            // Do a random walk
-
-            while (data.length < totalPoints) {
-
-                var prev = data.length > 0 ? data[data.length - 1] : 50,
-                        y = prev + Math.random() * 10 - 5;
-
-                if (y < 0) {
-                    y = 0;
-                } else if (y > 100) {
-                    y = 100;
-                }
-
-                data.push(y);
-            }
-
-            // Zip the generated y values with the x values
-
-            var res = [];
-            for (var i = 0; i < data.length; ++i) {
-                res.push([i, data[i]])
-            }
-
-            return res;
-        }
-
-        // Set up the control widget
-
-        var updateInterval = 30;
-        $("#updateInterval").val(updateInterval).change(function () {
-            var v = $(this).val();
-            if (v && !isNaN(+v)) {
-                updateInterval = +v;
-                if (updateInterval < 1) {
-                    updateInterval = 1;
-                } else if (updateInterval > 2000) {
-                    updateInterval = 2000;
-                }
-                $(this).val("" + updateInterval);
-            }
-        });
-
-        var plot = $.plot("#placeholder", [ getRandomData() ], {
-            grid:{
-                borderWidth:1,
-                minBorderMargin:20,
-                labelMargin:10,
-                backgroundColor:{
-                    colors:["#fff", "#e4f4f4"]
-                },
-                margin:{
-                    top:8,
-                    bottom:20,
-                    left:20
-                },
-                markings:function (axes) {
-                    var markings = [];
-                    var xaxis = axes.xaxis;
-                    for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
-                        markings.push({ xaxis:{ from:x, to:x + xaxis.tickSize }, color:"rgba(232, 232, 255, 0.2)" });
-                    }
-                    return markings;
-                }
-            },
-            series:{
-                shadowSize:0    // Drawing is faster without shadows
-            },
-            yaxis:{
-                show:true,
-                min:0,
-                max:100
-            },
-            xaxis:{
-                show:true
-            },
-            legend:{
-                show:true,
-                container:'legend'
-            }
-        });
-
-        // Create the demo X and Y axis labels
-
-        var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
-                .text("Response Time (ms)")
-                .appendTo($('#placeholder'));
-
-        function update() {
-
-            plot.setData([getRandomData()]);
-
-            // Since the axes don't change, we don't need to call plot.setupGrid()
-
-            plot.draw();
-            setTimeout(update, updateInterval);
-        }
-
-        update();
-
-        // Add the Flot version string to the footer
-
-        $("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
-    });
-
-</script>
 
 <script>
     $(document).ready(function () {

@@ -10,3 +10,12 @@ nodeTemplate.nodeList = [
     '<%= node.attributes.name %></a>',
     '<% }); %>'
 ].join("\n");
+
+
+nodeTemplate.nodeInfo = [
+    'JVM Heap Used: <%- jvmStats.mem.heap_used %>',
+    '<div class="chart-container">',
+    '<div id="placeholder" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>'
+].join("\n");

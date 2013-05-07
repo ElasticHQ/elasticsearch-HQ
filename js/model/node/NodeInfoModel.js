@@ -23,10 +23,14 @@
  * @type {*}
  */
 var NodeInfoModel = Backbone.Model.extend({
-    initialize:function () {
+    defaults:{
+        nodeId:undefined
+    },
+    initialize:function (args) {
         console.log("Inside NodeInfoModel");
+        this.nodeId = args.nodeId;
     },
     url:function () {
-        return '/_cluster/nodes/' + this.nodeId;
+        return '/_cluster/nodes/' + this.nodeId + '/stats?jvm=true&indices=false';
     }
 });
