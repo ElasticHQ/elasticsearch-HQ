@@ -13,6 +13,8 @@ nodeTemplate.nodeList = [
 
 
 nodeTemplate.nodeInfo = [
+    '<div class="text-center" style="font-size: 28px;padding:20px 0 20px 0;"><%- nodeName %></div>',
+    '<div class="lead"><i class="icon-th-large"></i> Memory</div>',
     'JVM Heap Used: <%- jvmStats.mem.heap_used %>',
     '<div class="chart-container">',
     '<div id="placeholder" class="chart-placeholder"></div>',

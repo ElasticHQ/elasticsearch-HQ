@@ -15,8 +15,8 @@ body {
 
 .chart-container {
     box-sizing: border-box;
-    width: 400px;
-    height: 300px;
+    width: 320px;
+    height: 220px;
     padding: 15px 5px 5px 5px;
     margin: 5px auto 15px auto;
     border: 1px solid #ddd;

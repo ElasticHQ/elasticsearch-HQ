@@ -16,6 +16,11 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
+/**
+ * Represents a node view. Loads the data and charts for the selected node in the workspace.
+ * @type {*}
+ */
+
 var NodeInfoView = Backbone.View.extend(
         {
             maxint:6,
@@ -25,9 +30,32 @@ var NodeInfoView = Backbone.View.extend(
                 var JSONModel = this.model.toJSON();
                 var nodeId = JSONModel.nodeId;
                 var jvmStats = JSONModel.nodes[nodeId].jvm;
+                var cpuStats = JSONModel.nodes[nodeId].process;
+                var nodeName = JSONModel.nodes[nodeId].name;
+                var address = JSONModel.nodes[nodeId].transport_address;
+                var hostName = JSONModel.nodes[nodeId].hostname;
+                var mem = JSONModel.nodes[nodeId].mem;
+                var threadPool = JSONModel.nodes[nodeId].thread_pool;
+                var fileSystem = JSONModel.nodes[nodeId].fs;
+                var threads = JSONModel.nodes[nodeId].threads;
+                var indices = JSONModel.nodes[nodeId].indices;
 
-                var t = _.template(nodeTemplate.nodeInfo);
-                $('#workspace').html(t({jvmStats:jvmStats}));
+
+                var tpl = _.template(nodeTemplate.nodeInfo);
+                $('#workspace').html(tpl(
+                    {
+                        jvmStats:jvmStats,
+                        nodeId:nodeId,
+                        cpuStats:cpuStats,
+                        nodeName:nodeName,
+                        address:address,
+                        hostName:hostName,
+                        mem:mem,
+                        threadPool:threadPool,
+                        fileSystem:fileSystem,
+                        threads:threads,
+                        indices:indices
+                    }));
 
                 if (this.cdata == undefined) {
                     this.cdata = [
@@ -43,12 +71,36 @@ var NodeInfoView = Backbone.View.extend(
 
                 this.cdata.push([this.maxint++, Math.floor(Math.random() * (300 - 100 + 1)) + 100]);
 
+                var options = {
+                    series:{
+                        curvedLines:{
+                            active:true
+                        },
+                        color: "GREEN"
+                    },
+                    legend:{
+                        noColumns:1
+                    },
+                    grid:{
+                        backgroundColor:{ colors:[ "#fff", "#eee" ] },
+                        borderWidth:{
+                            top:1,
+                            right:1,
+                            bottom:2,
+                            left:2
+                        }
+                    }};
+
                 if (this.plot == undefined) // initial draw
-                    this.plot = $.plot($("#placeholder"), [this.cdata], {});
+                    this.plot = $.plot($("#placeholder"), [
+                        {label:"sin(x)", data:this.cdata, lines:{ show:true, fill:true, fillColor:"#C3C3C3", lineWidth:3}, curvedLines:{apply:true}}
+                    ], options);
+
                 else {
-                    this.plot = $.plot($("#placeholder"), [this.cdata], {});
+                    this.plot = $.plot($("#placeholder"), [
+                        {label:"sin(x)", data:this.cdata, lines:{ show:true, fill:true, fillColor:"#C3C3C3", lineWidth:3}, curvedLines:{apply:true}}
+                    ], options);
                     this.plot.setData([this.cdata]);
-                    this.plot.draw();
                 }
                 return this;
             }
