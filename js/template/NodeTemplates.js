@@ -17,7 +17,7 @@ nodeTemplate.nodeInfo = ['<div class="pull-right"><small><%- lastUpdateTime %></
 
     '<span style="font-size: 28px;padding:20px 0 3px 0;"><%- nodeName %></span><br/>',
     '<small><%- address %> on <%- hostName %></small></div>',
-
+    /*JVM*/
     '<div class="lead text-left"><i class="icon-th-large"></i> JVM</div>',
     '<div class="row-fluid">',
 
@@ -55,8 +55,44 @@ nodeTemplate.nodeInfo = ['<div class="pull-right"><small><%- lastUpdateTime %></
 
     '</div> <!-- end row -->',
 
+    /*INDICES*/
     '<div class="lead text-left"><i class="icon-th-large"></i> Indices</div>',
+    '<div class="row-fluid">',
 
+    '<div class="span4"> ',
+    '<div class="text-center">&nbsp;</strong></div>',
+    '<table class="table table-condensed table-striped table-bordered">',
+    '<tr><td>Documents:</td><td><%- indices.docs.count%></td></tr>',
+    '<tr><td>Documents Deleted:</td><td><%- indices.docs.deleted%></td></tr>',
+    '<tr><td>Store Size:</td><td><%- indices.store.size %></td></tr>',
+    '<tr><td>Index Req Total:</td><td><%- indices.indexing.index_total %></td></tr>',
+    '<tr><td>Delete Req Total:</td><td><%- indices.indexing.delete_total %></td></tr>',
+    '<tr><td>Get Req Total:</td><td><%- indices.get.total %></td></tr>',
+    '<tr><td>Get(Exists) Total:</td><td><%- indices.get.exists_total %></td></tr>',
+    '<tr><td>Get(Missing) Total:</td><td><%- indices.get.missing_total %></td></tr>',
+    '<tr><td>Query Total:</td><td><%- indices.search.query_total %></td></tr>',
+    '<tr><td>Fetch Total:</td><td><%- indices.search.fetch_total %></td></tr>',
+    '</table>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>Index Requests Total</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-index" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>Get Requests Total</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-indexget" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+    '</div>',
+
+    '</div> <!-- end row -->',
 
     '<div class="lead text-left"><i class="icon-th-large"></i> OS</div>',
 

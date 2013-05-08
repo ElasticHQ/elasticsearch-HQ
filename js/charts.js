@@ -39,7 +39,8 @@ var chart = {
 
 chart.ts_xaxis =
 {
-    mode:"time", localTimezone:true, timeformat:"%h:%M:%S",
+    mode:"time", localTimezone:true,
+    timeformat:"%h:%M:%S",
     tickFormatter:function (v, axis) {
         var date = new Date(v);
 
@@ -64,8 +65,12 @@ chart.jvmHeap = {
                 },
                 color:"GREEN"
             },
+            tooltip: true,
             grid:{
                 show:true,
+                hoverable: true,
+                autoHighlight: true,
+                mouseActiveRadius: 10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -73,6 +78,40 @@ chart.jvmHeap = {
             xaxis:chart.ts_xaxis,
             yaxis:{
                 tickSize:50
+            },
+            tooltipOpts: {
+                //content: "'%s' of %x.1 is %y.4",
+                content: "%yMB",
+                shifts: {
+                    x: -60,
+                    y: 25
+                }
+            }
+
+        }
+    }
+};
+chart.indices = {
+    options:function () {
+        return {
+            series:{
+                curvedLines:{
+                    active:true
+                },
+                color:"GREEN"
+            },
+            tooltip: true,
+            grid:{
+                show:true,
+                hoverable: false,
+                backgroundColor:{ colors:[ "#fff", "#eee" ] },
+                borderWidth:1,
+                borderColor:'#CCCCCC'
+            },
+            xaxis:chart.ts_xaxis,
+            yaxis:{
+                min: 0,
+                tickSize:20
             }
         }
     }
