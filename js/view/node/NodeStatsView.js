@@ -24,20 +24,28 @@
 var NodeStatView = Backbone.View.extend(
         {
             render:function () {
-                var JSONModel = this.model.toJSON();
-                var nodeId = JSONModel.nodeId;
-                var jvmStats = JSONModel.nodes[nodeId].jvm;
-                var osStats = JSONModel.nodes[nodeId].os;
-                var processStats = JSONModel.nodes[nodeId].process;
-                var nodeName = JSONModel.nodes[nodeId].name;
-                var address = JSONModel.nodes[nodeId].transport_address;
-                var hostName = JSONModel.nodes[nodeId].hostname;
-                var threadPool = JSONModel.nodes[nodeId].thread_pool;
-                var fileSystem = JSONModel.nodes[nodeId].fs;
-                var threads = JSONModel.nodes[nodeId].threads;
-                var indices = JSONModel.nodes[nodeId].indices;
+                var nodeStat = this.model.toJSON();
+                var nodeId = nodeStat.nodeId;
+                var jvmStats = nodeStat.nodes[nodeId].jvm;
+                var osStats = nodeStat.nodes[nodeId].os;
+                var processStats = nodeStat.nodes[nodeId].process;
+                var nodeName = nodeStat.nodes[nodeId].name;
+                var address = nodeStat.nodes[nodeId].transport_address;
+                var hostName = nodeStat.nodes[nodeId].hostname;
+                var threadPool = nodeStat.nodes[nodeId].thread_pool;
+                var fileSystem = nodeStat.nodes[nodeId].fs;
+                var threads = nodeStat.nodes[nodeId].threads;
+                var indices = nodeStat.nodes[nodeId].indices;
 
                 var nodeInfo = cluster.get("nodeInfo").toJSON();
+                jvmStats.version = nodeInfo.nodes[nodeId].jvm.version;
+                jvmStats.vm_name = nodeInfo.nodes[nodeId].jvm.vm_name;
+                jvmStats.vm_vendor = nodeInfo.nodes[nodeId].jvm.vm_vendor;
+                jvmStats.pid = nodeInfo.nodes[nodeId].jvm.pid;
+                osStats.cpu.vendor = nodeInfo.nodes[nodeId].os.cpu.vendor;
+                osStats.cpu.model = nodeInfo.nodes[nodeId].os.cpu.model;
+                osStats.cpu.total_cores = nodeInfo.nodes[nodeId].os.cpu.total_cores;
+                osStats.available_processors = nodeInfo.nodes[nodeId].os.available_processors;
 
                 //massage
                 var jvmuptime = jvmStats.uptime.split('and');
@@ -109,7 +117,7 @@ var NodeStatView = Backbone.View.extend(
 
                 return this;
             },
-            nodeInfo : undefined,
+            nodeInfo:undefined,
             jvmheapdata:undefined,
             jvmheapchart:undefined,
             jvmnonheapdata:undefined,
