@@ -21,7 +21,7 @@
  * @type {*}
  */
 
-var NodeInfoView = Backbone.View.extend(
+var NodeStatView = Backbone.View.extend(
         {
             render:function () {
                 var JSONModel = this.model.toJSON();
@@ -37,6 +37,8 @@ var NodeInfoView = Backbone.View.extend(
                 var threads = JSONModel.nodes[nodeId].threads;
                 var indices = JSONModel.nodes[nodeId].indices;
 
+                var nodeInfo = cluster.get("nodeInfo").toJSON();
+
                 //massage
                 var jvmuptime = jvmStats.uptime.split('and');
                 jvmStats.uptime = jvmuptime[0];
@@ -46,6 +48,9 @@ var NodeInfoView = Backbone.View.extend(
                 osStats.mem.free = convert.bytesToSize(osStats.mem.free_in_bytes, 2);
                 osStats.swap.used = convert.bytesToSize(osStats.swap.used_in_bytes, 2);
                 osStats.swap.free = convert.bytesToSize(osStats.swap.free_in_bytes, 2);
+                processStats.cpu.sys = processStats.cpu.sys.split('and')[0];
+                processStats.cpu.user = processStats.cpu.user.split('and')[0];
+                processStats.cpu.total = processStats.cpu.total.split('and')[0];
 
                 var tpl = _.template(nodeTemplate.nodeInfo);
                 $('#workspace').html(tpl(
@@ -104,6 +109,7 @@ var NodeInfoView = Backbone.View.extend(
 
                 return this;
             },
+            nodeInfo : undefined,
             jvmheapdata:undefined,
             jvmheapchart:undefined,
             jvmnonheapdata:undefined,

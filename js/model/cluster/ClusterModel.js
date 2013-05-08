@@ -26,7 +26,8 @@ var Cluster = Backbone.Model.extend({
         clusterHealth:undefined,
         nodeList:undefined,
         connected:false,
-        monitorNode:undefined // the current node selected for a live feed.
+        nodeStats:undefined, // the current node selected for a live feed.
+        nodeInfo:undefined // the current node selected for a live feed.
     },
     initialize:function (args) {
         var _this = this;

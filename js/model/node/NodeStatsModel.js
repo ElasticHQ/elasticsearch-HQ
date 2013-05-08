@@ -15,19 +15,22 @@
 
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
- http://localhost:9200/_cluster/nodes
+ http://localhost:9200/_cluster/nodes/XXX/stats
  */
 
-var NodeInfoModel = Backbone.Model.extend({
+/*****
+ * settings, os, process, jvm, thread_pool, network, transport, http and plugin, all
+ * @type {*}
+ */
+var NodeStatsModel = Backbone.Model.extend({
     defaults:{
         nodeId:undefined
     },
     initialize:function (args) {
-        console.log("Inside NodeInfoModel");
+        console.log("Inside NodeStatsModel");
         this.nodeId = args.nodeId;
     },
     url:function () {
-        return '/_cluster/nodes/' + this.nodeId + '?all=true';
+        return '/_cluster/nodes/' + this.nodeId + '/stats?all=true&plugin=true';
     }
-
 });

@@ -40,14 +40,15 @@ $(document).ready(
                 cleanDefaults();
                 console.log("route nodeId: " + nodeId);
 
+                var nodeStat = new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
                 var nodeInfo = new NodeInfoModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
+                nodeInfo.fetch();
+                var nodeInfoView = new NodeStatView({model:nodeStat});
 
-                var nodeInfoView = new NodeInfoView({model:nodeInfo});
-
-                cluster.set({monitorNode:nodeInfo});
+                cluster.set({nodeStats:nodeStat, nodeInfo:nodeInfo});
 
                 var polloptions = {delay:5000};
-                nodePoller = Backbone.Poller.get(nodeInfo, polloptions);
+                nodePoller = Backbone.Poller.get(nodeStat, polloptions);
                 nodePoller.start();
                 nodePoller.on('success', function (nodeInfo) {
                     console.log('another successful fetch!');
@@ -55,7 +56,7 @@ $(document).ready(
                 });
 
                 /*
-                 poller.on('complete', function (nodeInfo) {
+                 poller.on('complete', function (nodeStat) {
                  console.log('hurray! we are done!');
                  });
                  */

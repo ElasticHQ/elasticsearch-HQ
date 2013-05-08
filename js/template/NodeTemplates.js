@@ -12,7 +12,7 @@ nodeTemplate.nodeList = [
 ].join("\n");
 
 
-nodeTemplate.nodeInfo = ['<div class="pull-right"><small><%- lastUpdateTime %></small></div>',
+nodeTemplate.nodeInfo = ['<div class="pull-right" style="line-height: 13px;font-size: 10px;">Refreshed:<br/><%- lastUpdateTime %></div>',
     '<div class="text-center">',
 
     '<span style="font-size: 28px;padding:20px 0 3px 0;"><%- nodeName %></span><br/>',
@@ -145,10 +145,47 @@ nodeTemplate.nodeInfo = ['<div class="pull-right"><small><%- lastUpdateTime %></
     '</ul>',
 
 
+    /* PROCESS */
     '<div class="lead text-left"><i class="icon-th-large"></i> Process</div>',
+    '<div class="row-fluid">',
+
+    '<div class="span4"> ',
+    '<div class="text-center">&nbsp;</strong></div>',
+    '<table class="table table-condensed table-striped table-bordered">',
+    '<tr><td>Open File Descriptors:</td><td><%- osStats.uptime %></td></tr>',
+    '<tr><td>CPU System:</td><td><%- processStats.cpu.sys %></td></tr>',
+    '<tr><td>CPU User:</td><td><%- processStats.cpu.user %></td></tr>',
+    '<tr><td>CPU Total:</td><td><%- processStats.cpu.total %></td></tr>',
+    '<tr><td>Resident Memory:</td><td><%- processStats.mem.resident %></td></tr>',
+    '<tr><td>Shared Memory:</td><td><%- processStats.mem.share %>%</td></tr>',
+    '<tr><td>Total Virtual Memory:</td><td><%- processStats.mem.total_virtual %></td></tr>',
+    '</table>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>CPU Usage (%)</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-cpu" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>Memory Usage</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-mem" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+    '</div>',
+
+    '</div> <!-- end row -->',
+
+    '<ul class="nav nav-list">',
+    '<li class="divider"></li>',
+    '</ul>',
 
 
-    '<div class="lead text-left"><i class="icon-th-large"></i> JVM</div>',
     '<div class="lead text-left"><i class="icon-th-large"></i> Threads</div>',
     '<div class="lead text-left"><i class="icon-th-large"></i> Network</div>',
     '<div class="lead text-left"><i class="icon-th-large"></i> File System</div>',
