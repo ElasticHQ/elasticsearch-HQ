@@ -23,9 +23,9 @@
 
 var NodeInfoView = Backbone.View.extend(
         {
-            maxint:6,
-            cdata:undefined,
-            plot:undefined,
+            jvmheapdata:undefined,
+            jvmheapchart:undefined, jvmnonheapdata:undefined,
+            jvmnonheapchart:undefined,
             render:function () {
                 var JSONModel = this.model.toJSON();
                 var nodeId = JSONModel.nodeId;
@@ -34,11 +34,16 @@ var NodeInfoView = Backbone.View.extend(
                 var nodeName = JSONModel.nodes[nodeId].name;
                 var address = JSONModel.nodes[nodeId].transport_address;
                 var hostName = JSONModel.nodes[nodeId].hostname;
-                var mem = JSONModel.nodes[nodeId].mem;
                 var threadPool = JSONModel.nodes[nodeId].thread_pool;
                 var fileSystem = JSONModel.nodes[nodeId].fs;
                 var threads = JSONModel.nodes[nodeId].threads;
                 var indices = JSONModel.nodes[nodeId].indices;
+
+                //massage
+                var jvmuptime = jvmStats.uptime.split('and');
+                jvmStats.uptime = jvmuptime[0];
+
+
 
 
                 var tpl = _.template(nodeTemplate.nodeInfo);
@@ -50,58 +55,27 @@ var NodeInfoView = Backbone.View.extend(
                         nodeName:nodeName,
                         address:address,
                         hostName:hostName,
-                        mem:mem,
                         threadPool:threadPool,
                         fileSystem:fileSystem,
                         threads:threads,
-                        indices:indices
+                        indices:indices,
+                        lastUpdateTime: timeUtil.lastUpdated()
                     }));
 
-                if (this.cdata == undefined) {
-                    this.cdata = [
-                        [new Date().getTime() + 1000, 100],
-                        [new Date().getTime() + 1001, 200],
-                        [new Date().getTime() + 1002, 150],
-                        [new Date().getTime() + 1003, 130],
-                        [new Date().getTime() + 1004, 120],
-                        [new Date().getTime() + 1005, 230]
-                    ]
-                }
-                else {
-                    //if (this.cdata.length > 5)
-                    this.cdata.shift(); // remove first item
-                }
+                // -------- Charting -------- //
                 var now = new Date().getTime();
-                this.cdata.push([now += 1000, Math.random() * 300]);
 
-                var options = {
-                    series:{
-                        curvedLines:{
-                            active:true
-                        },
-                        color:"GREEN"
-                    },
-                    legend:{
-                        noColumns:1
-                    },
-                    grid:{
-                        backgroundColor:{ colors:[ "#fff", "#eee" ] }
-                    },
-                    xaxis:{ mode:"time", tickSize:[8, "second"], tickLength: 20, timeformat:"%h:%M:%S"
-                    }
-                };
+                // jvm
+                this.jvmheapdata = chart.addData(this.jvmheapdata, [new Date().getTime() + 1, jvmStats.mem.heap_used_in_bytes / 1000000]);
+                this.jvmheapdata.push([now, jvmStats.mem.heap_used_in_bytes / 1000000]);
+                this.jvmheapchart = chart.draw("#chart-jvmheap", this.jvmheapdata, chart.jvmHeap.options());
+                this.jvmheapchart.setData([this.jvmheapdata]);
 
-                if (this.plot == undefined) // initial draw
-                    this.plot = $.plot($("#placeholder"), [
-                        {label:"sin(x)", data:this.cdata, lines:{ show:true, fill:true, fillColor:"#C3C3C3", lineWidth:3}, curvedLines:{apply:true}}
-                    ], options);
+                this.jvmnonheapdata = chart.addData(this.jvmnonheapdata, [new Date().getTime() + 1, jvmStats.mem.non_heap_used_in_bytes / 1000000]);
+                this.jvmnonheapdata.push([now, jvmStats.mem.non_heap_used_in_bytes / 1000000]);
+                this.jvmnonheapchart = chart.draw("#chart-jvmnonheap", this.jvmnonheapdata, chart.jvmHeap.options());
+                this.jvmnonheapchart.setData([this.jvmnonheapdata]);
 
-                else {
-                    this.plot = $.plot($("#placeholder"), [
-                        {label:"sin(x)", data:this.cdata, lines:{ show:true, fill:true, fillColor:"#C3C3C3", lineWidth:3}, curvedLines:{apply:true}}
-                    ], options);
-                    this.plot.setData([this.cdata]);
-                }
                 return this;
             }
         })
