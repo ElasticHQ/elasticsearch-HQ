@@ -59,37 +59,37 @@ var NodeInfoView = Backbone.View.extend(
 
                 if (this.cdata == undefined) {
                     this.cdata = [
-                        [2, 100],
-                        [3, 150],
-                        [4, 200],
-                        [5, 250]
+                        [new Date().getTime() + 1000, 100],
+                        [new Date().getTime() + 1001, 200],
+                        [new Date().getTime() + 1002, 150],
+                        [new Date().getTime() + 1003, 130],
+                        [new Date().getTime() + 1004, 120],
+                        [new Date().getTime() + 1005, 230]
                     ]
                 }
                 else {
+                    //if (this.cdata.length > 5)
                     this.cdata.shift(); // remove first item
                 }
-
-                this.cdata.push([this.maxint++, Math.floor(Math.random() * (300 - 100 + 1)) + 100]);
+                var now = new Date().getTime();
+                this.cdata.push([now += 1000, Math.random() * 300]);
 
                 var options = {
                     series:{
                         curvedLines:{
                             active:true
                         },
-                        color: "GREEN"
+                        color:"GREEN"
                     },
                     legend:{
                         noColumns:1
                     },
                     grid:{
-                        backgroundColor:{ colors:[ "#fff", "#eee" ] },
-                        borderWidth:{
-                            top:1,
-                            right:1,
-                            bottom:2,
-                            left:2
-                        }
-                    }};
+                        backgroundColor:{ colors:[ "#fff", "#eee" ] }
+                    },
+                    xaxis:{ mode:"time", tickSize:[8, "second"], tickLength: 20, timeformat:"%h:%M:%S"
+                    }
+                };
 
                 if (this.plot == undefined) // initial draw
                     this.plot = $.plot($("#placeholder"), [

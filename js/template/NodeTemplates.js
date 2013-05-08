@@ -13,11 +13,34 @@ nodeTemplate.nodeList = [
 
 
 nodeTemplate.nodeInfo = [
-    '<div class="text-center" style="font-size: 28px;padding:20px 0 20px 0;"><%- nodeName %></div>',
-    '<div class="lead"><i class="icon-th-large"></i> Memory</div>',
+    '<div class="text-center"><span style="font-size: 28px;padding:20px 0 3px 0;"><%- nodeName %></span><br/>',
+    '<small><%- address %> on <%- hostName %></small></div>',
+
+    '<div class="lead text-left"><i class="icon-th-large"></i> JVM</div>',
+    '<div class="row-fluid">',
     'JVM Heap Used: <%- jvmStats.mem.heap_used %>',
-    '<div class="chart-container">',
+    '<div class="text-center"><strong>Heap Memory</strong>',
+    '<div class="chart-container text-center">',
     '<div id="placeholder" class="chart-placeholder"></div>',
     '<div id="legend"></div>',
-    '</div>'
+    '</div>',
+    '</div>',
+
+    '</div> <!-- end row -->',
+
+    '<div class="lead text-left"><i class="icon-th-large"></i> Indices</div>',
+
+
+    '<div class="lead text-left"><i class="icon-th-large"></i> OS</div>',
+
+
+    '<div class="lead text-left"><i class="icon-th-large"></i> Process</div>',
+
+
+    '<div class="lead text-left"><i class="icon-th-large"></i> JVM</div>',
+    '<div class="lead text-left"><i class="icon-th-large"></i> Threads</div>',
+    '<div class="lead text-left"><i class="icon-th-large"></i> Network</div>',
+    '<div class="lead text-left"><i class="icon-th-large"></i> File System</div>',
+
+
 ].join("\n");

@@ -46,7 +46,7 @@ $(document).ready(
 
                 cluster.set({monitorNode:nodeInfo});
 
-                var polloptions = {delay:3000};
+                var polloptions = {delay:5000};
                 nodePoller = Backbone.Poller.get(nodeInfo, polloptions);
                 nodePoller.start();
                 nodePoller.on('success', function (nodeInfo) {
