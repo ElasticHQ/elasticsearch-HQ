@@ -27,7 +27,8 @@ var NodeInfoView = Backbone.View.extend(
                 var JSONModel = this.model.toJSON();
                 var nodeId = JSONModel.nodeId;
                 var jvmStats = JSONModel.nodes[nodeId].jvm;
-                var cpuStats = JSONModel.nodes[nodeId].process;
+                var osStats = JSONModel.nodes[nodeId].os;
+                var processStats = JSONModel.nodes[nodeId].process;
                 var nodeName = JSONModel.nodes[nodeId].name;
                 var address = JSONModel.nodes[nodeId].transport_address;
                 var hostName = JSONModel.nodes[nodeId].hostname;
@@ -39,13 +40,20 @@ var NodeInfoView = Backbone.View.extend(
                 //massage
                 var jvmuptime = jvmStats.uptime.split('and');
                 jvmStats.uptime = jvmuptime[0];
+                osStats.mem.total = convert.bytesToSize(osStats.mem.free_in_bytes + osStats.mem.used_in_bytes, 2);
+                osStats.swap.total = convert.bytesToSize(osStats.swap.used_in_bytes + osStats.swap.free_in_bytes, 2);
+                osStats.mem.used = convert.bytesToSize(osStats.mem.used_in_bytes, 2);
+                osStats.mem.free = convert.bytesToSize(osStats.mem.free_in_bytes, 2);
+                osStats.swap.used = convert.bytesToSize(osStats.swap.used_in_bytes, 2);
+                osStats.swap.free = convert.bytesToSize(osStats.swap.free_in_bytes, 2);
 
                 var tpl = _.template(nodeTemplate.nodeInfo);
                 $('#workspace').html(tpl(
                     {
                         jvmStats:jvmStats,
                         nodeId:nodeId,
-                        cpuStats:cpuStats,
+                        osStats:osStats,
+                        processStats:processStats,
                         nodeName:nodeName,
                         address:address,
                         hostName:hostName,
@@ -81,15 +89,32 @@ var NodeInfoView = Backbone.View.extend(
                 this.getchart = chart.draw("#chart-indexget", this.getdata, chart.indices.options());
                 this.getchart.setData([this.getdata]);
 
+                //os
+                var usedCPU = osStats.cpu.user + osStats.cpu.sys;
+                this.cpudata = chart.addData(this.cpudata, [new Date().getTime() + 1, usedCPU]);
+                this.cpudata.push([now, usedCPU]);
+                this.cpuchart = chart.draw("#chart-cpu", this.cpudata, chart.cpu.options());
+                this.cpuchart.setData([this.cpudata]);
+
+                var totalbytesgb = (osStats.mem.free_in_bytes + osStats.mem.used_in_bytes) / (1024 * 1024 * 1024);
+                this.memdata = chart.addData(this.memdata, [new Date().getTime() + 1, osStats.mem.used_in_bytes / (1024 * 1024 * 1024)]);
+                this.memdata.push([now, osStats.mem.used_in_bytes / (1024 * 1024 * 1024)]);
+                this.memchart = chart.draw("#chart-mem", this.memdata, chart.mem.options(totalbytesgb));
+                this.memchart.setData([this.memdata]);
+
                 return this;
             },
             jvmheapdata:undefined,
             jvmheapchart:undefined,
             jvmnonheapdata:undefined,
             jvmnonheapchart:undefined,
-            indexdata: undefined,
+            indexdata:undefined,
             indexchart:undefined,
-            getdata: undefined,
-            getchart: undefined
+            getdata:undefined,
+            getchart:undefined,
+            cpudata:undefined,
+            cpuchart:undefined,
+            memdata:undefined,
+            memchart:undefined
         })
     ;

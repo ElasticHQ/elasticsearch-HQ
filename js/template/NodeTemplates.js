@@ -55,6 +55,11 @@ nodeTemplate.nodeInfo = ['<div class="pull-right"><small><%- lastUpdateTime %></
 
     '</div> <!-- end row -->',
 
+    '<ul class="nav nav-list">',
+    '<li class="divider"></li>',
+    '</ul>',
+
+
     /*INDICES*/
     '<div class="lead text-left"><i class="icon-th-large"></i> Indices</div>',
     '<div class="row-fluid">',
@@ -94,7 +99,50 @@ nodeTemplate.nodeInfo = ['<div class="pull-right"><small><%- lastUpdateTime %></
 
     '</div> <!-- end row -->',
 
-    '<div class="lead text-left"><i class="icon-th-large"></i> OS</div>',
+    '<ul class="nav nav-list">',
+    '<li class="divider"></li>',
+    '</ul>',
+
+    /*OS*/
+    '<div class="lead text-left"><i class="icon-th-large"></i> Operating System</div>',
+    '<div class="row-fluid">',
+
+    '<div class="span4"> ',
+    '<div class="text-center">&nbsp;</strong></div>',
+    '<table class="table table-condensed table-striped table-bordered">',
+    '<tr><td>Uptime:</td><td><%- osStats.uptime %></td></tr>',
+    '<tr><td>Total Memory:</td><td><%- osStats.mem.total %></td></tr>',
+    '<tr><td>Total Swap:</td><td><%- osStats.swap.total %></td></tr>',
+    '<tr><td>Memory (Used/Free):</td><td><%- osStats.mem.used %> / <%- osStats.mem.free %></td></tr>',
+    '<tr><td>Swap (Used/Free):</td><td><%- osStats.swap.used %> / <%- osStats.swap.free %></td></tr>',
+    '<tr><td>CPU User:</td><td><%- osStats.cpu.user %>%</td></tr>',
+    '<tr><td>CPU System:</td><td><%- osStats.cpu.sys %>%</td></tr>',
+    '<tr><td>CPU Idle:</td><td><%- osStats.cpu.idle %>%</td></tr>',
+    '</table>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>CPU Usage (%)</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-cpu" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>Memory Usage (GB)</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-mem" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+    '</div>',
+
+    '</div> <!-- end row -->',
+
+    '<ul class="nav nav-list">',
+    '<li class="divider"></li>',
+    '</ul>',
 
 
     '<div class="lead text-left"><i class="icon-th-large"></i> Process</div>',
