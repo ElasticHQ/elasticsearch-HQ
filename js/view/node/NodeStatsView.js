@@ -160,6 +160,17 @@ var NodeStatView = Backbone.View.extend(
                 this.transportchart = chart.draw("#chart-transporttx", this.transportdata, chart.transporttxcount.options());
                 this.transportchart.setData([this.transportdata]);
 
+                // threads
+                this.threadindexdata = chart.addData(this.threadindexdata, [new Date().getTime() + 1, threadPool.index.active]);
+                this.threadindexdata.push([now, threadPool.index.active]);
+                this.threadindexchart = chart.draw("#chart-threadindex", this.threadindexdata, chart.threadindex.options());
+                this.threadindexchart.setData([this.threadindexdata]);
+
+                this.threadsearchdata = chart.addData(this.threadsearchdata, [new Date().getTime() + 1, threadPool.search.active]);
+                this.threadsearchdata.push([now, threadPool.search.active]);
+                this.threadsearchchart = chart.draw("#chart-threadsearch", this.threadsearchdata, chart.transporttxcount.options());
+                this.threadsearchchart.setData([this.threadsearchdata]);
+
                 return this;
             },
             nodeInfo:undefined,
@@ -186,6 +197,10 @@ var NodeStatView = Backbone.View.extend(
             httptxdata:undefined,
             httptxchart:undefined,
             transportdata:undefined,
-            transportchart:undefined
+            transportchart:undefined,
+            threadindexdata:undefined,
+            threadindexchart:undefined,
+            threadsearchdata:undefined,
+            threadsearchchart:undefined
         })
     ;

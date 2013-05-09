@@ -191,7 +191,46 @@ nodeTemplate.nodeInfo = ['<div class="pull-right" style="line-height: 13px;font-
     '</ul>',
 
 
-    '<div class="lead text-left"><i class="icon-th-large"></i> Threads</div>',
+    /* THREADPOOL */
+    '<div class="lead text-left"><i class="icon-th-large"></i> Thread Pools</div>',
+    '<div class="row-fluid">',
+
+    '<div class="span4"> ',
+    '<div class="text-center">&nbsp;</strong></div>',
+    '<table class="table table-condensed table-striped table-bordered">',
+    '<tr><td>Index (Queue/Peak/Active):</td><td><%- threadPool.index.queue %>/<%- threadPool.index.largest %>/<%- threadPool.index.active%></td></tr>',
+    '<tr><td>Get (Queue/Peak/Active):</td><td><%- threadPool.get.queue %>/<%- threadPool.get.largest %>/<%- threadPool.get.active%></td></tr>',
+    '<tr><td>Search (Queue/Peak/Active):</td><td><%- threadPool.search.queue %>/<%- threadPool.search.largest %>/<%- threadPool.search.active%></td></tr>',
+    '<tr><td>Bulk (Queue/Peak/Active):</td><td><%- threadPool.bulk.queue %>/<%- threadPool.bulk.largest %>/<%- threadPool.bulk.active%></td></tr>',
+    '<tr><td>Refresh (Queue/Peak/Active):</td><td><%- threadPool.refresh.queue %>/<%- threadPool.refresh.largest %>/<%- threadPool.refresh.active%></td></tr>',
+    '<tr><td>Flush (Queue/Peak/Active):</td><td><%- threadPool.flush.queue %>/<%- threadPool.flush.largest %>/<%- threadPool.flush.active%></td></tr>',
+    '<tr><td>Merge (Queue/Peak/Active):</td><td><%- threadPool.merge.queue %>/<%- threadPool.merge.largest %>/<%- threadPool.merge.active%></td></tr>',
+    '<tr><td>Management (Queue/Peak/Active):</td><td><%- threadPool.management.queue %>/<%- threadPool.management.largest %>/<%- threadPool.management.active%></td></tr>',
+    '</table>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>Index Thread Count</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-threadindex" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>Search Thread Count</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-threadsearch" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+    '</div>',
+
+    '</div> <!-- end row -->',
+
+    '<ul class="nav nav-list">',
+    '<li class="divider"></li>',
+    '</ul>',
 
     /* NETWORK */
     '<div class="lead text-left"><i class="icon-th-large"></i> Network</div>',
