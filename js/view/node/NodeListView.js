@@ -26,7 +26,7 @@ var NodeListView = Backbone.View.extend({
             var template = _.template(nodeTemplate.nodeList, {nodes:nodeList});
             $(this.el).html(template);
         }
-        $("[rel=popRight]").popover({});
+        $("[rel=tipRight]").tooltip();
         return this;
     }
 });
