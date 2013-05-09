@@ -51,7 +51,7 @@ var doConnect = function (connectionRootURL) {
             console.log('Connected to: ' + clusterName);
 
             // set cookie in case of refresh
-            $.cookie("resturl", connectionRootURL);
+            //$.cookie("resturl", connectionRootURL);
 
             var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
             clusterView.render();
