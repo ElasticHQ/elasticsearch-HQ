@@ -162,7 +162,7 @@ nodeTemplate.nodeInfo = ['<div class="pull-right" style="line-height: 13px;font-
     '<tr><td>CPU User:</td><td><%- processStats.cpu.user %></td></tr>',
     '<tr><td>CPU Total:</td><td><%- processStats.cpu.total %></td></tr>',
     '<tr><td>Resident Memory:</td><td><%- processStats.mem.resident %></td></tr>',
-    '<tr><td>Shared Memory:</td><td><%- processStats.mem.share %>%</td></tr>',
+    '<tr><td>Shared Memory:</td><td><%- processStats.mem.share %></td></tr>',
     '<tr><td>Total Virtual Memory:</td><td><%- processStats.mem.total_virtual %></td></tr>',
     '</table>',
     '</div>',
@@ -178,7 +178,7 @@ nodeTemplate.nodeInfo = ['<div class="pull-right" style="line-height: 13px;font-
     '<div class="span4">',
     '<div class="text-center"><strong>Memory Usage</strong></div>',
     '<div class="chart-container text-center">',
-    '<div id="chart-mem" class="chart-placeholder"></div>',
+    '<div id="chart-procmem" class="chart-placeholder"></div>',
     '<div id="legend"></div>',
     '</div>',
     '</div>',
@@ -192,8 +192,87 @@ nodeTemplate.nodeInfo = ['<div class="pull-right" style="line-height: 13px;font-
 
 
     '<div class="lead text-left"><i class="icon-th-large"></i> Threads</div>',
+
+    /* NETWORK */
     '<div class="lead text-left"><i class="icon-th-large"></i> Network</div>',
+    '<div class="row-fluid">',
+
+    '<div class="span4"> ',
+    '<div class="text-center">&nbsp;</strong></div>',
+    '<table class="table table-condensed table-striped table-bordered">',
+    '<tr><td>HTTP Address:</td><td><%- netInfo.http.address %></td></tr>',
+    '<tr><td>HTTP Bound Address:</td><td><%- netInfo.http.bound_address %></td></tr>',
+    '<tr><td>HTTP Publish Address:</td><td><%- netInfo.http.publish_address %></td></tr>',
+    '<tr><td>Transport Address:</td><td><%- netInfo.transport.address %></td></tr>',
+    '<tr><td>Transport Bound Address:</td><td><%- netInfo.transport.bound_address %></td></tr>',
+    '<tr><td>Transport Publish Address:</td><td><%- netInfo.transport.publish_address %></td></tr>',
+    '</table>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>Transport TX Count</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-transporttx" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong>HTTP Open</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-httpopen" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+    '</div>',
+
+    '</div> <!-- end row -->',
+
+    '<ul class="nav nav-list">',
+    '<li class="divider"></li>',
+    '</ul>',
+
+    /* FS */
     '<div class="lead text-left"><i class="icon-th-large"></i> File System</div>',
+    '<div class="row-fluid">',
+
+    '<div class="span4"> ',
+    '<div class="text-center">&nbsp;</strong></div>',
+    '<table class="table table-condensed table-striped table-bordered">',
+    '<tr><td>Path:</td><td><%- fileSystem.path %></td></tr>',
+    '<tr><td>Mount:</td><td><%- fileSystem.mount %></td></tr>',
+    '<tr><td>Device:</td><td><%- fileSystem.dev %></td></tr>',
+    '<tr><td>Total Space:</td><td><%- fileSystem.total %></td></tr>',
+    '<tr><td>Free Space:</td><td><%- fileSystem.free %></td></tr>',
+    '<tr><td>Disk Reads:</td><td><%- fileSystem.disk_reads %></td></tr>',
+    '<tr><td>Disk Writes:</td><td><%- fileSystem.disk_writes %></td></tr>',
+    '<tr><td>Read Size:</td><td><%- fileSystem.disk_read_size %></td></tr>',
+    '<tr><td>Write Size Size:</td><td><%- fileSystem.disk_write_size %></td></tr>',
+    '</table>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong># Disk Reads</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-fsreads" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong># Disk Writes</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-fswrites" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+    '</div>',
+
+    '</div> <!-- end row -->',
+
+    '<ul class="nav nav-list">',
+    '<li class="divider"></li>',
+    '</ul>'
 
 
 ].join("\n");

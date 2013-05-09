@@ -33,9 +33,11 @@ var NodeStatView = Backbone.View.extend(
                 var address = nodeStat.nodes[nodeId].transport_address;
                 var hostName = nodeStat.nodes[nodeId].hostname;
                 var threadPool = nodeStat.nodes[nodeId].thread_pool;
-                var fileSystem = nodeStat.nodes[nodeId].fs;
+                var fileSystem = nodeStat.nodes[nodeId].fs.data[0];
                 var threads = nodeStat.nodes[nodeId].threads;
                 var indices = nodeStat.nodes[nodeId].indices;
+                var netStats = nodeStat.nodes[nodeId].transport;
+                var httpStats = nodeStat.nodes[nodeId].http;
 
                 var nodeInfo = cluster.get("nodeInfo").toJSON();
                 jvmStats.version = nodeInfo.nodes[nodeId].jvm.version;
@@ -47,6 +49,11 @@ var NodeStatView = Backbone.View.extend(
                 osStats.cpu.total_cores = nodeInfo.nodes[nodeId].os.cpu.total_cores;
                 osStats.available_processors = nodeInfo.nodes[nodeId].os.available_processors;
                 osStats.max_proc_cpu = 100 * osStats.available_processors
+                var netInfo = nodeInfo.nodes[nodeId].network;
+                netInfo.transport = nodeInfo.nodes[nodeId].transport;
+                netInfo.transport.address = nodeInfo.nodes[nodeId].transport_address;
+                netInfo.http = nodeInfo.nodes[nodeId].http;
+                netInfo.http.address = nodeInfo.nodes[nodeId].http_address;
 
                 //massage
                 var jvmuptime = jvmStats.uptime.split('and');
@@ -75,6 +82,8 @@ var NodeStatView = Backbone.View.extend(
                         fileSystem:fileSystem,
                         threads:threads,
                         indices:indices,
+                        netInfo:netInfo,
+                        netStats:netStats,
                         lastUpdateTime:timeUtil.lastUpdated()
                     }));
 
@@ -121,12 +130,35 @@ var NodeStatView = Backbone.View.extend(
                 this.proccpudata.push([now, processStats.cpu.percent]);
                 this.proccpuchart = chart.draw("#chart-procpu", this.proccpudata, chart.procscpu.options(100 * osStats.available_processors));
                 this.proccpuchart.setData([this.proccpudata]);
-                /*
-                 var totalbytesgb = (osStats.mem.free_in_bytes + osStats.mem.used_in_bytes) / (1024 * 1024 * 1024);
-                 this.memdata = chart.addData(this.memdata, [new Date().getTime() + 1, osStats.mem.used_in_bytes / (1024 * 1024 * 1024)]);
-                 this.memdata.push([now, osStats.mem.used_in_bytes / (1024 * 1024 * 1024)]);
-                 this.memchart = chart.draw("#chart-mem", this.memdata, chart.mem.options(totalbytesgb));
-                 this.memchart.setData([this.memdata]);*/
+
+                var totalprocmemgb = (processStats.mem.total_virtual_in_bytes) / (1024 * 1024 * 1024);
+                var residentprocmemgb = (processStats.mem.resident_in_bytes) / (1024 * 1024 * 1024);
+                this.procmemdata = chart.addData(this.procmemdata, [new Date().getTime() + 1, residentprocmemgb]);
+                this.procmemdata.push([now, residentprocmemgb]);
+                this.procmemchart = chart.draw("#chart-procmem", this.procmemdata, chart.procmem.options(totalprocmemgb));
+                this.procmemchart.setData([this.procmemdata]);
+
+                // fs
+                this.fsreaddata = chart.addData(this.fsreaddata, [new Date().getTime() + 1, fileSystem.disk_reads]);
+                this.fsreaddata.push([now, fileSystem.disk_reads]);
+                this.fsreadchart = chart.draw("#chart-fsreads", this.fsreaddata, chart.fsreads.options());
+                this.fsreadchart.setData([this.fsreaddata]);
+
+                this.fswritedata = chart.addData(this.fswritedata, [new Date().getTime() + 1, fileSystem.disk_writes]);
+                this.fswritedata.push([now, fileSystem.disk_writes]);
+                this.fswritechart = chart.draw("#chart-fswrites", this.fswritedata, chart.fswrites.options());
+                this.fswritechart.setData([this.fswritedata]);
+
+                // network
+                this.httptxdata = chart.addData(this.httptxdata, [new Date().getTime() + 1, httpStats.current_open]);
+                this.httptxdata.push([now, httpStats.current_open]);
+                this.httptxchart = chart.draw("#chart-httpopen", this.httptxdata, chart.httpopen.options());
+                this.httptxchart.setData([this.httptxdata]);
+
+                this.transportdata = chart.addData(this.transportdata, [new Date().getTime() + 1, netStats.tx_count]);
+                this.transportdata.push([now, netStats.tx_count]);
+                this.transportchart = chart.draw("#chart-transporttx", this.transportdata, chart.transporttxcount.options());
+                this.transportchart.setData([this.transportdata]);
 
                 return this;
             },
@@ -144,6 +176,16 @@ var NodeStatView = Backbone.View.extend(
             memdata:undefined,
             memchart:undefined,
             proccpudata:undefined,
-            proccpuchart:undefined
+            proccpuchart:undefined,
+            procmemdata:undefined,
+            procmemchart:undefined,
+            fsreaddata:undefined,
+            fsreadchart:undefined,
+            fswritedata:undefined,
+            fswritechart:undefined,
+            httptxdata:undefined,
+            httptxchart:undefined,
+            transportdata:undefined,
+            transportchart:undefined
         })
     ;

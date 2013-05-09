@@ -70,3 +70,17 @@ body {
     font-size: 36px;
     filter: progid:DXImageTransform.Microsoft.Matrix(M11 = 0.0, M12 = 0.33, M21 = -0.33, M22 = 0.0, sizingMethod = 'auto expand');
 }
+
+#loading-indicator {
+    display: none;
+    width: 100%;
+    height: 500px;
+    position: fixed;
+    /*background: url(images/ajax-loader.gif) no-repeat center rgba(0, 0, 0, .2);*/
+    text-align: center;
+    padding: 10px;
+    font: normal 16px Tahoma, Geneva, sans-serif;
+    border: 0;
+    z-index: 999;
+    overflow: hidden;
+}

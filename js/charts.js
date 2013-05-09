@@ -65,12 +65,12 @@ chart.jvmHeap = {
                 },
                 color:"GREEN"
             },
-            tooltip: true,
+            tooltip:true,
             grid:{
                 show:true,
-                hoverable: true,
-                autoHighlight: true,
-                mouseActiveRadius: 10,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -79,12 +79,12 @@ chart.jvmHeap = {
             yaxis:{
                 tickSize:50
             },
-            tooltipOpts: {
+            tooltipOpts:{
                 //content: "'%s' of %x.1 is %y.4",
-                content: "%yMB",
-                shifts: {
-                    x: -60,
-                    y: 25
+                content:"%yMB",
+                shifts:{
+                    x:-60,
+                    y:25
                 }
             }
 
@@ -100,17 +100,17 @@ chart.indices = {
                 },
                 color:"GREEN"
             },
-            tooltip: true,
+            tooltip:true,
             grid:{
                 show:true,
-                hoverable: false,
+                hoverable:false,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
             },
             xaxis:chart.ts_xaxis,
             yaxis:{
-                min: 0,
+                min:0,
                 tickSize:20
             }
         }
@@ -126,18 +126,18 @@ chart.cpu = {
                 },
                 color:"GREEN"
             },
-            tooltip: true,
+            tooltip:true,
             grid:{
                 show:true,
-                hoverable: false,
+                hoverable:false,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
             },
             xaxis:chart.ts_xaxis,
             yaxis:{
-                min: 0,
-                max: 100,
+                min:0,
+                max:100,
                 tickSize:20
             }
         }
@@ -153,18 +153,18 @@ chart.mem = {
                 },
                 color:"GREEN"
             },
-            tooltip: true,
+            tooltip:true,
             grid:{
                 show:true,
-                hoverable: false,
+                hoverable:false,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
             },
             xaxis:chart.ts_xaxis,
             yaxis:{
-                min: 0,
-                max: max,
+                min:0,
+                max:max,
                 tickSize:2
             }
         }
@@ -179,19 +179,147 @@ chart.procscpu = {
                 },
                 color:"GREEN"
             },
-            tooltip: true,
+            tooltip:true,
             grid:{
                 show:true,
-                hoverable: false,
+                hoverable:false,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
             },
             xaxis:chart.ts_xaxis,
             yaxis:{
-                min: 0,
-                max: max,
+                min:0,
+                max:max,
                 tickSize:100
+            }
+        }
+    }
+};
+
+chart.procmem = {
+    options:function (max) {
+        return {
+            series:{
+                curvedLines:{
+                    active:true
+                },
+                color:"GREEN"
+            },
+            tooltip:true,
+            grid:{
+                show:true,
+                hoverable:false,
+                backgroundColor:{ colors:[ "#fff", "#eee" ] },
+                borderWidth:1,
+                borderColor:'#CCCCCC'
+            },
+            xaxis:chart.ts_xaxis,
+            yaxis:{
+                min:0,
+                max:max,
+                tickSize:.5
+            }
+        }
+    }
+};
+
+
+chart.fsreads = {
+    options:function () {
+        return {
+            series:{
+                curvedLines:{
+                    active:true
+                },
+                color:"GREEN"
+            },
+            tooltip:true,
+            grid:{
+                show:true,
+                hoverable:false,
+                backgroundColor:{ colors:[ "#fff", "#eee" ] },
+                borderWidth:1,
+                borderColor:'#CCCCCC'
+            },
+            xaxis:chart.ts_xaxis,
+            yaxis:{
+                min:0
+            }
+        }
+    }
+};
+chart.fswrites = {
+    options:function () {
+        return {
+            series:{
+                curvedLines:{
+                    active:true
+                },
+                color:"GREEN"
+            },
+            tooltip:true,
+            grid:{
+                show:true,
+                hoverable:false,
+                backgroundColor:{ colors:[ "#fff", "#eee" ] },
+                borderWidth:1,
+                borderColor:'#CCCCCC'
+            },
+            xaxis:chart.ts_xaxis,
+            yaxis:{
+                min:0
+            }
+        }
+    }
+};
+
+chart.transporttxcount = {
+    options:function () {
+        return {
+            series:{
+                curvedLines:{
+                    active:true
+                },
+                color:"GREEN"
+            },
+            tooltip:true,
+            grid:{
+                show:true,
+                hoverable:false,
+                backgroundColor:{ colors:[ "#fff", "#eee" ] },
+                borderWidth:1,
+                borderColor:'#CCCCCC'
+            },
+            xaxis:chart.ts_xaxis,
+            yaxis:{
+                min:0
+            }
+        }
+    }
+};
+
+
+chart.httpopen = {
+    options:function () {
+        return {
+            series:{
+                curvedLines:{
+                    active:true
+                },
+                color:"GREEN"
+            },
+            tooltip:true,
+            grid:{
+                show:true,
+                hoverable:false,
+                backgroundColor:{ colors:[ "#fff", "#eee" ] },
+                borderWidth:1,
+                borderColor:'#CCCCCC'
+            },
+            xaxis:chart.ts_xaxis,
+            yaxis:{
+                min:0
             }
         }
     }
