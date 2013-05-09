@@ -51,16 +51,13 @@ $(document).ready(
                 nodePoller = Backbone.Poller.get(nodeStat, polloptions);
                 nodePoller.start();
                 nodePoller.on('success', function (nodeInfo) {
-                    console.log('another successful fetch!');
+                    console.log('Successful poller fetch!');
                     nodeInfoView.render();
+                    ajaxloading.hide();
                 });
 
-                /*
-                 poller.on('complete', function (nodeStat) {
-                 console.log('hurray! we are done!');
-                 });
-                 */
                 nodePoller.on('error', function (nodeInfo) {
+                    // TODO
                     console.log('oops! something went wrong');
                 });
 

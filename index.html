@@ -43,16 +43,23 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                 <ul class="nav">
                     <li>
                         <form class="form-search" style="margin:0;padding: 0;" id="connform_top">
-                            <div class="input-prepend input-append" style="width: 300px;padding-top: 5px;">
+                            <div class="input-prepend input-append" style="width: 350px;padding-top: 5px;">
                                 <span class="add-on"><i class="icon-sitemap"></i></span>
                                 <input type="text" placeholder="Enter REST URL..." name="connectionURL"
-                                       style="width: 250px;"
+                                       style="width: 220px;"
                                        id="connectionURL">
                                 <button class="btn btn-info" type="button" id="connectButton">Connect</button>
                             </div>
                         </form>
+
                     </li>
+                    <li>
+                        <div id="ajaxindicator" style="padding-top:8px;">
+                            <img src="images/ajax-loader.gif"/></div>
+                    </li>
+
                 </ul>
+
                 <ul class="nav pull-right">
                     <a class="btn btn-success" href="https://github.com/royrusso/elasticsearch-HQ"><i
                             class="icon-github icon-large"></i> Star us on GitHub</a>
@@ -111,10 +118,10 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <!-- App -->
 <script src="js/elastichq.js"></script>
 <script src="js/router.js"></script>
+<script src="js/util/tools.js"></script>
 
 <!-- Overrides/Extensions must go first! -->
 <script src="js/model/ModelUtil.js"></script>
-<script src="js/view/ViewUtil.js"></script>
 
 <!-- Templates -->
 <script src="js/template/ClusterTemplates.js"></script>
@@ -150,6 +157,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script>
     $(document).ready(function () {
         $('#connectionURL').focus();
+        ajaxloading.hide();
 
         $("[rel=tipRight]").tooltip(
                 {

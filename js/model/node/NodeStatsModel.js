@@ -35,7 +35,7 @@ var NodeStatsModel = Backbone.Model.extend({
     },
     fetch:function (options) {
         console.log('Fetching NodeStats');
+        ajaxloading.show();
         this.constructor.__super__.fetch.apply(this, arguments);
-
     }
 });

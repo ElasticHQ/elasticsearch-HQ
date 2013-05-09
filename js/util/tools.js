@@ -1,8 +1,11 @@
-Backbone.Collection = Backbone.Collection.extend({
-    clear:function () {
-
+var ajaxloading = {
+    show:function () {
+        $('#ajaxindicator').fadeIn({duration: 1000});
+    },
+    hide:function () {
+        $('#ajaxindicator').fadeOut({duration: 1000});
     }
-});
+}
 
 var timeUtil = {
     lastUpdated:function () {
