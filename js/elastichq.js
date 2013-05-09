@@ -17,7 +17,7 @@
  */
 
 // log =1, no-log =0.
-var debugMode = 1;
+var debugMode = 0;
 
 var cluster; // globally available cluster object maintains state of models and connection url.
 $(document).ready(
@@ -44,14 +44,14 @@ $(document).ready(
 var doConnect = function (connectionRootURL) {
 
     cluster = new Cluster({connectionRootURL:connectionRootURL});
-    if (cluster == undefined) {
-        console.log('ssss');
-    }
+
     cluster.get("clusterHealth").fetch({
         success:function (healthModel, response) {
             var clusterName = healthModel.get("cluster_name");
             console.log('Connected to: ' + clusterName);
 
+            // set cookie in case of refresh
+            $.cookie("resturl", connectionRootURL);
 
             var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
             clusterView.render();
