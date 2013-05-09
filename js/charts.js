@@ -170,3 +170,29 @@ chart.mem = {
         }
     }
 };
+chart.procscpu = {
+    options:function (max) {
+        return {
+            series:{
+                curvedLines:{
+                    active:true
+                },
+                color:"GREEN"
+            },
+            tooltip: true,
+            grid:{
+                show:true,
+                hoverable: false,
+                backgroundColor:{ colors:[ "#fff", "#eee" ] },
+                borderWidth:1,
+                borderColor:'#CCCCCC'
+            },
+            xaxis:chart.ts_xaxis,
+            yaxis:{
+                min: 0,
+                max: max,
+                tickSize:100
+            }
+        }
+    }
+};

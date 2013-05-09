@@ -46,6 +46,7 @@ var NodeStatView = Backbone.View.extend(
                 osStats.cpu.model = nodeInfo.nodes[nodeId].os.cpu.model;
                 osStats.cpu.total_cores = nodeInfo.nodes[nodeId].os.cpu.total_cores;
                 osStats.available_processors = nodeInfo.nodes[nodeId].os.available_processors;
+                osStats.max_proc_cpu = 100 * osStats.available_processors
 
                 //massage
                 var jvmuptime = jvmStats.uptime.split('and');
@@ -115,6 +116,18 @@ var NodeStatView = Backbone.View.extend(
                 this.memchart = chart.draw("#chart-mem", this.memdata, chart.mem.options(totalbytesgb));
                 this.memchart.setData([this.memdata]);
 
+                // process
+                this.proccpudata = chart.addData(this.proccpudata, [new Date().getTime() + 1, processStats.cpu.percent]);
+                this.proccpudata.push([now, processStats.cpu.percent]);
+                this.proccpuchart = chart.draw("#chart-procpu", this.proccpudata, chart.procscpu.options(100 * osStats.available_processors));
+                this.proccpuchart.setData([this.proccpudata]);
+                /*
+                 var totalbytesgb = (osStats.mem.free_in_bytes + osStats.mem.used_in_bytes) / (1024 * 1024 * 1024);
+                 this.memdata = chart.addData(this.memdata, [new Date().getTime() + 1, osStats.mem.used_in_bytes / (1024 * 1024 * 1024)]);
+                 this.memdata.push([now, osStats.mem.used_in_bytes / (1024 * 1024 * 1024)]);
+                 this.memchart = chart.draw("#chart-mem", this.memdata, chart.mem.options(totalbytesgb));
+                 this.memchart.setData([this.memdata]);*/
+
                 return this;
             },
             nodeInfo:undefined,
@@ -129,6 +142,8 @@ var NodeStatView = Backbone.View.extend(
             cpudata:undefined,
             cpuchart:undefined,
             memdata:undefined,
-            memchart:undefined
+            memchart:undefined,
+            proccpudata:undefined,
+            proccpuchart:undefined
         })
     ;
