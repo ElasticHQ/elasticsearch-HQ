@@ -40,7 +40,6 @@ $(document).ready(
         });
     });
 
-
 var doConnect = function (connectionRootURL) {
 
     cluster = new Cluster({connectionRootURL:connectionRootURL});

@@ -38,17 +38,19 @@ $(document).ready(
             cluster:function () {
                 cleanDefaults();
 
-                cluster.get("clusterHealth").fetch({
-                        success:function (healthModel, response) {
-                            var clusterName = healthModel.get("cluster_name");
-                            console.log('Connected to: ' + clusterName);
+                var healthModel = cluster.get("clusterHealth");
+                healthModel.fetch({
+                    success:function () {
 
+                        var polloptions = {delay:10000};
+                        clusterHealthPoller = Backbone.Poller.get(healthModel, polloptions);
+                        clusterHealthPoller.start();
+
+                        clusterHealthPoller.on('success', function (healthModel) {
                             var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
                             clusterView.render();
                             $("#toolbar").css("visibility", "visible");
 
-                            // now call for cluster state for node data...
-                            console.log(connectionURL);
                             var nodeList = cluster.get("nodeList");
                             nodeList.fetch(
                                 {
@@ -62,21 +64,27 @@ $(document).ready(
                                     }
                                 }
                             );
-                        },
-                        error:function (model, response, options) {
+                        });
+
+                        clusterHealthPoller.on('error', function (healthModel) {
                             var err = 'Unable to Connect to Server! ';
-                            if (response) {
-                                err += 'Received Status Code: ' + response.status;
-                            }
                             console.log('Error! ' + err);
                             var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                             var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                             errorMsgView.render();
+                        });
+                    },
+                    error:function (model, response) {
+                        var err = 'Unable to Connect to Server! ';
+                        if (response) {
+                            err += 'Received Status Code: ' + response.status;
                         }
+                        console.log('Error! ' + err);
+                        var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
+                        var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
+                        errorMsgView.render();
                     }
-                );
-
-                console.log('cluster route');
+                });
             },
             nodes:function (nodeId) {
                 cleanDefaults();
@@ -128,6 +136,7 @@ $(document).ready(
     });
 
 var cleanDefaults = function () {
+
     if (nodePoller != undefined) {
         nodePoller.stop();
     }

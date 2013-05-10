@@ -70,3 +70,7 @@ body {
     font-size: 36px;
     filter: progid:DXImageTransform.Microsoft.Matrix(M11 = 0.0, M12 = 0.33, M21 = -0.33, M22 = 0.0, sizingMethod = 'auto expand');
 }
+
+.modal-loading {
+    width: 350px;
+}
