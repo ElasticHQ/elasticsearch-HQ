@@ -23,6 +23,10 @@
 
 var NodeStatView = Backbone.View.extend(
         {
+            initialize: function(args)
+            {
+                this.infoModel = args.infoModel;
+            },
             render:function () {
                 var nodeStat = this.model.toJSON();
                 var nodeId = nodeStat.nodeId;
@@ -39,7 +43,7 @@ var NodeStatView = Backbone.View.extend(
                 var netStats = nodeStat.nodes[nodeId].transport;
                 var httpStats = nodeStat.nodes[nodeId].http;
 
-                var nodeInfo = cluster.get("nodeInfo").toJSON();
+                var nodeInfo = this.infoModel.toJSON();
                 jvmStats.version = nodeInfo.nodes[nodeId].jvm.version;
                 jvmStats.vm_name = nodeInfo.nodes[nodeId].jvm.vm_name;
                 jvmStats.vm_vendor = nodeInfo.nodes[nodeId].jvm.vm_vendor;
@@ -171,8 +175,11 @@ var NodeStatView = Backbone.View.extend(
                 this.threadsearchchart = chart.draw("#chart-threadsearch", this.threadsearchdata, chart.transporttxcount.options());
                 this.threadsearchchart.setData([this.threadsearchdata]);
 
+                $("[rel=tipRight]").tooltip();
+
                 return this;
             },
+            infoModel: undefined,
             nodeInfo:undefined,
             jvmheapdata:undefined,
             jvmheapchart:undefined,

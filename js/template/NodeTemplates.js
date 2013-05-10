@@ -12,11 +12,26 @@ nodeTemplate.nodeList = [
 ].join("\n");
 
 
-nodeTemplate.nodeInfo = ['<div class="pull-right" style="line-height: 13px;font-size: 10px;">Refreshed:<br/><%- lastUpdateTime %></div>',
-    '<div class="text-center">',
+nodeTemplate.nodeInfo = [
 
-    '<span style="font-size: 28px;padding:20px 0 3px 0;"><%- nodeName %></span><br/>',
-    '<small><%- address %> on <%- hostName %></small></div>',
+    '<div class="well">',
+    '<div class="pull-left" style="line-height: 13px;font-size: 10px;">Refreshed:<br/><%- lastUpdateTime %></div>',
+
+    '<div id="toolbar" class="pull-right">',
+    '<div class="btn-group">',
+    '<a href="#showhotthreads" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="FEATURE NOT IMPLEMENTED YET Show Hot Threads" ',
+    '><i class="icon-fire"></i></a>',
+    '<a href="#shutdownnode" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="FEATURE NOT IMPLEMENTED YET Shutdown Node"><i',
+    'class="icon-off"></i>',
+    '</a>',
+    '</div> <!-- btn group -->',
+    '</div> <!-- toolbar --> ',
+
+    '<div class="text-center">',
+    '<span style="font-size: 28px;"><%- nodeName %></span>',
+    '</div>',
+    '</div><!-- well -->',
+
     /*JVM*/
     '<div class="lead text-left"><i class="icon-th-large"></i> JVM</div>',
     '<div class="row-fluid">',

@@ -49,5 +49,10 @@ var Cluster = Backbone.Model.extend({
         var nodelistmodel = new NodeListModel();
         nodelistmodel.setConnectionRootURL(conn);
         _this.set({nodeList:nodelistmodel});
+    },
+    fetch:function (options) {
+        console.log('Fetching ClusterHealth');
+        ajaxloading.show();
+        this.constructor.__super__.fetch.apply(this, arguments);
     }
 });
