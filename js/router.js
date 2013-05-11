@@ -29,6 +29,7 @@ $(document).ready(
                 "cluster":"cluster",
                 "nodes":"nodes",
                 "nodes/:nodeId":"nodes",
+                "shutdownNode/:nodeId":"killNode",
                 "indices":"indices",
                 "query":"query",
                 "admin":"admin",
@@ -122,8 +123,14 @@ $(document).ready(
                         }
                     }
                 );
-
-
+            },
+            killNode:function (nodeId) {
+                cleanDefaults();
+                console.log("shutdown for nodeId: " + nodeId);
+                var nodeShutdown = new NodeShutdownModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
+                nodeShutdown.save();
+                var nodeShutdownView = new NodeShutdownView();
+                nodeShutdownView.render();
             },
             defaultRoute:function () {
                 cleanDefaults();

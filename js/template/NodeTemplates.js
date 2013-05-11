@@ -11,6 +11,11 @@ nodeTemplate.nodeList = [
     '<% }); %>'
 ].join("\n");
 
+nodeTemplate.nodeShutdown = [
+    '<div class="lead text-center" style="padding-top: 20px;">Shutdown Command has been sent to Node.<br/>Click button below to refresh node list.<br/>',
+    '<br/><br/><a href="#cluster" class="btn btn-large btn-primary">Click to Continue <i class="icon-chevron-right"></i></a>',
+    '</div>'
+].join("\n");
 
 nodeTemplate.nodeInfo = [
 
@@ -19,9 +24,9 @@ nodeTemplate.nodeInfo = [
 
     '<div id="toolbar" class="pull-right">',
     '<div class="btn-group">',
-    '<a href="#showhotthreads" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="FEATURE NOT IMPLEMENTED YET Show Hot Threads" ',
+    '<a href="#showhotthreads" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="FEATURE NOT IMPLEMENTED YET Show Hot Threads"',
     '><i class="icon-fire"></i></a>',
-    '<a href="#shutdownnode" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="FEATURE NOT IMPLEMENTED YET Shutdown Node"><i',
+    '<a href="#shutdownNode/<%- nodeId %>" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Shutdown Node"><i',
     'class="icon-off"></i>',
     '</a>',
     '</div> <!-- btn group -->',
