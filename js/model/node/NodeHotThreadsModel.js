@@ -27,7 +27,10 @@ var NodeHotThreadsModel = Backbone.Model.extend({
         this.nodeId = args.nodeId;
     },
     url:function () {
-        return '/_nodes/' + this.nodeId + '/hot_threads&threads=10';
+        return '/_nodes/' + this.nodeId + '/hot_threads';
+    },
+    parse:function (resp, xhr) {
+        return resp;
     }
 
 });

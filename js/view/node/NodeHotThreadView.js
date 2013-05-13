@@ -19,8 +19,9 @@
 var NodeHotThreadView = Backbone.View.extend({
     render:function () {
         var nodeList = this.model;
-            var template = _.template(nodeTemplate.nodeHotThreads, {nodes:nodeList});
-            $(this.el).html(template);
+        var template = _.template(nodeTemplate.nodeHotThreads, {nodes:nodeList});
+        $('#modal-div-loc').html(template);
+        $('threadModal').modal('show');
         return this;
     }
 });

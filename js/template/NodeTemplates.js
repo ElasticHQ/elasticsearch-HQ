@@ -18,11 +18,50 @@ nodeTemplate.nodeShutdown = [
 ].join("\n");
 
 nodeTemplate.nodeHotThreads = [
-    '<div class="lead text-center" style="padding-top: 20px;">Shutdown Command has been sent to Node.<br/>Click button below to refresh node list.<br/>',
-    '<br/><br/><a href="#cluster" class="btn btn-large btn-primary">Click to Continue <i class="icon-chevron-right"></i></a>',
+    '<div class="modal hide fade" id="threadModal">',
+    '<div class="modal-header">',
+    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>',
+    '<h3>Modal header</h3>',
+    '</div>',
+    '<div class="modal-body">',
+    '<p>One fine body…</p>',
+    '</div>',
+    '<div class="modal-footer">',
+    '<a href="#" class="btn">Close</a>',
+    '<a href="#" class="btn btn-primary">Save changes</a>',
+    '</div>',
     '</div>'
 ].join("\n");
 
+nodeTemplate.nodeInfoModal = [
+    '<div class="modal hide fade" id="nodeInfoModal">',
+    '<div class="modal-header">',
+    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
+    '<h3>Settings Information</h3>',
+    '</div>',
+    '<div class="modal-body">',
+    '<p>',
+    '<table class="table table-condensed table-striped table-bordered">',
+    '<tr><td>Node Name:</td><td><%- settings.nodeName %></td></tr>',
+    '<tr><td>Node Version:</td><td><%- version %></td></tr>',
+    '<tr><td>Node is Master?</td><td><%- settings.nodeMaster %></td></tr>',
+    '<tr><td>Node Holds Data?</td><td><%- settings.nodeData %></td></tr>',
+    '<tr><td>Cluster Name:</td><td><%- settings.clusterName %></td></tr>',
+    '<tr><td>Hostname:</td><td><%- host %></td></tr>',
+    '<tr><td>HTTP Address:</td><td><%- settings.http_address %></td></tr>',
+    '<tr><td>Home Path:</td><td><%- settings.pathHome %></td></tr>',
+    '<tr><td>Log Path:</td><td><%- settings.logPath %></td></tr>',
+    '<tr><td>Logger Prefix:</td><td><%- settings.logPrefix %></td></tr>',
+
+    '</table>',
+    '</p>',
+    '</div>',
+    '<div class="modal-footer">',
+    '<a href="#" data-dismiss="modal"  class="btn">Close</a>',
+    '</div>',
+    '</div>',
+    '</div>'
+].join("\n");
 nodeTemplate.nodeInfo = [
 
     '<div class="well">',
@@ -30,8 +69,8 @@ nodeTemplate.nodeInfo = [
 
     '<div id="toolbar" class="pull-right">',
     '<div class="btn-group">',
-    '<a href="#showhotthreads" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Show Hot Threads"',
-    '><i class="icon-fire"></i></a>',
+    '<a href="#nodeInfoModal" role="button" data-toggle="modal" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Just the Facts, Ma\'am"',
+    '><i class="icon-info-sign"></i></a>',
     '<a href="#shutdownNode/<%- nodeId %>" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Shutdown Node"><i',
     'class="icon-off"></i>',
     '</a>',

@@ -23,8 +23,7 @@
 
 var NodeStatView = Backbone.View.extend(
         {
-            initialize: function(args)
-            {
+            initialize:function (args) {
                 this.infoModel = args.infoModel;
             },
             render:function () {
@@ -59,6 +58,19 @@ var NodeStatView = Backbone.View.extend(
                 netInfo.http = nodeInfo.nodes[nodeId].http;
                 netInfo.http.address = nodeInfo.nodes[nodeId].http_address;
 
+                // for modal
+                var settings = {};
+                settings.nodeName = nodeInfo.nodes[nodeId].settings['node.name'];
+                settings.pathHome = nodeInfo.nodes[nodeId].settings['path.home'];
+                settings.nodeMaster = nodeInfo.nodes[nodeId].settings['node.master'];
+                settings.nodeData = nodeInfo.nodes[nodeId].settings['node.data'];
+                settings.logPrefix = nodeInfo.nodes[nodeId].settings['logger.prefix'];
+                settings.clusterName = nodeInfo.nodes[nodeId].settings['cluster.name'];
+                settings.logPath = nodeInfo.nodes[nodeId].settings['path.logs'];
+                settings.http_address = nodeInfo.nodes[nodeId].http_address;
+                var version = nodeInfo.nodes[nodeId].version;
+                var host = nodeInfo.nodes[nodeId].hostname;
+
                 //massage
                 var jvmuptime = jvmStats.uptime.split('and');
                 jvmStats.uptime = jvmuptime[0];
@@ -90,6 +102,18 @@ var NodeStatView = Backbone.View.extend(
                         netStats:netStats,
                         lastUpdateTime:timeUtil.lastUpdated()
                     }));
+
+                // flag check: poller will cause modal to close if it's currently being viewed, as it tried to draw
+                // the tpl every time.
+                if (!this.renderedModal) {
+                    var modalTpl = _.template(nodeTemplate.nodeInfoModal);
+                    $('#infoModal-loc').html(modalTpl({
+                        version:version,
+                        host:host,
+                        settings:settings
+                    }));
+                }
+                this.renderedModal = true;
 
                 // -------- Charting -------- //
                 var now = new Date().getTime();
@@ -179,7 +203,8 @@ var NodeStatView = Backbone.View.extend(
 
                 return this;
             },
-            infoModel: undefined,
+            renderedModal:false,
+            infoModel:undefined,
             nodeInfo:undefined,
             jvmheapdata:undefined,
             jvmheapchart:undefined,

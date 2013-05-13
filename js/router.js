@@ -30,6 +30,7 @@ $(document).ready(
                 "nodes":"nodes",
                 "nodes/:nodeId":"nodes",
                 "shutdownNode/:nodeId":"killNode",
+                "showhotthreads/:nodeId":"showhotthreads",
                 "indices":"indices",
                 "query":"query",
                 "admin":"admin",
@@ -131,6 +132,15 @@ $(document).ready(
                 nodeShutdown.save();
                 var nodeShutdownView = new NodeShutdownView();
                 nodeShutdownView.render();
+            },
+            showhotthreads:function (nodeId) {
+                var nodeHotThreads = new NodeHotThreadsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
+                nodeHotThreads.fetch({
+                    success:function () {
+                        var nodeHotThreadsView = new NodeHotThreadView({model:nodeHotThreads});
+                        nodeHotThreadsView.render();
+                    }
+                });
             },
             defaultRoute:function () {
                 cleanDefaults();
