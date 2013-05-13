@@ -32,7 +32,7 @@ var chart = {
     },
     draw:function (id, data, options) {
         return $.plot($(id), [
-            {data:data, lines:{ show:true, fill:true, fillColor:"#C3C3C3", lineWidth:3}, curvedLines:{apply:true}}
+            {data:data, lines:{ show:true, fill:true, fillColor:"#E0F0B0", lineWidth:3}, curvedLines:{apply:true}}
         ], options);
     }
 }
