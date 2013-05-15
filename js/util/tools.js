@@ -23,8 +23,12 @@ var timeUtil = {
             seconds = '0' + seconds;
         return hours + ":" + minutes + ":" + seconds;
     }
-}
+};
 
+/**
+ * Notification system. https://github.com/sciactive/pnotify
+ * @type {Object}
+ */
 var stack_bottomright = {"dir1":"up", "dir2":"left", "firstpos1":25, "firstpos2":25};
 function show_stack_bottomright(args) {
     var opts = {
@@ -35,7 +39,7 @@ function show_stack_bottomright(args) {
         styling:"bootstrap",
         history:false,
         icon:true,
-        delay: 5000
+        delay:5000
     };
     switch (args.type) {
         case 'error':
