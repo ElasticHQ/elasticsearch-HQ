@@ -22,10 +22,10 @@
 var NodeListView = Backbone.View.extend({
     render:function () {
         var nodeList = this.model;
-        if (nodeList) {
-            var template = _.template(nodeTemplate.nodeList, {nodes:nodeList});
-            $(this.el).html(template);
-        }
+        //if (nodeList) {
+        var template = _.template(nodeTemplate.nodeList, {nodes:nodeList});
+        $(this.el).html(template);
+        //}
         $("[rel=tipRight]").tooltip();
         return this;
     }

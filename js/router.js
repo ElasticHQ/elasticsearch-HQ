@@ -62,24 +62,42 @@ $(document).ready(
                                         nodeListView.render();
                                     },
                                     error:function (model, response, options) {
-                                        // TODO
+                                        var err = 'Unable to Read Node List! ';
+                                        console.log('Error! ' + err);
+                                        var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
+                                        var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
+                                        errorMsgView.render();
                                     }
                                 }
                             );
                         });
 
-                        clusterHealthPoller.on('error', function (healthModel) {
-                            var err = 'Unable to Connect to Server! ';
+                        clusterHealthPoller.on('error', function (healthModel, response) {
+                            var err = 'Unable to Connect to Server! Connection broken, or server has gone away. Please try to reconnect.';
                             console.log('Error! ' + err);
                             var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                             var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                             errorMsgView.render();
+
+                            // update cluster button
+                            healthModel.attributes.status = 'red';
+                            var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
+                            clusterView.render();
+                            $("#toolbar").css("visibility", "hidden");
+
+                            // update nodes view.
+                            var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:[]});
+                            nodeListView.render();
+
                         });
                     },
                     error:function (model, response) {
                         var err = 'Unable to Connect to Server! ';
                         if (response) {
-                            err += 'Received Status Code: ' + response.status;
+                            err += 'Received Status Code: ' + response.status + '.';
+                            if (response.status == 0) {
+                                err += " A status code of 0, may imply that the cluster is down completely, or the host is unreacheable.";
+                            }
                         }
                         console.log('Error! ' + err);
                         var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
@@ -116,11 +134,19 @@ $(document).ready(
                              });
                              */
                             nodePoller.on('error', function (nodeInfo) {
-                                console.log('oops! something went wrong');
+                                var err = 'Unable to Read Node Information! ';
+                                console.log('Error! ' + err);
+                                var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
+                                var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
+                                errorMsgView.render();
                             });
                         },
-                        error:function () {
-                            // TODO
+                        error:function (model, response, options) {
+                            var err = 'Unable to Read Node Information! ';
+                            console.log('Error! ' + err);
+                            var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
+                            var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
+                            errorMsgView.render();
                         }
                     }
                 );
