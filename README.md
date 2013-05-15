@@ -19,7 +19,8 @@ Requirements
 
 Developer Notes
 ------------
-If you find a bug, **please** create an issue and report it, or fix it and let me know. ;-)
+* If you need sample index + documents, see here: https://github.com/royrusso/elasticsearch-sample-index
+* If you find a bug, **please** create an issue and report it, or fix it and let me know. ;-)
  
 License
 ------------
