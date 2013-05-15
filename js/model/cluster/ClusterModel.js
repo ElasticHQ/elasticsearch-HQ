@@ -37,9 +37,25 @@ var Cluster = Backbone.Model.extend({
         ping.fetch({
             success:function (model, response) {
                 console.log('Successful connect!');
+                $.cookie("resturl", args.connectionRootURL); // session cookie
                 show_stack_bottomright({type:'info', title:'Tip', text:'ElasticHQ will refresh the Node List every 5 seconds.'});
                 show_stack_bottomright({type:'success', title:'Successful Connect!', text:'Connection to cluster has been established.'});
-
+            },
+            error:function (model, response, options) {
+                console.log('Failed to Connect on Ping!');
+                show_stack_bottomright({type:'error', title:'Failed to Connect!', text:'Connection to cluster could not be established.'});
+                var err = 'Unable to Connect to Server! ';
+                if (response) {
+                    err += 'Received Status Code: ' + response.status + '.';
+                    if (response.status == 0) {
+                        err += " A status code of 0, could mean the host is unreacheable or nothing is listening on the given port.";
+                    }
+                }
+                console.log('Error! ' + err);
+                var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
+                var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
+                errorMsgView.render();
+                return;
             }
         });
         _this.initModel(args.connectionRootURL); // init cluster objects

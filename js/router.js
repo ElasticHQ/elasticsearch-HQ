@@ -41,6 +41,10 @@ $(document).ready(
                 cleanDefaults();
 
                 var healthModel = cluster.get("clusterHealth");
+
+                /*                var host = $.cookie("resturl");
+                 console.log('Cookie Value for URL: ' + host);*/
+
                 healthModel.fetch({
                     success:function () {
 
@@ -96,7 +100,7 @@ $(document).ready(
                         if (response) {
                             err += 'Received Status Code: ' + response.status + '.';
                             if (response.status == 0) {
-                                err += " A status code of 0, may imply that the cluster is down completely, or the host is unreacheable.";
+                                err += " A status code of 0, could mean the host is unreacheable or nothing is listening on the given port.";
                             }
                         }
                         console.log('Error! ' + err);
