@@ -158,6 +158,8 @@ $(document).ready(
                 nodeShutdown.save();
                 var nodeShutdownView = new NodeShutdownView();
                 nodeShutdownView.render();
+                show_stack_bottomright({type:'info', title:'Tip', text:'Node List will soon refresh and remove the dead node.'});
+
             },
             showhotthreads:function (nodeId) {
                 var nodeHotThreads = new NodeHotThreadsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
