@@ -38,6 +38,11 @@ var Cluster = Backbone.Model.extend({
             success:function (model, response) {
                 console.log('Successful connect!');
                 $.cookie("resturl", args.connectionRootURL); // session cookie
+
+                var version = ping.get("version");
+                if (version && version.number) {
+                    _this.supportedVersion(version.number);
+                }
                 show_stack_bottomright({type:'info', title:'Tip', text:'ElasticHQ will refresh the Node List every 5 seconds.'});
                 show_stack_bottomright({type:'success', title:'Successful Connect!', text:'Connection to cluster has been established.'});
             },
@@ -59,6 +64,15 @@ var Cluster = Backbone.Model.extend({
             }
         });
         _this.initModel(args.connectionRootURL); // init cluster objects
+    },
+    supportedVersion:function (versionNumber) {
+        var versionArr = versionNumber.split(".");
+        if (versionArr[0] >= 0 && versionArr[1] >= 90) {
+            // TODO: this will not scale. If not versions are released, we need a better way to do this check, ie. it will fail on 1.0
+        }
+        else {
+            show_stack_bottomright({type:'warning', title:'Version Warning!', text:'ElasticHQ may not work with version ' + versionNumber + '. Tested on 0.90.0.'});
+        }
     },
     initModel:function (conn) {
         var _this = this;
