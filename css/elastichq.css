@@ -74,3 +74,9 @@ body {
 .modal-loading {
     width: 350px;
 }
+
+.ui-pnotify.stack-bottomright {
+    /* These are just CSS default values to reset the pnotify CSS. */
+    right: auto;
+    top: auto;
+}

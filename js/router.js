@@ -73,7 +73,7 @@ $(document).ready(
                         });
 
                         clusterHealthPoller.on('error', function (healthModel, response) {
-                            var err = 'Unable to Connect to Server! Connection broken, or server has gone away. Please try to reconnect.';
+                            var err = 'Unable to Connect to Server! Connection broken, or server has gone away. Please reconnect.';
                             console.log('Error! ' + err);
                             var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                             var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});

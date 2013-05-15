@@ -42,6 +42,8 @@ var NodeStatView = Backbone.View.extend(
                 var netStats = nodeStat.nodes[nodeId].transport;
                 var httpStats = nodeStat.nodes[nodeId].http;
 
+
+
                 var nodeInfo = this.infoModel.toJSON();
                 jvmStats.version = nodeInfo.nodes[nodeId].jvm.version;
                 jvmStats.vm_name = nodeInfo.nodes[nodeId].jvm.vm_name;
@@ -117,6 +119,7 @@ var NodeStatView = Backbone.View.extend(
                         host:host,
                         settings:settings
                     }));
+                    show_stack_bottomright({type:'info', title:'Tip', text:'Polling Node "' + nodeName + '" every 5 seconds.'});
                 }
                 this.renderedModal = true;
 

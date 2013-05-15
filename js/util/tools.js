@@ -1,9 +1,9 @@
 var ajaxloading = {
     show:function () {
-        $('#ajaxindicator').fadeIn({duration: 1000});
+        $('#ajaxindicator').fadeIn({duration:1000});
     },
     hide:function () {
-        $('#ajaxindicator').fadeOut({duration: 1000});
+        $('#ajaxindicator').fadeOut({duration:1000});
     }
 }
 
@@ -24,6 +24,32 @@ var timeUtil = {
         return hours + ":" + minutes + ":" + seconds;
     }
 }
+
+var stack_bottomright = {"dir1":"up", "dir2":"left", "firstpos1":25, "firstpos2":25};
+function show_stack_bottomright(args) {
+    var opts = {
+        title:args.title,
+        text:args.text,
+        addclass:"stack-bottomright",
+        stack:stack_bottomright,
+        styling:"bootstrap",
+        history:false,
+        icon:true,
+        delay: 5000
+    };
+    switch (args.type) {
+        case 'error':
+            opts.type = "error";
+            break;
+        case 'info':
+            opts.type = "info";
+            break;
+        case 'success':
+            opts.type = "success";
+            break;
+    }
+    $.pnotify(opts);
+};
 
 /**
  * Convert number of bytes into human readable format

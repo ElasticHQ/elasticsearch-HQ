@@ -37,6 +37,9 @@ var Cluster = Backbone.Model.extend({
         ping.fetch({
             success:function (model, response) {
                 console.log('Successful connect!');
+                show_stack_bottomright({type:'info', title:'Tip', text:'ElasticHQ will refresh the Node List every 5 seconds.'});
+                show_stack_bottomright({type:'success', title:'Successful Connect!', text:'Connection to cluster has been established.'});
+
             }
         });
         _this.initModel(args.connectionRootURL); // init cluster objects
