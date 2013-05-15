@@ -60,10 +60,15 @@ var NodeStatView = Backbone.View.extend(
 
                 // for modal
                 var settings = {};
-                settings.nodeName = nodeInfo.nodes[nodeId].settings['node.name'];
+                settings.nodeName = nodeInfo.nodes[nodeId].settings['name'];
                 settings.pathHome = nodeInfo.nodes[nodeId].settings['path.home'];
                 settings.nodeMaster = nodeInfo.nodes[nodeId].settings['node.master'];
                 settings.nodeData = nodeInfo.nodes[nodeId].settings['node.data'];
+                // TODO: hack! for some reason, the master never returns a bool for either of these, yet the other nodes do.
+                if (settings.nodeMaster == undefined && settings.nodeData == undefined) {
+                    settings.nodeMaster = true;
+                    settings.nodeData = true;
+                }
                 settings.logPrefix = nodeInfo.nodes[nodeId].settings['logger.prefix'];
                 settings.clusterName = nodeInfo.nodes[nodeId].settings['cluster.name'];
                 settings.logPath = nodeInfo.nodes[nodeId].settings['path.logs'];
