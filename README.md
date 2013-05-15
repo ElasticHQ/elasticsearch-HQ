@@ -17,8 +17,9 @@ Requirements
 * A Web Browser.
 * A running instance of ElasticSearch with reachable REST endpoint.
 
-Developer Notes
+Notes + Support
 ------------
+* Google Group can be found here: https://groups.google.com/d/forum/elastichq
 * If you need sample index + documents, see here: https://github.com/royrusso/elasticsearch-sample-index
 * If you find a bug, **please** create an issue and report it, or fix it and let me know. ;-)
  
