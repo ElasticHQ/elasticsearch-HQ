@@ -10,7 +10,7 @@ indexTemplate.indexList = [
     '</thead>',
     '<tbody>',
     '<% _.each(indices, function(index) { %>',
-    '<tr><td><%- index.id %></td><td><%- index.docs.num_docs %></td><td><%- index.index.primary_size %></td><td><%- index.numshards %></td><td><%- index.numreplicas %></td></tr>',
+    '<tr><td><a href="#index/<%- index.id %>" class="btn btn-info"><%- index.id %></a></td><td><%- index.docs.num_docs %></td><td><%- index.index.primary_size %></td><td><%- index.numshards %></td><td><%- index.numreplicas %></td></tr>',
     '<% }); %>',
     '</tbody>',
     '</table>',

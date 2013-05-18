@@ -199,6 +199,10 @@ $(document).ready(
                     }
                 );
             },
+            index: function(indexId) {
+                stopNodePoller();
+
+            },
             defaultRoute:function () {
                 stopAllPollers();
                 console.log('defaultRoute');
