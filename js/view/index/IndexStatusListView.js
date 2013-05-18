@@ -27,8 +27,10 @@ var IndexStatusListView = Backbone.View.extend(
             var indices = [];
             for (var $i = 0; $i < indexStatus.length; $i++) {
                 var index = indexStatus[$i];
+                index.name = uppercaseFirst(index.id);
                 index.numshards = clusterState.metadata.indices[index.id].settings['index.number_of_shards'];
                 index.numreplicas = clusterState.metadata.indices[index.id].settings['index.number_of_replicas'];
+                index.status = clusterState.metadata.indices[index.id].state;
                 indices.push(index);
             }
             var tpl = _.template(indexTemplate.indexList);
@@ -37,7 +39,11 @@ var IndexStatusListView = Backbone.View.extend(
                     indices:indices
                 }));
 
-            $("#indicesTable").tablesorter({ sortList: [[1,1]] });
+            $("[rel=tipRight]").tooltip();
+
+            $("#indicesTable").tablesorter({ sortList:[
+                [1, 1]
+            ] });
 
             return this;
         }

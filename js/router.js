@@ -199,9 +199,10 @@ $(document).ready(
                     }
                 );
             },
-            index: function(indexId) {
+            index:function (indexId) {
                 stopNodePoller();
-
+                var indexView = new IndexView({});
+                indexView.render();
             },
             defaultRoute:function () {
                 stopAllPollers();
