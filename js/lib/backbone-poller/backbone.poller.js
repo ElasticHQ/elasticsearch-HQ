@@ -159,8 +159,10 @@ Backbone Poller may be freely distributed under the MIT license.
         delayedRun(poller);
       },
       error: function () {
+        // keep a refernce to the XHR object so we can pass it to the error handler
+        var xhr = poller.xhr;
         poller.stop({silent: true});
-        poller.trigger('error', poller.model);
+        poller.trigger('error', poller.model, xhr);
       }
     });
     poller.trigger('fetch', poller.model);
