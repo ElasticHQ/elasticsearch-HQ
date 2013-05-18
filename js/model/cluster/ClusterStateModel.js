@@ -16,24 +16,11 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-var IndexStatusModel = Backbone.Collection.extend({
-    model:IndexSimple,
-    initialize:function (args) {
-        console.log("Inside IndexStatusModel");
+var ClusterState = Backbone.Model.extend({
+    initialize:function () {
+        console.log("Inside ClusterState");
     },
     url:function () {
-        return '/_status'
-    },
-    parse:function (data) {
-
-        // indices are keyed by their id, so we need to get the key and add it to the value object foreach
-        var indices = data.indices;
-
-        var indexKeys = _.keys(indices);
-        var indexValues = _.values(indices);
-        for (var i = 0; i < indexKeys.length; i++) {
-            indexValues[i].id = indexKeys[i];
-        }
-        return indexValues;
+        return '/_cluster/state';
     }
 });

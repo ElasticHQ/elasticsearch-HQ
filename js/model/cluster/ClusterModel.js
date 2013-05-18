@@ -24,6 +24,7 @@ var Cluster = Backbone.Model.extend({
     defaults:{
         connectionRootURL:undefined,
         clusterHealth:undefined,
+        clusterState:undefined,
         nodeList:undefined,
         connected:false,
         nodeStats:undefined, // the current node selected for a live feed.
@@ -79,6 +80,7 @@ var Cluster = Backbone.Model.extend({
         _this.set({connected:true});
         _this.set({connectionRootURL:conn});
         _this.set({clusterHealth:new ClusterHealth({connectionRootURL:conn})});
+        _this.set({clusterState:new ClusterState({connectionRootURL:conn})});
         var nodelistmodel = new NodeListModel();
         nodelistmodel.setConnectionRootURL(conn);
         _this.set({nodeList:nodelistmodel});

@@ -42,11 +42,16 @@ $(document).ready(
 
                 var healthModel = cluster.get("clusterHealth");
 
-                /*                var host = $.cookie("resturl");
-                 console.log('Cookie Value for URL: ' + host);*/
-
                 healthModel.fetch({
                     success:function () {
+
+                        // populate clusterstate
+                        var clusterState = cluster.get("clusterState");
+                        clusterState.fetch({
+                            success:function () {
+                                cluster.set({clusterState:clusterState});
+                            }
+                        });
 
                         var polloptions = {delay:10000};
                         clusterHealthPoller = Backbone.Poller.get(healthModel, polloptions);
@@ -180,26 +185,19 @@ $(document).ready(
             },
             indices:function () {
                 stopNodePoller();
-                var indexStatusModel = new IndexStatusModel({connectionRootURL:cluster.get("connectionRootURL")});
-                var indexStatsModel = new IndexStatsModel({connectionRootURL:cluster.get("connectionRootURL")});
-                indexStatsModel.fetch({
-                    success:function () {
-                        indexStatusModel.fetch(
-                            {
-                                success:function () {
-                                    var indexListView = new IndexStatusListView({model:indexStatusModel, indexStatsModel:indexStatsModel});
-                                    indexListView.render();
-                                },
-                                error:function () {
-                                    // TODO
-                                }
-                            }
-                        )
-                    },
-                    error:function () {
-                        // TODO
+                var indexStatusModel = new IndexStatusModel();
+                indexStatusModel.setConnectionRootURL(cluster.get("connectionRootURL"));
+                indexStatusModel.fetch(
+                    {
+                        success:function () {
+                            var indexListView = new IndexStatusListView({model:indexStatusModel});
+                            indexListView.render();
+                        },
+                        error:function () {
+                            // TODO
+                        }
                     }
-                });
+                );
             },
             defaultRoute:function () {
                 stopAllPollers();

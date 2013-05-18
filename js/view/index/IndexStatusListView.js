@@ -21,32 +21,22 @@
  */
 var IndexStatusListView = Backbone.View.extend(
     {
-        initialize:function (args) {
-            this.indexStatsModel = args.indexStatsModel;
-        },
         render:function () {
             var indexStatus = this.model.toJSON();
-
+            var clusterState = cluster.get("clusterState").toJSON();
+            var indices = [];
+            for (var $i = 0; $i < indexStatus.length; $i++) {
+                var index = indexStatus[$i];
+                index.numshards = clusterState.metadata.indices[index.id].settings['index.number_of_shards'];
+                index.numreplicas = clusterState.metadata.indices[index.id].settings['index.number_of_replicas'];
+                indices.push(index);
+            }
             var tpl = _.template(indexTemplate.indexList);
             $('#workspace').html(tpl(
-                {/*
-                 jvmStats:jvmStats,
-                 nodeId:nodeId,
-                 osStats:osStats,
-                 processStats:processStats,
-                 nodeName:nodeName,
-                 address:address,
-                 hostName:hostName,
-                 threadPool:threadPool,
-                 fileSystem:fileSystem,
-                 threads:threads,
-                 indices:indices,
-                 netInfo:netInfo,
-                 netStats:netStats,
-                 lastUpdateTime:timeUtil.lastUpdated()*/
+                {
+                    indices:indices
                 }));
             return this;
-        },
-        indexStatsModel:undefined
+        }
     }
 );
