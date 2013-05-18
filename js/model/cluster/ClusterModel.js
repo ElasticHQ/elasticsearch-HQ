@@ -69,10 +69,13 @@ var Cluster = Backbone.Model.extend({
     supportedVersion:function (versionNumber) {
         var versionArr = versionNumber.split(".");
         if (versionArr[0] >= 0 && versionArr[1] >= 90) {
-            // TODO: this will not scale. If not versions are released, we need a better way to do this check, ie. it will fail on 1.0
+            show_stack_bottomright({type:'success', title:'Version Check', text:'ES Version supported: ' + versionNumber + '.'});
+        }
+        else if (versionArr[0] >= 1 && versionArr[1] >= 0) {
+            show_stack_bottomright({type:'success', title:'Version Check', text:'ES Version supported: ' + versionNumber + '.'});
         }
         else {
-            show_stack_bottomright({type:'warning', title:'Version Warning!', text:'ElasticHQ may not work with version ' + versionNumber + '. Tested on 0.90.0.'});
+            show_stack_bottomright({type:'warning', title:'Version Warning!', text:'ElasticHQ may not work with version ' + versionNumber + '. Tested on 0.90.0-1.0.0.'});
         }
     },
     initModel:function (conn) {
