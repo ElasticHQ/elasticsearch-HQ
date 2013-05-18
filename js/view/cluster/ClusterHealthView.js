@@ -49,7 +49,7 @@ var ClusterHealthView = Backbone.View.extend({
             var t = _.template(clusterTemplate.Health);
             $(this.el).html(t(clusterHealth.attributes));
 
-            this.renderWorkspace();
+            //this.renderWorkspace();
 
             $("[rel=popRight]").popover({});
         }

@@ -9,7 +9,7 @@ clusterTemplate.Health = [
 
 
 clusterTemplate.HealthDescribe = [
-    '<div class="text-center" style="font-size: 28px;padding:20px 0 20px 0;">Cluster Health</div>',
+    '<div class="text-center"><h2>Cluster Health</h2></div>',
     '<div class="span5 center-table">',
     '<table class="table table-striped table-hover table-bordered  center-table">',
     '<tr>',

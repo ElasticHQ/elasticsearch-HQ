@@ -18,8 +18,7 @@
 
 var router;
 
-var nodePoller;
-var clusterHealthPoller;
+
 $(document).ready(
     function ($) {
 
@@ -32,13 +31,14 @@ $(document).ready(
                 "shutdownNode/:nodeId":"killNode",
                 "showhotthreads/:nodeId":"showhotthreads",
                 "indices":"indices",
+                "index/:indexId":"index",
                 "query":"query",
                 "admin":"admin",
                 "admin/action":"admin",
                 "*actions":"defaultRoute"
             },
             cluster:function () {
-                cleanDefaults();
+                stopAllPollers();
 
                 var healthModel = cluster.get("clusterHealth");
 
@@ -76,6 +76,10 @@ $(document).ready(
                             );
                         });
 
+                        // we render the workspace only once..
+                        var clusterView = new ClusterHealthView({model:healthModel});
+                        clusterView.renderWorkspace();
+
                         clusterHealthPoller.on('error', function (healthModel, response) {
                             var err = 'Unable to Connect to Server! Connection broken, or server has gone away. Please reconnect.';
                             console.log('Error! ' + err);
@@ -111,7 +115,7 @@ $(document).ready(
                 });
             },
             nodes:function (nodeId) {
-                cleanDefaults();
+                stopAllPollers();
                 console.log("route nodeId: " + nodeId);
 
                 var nodeStat = new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
@@ -156,7 +160,7 @@ $(document).ready(
                 );
             },
             killNode:function (nodeId) {
-                cleanDefaults();
+                stopAllPollers();
                 console.log("shutdown for nodeId: " + nodeId);
                 var nodeShutdown = new NodeShutdownModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
                 nodeShutdown.save();
@@ -174,8 +178,31 @@ $(document).ready(
                     }
                 });
             },
+            indices:function () {
+                stopNodePoller();
+                var indexStatusModel = new IndexStatusModel({connectionRootURL:cluster.get("connectionRootURL")});
+                var indexStatsModel = new IndexStatsModel({connectionRootURL:cluster.get("connectionRootURL")});
+                indexStatsModel.fetch({
+                    success:function () {
+                        indexStatusModel.fetch(
+                            {
+                                success:function () {
+                                    var indexListView = new IndexStatusListView({model:indexStatusModel, indexStatsModel:indexStatsModel});
+                                    indexListView.render();
+                                },
+                                error:function () {
+                                    // TODO
+                                }
+                            }
+                        )
+                    },
+                    error:function () {
+                        // TODO
+                    }
+                });
+            },
             defaultRoute:function () {
-                cleanDefaults();
+                stopAllPollers();
                 console.log('defaultRoute');
             }
         });
@@ -183,13 +210,3 @@ $(document).ready(
         Backbone.history.start();
         router = new elasticHQRouter();
     });
-
-var cleanDefaults = function () {
-
-    if (nodePoller != undefined) {
-        nodePoller.stop();
-    }
-    if (clusterHealthPoller != undefined) {
-        clusterHealthPoller.stop();
-    }
-}

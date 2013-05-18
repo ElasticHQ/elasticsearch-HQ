@@ -84,16 +84,17 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
         <div id="toolbar" style="padding:0;margin:0;visibility: hidden;">
             <div class="btn-group pull-right ">
-                <a href="#admin" class="btn btn-large" rel="tipRight" data-placement="bottom"
-                   data-title="FEATURE NOT IMPLEMENTED YET Administration & Configuration"><i
-                        class="icon-cogs"></i></a>
-                <a href="#indices" class="btn btn-large" rel="tipRight" data-placement="bottom"
-                   data-title="FEATURE NOT IMPLEMENTED YET Indices"><i
+                <a href="#indices" class="btn btn-large btn-success" rel="tipRight" data-placement="bottom"
+                   data-title="Indices Management"><i
                         class="icon-list"></i>
                 </a>
-                <a href="#query" class="btn btn-large" rel="tipRight" data-placement="bottom"
-                   data-title="FEATURE NOT IMPLEMENTED YET Search."><i
+                <a href="#query" class="btn btn-large" rel="tipRight" data-placement="bottom" data-html="true"
+                   data-title="FEATURE NOT IMPLEMENTED YET<br/>Search"><i
                         class="icon-search"></i></a>
+                <a href="#admin" class="btn btn-large" rel="tipRight" data-placement="bottom" data-html="true"
+                   data-title="FEATURE NOT IMPLEMENTED YET<br/>Administration & Configuration"><i
+                        class="icon-cogs"></i></a>
+
             </div>
         </div>
     </div>
@@ -139,6 +140,31 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <div id="infoModal-loc"></div>
 
+<!-- Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <p>Designed and built by <a href="http://twitter.com/royrusso" target="_blank">@royrusso</a>.</p>
+
+        <p>Current versions can always be found running at <a href="http://www.elastichq.org"
+                                                              target="_blank">ElasticHQ</a>. </p>
+
+        <p>Special thanks to the folks at <a href="http://www.elasticsearch.com" target="_blank">ElasticSearch</a>, for
+            the great product and great documentation.</p>
+
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License
+            v2.0</a>.</p>
+        <ul class="footer-links">
+            <li><a href="https://github.com/royrusso/elasticsearch-HQ" target="_blank">GitHub Page</a></li>
+            <li class="muted">&middot;</li>
+            <li><a href="https://twitter.com/ElasticHQ" target="_blank">@ElasticHQ</a></li>
+            <li class="muted">&middot;</li>
+            <li><a href="https://groups.google.com/d/forum/elastichq" target="_blank">Google Group</a></li>
+        </ul>
+    </div>
+</footer>
+
+
 <!-- JQuery -->
 <script src="js/lib/jquery/jquery.1.9.1.min.js"></script>
 <script src="js/lib/jquery/jquery.cookie.js"></script>
@@ -157,7 +183,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <!-- App -->
 <script src="js/elastichq.js"></script>
 <script src="js/router.js"></script>
-<script src="js/util/tools.js"></script>
+
 
 <!-- Overrides/Extensions must go first! -->
 <script src="js/model/ModelUtil.js"></script>
@@ -166,6 +192,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/template/ClusterTemplates.js"></script>
 <script src="js/template/NodeTemplates.js"></script>
 <script src="js/template/MessageTemplate.js"></script>
+<script src="js/template/IndexTemplate.js"></script>
 
 <!-- Models -->
 <script src="js/model/core/Ping.js"></script>
@@ -178,17 +205,22 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/model/node/NodeInfoModel.js"></script>
 <script src="js/model/node/NodeShutdownModel.js"></script>
 <script src="js/model/node/NodeHotThreadsModel.js"></script>
+<script src="js/model/index/IndexStatusModel.js"></script>
+<script src="js/model/index/IndexStatsModel.js"></script>
 
 <!-- View -->
+<script src="js/view/ErrorMessageView.js"></script>
 <script src="js/view/cluster/ClusterHealthView.js"></script>
 <script src="js/view/node/NodeStatsView.js"></script>
 <script src="js/view/node/NodeListView.js"></script>
 <script src="js/view/node/NodeShutdownView.js"></script>
 <script src="js/view/node/NodeHotThreadView.js"></script>
-<script src="js/view/ErrorMessageView.js"></script>
+<script src="js/view/index/IndexStatusListView.js"></script>
 
 <!-- Util -->
 <script src="js/util/logger.js"></script>
+<script src="js/util/tools.js"></script>
+<script src="js/util/poller.js"></script>
 
 <!-- Charts -->
 <script language="javascript" type="text/javascript" src="js/lib/flot/jquery.flot.js"></script>
