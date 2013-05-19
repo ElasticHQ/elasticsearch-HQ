@@ -216,10 +216,30 @@ $(document).ready(
                 });
             },
             flushall:function () {
-
+                var flushAllModel = new FlushAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+                flushAllModel.fetch({
+                    success:function (model, response) {
+                        var str = JSON.stringify(response, undefined, 2); // indentation level = 2
+                        var flushAllView = new FlushAllIndexView({model:str});
+                        flushAllView.render();
+                    },
+                    error:function () {
+                        // TODO
+                    }
+                });
             },
             clearcacheall:function () {
-
+                var clearcacheAllModel = new ClearCacheAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+                clearcacheAllModel.fetch({
+                    success:function (model, response) {
+                        var str = JSON.stringify(response, undefined, 2); // indentation level = 2
+                        var clearcacheAllView = new ClearCacheAllIndexView({model:str});
+                        clearcacheAllView.render();
+                    },
+                    error:function () {
+                        // TODO
+                    }
+                });
             },
             index:function (indexId) {
                 stopNodePoller();

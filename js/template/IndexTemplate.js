@@ -10,10 +10,10 @@ indexTemplate.indexList = [
     '<a href="#optimizeall" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Optimize all Indices" ',
     'data-content="The optimize process basically optimizes the index for faster search operations (and relates to the number of segments a lucene index holds within each shard). The optimize operation allows to reduce the number of segments by merging them."',
     '><i class="icon-rocket"></i> Optimize</a>',
-    '<a href="#flushall/" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Flush all Indices" ',
+    '<a href="#flushall" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Flush all Indices" ',
     'data-content="The flush process of an index basically frees memory from the index by flushing data to the index storage and clearing the internal transaction log. By default, ElasticSearch uses memory heuristics in order to automatically trigger flush operations as required in order to clear memory.">',
     '<i class="icon-rotate-right"></i> Flush</a>',
-    '<a href="#clearcacheall/" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Clear all Caches" data-content="Clears the cache on all indices."><i class="icon-eraser"></i> Clear Cache</a>',
+    '<a href="#clearcacheall" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Clear all Caches" data-content="Clears the cache on all indices."><i class="icon-eraser"></i> Clear Cache</a>',
     '</div> <!-- btn group -->',
     '</div> <!-- toolbar --> ',
 
