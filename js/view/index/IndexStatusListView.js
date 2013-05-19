@@ -39,7 +39,7 @@ var IndexStatusListView = Backbone.View.extend(
                     indices:indices
                 }));
 
-            $("[rel=tipRight]").tooltip();
+            $("[rel=popRight]").popover();
 
             $("#indicesTable").tablesorter({ sortList:[
                 [1, 1]

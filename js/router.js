@@ -31,6 +31,9 @@ $(document).ready(
                 "shutdownNode/:nodeId":"killNode",
                 "showhotthreads/:nodeId":"showhotthreads",
                 "indices":"indices",
+                "optimizeall":"optimizeall",
+                "flushall":"flushall",
+                "clearcacheall":"clearcacheall",
                 "index/:indexId":"index",
                 "query":"query",
                 "admin":"admin",
@@ -198,6 +201,20 @@ $(document).ready(
                         }
                     }
                 );
+            },
+            optimizeall  : function() {
+                var optimizeAllModel= new OptimizeAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+                optimizeAllModel.fetch({
+                    success:function (model, response) {
+                           console.log('aaa');
+                    }
+                });
+            },
+            flushall  : function() {
+
+            },
+            clearcacheall  : function() {
+
             },
             index:function (indexId) {
                 stopNodePoller();
