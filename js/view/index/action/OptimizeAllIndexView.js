@@ -23,7 +23,9 @@ var OptimizeAllIndexView = Backbone.View.extend(
             $('#infoModal-loc').html(template);
             prettyPrint();
             $('#optimizeallmodal').modal('show');
-
+            $('#optimizeallmodal').on('hidden', function () {
+                router.navigate("indices", true);
+            });
             return this;
         }
     }

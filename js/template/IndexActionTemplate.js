@@ -14,7 +14,7 @@ indexActionTemplate.optimizeAll = [
     '</pre>',
     '</div>',
     '<div class="modal-footer">',
-    '<a href="#indices" class="btn" data-dismiss="modal">Close</a>',
+    '<a href="#" class="btn" data-dismiss="modal">Close</a>',
     '</div>',
     '</div>'
 ].join("\n");
