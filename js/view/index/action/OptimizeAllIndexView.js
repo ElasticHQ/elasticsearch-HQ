@@ -19,9 +19,10 @@
 var OptimizeAllIndexView = Backbone.View.extend(
     {
         render:function () {
-            var optimizeModel = this.model.toJSON();
-
-
+            var template = _.template(indexActionTemplate.optimizeAll, {res:this.model});
+            $('#infoModal-loc').html(template);
+            prettyPrint();
+            $('#optimizeallmodal').modal('show');
 
             return this;
         }

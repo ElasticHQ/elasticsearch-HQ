@@ -202,18 +202,23 @@ $(document).ready(
                     }
                 );
             },
-            optimizeall  : function() {
-                var optimizeAllModel= new OptimizeAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+            optimizeall:function () {
+                var optimizeAllModel = new OptimizeAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
                 optimizeAllModel.fetch({
                     success:function (model, response) {
-                           console.log('aaa');
+                        var str = JSON.stringify(response, undefined, 2); // indentation level = 2
+                        var optimizeAllView = new OptimizeAllIndexView({model:str});
+                        optimizeAllView.render();
+                    },
+                    error:function () {
+                        // TODO
                     }
                 });
             },
-            flushall  : function() {
+            flushall:function () {
 
             },
-            clearcacheall  : function() {
+            clearcacheall:function () {
 
             },
             index:function (indexId) {

@@ -7,7 +7,7 @@ indexTemplate.indexList = [
 
     '<div id="toolbar" class="pull-right" style="padding-bottom: 10px;">',
     '<div class="btn-group">',
-    '<a href="#optimizeall" role="button" data-toggle="modal" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Optimize all Indices" ',
+    '<a href="#optimizeall" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Optimize all Indices" ',
     'data-content="The optimize process basically optimizes the index for faster search operations (and relates to the number of segments a lucene index holds within each shard). The optimize operation allows to reduce the number of segments by merging them."',
     '><i class="icon-rocket"></i> Optimize</a>',
     '<a href="#flushall/" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Flush all Indices" ',
