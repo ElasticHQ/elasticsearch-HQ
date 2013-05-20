@@ -92,5 +92,14 @@ var Cluster = Backbone.Model.extend({
         console.log('Fetching ClusterHealth');
         ajaxloading.show();
         this.constructor.__super__.fetch.apply(this, arguments);
+    },
+    refreshClusterState:function () {
+        var _this = this;
+        _this.get("clusterState").fetch({
+            success:function (model, res) {
+                _this.clusterState = model;
+                return;
+            }
+        });
     }
 });
