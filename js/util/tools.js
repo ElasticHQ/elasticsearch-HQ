@@ -39,6 +39,8 @@ function show_stack_bottomright(args) {
         styling:"bootstrap",
         history:false,
         icon:true,
+        hide:(args.hide == undefined) ? true : args.hide,
+        closer_hover:(args.closer_hover == undefined) ? true : args.closer_hover,
         delay:5000
     };
     switch (args.type) {
@@ -93,3 +95,19 @@ var convert = {
 function uppercaseFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+$.fn.serializeObject = function () {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function () {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};

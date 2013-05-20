@@ -3,7 +3,7 @@ var indexTemplate = {};
 
 indexTemplate.indexList = [
     '<div class="text-center"><h2>Indices</h2></div>',
-    '<div class="span8 center-table">',
+    '<div class="span11 center-table">',
 
     '<div id="toolbar" class="pull-right" style="padding-bottom: 10px;">',
     '<div class="btn-group">',
@@ -38,8 +38,8 @@ indexTemplate.indexList = [
 ].join("\n");
 
 indexTemplate.indexView = [
-    '<div class="text-center"><h2>Some Index Name</h2>',
-    '<div class="span9 center-table">',
+    '<div class="text-center"><h2><%- indexName %></h2>',
+    '<div class="span11 center-table">',
     '<ul class="nav nav-tabs">',
     '<li><a href="#overview"  class="active" data-toggle="tab" id="indexTab">Overview</a></li>',
     '<li><a href="#metrics" data-toggle="tab">Metrics</a></li>',
@@ -52,7 +52,17 @@ indexTemplate.indexView = [
     '<div class="tab-pane" id="metrics">11</div>',
     '<div class="tab-pane" id="shards">22</div>',
     '<div class="tab-pane" id="mappings">22</div>',
-    '<div class="tab-pane" id="administration">22</div>',
+
+    '<div class="tab-pane" id="administration">',
+    '<table class="table table-bordered table-striped">',
+    '<tr><td><a href="#flushindex/<%- indexId %>" class="btn" style="white-space: nowrap;">Flush Index</a></td><td>The flush process of an index frees memory from the index by flushing data to the index storage and clearing the internal transaction log. By default, ElasticSearch uses memory heuristics in order to automatically trigger flush operations as required in order to clear memory.</td></tr>',
+    '<tr><td><a href="#clearcacheindex/<%- indexId %>" class="btn" style="white-space: nowrap;">Clear Cache</a></td><td>Clears the cache on all indices.</td></tr>',
+    '<tr><td><a href="#optimizeindex/<%- indexId %>" class="btn" style="white-space: nowrap;">Optimize Index</a></td><td>The optimize process basically optimizes the index for faster search operations (and relates to the number of segments a lucene index holds within each shard). The optimize operation allows to reduce the number of segments by merging them.</td></tr>',
+    '<tr><td><a href="#refreshindex/<%- indexId %>" class="btn" style="white-space: nowrap;">Refresh Index</a></td><td>Refresh the index, making all operations performed since the last refresh available for search. The (near) real-time capabilities depend on the index engine used. For example, the robin one requires refresh to be called, but by default a refresh is scheduled periodically.</td></tr>',
+    '<tr><td><a href="#deleteindex/<%- indexId %>" class="btn btn-danger" style="white-space: nowrap;">Delete Index</a></td><td><strong>WARNING! This action cannot be undone. You will destroy this index and all documents associated with this, by clicking this button.</strong></td></tr>',
+    '</table>',
+    '</div>',
+
     '</div>',
     '</div></div>'
 ].join("\n");

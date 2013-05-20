@@ -24,12 +24,16 @@
 var IndexView = Backbone.View.extend(
     {
         render:function () {
+            var _this = this;
+            var indexName = uppercaseFirst(_this.model.indexId);
+
             //var indexStatus = this.model.toJSON();
 
             var tpl = _.template(indexTemplate.indexView);
             $('#workspace').html(tpl(
                 {
-
+                    indexId: _this.model.indexId,
+                    indexName: indexName
                 }));
 
             $('#indexTab').tab('show');

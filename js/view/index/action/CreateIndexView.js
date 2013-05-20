@@ -22,32 +22,47 @@ var CreateIndexView = Backbone.View.extend(
         events:{
             'submit #createIndexForm':'saveToModel'
         },
-        initialize:function () {
-            // ...
-        },
-        saveToModel:function (data) {
-            this.model.indexId = '411';
+        saveToModel:function (e) {
+            e.preventDefault();
+
+            var _this = this;
+            var data = this.$('#createIndexForm').serializeObject();
+            this.model.set(data);
+            this.model.indexId = data.indexId;
+
 
             // this triggers a RESTFul POST (or PUT) request to the URL specified in the model
             this.model.save(
                 {
                     "settings":{
-                        "number_of_shards":3,
-                        "number_of_replicas":2
+                        "number_of_shards":data.shards,
+                        "number_of_replicas":data.replicas
                     }
                 },
                 {
                     success:function (model, response) {
                         Backbone.history.navigate('indices', true);
+                        show_stack_bottomright({type:'success', title:'Index Created', text:'"' + _this.model.indexId + '" index created.'});
+                    },
+                    error:function (model, response, options) {
+                        {
+                            var err = '<p>Server Response is...</p><pre class="prettyprint linenums language-json">' + response.responseText + '</pre>';
+                            show_stack_bottomright({type:'error', title:'Index Failed', text:err, hide:false, closer_hover:false});
+                            prettyPrint();
+                            Backbone.history.navigate('indices', true);
+                        }
                     }
                 }
             );
-
+            this.unbind();
             return false;
         },
         render:function () {
             var template = _.template(indexActionTemplate.createIndex, {model:this.model});
             $('#workspace').html(template);
+            Backbone.Validation.bind(this);
+            //this.model.on('validated:valid', this.valid, this);
+            //this.model.on('validated:invalid', this.invalid, this);
             return this;
         }
     });

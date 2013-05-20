@@ -97,8 +97,7 @@ var Cluster = Backbone.Model.extend({
         var _this = this;
         _this.get("clusterState").fetch({
             success:function (model, res) {
-                _this.clusterState = model;
-                return;
+                _this.set({clusterState:model});
             }
         });
     }

@@ -25,16 +25,43 @@
 }'
  * @type {*}
  */
-var CreateIndexModel = Backbone.Model.extend({
+var IndexModel = Backbone.Model.extend({
     defaults:{
-        indexId:undefined
+        indexId:undefined,
+        cmd: undefined
     },
     initialize:function (args) {
         console.log("Creating Index " + args.indexId);
-        this.nodeId = args.indexId;
+        this.indexId = args.indexId;
+        if (args.cmd != undefined) {
+            this.cmd = args.cmd;
+        }
     },
     url:function () {
-        return '/' + this.indexId;
-    }
+        if (this.cmd != undefined) {
+            return '/' + this.indexId + '/' + this.cmd;
+        }
+        else {
+            return '/' + this.indexId;
+        }
 
+    },
+    validation:{
+        indexId:{
+            required:true,
+            msg:'Please enter a valid Index ID'
+        },
+        shards:{
+            required:true,
+            min:1,
+            pattern:'number',
+            msg:'Please enter a # value.'
+        },
+        replicas:{
+            required:true,
+            min:0,
+            pattern:'number',
+            msg:'Please enter a # value.'
+        }
+    }
 });

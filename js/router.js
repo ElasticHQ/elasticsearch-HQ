@@ -35,6 +35,11 @@ $(document).ready(
                     "flushall":"flushall",
                     "clearcacheall":"clearcacheall",
                     "createindex":"createIndex",
+                    "deleteindex/:indexId":"deleteIndex",
+                    "flushindex/:indexId":"flushIndex",
+                    "clearcacheindex/:indexId":"clearCacheIndex",
+                    "optimizeindex/:indexId":"optimizeIndex",
+                    "refreshindex/:indexId":"refreshIndex",
                     "index/:indexId":"index",
                     "query":"query",
                     "admin":"admin",
@@ -59,6 +64,9 @@ $(document).ready(
                             clusterHealthPoller.on('success', function (healthModel) {
                                 var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
                                 clusterView.render();
+
+                                cluster.refreshClusterState();
+
                                 $("#toolbar").css("visibility", "visible");
 
                                 var nodeList = cluster.get("nodeList");
@@ -189,8 +197,12 @@ $(document).ready(
                     indexStatusModel.fetch(
                         {
                             success:function () {
-                                var indexListView = new IndexStatusListView({model:indexStatusModel});
-                                indexListView.render();
+                                // need to have a refreshed clusterstate
+                                cluster.get("clusterState").fetch({
+                                    success:function (model, res) {
+                                        var indexListView = new IndexStatusListView({model:indexStatusModel});
+                                        indexListView.render();
+                                    }});
                             },
                             error:function () {
                                 // TODO
@@ -238,13 +250,29 @@ $(document).ready(
                     });
                 },
                 createIndex:function () {
-                    var createIndexModel = new CreateIndexModel({connectionRootURL:cluster.get("connectionRootURL")});
+                    var createIndexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL")});
                     var createIndexView = new CreateIndexView({model:createIndexModel});
                     createIndexView.render();
                 },
+                deleteIndex:function (indexId) {
+                    indexRoute.deleteIndex(indexId);
+                },
+                clearCacheIndex:function (indexId) {
+                    indexRoute.clearCacheIndex(indexId);
+                },
+                flushIndex:function (indexId) {
+                    indexRoute.flushIndex(indexId);
+                },
+                refreshIndex:function (indexId) {
+                    indexRoute.refreshIndex(indexId);
+                },
+                optimizeIndex:function (indexId) {
+                    indexRoute.optimizeIndex(indexId);
+                },
                 index:function (indexId) {
                     stopNodePoller();
-                    var indexView = new IndexView({});
+                    var createIndexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
+                    var indexView = new IndexView({model:createIndexModel});
                     indexView.render();
                 },
                 defaultRoute:function () {

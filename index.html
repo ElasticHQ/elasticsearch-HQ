@@ -63,11 +63,9 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
                 <ul class="nav pull-right">
                     <li><a href="https://groups.google.com/d/forum/elastichq" target="_blank"><i
-                            class="icon-comments-alt"></i> Get Help</a></li>
+                            class="icon-comments-alt icon-large"></i> Get Help</a></li>
                     <li><a href="https://github.com/royrusso/elasticsearch-HQ" target="_blank"><i
                             class="icon-github icon-large"></i> Star us on GitHub</a></li>
-                    <!--  <a class="btn btn-success" href="https://github.com/royrusso/elasticsearch-HQ"><i
-                              class="icon-github icon-large"></i> Star us on GitHub</a>-->
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -181,6 +179,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/lib/underscore/underscore.js"></script>
 <script src="js/lib/backbone/backbone.js"></script>
 <script src="js/lib/backbone-poller/backbone.poller.min.js"></script>
+<script src="js/lib/backbone-validation/backbone-validation-min.js"></script>
+<script src="js/lib/backbone-validation/backbone.validation.bootstrap.js"></script>
 
 <!-- Notify -->
 <script src="js/lib/pnotify/jquery.pnotify.min.js"></script>
@@ -219,7 +219,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/model/index/action/ClearCacheAllIndexModel.js"></script>
 <script src="js/model/index/action/FlushAllIndexModel.js"></script>
 <script src="js/model/index/action/OptimizeAllIndexModel.js"></script>
-<script src="js/model/index/action/CreateIndexModel.js"></script>
+<script src="js/model/index/action/IndexModel.js"></script>
 
 <!-- View -->
 <script src="js/view/ErrorMessageView.js"></script>
@@ -236,6 +236,9 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/view/index/action/FlushAllIndexView.js"></script>
 <script src="js/view/index/action/ClearCacheAllIndexView.js"></script>
 <script src="js/view/index/action/CreateIndexView.js"></script>
+
+<!-- Routes -->
+<script src="js/route/IndexRoute.js"></script>
 
 <!-- Util -->
 <script src="js/util/logger.js"></script>
