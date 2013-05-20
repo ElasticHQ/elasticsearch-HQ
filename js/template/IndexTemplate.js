@@ -16,6 +16,11 @@ indexTemplate.indexList = [
     '<a href="#clearcacheall" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Clear all Caches" data-content="Clears the cache on all indices."><i class="icon-eraser"></i> Clear Cache</a>',
     '</div> <!-- btn group -->',
     '</div> <!-- toolbar --> ',
+    '<div id="indicesToolbar" class="pull-left" style="padding-bottom: 10px;">',
+    //'<div class="btn-group">',
+    '<a href="#createindex" class="btn" rel="popRight" data-trigger="hover" data-placement="bottom" data-title="Create Index" data-content="Create a New Index on your cluster."><i class="icon-edit"></i> Create Index</a>',
+    //'</div> <!-- btn group -->',
+    '</div> <!-- toolbar --> ',
 
     '<table class="table table-bordered table-striped table-hover" id="indicesTable">',
     '<thead>',
@@ -29,6 +34,7 @@ indexTemplate.indexList = [
     '</tbody>',
     '</table>',
     '</div>'
+
 ].join("\n");
 
 indexTemplate.indexView = [
