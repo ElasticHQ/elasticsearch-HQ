@@ -34,6 +34,7 @@ $(document).ready(
                     "optimizeall":"optimizeall",
                     "flushall":"flushall",
                     "clearcacheall":"clearcacheall",
+                    "refreshall":"refreshAll",
                     "createindex":"createIndex",
                     "deleteindex/:indexId":"deleteIndex",
                     "flushindex/:indexId":"flushIndex",
@@ -248,6 +249,9 @@ $(document).ready(
                             // TODO
                         }
                     });
+                },
+                refreshAll: function() {
+                  indicesRoute.refreshAll();
                 },
                 createIndex:function () {
                     var createIndexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL")});
