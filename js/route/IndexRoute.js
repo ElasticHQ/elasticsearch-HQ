@@ -27,11 +27,11 @@ indexRoute.indexView = function (indexId) {
     var indexStatsModel = new IndexStatsModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
     var indexStatusModel = new IndexStatusModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
 
-    var indexView = new IndexView({indexId: indexId, model:indexStatsModel, statusModel:indexStatusModel});
+    var indexView = new IndexView({indexId:indexId, model:indexStatsModel, statusModel:indexStatusModel});
     var _thisView = this;
     // This uses jQuery's Deferred functionality to bind render() so it runs
     // after BOTH models have been fetched
-    $.when(indexStatsModel.fetch(),indexStatusModel.fetch())
+    $.when(indexStatsModel.fetch(), indexStatusModel.fetch())
         .done(function () {
             indexView.render();
         });
@@ -63,7 +63,59 @@ indexRoute.deleteIndex = function (indexId) {
         }
     });
 
-}
+};
+
+indexRoute.openIndex = function (indexId) {
+    var indexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId, cmd:'_open'});
+    indexModel.save({}, {
+        success:function (model, response) {
+            var str = JSON.stringify(response, undefined, 2);
+            var template = _.template(indexActionTemplate.defaultModal, {title:'Index Opened for Business!', res:str});
+            $('#infoModal-loc').html(template);
+            prettyPrint();
+            $('#defaultindexmodal').modal('show');
+            $('#defaultindexmodal').on('hidden', function () {
+                router.navigate("indices", true);
+            });
+        },
+        error:function (model, response, options) {
+            var str = JSON.stringify(response, undefined, 2);
+            var template = _.template(indexActionTemplate.defaultModal, {title:'Index Open Failed!', res:str});
+            $('#infoModal-loc').html(template);
+            prettyPrint();
+            $('#defaultindexmodal').modal('show');
+            $('#defaultindexmodal').on('hidden', function () {
+                router.navigate("indices", true);
+            });
+        }
+    });
+};
+
+indexRoute.closeIndex = function (indexId) {
+    var indexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId, cmd:'_close'});
+    indexModel.save({}, {
+        success:function (model, response) {
+            var str = JSON.stringify(response, undefined, 2);
+            var template = _.template(indexActionTemplate.defaultModal, {title:'Index Closed!', res:str});
+            $('#infoModal-loc').html(template);
+            prettyPrint();
+            $('#defaultindexmodal').modal('show');
+            $('#defaultindexmodal').on('hidden', function () {
+                router.navigate("indices", true);
+            });
+        },
+        error:function (model, response, options) {
+            var str = JSON.stringify(response, undefined, 2);
+            var template = _.template(indexActionTemplate.defaultModal, {title:'Index Close Failed!', res:str});
+            $('#infoModal-loc').html(template);
+            prettyPrint();
+            $('#defaultindexmodal').modal('show');
+            $('#defaultindexmodal').on('hidden', function () {
+                router.navigate("indices", true);
+            });
+        }
+    });
+};
 
 indexRoute.flushIndex = function (indexId) {
     var indexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId, cmd:'_flush'});
@@ -80,10 +132,10 @@ indexRoute.flushIndex = function (indexId) {
             var template = _.template(indexActionTemplate.defaultModal, {title:'Index Flush Failed!', res:str});
             $('#infoModal-loc').html(template);
             prettyPrint();
-            $('#deleteindexmodal').modal('show');
+            $('#defaultindexmodal').modal('show');
         }
     });
-}
+};
 
 indexRoute.refreshIndex = function (indexId) {
     var indexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId, cmd:'_refresh'});
@@ -100,10 +152,10 @@ indexRoute.refreshIndex = function (indexId) {
             var template = _.template(indexActionTemplate.defaultModal, {title:'Index Refresh Failed!', res:str});
             $('#infoModal-loc').html(template);
             prettyPrint();
-            $('#deleteindexmodal').modal('show');
+            $('#defaultindexmodal').modal('show');
         }
     });
-}
+};
 
 indexRoute.optimizeIndex = function (indexId) {
     var indexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId, cmd:'_optimize'});
@@ -120,7 +172,7 @@ indexRoute.optimizeIndex = function (indexId) {
             var template = _.template(indexActionTemplate.defaultModal, {title:'Index Optimization Failed!', res:str});
             $('#infoModal-loc').html(template);
             prettyPrint();
-            $('#deleteindexmodal').modal('show');
+            $('#defaultindexmodal').modal('show');
         }
     });
 }
@@ -140,7 +192,7 @@ indexRoute.clearCacheIndex = function (indexId) {
             var template = _.template(indexActionTemplate.defaultModal, {title:'Clear Cache Failed!', res:str});
             $('#infoModal-loc').html(template);
             prettyPrint();
-            $('#deleteindexmodal').modal('show');
+            $('#defaultindexmodal').modal('show');
         }
     });
 }

@@ -34,7 +34,7 @@ var IndexView = Backbone.View.extend(
             try {
                 var clusterState = cluster.get("clusterState").toJSON();
                 var _state = clusterState.metadata.indices[this.model.indexId].state;
-                if (_state == 'closed') {
+                if (_state != 'open') {
                     isOpenState = false;
                 }
             }

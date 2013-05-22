@@ -40,6 +40,23 @@ var IndexStatusListView = Backbone.View.extend(
                 indices.push(index);
             }
 
+            // look for closed indices and append to bottom of arr
+            try {
+                var blocks = clusterState.blocks.indices;
+                var blockKeys = _.keys(blocks);
+                for (var $i = 0; $i < blockKeys.length; $i++) {
+                    var index = {};
+                    index.id = blockKeys[$i];
+                    index.name = uppercaseFirst(blockKeys[$i]);
+                    index.docs = {num_docs:0};
+                    index.index = {primary_size: 0};
+                    index.status = 'closed';
+                    indices.push(index);
+                }
+            }
+            catch (e) {
+            }
+
             var tpl = _.template(indexTemplate.indexList);
             $('#workspace').html(tpl(
                 {

@@ -38,6 +38,8 @@ $(document).ready(
                     "createindex":"createIndex",
                     "deleteindex/:indexId":"deleteIndex",
                     "flushindex/:indexId":"flushIndex",
+                    "openindex/:indexId":"openIndex",
+                    "closeindex/:indexId":"closeIndex",
                     "clearcacheindex/:indexId":"clearCacheIndex",
                     "optimizeindex/:indexId":"optimizeIndex",
                     "refreshindex/:indexId":"refreshIndex",
@@ -272,6 +274,12 @@ $(document).ready(
                 },
                 optimizeIndex:function (indexId) {
                     indexRoute.optimizeIndex(indexId);
+                },
+                openIndex:function (indexId) {
+                    indexRoute.openIndex(indexId);
+                },
+                closeIndex:function (indexId) {
+                    indexRoute.closeIndex(indexId);
                 },
                 index:function (indexId) {
                     stopNodePoller();
