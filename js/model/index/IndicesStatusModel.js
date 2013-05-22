@@ -16,24 +16,24 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-/**
- * /_stats for indices and specific index.
- * @type {*}
- */
-var IndexStatsModel = Backbone.Model.extend({
-    defaults:{
-        indexId:undefined
-    },
+var IndicesStatusModel = Backbone.Collection.extend({
+    model:IndexSimple,
     initialize:function (args) {
-        console.log("Inside IndexStatsModel");
-        this.indexId = args.indexId;
+        console.log("Inside IndicesStatusModel");
     },
     url:function () {
-        if (this.indexId != undefined) {
-            return '/' + this.indexId + '/_stats';
+        return '/_status'
+    },
+    parse:function (data) {
+
+        // indices are keyed by their id, so we need to get the key and add it to the value object foreach
+        var indices = data.indices;
+
+        var indexKeys = _.keys(indices);
+        var indexValues = _.values(indices);
+        for (var i = 0; i < indexKeys.length; i++) {
+            indexValues[i].id = indexKeys[i];
         }
-        else {
-            return '/_stats'
-        }
+        return indexValues;
     }
 });

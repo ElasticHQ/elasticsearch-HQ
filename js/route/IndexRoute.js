@@ -18,6 +18,24 @@
 
 var indexRoute = {};
 
+/***
+ * Abandon all hope, ye who enters here.
+ *
+ * @param indexId
+ */
+indexRoute.indexView = function (indexId) {
+    var indexStatsModel = new IndexStatsModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
+    var indexStatusModel = new IndexStatusModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
+
+    var indexView = new IndexView({indexId: indexId, model:indexStatsModel, statusModel:indexStatusModel});
+    var _thisView = this;
+    // This uses jQuery's Deferred functionality to bind render() so it runs
+    // after BOTH models have been fetched
+    $.when(indexStatsModel.fetch(),indexStatusModel.fetch())
+        .done(function () {
+            indexView.render();
+        });
+};
 
 indexRoute.deleteIndex = function (indexId) {
     var indexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});

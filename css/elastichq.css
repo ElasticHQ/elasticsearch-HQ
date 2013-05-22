@@ -156,3 +156,10 @@ table .headerSortUp:after {
     -moz-opacity: 0.6;
     opacity: 0.6;
 }
+
+.stat-detail {
+    font-weight: bold;
+    font-size: 22px;
+    display: block;
+    line-height: 18px;
+}

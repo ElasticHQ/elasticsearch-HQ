@@ -83,16 +83,16 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
         <div id="toolbar" style="padding:0;margin:0;visibility: hidden;">
             <div class="btn-group pull-right ">
-                <a href="#indices" class="btn btn-large btn-success" rel="tipRight" data-placement="bottom"
+                <a href="#indices" class="btn btn-large" rel="tipRight" data-placement="bottom"
                    data-title="Indices Management"><i
                         class="icon-list"></i> Indices
                 </a>
-                <a href="#query" class="btn btn-large" rel="tipRight" data-placement="bottom" data-html="true"
-                   data-title="FEATURE NOT IMPLEMENTED YET<br/>Search"><i
-                        class="icon-search"></i></a>
-                <a href="#admin" class="btn btn-large" rel="tipRight" data-placement="bottom" data-html="true"
-                   data-title="FEATURE NOT IMPLEMENTED YET<br/>Administration & Configuration"><i
-                        class="icon-cogs"></i></a>
+                <a href="#query" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
+                   data-title="FEATURE NOT IMPLEMENTED YET<br/>Mappings"><i
+                        class="icon-map-marker"></i> Mappings</a>
+                <a href="#admin" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
+                   data-title="FEATURE NOT IMPLEMENTED YET<br/>REST Console. Ya, for nerds."><i
+                        class="icon-code"></i> REST</a>
 
             </div>
         </div>
@@ -212,8 +212,10 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/model/node/NodeShutdownModel.js"></script>
 <script src="js/model/node/NodeHotThreadsModel.js"></script>
 <script src="js/model/index/IndexSimple.js"></script>
-<script src="js/model/index/IndexStatusModel.js"></script>
+<script src="js/model/index/IndicesStatusModel.js"></script>
 <script src="js/model/index/IndexStatsModel.js"></script>
+<script src="js/model/index/IndexStatusModel.js"></script>
+<script src="js/model/index/IndexSettingsModel.js"></script>
 
 <!-- Model Actions -->
 <script src="js/model/index/action/ClearCacheAllIndexModel.js"></script>

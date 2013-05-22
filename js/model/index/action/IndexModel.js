@@ -23,12 +23,16 @@
         "number_of_replicas" : 2
     }
 }'
+ /*
+ * Generic class symbolizing an Index. Used for creating and performing actions (cmd) on an index. We
+ * do not use this for loading an Index, however. Loading an index view is far more complicated so we use
+ * status and stats classes for that.
  * @type {*}
  */
 var IndexModel = Backbone.Model.extend({
     defaults:{
         indexId:undefined,
-        cmd: undefined
+        cmd:undefined
     },
     initialize:function (args) {
         console.log("Creating Index " + args.indexId);

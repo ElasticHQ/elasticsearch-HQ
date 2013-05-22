@@ -193,7 +193,7 @@ $(document).ready(
                 },
                 indices:function () {
                     stopNodePoller();
-                    var indexStatusModel = new IndexStatusModel();
+                    var indexStatusModel = new IndicesStatusModel();
                     indexStatusModel.setConnectionRootURL(cluster.get("connectionRootURL"));
                     indexStatusModel.fetch(
                         {
@@ -275,9 +275,7 @@ $(document).ready(
                 },
                 index:function (indexId) {
                     stopNodePoller();
-                    var createIndexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
-                    var indexView = new IndexView({model:createIndexModel});
-                    indexView.render();
+                    indexRoute.indexView(indexId);
                 },
                 defaultRoute:function () {
                     stopAllPollers();

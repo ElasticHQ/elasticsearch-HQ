@@ -16,24 +16,16 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-/**
- * /_stats for indices and specific index.
- * @type {*}
- */
-var IndexStatsModel = Backbone.Model.extend({
+
+var IndexSettingsModel = Backbone.Model.extend({
     defaults:{
         indexId:undefined
     },
     initialize:function (args) {
-        console.log("Inside IndexStatsModel");
+        console.log("Inside IndexSettingsModel");
         this.indexId = args.indexId;
     },
     url:function () {
-        if (this.indexId != undefined) {
-            return '/' + this.indexId + '/_stats';
-        }
-        else {
-            return '/_stats'
-        }
+        return '/' + this.indexId + '/_settings';
     }
 });
