@@ -17,7 +17,7 @@
  */
 
 // log =1, no-log =0.
-var debugMode = 0;
+var debugMode = 1;
 
 var cluster; // globally available cluster object maintains state of models and connection url.
 $(document).ready(

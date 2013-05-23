@@ -64,7 +64,7 @@ indexTemplate.indexView = [
     '<div class="well"><span class="stat-detail"><%- index.index.size %></span><span>Total Size</span>',
     '</div></div>',
     '<div class="span3">',
-    '<div class="well"><span class="stat-detail"><%- shards.total %></span><span>Total Shards</span>',
+    '<div class="well"><span class="stat-detail"><%- totalShards.total %></span><span>Total Shards</span>',
     '</div></div>',
 
     '</div>',
@@ -134,7 +134,22 @@ indexTemplate.indexView = [
 
     '<div class="tab-pane" id="shards">',
     '<% if (isOpenState == true) { %>',
-    'Coming Soon...',
+
+    '<div class="row center-table">',
+    '<div class="span12">',
+    '<table class="table table-bordered table-striped" id="shardTable">',
+    '<thead>',
+    '<tr><th>Shard</th><th>State</th><th># Docs</th><th>Size</th><th>Primary?</th><th>Node</th></tr>',
+    '</thead>',
+    '<tbody>',
+    '<% _.each(shards, function(shard) { %>',
+    '<tr><td><%- shard.routing.shard %></td><td><%- shard.state %></td><td><%- shard.docs.num_docs %></td><td><%- shard.index.size %></td><td><%- shard.routing.primary %></td><td><%- shard.node %></td></tr>',
+    '<% }) %>',
+    '</tbody>',
+    '</table>',
+    '</div>',
+    '</div>',
+
     '<% } else { %>',
     '<div class="lead">You must open the index to see any statistics.</div> ',
     '<% } %>',

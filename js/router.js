@@ -22,6 +22,7 @@ var router;
 $(document).ready(
     function ($) {
 
+
         var elasticHQRouter = Backbone.Router.extend({
 
                 routes:{
@@ -252,13 +253,15 @@ $(document).ready(
                         }
                     });
                 },
-                refreshAll: function() {
-                  indicesRoute.refreshAll();
+                refreshAll:function () {
+                    indicesRoute.refreshAll();
                 },
                 createIndex:function () {
                     var createIndexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL")});
-                    var createIndexView = new CreateIndexView({model:createIndexModel});
-                    createIndexView.render();
+                    if (this.createIndexView == undefined) {
+                        this.createIndexView = new CreateIndexView({model:createIndexModel});
+                    }
+                    this.createIndexView.render();
                 },
                 deleteIndex:function (indexId) {
                     indexRoute.deleteIndex(indexId);

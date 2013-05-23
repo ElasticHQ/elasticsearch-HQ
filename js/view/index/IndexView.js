@@ -43,23 +43,51 @@ var IndexView = Backbone.View.extend(
             }
 
             var indexStats = this.model.toJSON();
-            var shards = indexStats._shards;
+            var totalShards = indexStats._shards;
             var stats = indexStats.indices[this.model.indexId];
             var indexStatus = this.statusModel.toJSON();
             var status = indexStatus.indices[this.model.indexId];
+            var _shards = [];
+            _shards = _.values(indexStatus.indices[this.model.indexId].shards);
             var index = $.extend({}, stats, status);
+
 //console.log(JSON.stringify(index));
+
+            // assemble shards
+            var nodeList = cluster.get('nodeList');
+            var shards = [];
+            for (var $i = 0; $i < _shards.length; $i++) {
+                // shards may have one or many replicas
+                var shardArr = _shards[$i];
+                for (var $j = 0; $j < shardArr.length; $j++) {
+                    var nodeid = shardArr[$j].routing.node;
+                    if (nodeList.models != undefined) {
+                        for (var $k = 0; $k < nodeList.models.length; $k++) {
+                            if (nodeid == nodeList.models[$k].id) {
+                                shardArr[$j].node = nodeList.models[$k].attributes.name;
+                            }
+                        }
+                    }
+                    shards.push(shardArr[$j]);
+                }
+            }
+
             var tpl = _.template(indexTemplate.indexView);
             $('#workspace').html(tpl(
                 {
                     indexId:_this.model.indexId,
                     indexName:indexName,
                     index:index,
-                    shards:shards,
-                    isOpenState:isOpenState
+                    totalShards:totalShards,
+                    isOpenState:isOpenState,
+                    shards: shards
                 }));
 
             $('#indexTab').tab('show');
+
+            $("#shardTable").tablesorter({ sortList:[
+                [0, 0]
+            ] });
 
             return this;
         },
