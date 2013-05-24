@@ -28,7 +28,7 @@ var CreateIndexView = Backbone.View.extend(
             var _this = this;
             var data = this.$('#createIndexForm').serializeObject();
             this.model.set(data);
-            this.model.indexId = data.indexId;
+            this.model.indexId = data.indexId.toLowerCase();
 
 
             // this triggers a RESTFul POST (or PUT) request to the URL specified in the model
