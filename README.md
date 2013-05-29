@@ -5,6 +5,7 @@ Monitoring and Management Web Application for ElasticSearch instances and cluste
 
 Benefits:
 * Active real-time monitoring of ElasticSearch clusters and nodes.
+* Manage Indices, Mappings, and Nodes.
 * No software to install/download. 100% web browser-based.
 * Optimized to work on mobile phones, tablets, and other small screen devices.
 * Easy to use and attractive user interface.
