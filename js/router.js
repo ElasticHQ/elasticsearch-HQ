@@ -45,6 +45,10 @@ $(document).ready(
                     "optimizeindex/:indexId":"optimizeIndex",
                     "refreshindex/:indexId":"refreshIndex",
                     "index/:indexId":"index",
+                    "mappings/:indexId/:mapName":"mappings",
+                    "deletemapping/:indexId/:mapName":"deleteMapType",
+                    "createmapping":"createMapping",
+                    "mappings":"mappings",
                     "query":"query",
                     "admin":"admin",
                     "admin/action":"admin",
@@ -287,6 +291,18 @@ $(document).ready(
                 index:function (indexId) {
                     stopNodePoller();
                     indexRoute.indexView(indexId);
+                },
+                mappings:function (indexId, mapName) {
+                    stopAllPollers();
+                    mapRoute.viewMappings(indexId, mapName);
+                },
+                deleteMapType:function (indexId, mapName) {
+                    stopAllPollers();
+                    mapRoute.deleteMapType(indexId, mapName);
+                },
+                createMapping:function () {
+                    stopAllPollers();
+                    mapRoute.createMapping();
                 },
                 defaultRoute:function () {
                     stopAllPollers();
