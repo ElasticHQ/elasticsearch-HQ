@@ -46,7 +46,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                         <form class="form-search" style="margin:0;padding: 0;" id="connform_top">
                             <div class="input-prepend input-append" style="width: 350px;padding-top: 5px;">
                                 <span class="add-on"><i class="icon-sitemap"></i></span>
-                                <input type="text" placeholder="Enter REST URL..." name="connectionURL"
+                                <input type="text" placeholder="Enter http://domain:port" name="connectionURL"
                                        style="width: 220px;"
                                        id="connectionURL">
                                 <button class="btn btn-info" type="button" id="connectButton">Connect</button>
@@ -56,13 +56,15 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                     </li>
                     <li>
                         <div id="ajaxindicator" style="padding-top:8px;">
-                            <img src="images/ajax-loader.gif"/></div>
+                            <i class="icon-spinner icon-spin icon-large" style="color: #349BB9;"></i>
+                            <!--<img src="images/ajax-loader.gif"/>-->
+                        </div>
                     </li>
 
                 </ul>
 
                 <ul class="nav pull-right">
-                    <li><a href="https://groups.google.com/d/forum/elastichq" target="_blank"><i
+                    <li><a href="http://www.elastichq.org/support.html" target="_blank"><i
                             class="icon-comments-alt icon-large"></i> Get Help</a></li>
                     <li><a href="https://github.com/royrusso/elasticsearch-HQ" target="_blank"><i
                             class="icon-github icon-large"></i> Star us on GitHub</a></li>
@@ -115,7 +117,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
                 <div class="row">
                     <div class="span4" style="padding:10px;border-right: 1px solid #cccccc;"><h3>Step 1</h3>Input
-                        ElasticSearch REST End-point URL in the input field at the top of this page.<br/>
+                        ElasticSearch REST End-point URL in the input field at the top of this page.<br/><small>(ie. <code>http://localhost:9200</code>)</small><br/>
                         <img src="images/gettingstarted1.png" style="padding-top: 30px;">
                     </div>
                     <div class="span4" style="padding:10px;border-right: 1px solid #cccccc;"><h3>Step 2</h3>Cluster is
