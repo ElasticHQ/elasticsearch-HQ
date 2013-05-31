@@ -351,7 +351,7 @@ nodeTemplate.nodeInfo = [
     '<tr><td>Disk Reads:</td><td><%- fileSystem.disk_reads %></td></tr>',
     '<tr><td>Disk Writes:</td><td><%- fileSystem.disk_writes %></td></tr>',
     '<tr><td>Read Size:</td><td><%- fileSystem.disk_read_size %></td></tr>',
-    '<tr><td>Write Size Size:</td><td><%- fileSystem.disk_write_size %></td></tr>',
+    '<tr><td>Write Size:</td><td><%- fileSystem.disk_write_size %></td></tr>',
     '</table>',
     '</div>',
 
