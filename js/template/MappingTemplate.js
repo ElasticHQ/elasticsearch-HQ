@@ -23,7 +23,7 @@ mappingTemplate.mappingList = [
     '<% }); %>',
     '</tbody>',
     '</table>',
-    '<div class="alert alert-info"><i class="icon-info-sign"></i> ElasticSearch offers an overwhelming number of mapping options. Power-users are advised to use the <a href="http://www.elasticsearch.org/guide/reference/api/admin-indices-put-mapping/" target="_blank">Mapping API</a> directly and read the <a href="http://www.elasticsearch.org/guide/reference/mapping/" target="_blank">Documentation</a>. </div>',
+    '<div class="alert alert-info"><i class="icon-info-sign"></i> Only the basic mapping actions are available here. Power-users are advised to use the <a href="http://www.elasticsearch.org/guide/reference/api/admin-indices-put-mapping/" target="_blank">Mapping API</a> directly and read the <a href="http://www.elasticsearch.org/guide/reference/mapping/" target="_blank">Documentation</a>. </div>',
     '</div>'
 
 ].join("\n");
