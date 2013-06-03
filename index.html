@@ -92,8 +92,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                 <a href="#mappings" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
                    data-title="Type Mappings"><i
                         class="icon-map-marker"></i> Mappings</a>
-                <a href="#admin" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
-                   data-title="FEATURE NOT IMPLEMENTED YET<br/>REST Console. Ya, for nerds."><i
+                <a href="#restapi" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
+                   data-title="REST Console. Ya, for geeks."><i
                         class="icon-code"></i> REST</a>
 
             </div>
@@ -117,7 +117,9 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
                 <div class="row">
                     <div class="span4" style="padding:10px;border-right: 1px solid #cccccc;"><h3>Step 1</h3>Input
-                        ElasticSearch REST End-point URL in the input field at the top of this page.<br/><small>(ie. <code>http://localhost:9200</code>)</small><br/>
+                        ElasticSearch REST End-point URL in the input field at the top of this page.<br/>
+                        <small>(ie. <code>http://localhost:9200</code>)</small>
+                        <br/>
                         <img src="images/gettingstarted1.png" style="padding-top: 30px;">
                     </div>
                     <div class="span4" style="padding:10px;border-right: 1px solid #cccccc;"><h3>Step 2</h3>Cluster is
@@ -201,6 +203,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/template/IndexTemplate.js"></script>
 <script src="js/template/IndexActionTemplate.js"></script>
 <script src="js/template/MappingTemplate.js"></script>
+<script src="js/template/RESTTemplate.js"></script>
 
 <!-- Models -->
 <script src="js/model/core/Ping.js"></script>
@@ -241,6 +244,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/view/mapping/MappingListView.js"></script>
 <script src="js/view/mapping/MapTypeView.js"></script>
 <script src="js/view/mapping/action/CreateTypeView.js"></script>
+<script src="js/view/rest/RESTView.js"></script>
 
 <!-- View Action -->
 <script src="js/view/index/action/OptimizeAllIndexView.js"></script>
@@ -252,6 +256,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/route/IndexRoute.js"></script>
 <script src="js/route/IndicesRoute.js"></script>
 <script src="js/route/MappingRoute.js"></script>
+<script src="js/route/RESTRoute.js"></script>
 
 <!-- Util -->
 <script src="js/util/logger.js"></script>

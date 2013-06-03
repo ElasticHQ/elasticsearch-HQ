@@ -163,3 +163,7 @@ table .headerSortUp:after {
     display: block;
     line-height: 18px;
 }
+
+.nav-header {
+    font-size: 16px;
+}

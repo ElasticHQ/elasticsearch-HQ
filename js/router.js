@@ -49,6 +49,7 @@ $(document).ready(
                     "deletemapping/:indexId/:mapName":"deleteMapType",
                     "createmapping":"createMapping",
                     "mappings":"mappings",
+                    "restapi":"viewRest",
                     "query":"query",
                     "admin":"admin",
                     "admin/action":"admin",
@@ -293,19 +294,23 @@ $(document).ready(
                     indexRoute.indexView(indexId);
                 },
                 mappings:function (indexId, mapName) {
-                    stopAllPollers();
+                    stopNodePoller();
                     mapRoute.viewMappings(indexId, mapName);
                 },
                 deleteMapType:function (indexId, mapName) {
-                    stopAllPollers();
+                    stopNodePoller();
                     mapRoute.deleteMapType(indexId, mapName);
                 },
                 createMapping:function () {
-                    stopAllPollers();
+                    stopNodePoller();
                     mapRoute.createMapping();
                 },
+                viewRest:function () {
+                    stopNodePoller();
+                    restRoute.view();
+                },
                 defaultRoute:function () {
-                    stopAllPollers();
+                    stopNodePoller();
                     console.log('defaultRoute');
                 }
             })
