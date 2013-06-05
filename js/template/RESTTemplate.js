@@ -19,33 +19,59 @@
 var restTemplate = {};
 
 restTemplate.sideNav = [
-    '<ul class="nav nav-list well">',
+    '<ul class="nav nav-list">',
     '<li class="nav-header">Cluster</li>',
-    '<li><a href="#">Home</a></li>',
-    '<li><a href="#">Library</a></li>',
-    '<li><a href="#">Home</a></li>',
-    '<li><a href="#">Library</a></li>',
-    '<li><a href="#">Home</a></li>',
-    '<li><a href="#">Library</a></li>',
+    '<li><a href="#restcall/health"><i class="icon-double-angle-right"></i> Health</a></li>',
+    '<li><a href="#restcall/state"><i class="icon-double-angle-right"></i> State</a></li>',
+    '<li><a href="#restcall/ping"><i class="icon-double-angle-right"></i> Ping</a></li>',
     '<li class="nav-header">Nodes</li>',
-    '<li><a href="#">Home</a></li>',
-    '<li><a href="#">Library</a></li>',
-    '<li><a href="#">Home</a></li>',
-    '<li><a href="#">Library</a></li>',
+    '<li><a href="#restcall/nodeinfo"><i class="icon-double-angle-right"></i> Info</a></li>',
+    '<li><a href="#restcall/nodestats"><i class="icon-double-angle-right"></i> Stats</a></li>',
+    '<li><a href="#restcall/cputhreads" rel="popRight"  data-trigger="hover"  data-title="Note..." data-html="true" data-content="The information will open in a new window."><i class="icon-double-angle-right"></i> CPU Threads</a></li>',
+    '<li><a href="#restcall/waitthreads" rel="popRight"  data-trigger="hover"  data-title="Note..." data-html="true" data-content="The information will open in a new window."><i class="icon-double-angle-right"></i> Wait Threads</a></li>',
+    '<li><a href="#restcall/blockthreads" rel="popRight"  data-trigger="hover"  data-title="Note..." data-html="true" data-content="The information will open in a new window."><i class="icon-double-angle-right"></i> Block Threads</a></li>',
+    /*'<li class="divider"></li>',*/
+    '<li><a href="#" rel="popRight"  data-trigger="hover"  data-title="<b>WARNING!</b>" data-html="true" data-content="This command will shutdown <b>all</b> of your Nodes!"><i class="icon-cog"></i> Shutdown</a></li>',
     '<li class="nav-header">Indices</li>',
-    '<li><a href="#">Home</a></li>',
-    '<li><a href="#">Library</a></li>',
-    '<li><a href="#">Home</a></li>',
-    '<li><a href="#">Library</a></li>',
+    '<li><a href="#restcall/indexaliases"><i class="icon-double-angle-right"></i> Aliases</a></li>',
+    '<li><a href="#restcall/indexsettings"><i class="icon-double-angle-right"></i> Settings</a></li>',
+    '<li><a href="#restcall/indexstats"><i class="icon-double-angle-right"></i> Stats</a></li>',
+    '<li><a href="#restcall/indexstatus"><i class="icon-double-angle-right"></i> Status</a></li>',
+    '<li><a href="#restcall/indexsegments"><i class="icon-double-angle-right"></i> Segments</a></li>',
+    '<li><a href="#restcall/indexmappings"><i class="icon-double-angle-right"></i> Mappings</a></li>',
+    /*'<li class="divider"></li>',*/
+    '<li><a href="#"><i class="icon-cog"></i> Refresh</a></li>',
+    '<li><a href="#"><i class="icon-cog"></i> Flush</a></li>',
+    '<li><a href="#"><i class="icon-cog"></i> Optimize</a></li>',
+    '<li><a href="#"><i class="icon-cog"></i> Clear Cache</a></li>',
     '</ul>'
 ].join('\n');
 
+restTemplate.docsLink = [
+    '<a href="http://www.elasticsearch.org/guide/reference/api/" target="_blank" class="btn btn-success pull-right">API Docs <i class="icon-external-link"></i></a>'
+].join("\n");
+
 restTemplate.mainView = [
-    '<div class="text-center"><h2>REST API UI</h2></div>',
-    '<div class="span2">',
+    '<div class="span2 well sidebar-nav">',
     restTemplate.sideNav,
     '</div>',
-    '<div class="span9 center-table" style="min-height: 1024px;">',
-    '',
+    '<div class="span10">',
+    '<div><h2>REST API UI', restTemplate.docsLink, '</h2></div>',
+    '<p>Use the options on the left-hand menu to make REST API requests to your cluster. This screen will then display the JSON response.</p>',
+    '<p>All commands are issued in <b>\'_all\'</b> scope; meaning that the request will <b>affect all of your nodes, indices, or mappings</b>. Support for parameterized calls is coming soon.</p>',
+    '<p>\'<i class="icon-double-angle-right"></i>\' denote requests for information. \'<i class="icon-cog"></i>\' denote commands and actions.</p>',
+    '<div class="alert alert-danger"><i class="icon-info-sign"></i> USE AT YOUR OWN RISK! Commands are sent in <strong>_all</strong> scope. For example: a \'Shutdown\' command will <strong>shutdown all of your nodes.</strong>. </div>',
+    '</div>'
+].join("\n");
+
+restTemplate.JSONView = [
+    '<div class="span2 well sidebar-nav">',
+    restTemplate.sideNav,
+    '</div>',
+    '<div class="span10">',
+    '<div><h2><%- title %>', restTemplate.docsLink, '</h2></div>',
+    '<pre class="prettyprint linenums language-json">',
+    '<%- res %>',
+    '</pre>',
     '</div>'
 ].join("\n");

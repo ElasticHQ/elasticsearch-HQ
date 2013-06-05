@@ -50,6 +50,7 @@ $(document).ready(
                     "createmapping":"createMapping",
                     "mappings":"mappings",
                     "restapi":"viewRest",
+                    "restcall/:command":"callRest",
                     "query":"query",
                     "admin":"admin",
                     "admin/action":"admin",
@@ -308,6 +309,10 @@ $(document).ready(
                 viewRest:function () {
                     stopNodePoller();
                     restRoute.view();
+                },
+                callRest:function (command) {
+                    stopNodePoller();
+                    restRoute.json(command);
                 },
                 defaultRoute:function () {
                     stopNodePoller();

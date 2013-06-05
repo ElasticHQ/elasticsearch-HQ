@@ -25,14 +25,6 @@ var RESTView = Backbone.View.extend(
             var template = _.template(restTemplate.mainView, {});
             $('#workspace').html(template);
             $("[rel=popRight]").popover();
-
-            // side bar
-            $('.bs-docs-foo').affix({
-                offset:{
-                    top:20/*,
-                    bottom:270*/
-                }
-            });
-
+            return this;
         }
     });

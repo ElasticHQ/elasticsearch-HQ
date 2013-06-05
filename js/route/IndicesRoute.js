@@ -32,7 +32,7 @@ indicesRoute.refreshAll = function (indexId) {
                 router.navigate("indices", true);
             });
         },
-        error:function () {
+        error:function (model, response, options) {
             var str = JSON.stringify(response, undefined, 2);
             var template = _.template(indexActionTemplate.defaultModal, {title:'Refresh Failed!', res:str});
             $('#infoModal-loc').html(template);
