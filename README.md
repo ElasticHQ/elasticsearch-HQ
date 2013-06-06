@@ -30,6 +30,7 @@ To install as a plugin, follow these steps:
 Installed HQ
 ```
 * Point your browser to ```/domain:port/_plugin/hq/```
+* The cluster location url field should already be filled in with your server address. Simply hit the connect button to initiate connection.  
 
 Requirements
 ------------
