@@ -18,6 +18,7 @@
 
 var RESTModel = Backbone.Model.extend({
     defaults:{
+        fetchURL:undefined,
         cmd:undefined
     },
     initialize:function (args) {
@@ -27,22 +28,53 @@ var RESTModel = Backbone.Model.extend({
     },
     url:function () {
         if (this.cmd == 'health') {
-            return '/_cluster/health';
+            this.fetchURL = '/_cluster/health';
         }
         else if (this.cmd == 'state') {
-            return '/_cluster/state';
+            this.fetchURL = '/_cluster/state';
         }
         else if (this.cmd == 'ping') {
-            return '/';
+            this.fetchURL = '/';
         }
         else if (this.cmd == 'nodeinfo') {
-            return '/_cluster/nodes';
+            this.fetchURL = '/_cluster/nodes';
         }
         else if (this.cmd == 'nodestats') {
-            return '/_cluster/nodes/stats';
+            this.fetchURL = '/_cluster/nodes/stats';
+        }
+        else if (this.cmd == 'indexaliases') {
+            this.fetchURL = '/_aliases';
+        }
+        else if (this.cmd == 'indexsettings') {
+            this.fetchURL = '/_settings';
+        }
+        else if (this.cmd == 'indexstats') {
+            this.fetchURL = '/_stats';
+        }
+        else if (this.cmd == 'indexstatus') {
+            this.fetchURL = '/_status';
+        }
+        else if (this.cmd == 'indexsegments') {
+            this.fetchURL = '/_segments';
+        }
+        else if (this.cmd == 'indexmappings') {
+            this.fetchURL = '/_mapping';
+        }
+        else if (this.cmd == 'indexrefresh') {
+            this.fetchURL = '/_refresh';
+        }
+        else if (this.cmd == 'indexflush') {
+            this.fetchURL = '/_flush';
+        }
+        else if (this.cmd == 'indexoptimize') {
+            this.fetchURL = '/_optimize';
+        }
+        else if (this.cmd == 'indexclearcache') {
+            this.fetchURL = '/_cache/clear';
         }
         else {
-            return '/';
+            this.fetchURL = '/';
         }
+        return this.fetchURL;
     }
 });

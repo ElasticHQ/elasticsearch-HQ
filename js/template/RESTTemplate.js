@@ -31,7 +31,7 @@ restTemplate.sideNav = [
     '<li><a href="#restcall/waitthreads" rel="popRight"  data-trigger="hover"  data-title="Note..." data-html="true" data-content="The information will open in a new window."><i class="icon-double-angle-right"></i> Wait Threads</a></li>',
     '<li><a href="#restcall/blockthreads" rel="popRight"  data-trigger="hover"  data-title="Note..." data-html="true" data-content="The information will open in a new window."><i class="icon-double-angle-right"></i> Block Threads</a></li>',
     /*'<li class="divider"></li>',*/
-    '<li><a href="#" rel="popRight"  data-trigger="hover"  data-title="<b>WARNING!</b>" data-html="true" data-content="This command will shutdown <b>all</b> of your Nodes!"><i class="icon-cog"></i> Shutdown</a></li>',
+    //'<li><a href="#" rel="popRight"  data-trigger="hover"  data-title="<b>WARNING!</b>" data-html="true" data-content="This command will shutdown <b>all</b> of your Nodes!"><i class="icon-cog"></i> Shutdown</a></li>',
     '<li class="nav-header">Indices</li>',
     '<li><a href="#restcall/indexaliases"><i class="icon-double-angle-right"></i> Aliases</a></li>',
     '<li><a href="#restcall/indexsettings"><i class="icon-double-angle-right"></i> Settings</a></li>',
@@ -40,10 +40,10 @@ restTemplate.sideNav = [
     '<li><a href="#restcall/indexsegments"><i class="icon-double-angle-right"></i> Segments</a></li>',
     '<li><a href="#restcall/indexmappings"><i class="icon-double-angle-right"></i> Mappings</a></li>',
     /*'<li class="divider"></li>',*/
-    '<li><a href="#"><i class="icon-cog"></i> Refresh</a></li>',
-    '<li><a href="#"><i class="icon-cog"></i> Flush</a></li>',
-    '<li><a href="#"><i class="icon-cog"></i> Optimize</a></li>',
-    '<li><a href="#"><i class="icon-cog"></i> Clear Cache</a></li>',
+    '<li><a href="#restcall/indexrefresh"><i class="icon-cog"></i> Refresh</a></li>',
+    '<li><a href="#restcall/indexflush"><i class="icon-cog"></i> Flush</a></li>',
+    '<li><a href="#restcall/indexoptimize"><i class="icon-cog"></i> Optimize</a></li>',
+    '<li><a href="#restcall/indexclearcache"><i class="icon-cog"></i> Clear Cache</a></li>',
     '</ul>'
 ].join('\n');
 
@@ -60,7 +60,7 @@ restTemplate.mainView = [
     '<p>Use the options on the left-hand menu to make REST API requests to your cluster. This screen will then display the JSON response.</p>',
     '<p>All commands are issued in <b>\'_all\'</b> scope; meaning that the request will <b>affect all of your nodes, indices, or mappings</b>. Support for parameterized calls is coming soon.</p>',
     '<p>\'<i class="icon-double-angle-right"></i>\' denote requests for information. \'<i class="icon-cog"></i>\' denote commands and actions.</p>',
-    '<div class="alert alert-danger"><i class="icon-info-sign"></i> USE AT YOUR OWN RISK! Commands are sent in <strong>_all</strong> scope. For example: a \'Shutdown\' command will <strong>shutdown all of your nodes.</strong>. </div>',
+    //'<div class="alert alert-danger"><i class="icon-info-sign"></i> USE AT YOUR OWN RISK! Commands are sent in <strong>_all</strong> scope. For example: a \'Shutdown\' command will <strong>shutdown all of your nodes.</strong>. </div>',
     '</div>'
 ].join("\n");
 
@@ -70,6 +70,8 @@ restTemplate.JSONView = [
     '</div>',
     '<div class="span10">',
     '<div><h2><%- title %>', restTemplate.docsLink, '</h2></div>',
+    '<div style="padding-bottom: 5px;"><code><%- fetchURL %></code> ',
+    '<a href="<%-fetchURL %>" target="_blank" class="btn btn-mini" rel="tipRight" data-placement="bottom" data-title="Open in New Window"><i class="icon-external-link"></i></a></div>',
     '<pre class="prettyprint linenums language-json">',
     '<%- res %>',
     '</pre>',

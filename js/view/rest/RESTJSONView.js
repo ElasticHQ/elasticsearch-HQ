@@ -25,9 +25,10 @@ var RESTJSONView = Backbone.View.extend(
         render:function () {
             var _this = this;
             var title = this.getTitle(_this.title);
-
-            var template = _.template(restTemplate.JSONView, {title:title, res:_this.str});
+            var url = _this.model.get('connectionRootURL') + _this.model.fetchURL;
+            var template = _.template(restTemplate.JSONView, {title:title, res:_this.str, fetchURL:url});
             $('#workspace').html(template);
+            $("[rel=tipRight]").tooltip();
             prettyPrint();
             return this;
         },
@@ -47,6 +48,36 @@ var RESTJSONView = Backbone.View.extend(
             }
             else if (_this.model.cmd == 'nodestats') {
                 return 'Node Statistics';
+            }
+            else if (_this.model.cmd == 'indexaliases') {
+                return 'Indices Aliases';
+            }
+            else if (_this.model.cmd == 'indexsettings') {
+                return 'Indices Settings';
+            }
+            else if (_this.model.cmd == 'indexstats') {
+                return 'Indices Stats';
+            }
+            else if (_this.model.cmd == 'indexstatus') {
+                return 'Indices Status';
+            }
+            else if (_this.model.cmd == 'indexsegments') {
+                return 'Indices Segments';
+            }
+            else if (_this.model.cmd == 'indexmappings') {
+                return 'All Mappings';
+            }
+            else if (_this.model.cmd == 'indexrefresh') {
+                return 'Indices Refresh Scheduled';
+            }
+            else if (_this.model.cmd == 'indexflush') {
+                return 'Indices Flushed';
+            }
+            else if (_this.model.cmd == 'indexoptimize') {
+                return 'Indices Optimized';
+            }
+            else if (_this.model.cmd == 'indexclearcache') {
+                return 'Indices Cache Cleared';
             }
 
         },

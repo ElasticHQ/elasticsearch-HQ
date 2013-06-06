@@ -33,6 +33,12 @@ $(document).ready(
         var connectButton = $('#connectButton');
         var connectionURL = $('#connectionURL');
 
+        // check for plugin mode
+        if (window.location.href.indexOf("/_plugin/") != -1) {
+            connectionURL = window.location.protocol + "//" + window.location.host;
+            $('#connectionURL').val(connectionURL);
+        }
+
         // bind click even on connect button
         connectButton.click(function () {
             $("#error-loc").empty();
