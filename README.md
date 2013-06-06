@@ -16,7 +16,7 @@ Getting Started
 
 There are two ways to use ElasticHQ:
 
-* **FREE Hosted Version:** [http://www.elastichq.org](http://www.elastichq.org,"ElasticSearch Monitoring and Management")
+* **FREE Hosted Version:** http://www.elastichq.org
 * **As a plugin** (see below): This is a viable alternative, if you are not able to reach your cluster from the elastichq.org website for security reasons.
  
 Plugin Installation
