@@ -46,9 +46,6 @@ $(document).ready(
             }
         }
 
-        // check for url stored in cookie
-
-
         // bind click even on connect button
         connectButton.click(function () {
             $("#error-loc").empty();
