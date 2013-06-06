@@ -34,10 +34,20 @@ $(document).ready(
         var connectionURL = $('#connectionURL');
 
         // check for plugin mode
+        // plugin takes precedence over cookie
         if (window.location.href.indexOf("/_plugin/") != -1) {
             connectionURL = window.location.protocol + "//" + window.location.host;
             $('#connectionURL').val(connectionURL);
         }
+        else {
+            var cookieURL = $.cookie('resturl');
+            if (cookieURL != undefined) {
+                $('#connectionURL').val(cookieURL);
+            }
+        }
+
+        // check for url stored in cookie
+
 
         // bind click even on connect button
         connectButton.click(function () {
