@@ -9,9 +9,27 @@ Benefits:
 * No software to install/download. 100% web browser-based.
 * Optimized to work on mobile phones, tablets, and other small screen devices.
 * Easy to use and attractive user interface.
-* Free (as in Beer).
+* Free (as in Beer)
 
-**Use it Free:** http://www.elastichq.org
+Getting Started
+---------------
+
+There are two ways to use ElasticHQ:
+
+* **FREE Hosted Version:** [http://www.elastichq.org](http://www.elastichq.org,"ElasticSearch Monitoring and Management")
+* **As a plugin** (see below): This is a viable alternative, if you are not able to reach your cluster from the elastichq.org website for security reasons.
+ 
+Plugin Installation
+-------------------
+
+To install as a plugin, follow these steps:
+* Navigate to your /bin directory and type: ```plugin -install royrusso/elasticsearch-HQ``` 
+* You should see:
+```
+-> Installing royrusso/elasticsearch-HQ...
+Installed HQ
+```
+* Point your browser to ```/domain:port/_plugin/hq/```
 
 Requirements
 ------------
