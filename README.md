@@ -14,10 +14,11 @@ Benefits:
 Getting Started
 ---------------
 
-There are two ways to use ElasticHQ:
+There are several ways to use ElasticHQ. The full list and help are available here: http://www.elastichq.org/gettingstarted.html
 
 * **FREE Hosted Version:** http://www.elastichq.org
-* **As a plugin** (see below): This is a viable alternative, if you are not able to reach your cluster from the elastichq.org website for security reasons.
+* **Install as a Plugin:** http://www.elastichq.org/support_plugin.html
+* **Download/Install Web Archive:** https://github.com/royrusso/elasticsearch-HQ/zipball/master
  
 Plugin Installation
 -------------------
