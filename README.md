@@ -20,19 +20,6 @@ There are several ways to use ElasticHQ. The full list and help are available he
 * **Install as a Plugin:** http://www.elastichq.org/support_plugin.html
 * **Download/Install Web Archive:** https://github.com/royrusso/elasticsearch-HQ/zipball/master
  
-Plugin Installation
--------------------
-
-To install as a plugin, follow these steps:
-* Navigate to your /bin directory and type: ```plugin -install royrusso/elasticsearch-HQ``` 
-* You should see:
-```
--> Installing royrusso/elasticsearch-HQ...
-Installed HQ
-```
-* Point your browser to ```/domain:port/_plugin/hq/```
-* The cluster location url field should already be filled in with your server address. Simply hit the connect button to initiate connection.  
-
 Requirements
 ------------
 * A Web Browser.
