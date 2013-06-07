@@ -49,7 +49,7 @@ $(document).ready(
         // bind click even on connect button
         connectButton.click(function () {
             $("#error-loc").empty();
-            doConnect(connectionURL.val());
+            doConnect($('#connectionURL').val());
         });
     });
 
