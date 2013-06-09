@@ -42,6 +42,20 @@ indexTemplate.indexList = [
 ].join("\n");
 
 indexTemplate.indexView = [
+    '<div class="modal hide fade" id="deleteindexmodal">',
+    '<div class="modal-header">',
+    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
+    '<h3>WARNING!</h3>',
+    '</div>',
+    '<div class="modal-body">',
+    '<p>Are you sure you want to delete this index?<br/><br/>This action will delete the index and its data!</p>',
+    '</div>',
+    '<div class="modal-footer">',
+    '<a href="#" class="btn" data-dismiss="modal">Close</a>',
+    '<a href="#deleteindex/<%- indexId %>" class="btn btn-danger">Delete</a>',
+    '</div>',
+    '</div>',
+
     '<div class="text-center"><h2><%- indexName %></h2>',
     '<div class="span12 center-table">',
     '<ul class="nav nav-tabs">',
@@ -164,7 +178,7 @@ indexTemplate.indexView = [
     '<tr><td><a href="#refreshindex/<%- indexId %>" class="btn btn-block" style="white-space: nowrap;">Refresh Index</a></td><td>Refresh the index, making all operations performed since the last refresh available for search. The (near) real-time capabilities depend on the index engine used. For example, the robin one requires refresh to be called, but by default a refresh is scheduled periodically.</td></tr>',
     '<tr><td><a href="#closeindex/<%- indexId %>" class="btn btn-warning btn-block" style="white-space: nowrap;">Close Index</a></td>',
     '<td>The open and close index commands allow to close an index, and later on opening it. A closed index has almost no overhead on the cluster (except for maintaining its metadata), and is blocked for read/write operations. A closed index can be opened which will then go through the normal recovery process.</td></tr>',
-    '<tr><td><a href="#deleteindex/<%- indexId %>" class="btn btn-danger btn-block" style="white-space: nowrap;">Delete Index</a></td><td><strong>WARNING! This action cannot be undone. You will destroy this index and all documents associated with this, by clicking this button.</strong></td></tr>',
+    '<tr><td><a href="#deleteindexmodal" data-toggle="modal" role="button" class="btn btn-danger" rel="popRight" data-trigger="hover" data-placement="bottom" style="white-space: nowrap"><i class="icon-warning-sign"></i> Delete Index</a></td><td><strong>WARNING! This action cannot be undone. You will destroy this index and all documents associated with this, by clicking this button.</strong></td></tr>',
     '<% } else { %>',
     '<tr><td><a href="#openindex/<%- indexId %>" class="btn btn-block" style="white-space: nowrap;">Open Index</a></td>',
     '<td>The open and close index commands allow to close an index, and later on opening it. A closed index has almost no overhead on the cluster (except for maintaining its metadata), and is blocked for read/write operations. A closed index can be opened which will then go through the normal recovery process.</td></tr>',
