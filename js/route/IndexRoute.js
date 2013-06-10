@@ -46,20 +46,26 @@ indexRoute.deleteIndex = function (indexId) {
             var template = _.template(indexActionTemplate.defaultModal, {title:'Index Deleted!', res:str});
             $('#infoModal-loc').html(template);
             prettyPrint();
-            $('#defaultindexmodal').modal('show');
-            $('#defaultindexmodal').on('hidden', function () {
-                router.navigate("indices", true);
-            });
+            $('#deleteindexmodal').modal('hide');
+            $('#deleteindexmodal').on('hidden', function () {
+	            $('#defaultindexmodal').modal('show');
+	            $('#defaultindexmodal').on('hidden', function () {
+	                router.navigate("indices", true);
+	            });
+	        });
         },
         error:function (model, response, options) {
             var str = JSON.stringify(response, undefined, 2);
             var template = _.template(indexActionTemplate.defaultModal, {title:'Index Delete Failed!', res:str});
             $('#infoModal-loc').html(template);
             prettyPrint();
-            $('#defaultindexmodal').modal('show');
-            $('#defaultindexmodal').on('hidden', function () {
-                router.navigate("indices", true);
-            });
+            $('#deleteindexmodal').modal('hide');
+            $('#deleteindexmodal').on('hidden', function () {
+	            $('#defaultindexmodal').modal('show');
+	            $('#defaultindexmodal').on('hidden', function () {
+	                router.navigate("indices", true);
+	            });
+	        });
         }
     });
 
