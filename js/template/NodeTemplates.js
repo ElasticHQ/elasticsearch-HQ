@@ -1,14 +1,33 @@
 var nodeTemplate = {};
 
 nodeTemplate.nodeList = [
-    '<% _.each(nodes.models, function(node) { %>',
+    '<a href="#" class="btn btn-info" rel="tipRight" data-trigger="hover" data-placement="bottom" data-title="Real-Time monitoring of  all nodes in a side-by-side grid."><i class="icon-bar-chart"></i> View All</a>',
+
+    '<!-- if more than 5 nodes, show dropdown. else, show individual nodes. -->',
+    '<% if (_.size(nodes.models) > 5 ) { %>',
+    '<div class="btn-group">',
+    '<button class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#"><i class="icon-th"></i> Node List <span class="caret"></span></button> ',
+    '<ul class="dropdown-menu">',
+    '<% _.each(nodes.models, function(node, key) { %>',
+    '<li><a href="#nodes/<%- node.attributes.id %>" data-nodeid="<%- node.id %>">',
+    '<% if (node.attributes.master == true) { %>',
+    '<i class="icon-bolt"></i> ',
+    '<% } %>',
+    '<%= node.attributes.name %></a>',
+    '<% }); %>',
+    '</ul>',
+
+    '<% } else { %>',
+    '<% _.each(nodes.models, function(node, key) { %>',
     '<a href="#nodes/<%- node.attributes.id %>" class="btn btn-info" rel="tipRight" data-trigger="hover" data-placement="bottom" data-nodeid="<%- node.id %>"',
     'data-content="<b>IP:</b> <%- node.attributes.transport_address %>.<br/><b>ID:</b> <%- node.id %>" data-html="true" data-title="Click for Node Information.">',
     '<% if (node.attributes.master == true) { %>',
     '<i class="icon-bolt"></i> ',
     '<% } %>',
     '<%= node.attributes.name %></a>',
-    '<% }); %>'
+    '<% }); %>',
+    '<% } %>'
+
 ].join("\n");
 
 nodeTemplate.nodeShutdown = [
