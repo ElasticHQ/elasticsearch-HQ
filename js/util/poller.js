@@ -16,22 +16,52 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
+/**
+ * Monitor one node
+ */
 var nodePoller;
-var clusterHealthPoller;
 
+/**
+ * Monitor many nodes side-by-side
+ */
+//var compareNodesPoller;
+
+/**
+ * Main button indicating cluster health.
+ */
+var clusterHealthPoller;
 
 var stopAllPollers = function () {
 
-    stopNodePoller();
+    stopAllNodePollers();
 
     if (clusterHealthPoller != undefined) {
         clusterHealthPoller.stop();
     }
 };
 
+var stopAllNodePollers = function () {
+    stopNodePoller();
+    //stopCompareNodesPoller();
+}
+
+/**
+ * Individual node poller
+ */
 var stopNodePoller = function () {
 
     if (nodePoller != undefined) {
         nodePoller.stop();
     }
 };
+
+/**
+ * Side-by-side view of all nodes poller.
+ */
+/*
+var stopCompareNodesPoller = function () {
+
+    if (compareNodesPoller != undefined) {
+        compareNodesPoller.stop();
+    }
+};*/

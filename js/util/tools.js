@@ -111,3 +111,39 @@ $.fn.serializeObject = function () {
     });
     return o;
 };
+
+/**
+ * Returns value inside an object.
+ * @param obj
+ * @param string
+ * @return {*}
+ */
+function lookupValue(obj, string) {
+    var returnString = obj[string];
+    if (obj[string] == undefined) {
+        returnString = getValue(string, obj);
+        console.log(obj);
+    }
+    return returnString;
+}
+
+/**
+ * Util method that finds an object value by key. Used for deeply nested dot-notation keys.
+ *
+ * @param namespace
+ * @param parent
+ * @return {*}
+ */
+function getValue(namespace, parent) {
+    var parts = namespace.split('.'),
+        current = parent || window;
+    for (var i = 0; i < parts.length; i += 1) {
+        if (current[parts[i]]) {
+            current = current[parts[i]];
+        } else {
+            if (i >= parts.length - 1)
+                return undefined;
+        }
+    }
+    return current;
+}

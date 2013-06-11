@@ -29,6 +29,7 @@ $(document).ready(
                     "cluster":"cluster",
                     "nodes":"nodes",
                     "nodes/:nodeId":"nodes",
+                    "nodediagnostics":"nodeDiagnostics",
                     "shutdownNode/:nodeId":"killNode",
                     "showhotthreads/:nodeId":"showhotthreads",
                     "indices":"indices",
@@ -136,8 +137,12 @@ $(document).ready(
                         }
                     });
                 },
+                nodeDiagnostics:function () {
+                    stopAllNodePollers();
+                    nodeRoute.diagnoseNodes();
+                },
                 nodes:function (nodeId) {
-                    stopAllPollers();
+                    stopAllNodePollers(); // why was i stopping all pollers? changed to only stop node poller.
                     console.log("route nodeId: " + nodeId);
 
                     var nodeStat = new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
@@ -201,7 +206,7 @@ $(document).ready(
                     });
                 },
                 indices:function () {
-                    stopNodePoller();
+                    stopAllNodePollers();
                     var indexStatusModel = new IndicesStatusModel();
                     indexStatusModel.setConnectionRootURL(cluster.get("connectionRootURL"));
                     indexStatusModel.fetch(
@@ -291,31 +296,31 @@ $(document).ready(
                     indexRoute.closeIndex(indexId);
                 },
                 index:function (indexId) {
-                    stopNodePoller();
+                    stopAllNodePollers();
                     indexRoute.indexView(indexId);
                 },
                 mappings:function (indexId, mapName) {
-                    stopNodePoller();
+                    stopAllNodePollers();
                     mapRoute.viewMappings(indexId, mapName);
                 },
                 deleteMapType:function (indexId, mapName) {
-                    stopNodePoller();
+                    stopAllNodePollers();
                     mapRoute.deleteMapType(indexId, mapName);
                 },
                 createMapping:function () {
-                    stopNodePoller();
+                    stopAllNodePollers();
                     mapRoute.createMapping();
                 },
                 viewRest:function () {
-                    stopNodePoller();
+                    stopAllNodePollers();
                     restRoute.view();
                 },
                 callRest:function (command) {
-                    stopNodePoller();
+                    stopAllNodePollers();
                     restRoute.json(command);
                 },
                 defaultRoute:function () {
-                    stopNodePoller();
+                    stopAllNodePollers();
                     console.log('defaultRoute');
                 }
             })

@@ -167,3 +167,7 @@ table .headerSortUp:after {
 .nav-header {
     font-size: 14px;
 }
+
+.nodestable td {
+    /*font-size: 18px !important;*/
+}

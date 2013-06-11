@@ -1,12 +1,16 @@
 var nodeTemplate = {};
 
+/**
+ * Top area with node-picker or node buttons
+ * @type {String}
+ */
 nodeTemplate.nodeList = [
-    '<a href="#" class="btn btn-info" rel="tipRight" data-trigger="hover" data-placement="bottom" data-title="Real-Time monitoring of  all nodes in a side-by-side grid."><i class="icon-bar-chart"></i> View All</a>',
+    '<a href="#nodediagnostics" class="btn btn-info" rel="tipRight" data-trigger="hover" data-placement="bottom" data-title="Provides helpful diagnostic/debugging information for all nodes in your cluster."><i class="icon-ambulance"></i> Node Diagnostics</a>',
 
     '<!-- if more than 5 nodes, show dropdown. else, show individual nodes. -->',
     '<% if (_.size(nodes.models) > 5 ) { %>',
     '<div class="btn-group">',
-    '<button class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#"><i class="icon-th"></i> Node List <span class="caret"></span></button> ',
+    '<button class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#" rel="tipRight" data-trigger="hover" data-placement="right" data-title="Monitor individual nodes in real-time."><i class="icon-th"></i> Monitor Nodes <span class="caret"></span></button> ',
     '<ul class="dropdown-menu">',
     '<% _.each(nodes.models, function(node, key) { %>',
     '<li><a href="#nodes/<%- node.attributes.id %>" data-nodeid="<%- node.id %>">',
@@ -81,6 +85,40 @@ nodeTemplate.nodeInfoModal = [
     '</div>',
     '</div>'
 ].join("\n");
+
+/**
+ * Side by side compare of all nodes.
+ * @type {String}
+ */
+nodeTemplate.diagnostics = [
+    '<div class="well">',
+//    '<div class="pull-left" style="line-height: 13px;font-size: 10px;">Refreshed:<br/><%- lastUpdateTime %></div>',
+    '<div class="text-center">',
+    '<span style="font-size: 28px;">Real-Time Monitoring Nodes</span>',
+    '</div>',
+    '</div><!-- well -->',
+
+    '<div class="row-fluid"><div class=""> ',
+    '<table class="table table-bordered table-hover nodestable"  style="overflow-x: auto;width: auto;" >',
+
+    '<% _.each(labels, function(label, i) { %>',
+    '<tr>',
+    '<td style="white-space: nowrap;"><strong><%- label.title %></strong></td>',
+
+    '<% _.each(nodes, function(node, k) { %>',
+    '<td style="white-space: nowrap;">',
+    '<%- lookupValue(node, label.key) %>',
+    /*'<%- node[label.key] %>',*/
+    '</td>',
+    '<% }); %>',
+
+    '</tr>',
+    '<% }); %>',
+    '</table>',
+    '</div></div>'
+
+].join("\n");
+
 nodeTemplate.nodeInfo = [
 
     '<div class="well">',
@@ -106,7 +144,7 @@ nodeTemplate.nodeInfo = [
     '<div class="row-fluid">',
 
     '<div class="span4"> ',
-    '<div class="text-center">&nbsp;</strong></div>',
+    '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
     '<tr><td>Heap Used:</td><td><%- jvmStats.mem.heap_used %></td></tr>',
     '<tr><td>Heap Committed:</td><td><%- jvmStats.mem.heap_committed %></td></tr>',
@@ -151,7 +189,7 @@ nodeTemplate.nodeInfo = [
     '<div class="row-fluid">',
 
     '<div class="span4"> ',
-    '<div class="text-center">&nbsp;</strong></div>',
+    '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
     '<tr><td>Documents:</td><td><%- indices.docs.count%></td></tr>',
     '<tr><td>Documents Deleted:</td><td><%- indices.docs.deleted%></td></tr>',
@@ -194,7 +232,7 @@ nodeTemplate.nodeInfo = [
     '<div class="row-fluid">',
 
     '<div class="span4"> ',
-    '<div class="text-center">&nbsp;</strong></div>',
+    '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
     '<tr><td>Uptime:</td><td><%- osStats.uptime %></td></tr>',
     '<tr><td>Total Memory:</td><td><%- osStats.mem.total %></td></tr>',
@@ -238,7 +276,7 @@ nodeTemplate.nodeInfo = [
     '<div class="row-fluid">',
 
     '<div class="span4"> ',
-    '<div class="text-center">&nbsp;</strong></div>',
+    '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
     '<tr><td>Open File Descriptors:</td><td><%- osStats.uptime %></td></tr>',
     '<tr><td>CPU Usage:</td><td><%- processStats.cpu.percent %>% of <%- osStats.max_proc_cpu %>%</td></tr>',
@@ -280,7 +318,7 @@ nodeTemplate.nodeInfo = [
     '<div class="row-fluid">',
 
     '<div class="span4"> ',
-    '<div class="text-center">&nbsp;</strong></div>',
+    '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
     '<tr><td>Index (Queue/Peak/Active):</td><td><%- threadPool.index.queue %>/<%- threadPool.index.largest %>/<%- threadPool.index.active%></td></tr>',
     '<tr><td>Get (Queue/Peak/Active):</td><td><%- threadPool.get.queue %>/<%- threadPool.get.largest %>/<%- threadPool.get.active%></td></tr>',
@@ -321,7 +359,7 @@ nodeTemplate.nodeInfo = [
     '<div class="row-fluid">',
 
     '<div class="span4"> ',
-    '<div class="text-center">&nbsp;</strong></div>',
+    '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
     '<tr><td>HTTP Address:</td><td><%- netInfo.http.address %></td></tr>',
     '<tr><td>HTTP Bound Address:</td><td><%- netInfo.http.bound_address %></td></tr>',
@@ -360,7 +398,7 @@ nodeTemplate.nodeInfo = [
     '<div class="row-fluid">',
 
     '<div class="span4"> ',
-    '<div class="text-center">&nbsp;</strong></div>',
+    '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
     '<tr><td>Path:</td><td><%- fileSystem.path %></td></tr>',
     '<tr><td>Mount:</td><td><%- fileSystem.mount %></td></tr>',
