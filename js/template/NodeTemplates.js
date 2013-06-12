@@ -92,7 +92,7 @@ nodeTemplate.nodeInfoModal = [
  */
 nodeTemplate.diagnostics = [
     '<div class="well">',
-    '<div class="pull-left"><button class="btn"><i class="icon-question-sign"></i> Info</button></div>',
+    '<div class="pull-left"><a href="#diagnosticsModal" data-toggle="modal" role="button" class="btn"><i class="icon-question-sign"></i> About</a></div>',
     '<div class="text-center">',
     '<span style="font-size: 28px;">Node Diagnotics Information</span>',
     '</div>',
@@ -219,7 +219,27 @@ nodeTemplate.diagnostics = [
 
 
     '</table>',
-    '</div> <!-- row -->'
+    '</div> <!-- row -->',
+
+    '<div class="modal hide fade" id="diagnosticsModal">',
+    '<div class="modal-header">',
+    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
+    '<h3>About Node Diagnostics</h3>',
+    '</div>',
+    '<div class="modal-body">',
+    '<p>This screen provides helpful information and possible hints for common performance problems. ',
+    'Mouseover the <b>(?)</b> symbol for helpful hints and common causes of problems.</p>',
+    '<p>This screen uses threshold ranges to determine acceptable values for each of your nodes.</p>',
+    '<table class="table table-bordered">',
+    '<tr><td class="success">Value is in acceptable range.</td></tr>',
+    '<tr><td class="warning">Value is within a warning range.</td></tr>',
+    '<tr><td class="error">Value is beyond acceptable levels.</td></tr>',
+    '</table> ',
+    '</div>',
+    '<div class="modal-footer">',
+    '<a href="#" class="btn" data-dismiss="modal">Close</a>',
+    '</div>',
+    '</div>'
 
 ].join("\n");
 
