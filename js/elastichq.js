@@ -51,6 +51,14 @@ $(document).ready(
             $("#error-loc").empty();
             doConnect($('#connectionURL').val());
         });
+
+/*        connectionURL.keypress(function(e) {
+            // Enter pressed?
+            if(e.which == 10 || e.which == 13) {
+                doConnect($('#connectionURL').val());
+            }
+        });*/
+
     });
 
 var doConnect = function (connectionRootURL) {
