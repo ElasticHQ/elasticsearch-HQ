@@ -5,7 +5,7 @@ var nodeTemplate = {};
  * @type {String}
  */
 nodeTemplate.nodeList = [
-    '<a href="#nodediagnostics" class="btn btn-info" rel="tipRight" data-trigger="hover" data-placement="bottom" data-title="Provides helpful diagnostic/debugging information for all nodes in your cluster."><i class="icon-ambulance"></i> Node Diagnostics</a>',
+    '<a href="#nodediagnostics" class="btn btn-info" rel="tipRight" data-trigger="hover" data-placement="bottom" data-title="Provides helpful diagnostic & performance information for all nodes in your cluster."><i class="icon-ambulance"></i> Node Diagnostics</a>',
 
     '<!-- if more than 5 nodes, show dropdown. else, show individual nodes. -->',
     '<% if (_.size(nodes.models) > 5 ) { %>',
@@ -94,28 +94,51 @@ nodeTemplate.diagnostics = [
     '<div class="well">',
 //    '<div class="pull-left" style="line-height: 13px;font-size: 10px;">Refreshed:<br/><%- lastUpdateTime %></div>',
     '<div class="text-center">',
-    '<span style="font-size: 28px;">Real-Time Monitoring Nodes</span>',
+    '<span style="font-size: 28px;">Node Diagnotics Information</span>',
     '</div>',
     '</div><!-- well -->',
 
-    '<div class="row-fluid"><div class=""> ',
-    '<table class="table table-bordered table-hover nodestable"  style="overflow-x: auto;width: auto;" >',
-
-    '<% _.each(labels, function(label, i) { %>',
+    '<div class="row-fluid">',
+    '<table class="table table-condensed table-bordered table-hover nodestable"  style="overflow-x: auto;width: auto;" >',
+    '<thead><tr><td colspan="<%- _.size(nodes) %>" class="lead"><i class="icon-th-large"></i> Summary</td></tr></thead>',
+    '<tbody>',
+    '<% _.each(generalRules, function(rule, key) { %>',
     '<tr>',
-    '<td style="white-space: nowrap;"><strong><%- label.title %></strong></td>',
+    '<td style="white-space: nowrap;"><strong><%- rule.label %></strong></td>',
 
     '<% _.each(nodes, function(node, k) { %>',
-    '<td style="white-space: nowrap;">',
-    '<%- lookupValue(node, label.key) %>',
-    /*'<%- node[label.key] %>',*/
+    '<td style="white-space: nowrap; text-align: right;">',
+    '',
+    '<%- calculateRuleValue(node, rule.value, rule.unit, rule.format) %>',
     '</td>',
     '<% }); %>',
 
     '</tr>',
     '<% }); %>',
+    '</tbody>',
+
+    '<thead><tr><td colspan="<%- _.size(nodes) %>" class="lead"><i class="icon-th-large"></i> File System</td></tr></thead>',
+    '<tbody>',
+    '<% _.each(fsRules, function(rule, key) { %>',
+    '<tr>',
+    '<td style="white-space: nowrap;">',
+    '<strong><%- rule.label %></strong>',
+    '<% if (rule.comment != undefined) { %>',
+    '<span><strong>(</strong><a href="#" rel="tipRight" data-placement="bottom" data-title="<%- rule.comment %>" data-trigger="hover" data-html="true"><strong>?</strong></a><strong>)</strong></span>',
+    '<% } %>',
+    '</td>',
+    '<% _.each(nodes, function(node, k) { %>',
+    '<td style="white-space: nowrap; text-align: right;" class="<%- calculateCellClass(node, rule) %>">',
+    '<%- calculateRuleValue(node, rule.value, rule.unit, rule.format) %>',
+    '</td>',
+    '<% }); %>',
+    '</tr>',
+    '<% }); %>',
+    '</tbody>',
+
+
     '</table>',
-    '</div></div>'
+    '</div> <!-- row -->'
 
 ].join("\n");
 

@@ -169,5 +169,38 @@ table .headerSortUp:after {
 }
 
 .nodestable td {
-    /*font-size: 18px !important;*/
+    font-size: 13px !important;
+}
+
+/* overrides for td bootstrap classes */
+.table tbody td.success {
+    background-color: #dff0d8;
+}
+
+.table tbody td.error {
+    background-color: #f2dede;
+}
+
+.table tbody td.warning {
+    background-color: #fcf8e3;
+}
+
+.table tbody td.info {
+    background-color: #d9edf7;
+}
+
+.table-hover tbody td.success:hover {
+    background-color: #d0e9c6;
+}
+
+.table-hover tbody td.error:hover {
+    background-color: #ebcccc;
+}
+
+.table-hover tbody td.warning:hover {
+    background-color: #faf2cc;
+}
+
+.table-hover tbody td.info:hover {
+    background-color: #c4e3f3;
 }
