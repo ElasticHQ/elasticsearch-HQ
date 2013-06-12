@@ -187,7 +187,7 @@ function fs_rules() {
 function action_rules() {
     return [
         {
-            label:"Indexing - index",
+            label:"Indexing - Index:",
             comment:"High values indicate complex documents or slow I/O or CPU.",
             format:"ms",
             value:"",
@@ -195,7 +195,7 @@ function action_rules() {
 
         },
         {
-            label:"Indexing - delete",
+            label:"Indexing - Delete:",
             comment:"High values indicate slow I/O.",
             format:"ms",
             value:"stats.indexdelete",
@@ -203,7 +203,7 @@ function action_rules() {
 
         },
         {
-            label:"Search - query",
+            label:"Search - Query:",
             comment:"High values indicate complex or inefficient queries, insufficient use of filters, insufficient RAM for caching, slow I/O or CPU.",
             format:"ms",
             value:"stats.searchquery",
@@ -211,7 +211,7 @@ function action_rules() {
 
         },
         {
-            label:"Search - fetch",
+            label:"Search - Fetch:",
             comment:"High values indicate slow I/O, large docs, or fetching too many docs, eg deep paging.",
             format:"ms",
             value:"stats.searchfetch",
@@ -219,7 +219,7 @@ function action_rules() {
 
         },
         {
-            label:"Get - total",
+            label:"Get - Total:",
             comment:"High values indicate slow I/O.",
             format:"ms",
             value:"stats.gettotal",
@@ -227,7 +227,7 @@ function action_rules() {
 
         },
         {
-            label:"Get - exists",
+            label:"Get - Exists:",
             //comment:"???",
             format:"ms",
             value:"stats.getexists",
@@ -235,7 +235,7 @@ function action_rules() {
 
         },
         {
-            label:"Get - missing",
+            label:"Get - Missing:",
             //comment:"???",
             format:"ms",
             value:"stats.getmissing",
@@ -243,7 +243,7 @@ function action_rules() {
 
         },
         {
-            label:"Refresh",
+            label:"Refresh:",
             comment:"High values indicate slow I/O.",
             format:"ms",
             value:"stats.refresh",
@@ -251,7 +251,7 @@ function action_rules() {
 
         },
         {
-            label:"Flush",
+            label:"Flush:",
             comment:"High values indicate slow I/O.",
             format:"ms",
             value:"stats.flush",
@@ -277,7 +277,7 @@ function cache_rules() {
 
         },
         {
-            label:"Filter Size:",
+            label:"Filter Cache Size:",
             value:"stats.indices.filter_cache.memory_size"
         },
         {
@@ -290,12 +290,12 @@ function cache_rules() {
 
         },
         {
-            label:"ID Size:",
+            label:"ID Cache Size:",
             value:"stats.indices.id_cache.memory_size"
 
         },
         {
-            label:"ID %:",
+            label:"% ID Cache:",
             value:"stats.idpercentage",
             format:"pct",
             upper_limit:["0.2", "0.4"],
@@ -308,14 +308,14 @@ function cache_rules() {
 function memory_rules() {
     return [
         {
-            label:"Total mem",
+            label:"Total Memory:",
             unit:"gb",
             format:"comma",
             value:"stats.totalmem"
 
         },
         {
-            label:"Heap size",
+            label:"Heap Size:",
             unit:"gb",
             comment:"A heap size over 32GB causes the JVM to use uncompressed pointers and can slow GC.",
             format:"float",
@@ -324,7 +324,7 @@ function memory_rules() {
 
         },
         {
-            label:"Heap % of RAM",
+            label:"Heap % of RAM:",
             comment:"Approx 40-50% of RAM should be available to the kernel for file caching.",
             format:"pct",
             value:"stats.heappercram",
@@ -332,13 +332,13 @@ function memory_rules() {
 
         },
         {
-            label:"Heap used %",
+            label:"% Heap Used:",
             format:"pct",
             value:"stats.heapused"
 
         },
         {
-            label:"GC MarkSweep frequency",
+            label:"GC MarkSweep Frequency:",
             unit:"s",
             comment:"Too frequent GC indicates memory pressure and need for more heap space.",
             format:"comma",
@@ -347,7 +347,7 @@ function memory_rules() {
 
         },
         {
-            label:"GC MarkSweep duration",
+            label:"GC MarkSweep Duration:",
             comment:"Long durations may indicate that swapping is slowing down GC, or need for more heap space.",
             format:"ms",
             value:"stats.gcduration",
@@ -355,21 +355,21 @@ function memory_rules() {
 
         },
         {
-            label:"GC ParNew frequency",
+            label:"GC ParNew Frequency:",
             unit:"s",
             format:"comma",
             value:"stats.gcparnew"
 
         },
         {
-            label:"GC ParNew duration",
+            label:"GC ParNew Duration:",
             format:"ms",
             value:"stats.gcparnewduration",
             upper_limit:[ "100", "200" ]
 
         },
         {
-            label:"Swap",
+            label:"Swap Space:",
             value:"stats.swap",
             unit:"mb",
             upper_limit:["1", "1"],
@@ -382,9 +382,9 @@ function memory_rules() {
 function network_rules() {
     return [
         {
-            label:"HTTP connection rate",
+            label:"HTTP Connection Rate:",
             unit:"per sec",
-            comment:"Too many HTTP connection per second may exhaust the number of sockets available in the kernel, and cause a service outage.",
+            comment:"Too many HTTP connections per second may exhaust the number of sockets available in the kernel, and cause a service outage.",
             format:"comma",
             value:"stats.httpconnectrate",
             upper_limit:[ "5", "30" ]
