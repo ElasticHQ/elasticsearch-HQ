@@ -172,6 +172,10 @@ table .headerSortUp:after {
     font-size: 13px !important;
 }
 
+.nodestable thead td {
+    font-size: 16px !important;
+}
+
 /* overrides for td bootstrap classes */
 .table tbody td.success {
     background-color: #dff0d8;

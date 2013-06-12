@@ -64,62 +64,40 @@ var NodeStatsListView = Backbone.View.extend(
                     node.stats.transport_address = nodeStatModel.nodes[nodeId].transport_address.replace(/inet\[\/([^\]]+)\]/, "$1");
                     node.stats.jvm.uptime = (node.stats.jvm.uptime_in_millis / 1000 / 60 / 60 / 24).toFixed(2);
                     node.stats.docsdeletedperc = node.stats.indices.docs.deleted / node.stats.indices.docs.count;
+                    node.stats.mergerate = node.stats.indices.merges.total_size_in_bytes / node.stats.indices.merges.total_time_in_millis / 1000
 
-                    /*                    var jvmStats = nodeStat.jvm;
-                     var osStats = nodeStat.os;
-                     var processStats = nodeStat.process;
-                     var nodeName = nodeStat.name;
-                     var address = nodeStat.transport_address.replace(/inet\[\/([^\]]+)\]/, "$1");
-                     var hostName = nodeStat.hostname;
-                     var threadPool = nodeStat.thread_pool;
-                     var fileSystem = nodeStat.fs.data[0];
-                     var threads = nodeStat.threads;
-                     var indices = nodeStat.indices;
-                     var netStats = nodeStat.transport;
-                     //var httpStats = nodeStat.http;
+                    // actions
+                    node.stats.flush = node.stats.indices.flush.total_time_in_millis / node.stats.indices.flush.total;
+                    node.stats.refresh = node.stats.indices.refresh.total_time_in_millis / node.stats.indices.refresh.total;
+                    node.stats.getmissing = node.stats.indices.get.missing_time_in_millis / node.stats.indices.get.missing_total;
+                    node.stats.getexists = node.stats.indices.get.exists_time_in_millis / node.stats.indices.get.exists_total;
+                    node.stats.gettotal = node.stats.indices.get.time_in_millis / node.stats.indices.get.total;
+                    node.stats.searchfetch = node.stats.indices.search.fetch_time_in_millis / node.stats.indices.search.fetch_total;
+                    node.stats.searchquery = node.stats.indices.search.query_time_in_millis / node.stats.indices.search.query_total;
+                    node.stats.indexdelete = node.stats.indices.indexing.delete_time_in_millis / node.stats.indices.indexing.delete_total;
+                    node.stats.indexindexing = node.stats.indices.indexing.index_time_in_millis / node.stats.indices.indexing.index_total;
 
-                     jvmStats.version = nodeInfo.nodes[nodeId].jvm.version;
-                     jvmStats.vm_name = nodeInfo.nodes[nodeId].jvm.vm_name;
-                     jvmStats.vm_vendor = nodeInfo.nodes[nodeId].jvm.vm_vendor;
-                     jvmStats.pid = nodeInfo.nodes[nodeId].jvm.pid;
-                     osStats.cpu.vendor = nodeInfo.nodes[nodeId].os.cpu.vendor;
-                     osStats.cpu.model = nodeInfo.nodes[nodeId].os.cpu.model;
-                     osStats.cpu.total_cores = nodeInfo.nodes[nodeId].os.cpu.total_cores;
-                     osStats.available_processors = nodeInfo.nodes[nodeId].os.available_processors;
-                     osStats.max_proc_cpu = 100 * osStats.available_processors
-                     var netInfo = nodeInfo.nodes[nodeId].network;
-                     netInfo.transport = nodeInfo.nodes[nodeId].transport;
-                     netInfo.transport.address = nodeInfo.nodes[nodeId].transport_address;
-                     netInfo.http = nodeInfo.nodes[nodeId].http;
-                     netInfo.http.address = nodeInfo.nodes[nodeId].http_address;
-                     var host = nodeInfo.nodes[nodeId].hostname;
+                    // cache
+                    node.stats.filterevictions = node.stats.indices.filter_cache.evictions / node.stats.indices.search.query_total;
+                    node.stats.idpercentage = node.stats.indices.id_cache.memory_size_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
 
-                     //massage
-                     var jvmuptime = jvmStats.uptime.split('and');
-                     jvmStats.uptime = jvmuptime[0];
-                     osStats.mem.total = convert.bytesToSize(osStats.mem.free_in_bytes + osStats.mem.used_in_bytes, 2);
-                     osStats.swap.total = convert.bytesToSize(osStats.swap.used_in_bytes + osStats.swap.free_in_bytes, 2);
-                     osStats.mem.used = convert.bytesToSize(osStats.mem.used_in_bytes, 2);
-                     osStats.mem.free = convert.bytesToSize(osStats.mem.free_in_bytes, 2);
-                     osStats.swap.used = convert.bytesToSize(osStats.swap.used_in_bytes, 2);
-                     osStats.swap.free = convert.bytesToSize(osStats.swap.free_in_bytes, 2);
-                     processStats.cpu.sys = processStats.cpu.sys.split('and')[0];
-                     processStats.cpu.user = processStats.cpu.user.split('and')[0];
-                     processStats.cpu.total = processStats.cpu.total.split('and')[0];
+                    // memory
+                    node.stats.totalmem = ( node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes ) / 1024 / 1024 / 1024;
+                    node.stats.heapsize = node.stats.jvm.mem.heap_committed_in_bytes / 1024 / 1024 / 1024;
+                    node.stats.heappercram = node.stats.jvm.mem.heap_committed_in_bytes / (node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes);
+                    node.stats.heapused = node.stats.jvm.mem.heap_used_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
+                    if (node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count == 0) {
+                        node.stats.gcfreq = 0;
+                    } else {
+                        node.stats.gcfreq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count / 1000;
+                    }
+                    node.stats.gcduration = node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_time_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count;
+                    node.stats.gcparnew = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count / 1000;
+                    node.stats.gcparnewduration = node.stats.jvm.gc.collectors.ParNew.collection_time_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count;
+                    node.stats.swap = node.stats.os.swap.used_in_bytes / 1024 / 1024;
 
-                     node.nodeId = nodeId;
-                     node.jvmStats = jvmStats;
-                     node.osStats = osStats;
-                     node.processStats = processStats;
-                     node.nodeName = nodeName;
-                     node.address = address;
-                     node.hostName = hostName;
-                     node.threadPool = threadPool;
-                     node.fileSystem = fileSystem;
-                     node.threads = threads;
-                     node.indices = indices;
-                     node.netStats = netStats;
-                     node.netInfo = netInfo;*/
+                    // network
+                    node.stats.httpconnectrate = node.stats.http.total_opened / node.stats.jvm.uptime_in_millis * 1000;
 
                     nodeArray.push(node);
                 }
@@ -131,11 +109,16 @@ var NodeStatsListView = Backbone.View.extend(
                         nodes:nodeArray,
                         labels:keysArray,
                         generalRules:general_rules(),
-                        fsRules:fs_rules()
+                        fsRules:fs_rules(),
+                        actionRules:action_rules(),
+                        cacheRules:cache_rules(),
+                        memoryRules:memory_rules(),
+                        networkRules:network_rules()
                         //lastUpdateTime:timeUtil.lastUpdated()
                     }));
 
                 $("[rel=tipRight]").tooltip();
+                $("[rel=popRight]").popover({});
 
                 return this;
             },

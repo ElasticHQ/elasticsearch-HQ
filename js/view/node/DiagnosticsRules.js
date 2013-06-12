@@ -113,28 +113,28 @@ var Formats = {
 function general_rules() {
     return [
         {
-            label:"Name",
+            label:"Node Name:",
             value:"stats.name"
         },
         {
-            label:"IP",
+            label:"IP Address:",
             value:"stats.transport_address"
         },
         {
-            label:"ID",
+            label:"Node ID:",
             value:"id"
         },
         {
-            label:"ES Uptime",
+            label:"ES Uptime:",
             value:"stats.jvm.uptime",
             unit:"days"
         },
         {
-            label:"CPU",
+            label:"CPU:",
             value:"info.os.cpu.model"
         },
         {
-            label:"Cores",
+            label:"# Cores:",
             value:"info.os.cpu.total_cores"
         }/*,
          {
@@ -147,11 +147,11 @@ function general_rules() {
 function fs_rules() {
     return [
         {
-            label:"Store size",
+            label:"Store Size:",
             value:"stats.indices.store.size"
         },
         {
-            label:"Docs total",
+            label:"# Documents:",
             value:"stats.indices.docs.count"
         },
         {
@@ -162,135 +162,101 @@ function fs_rules() {
             upper_limit:[ "0.1", "0.25" ]
         },
         {
-            label:"Merge size",
+            label:"Merge Size:",
             value:"stats.indices.merges.total_size"
         },
         {
-            label:"Merge time",
+            label:"Merge Time:",
             value:"stats.indices.merges.total_time"
-        }/*,
-
-         {
-
-
-         "Store size":{
-         "val":"stats.indices.store.size"
-         }
-         },
-         {
-         "Docs total":{
-         "format":"comma",
-         "val":"stats.indices.docs.count"
-         }
-         },
-         {
-         "Docs deleted %":{
-         "comment":"High values indicate insufficient merging. Slow I/O?",
-         "format":"pct",
-         "val":"stats.indices.docs.deleted / stats.indices.docs.count",
-         "upper_limit":[ "0.1", "0.25" ]
-         }
-         },
-         {
-         "Merge size":{
-         "val":"stats.indices.merges.total_size"
-         }
-         },
-         {
-         "Merge time":{
-         "val":"stats.indices.merges.total_time"
-         }
-         },
-         {
-         "Merge rate":{
-         "unit":"MB/s",
-         "comment":"Low rates indicate throttling or slow I/O",
-         "format":"float",
-         "val":"stats.indices.merges.total_size_in_bytes / stats.indices.merges.total_time_in_millis / 1000"
-         }
-         },
-         {
-         "File descriptors":{
-         "format":"comma",
-         "val":"stats.process.open_file_descriptors"
-         }
-         }*/
+        },
+        {
+            label:"Merge Rate:",
+            unit:"MB/s",
+            comment:"Low rates indicate throttling or slow I/O",
+            format:"float",
+            value:"node.stats.mergerate"
+        },
+        {
+            label:"File Descriptors:",
+            format:"comma",
+            value:"stats.process.open_file_descriptors"
+        }
     ];
 }
 
 function action_rules() {
     return [
         {
-            "Indexing - index":{
-                "comment":"High values indicate complex documents or slow I/O or CPU.",
-                "format":"ms",
-                "val":"stats.indices.indexing.index_time_in_millis / stats.indices.indexing.index_total",
-                "upper_limit":[ "10", "50" ]
-            }
+            label:"Indexing - index",
+            comment:"High values indicate complex documents or slow I/O or CPU.",
+            format:"ms",
+            value:"",
+            upper_limit:[ "10", "50" ]
+
         },
         {
-            "Indexing - delete":{
-                "comment":"High values indicate slow I/O.",
-                "format":"ms",
-                "val":"stats.indices.indexing.delete_time_in_millis / stats.indices.indexing.delete_total",
-                "upper_limit":[ "5", "10" ]
-            }
+            label:"Indexing - delete",
+            comment:"High values indicate slow I/O.",
+            format:"ms",
+            value:"stats.indexdelete",
+            upper_limit:[ "5", "10" ]
+
         },
         {
-            "Search - query":{
-                "comment":"High values indicate complex or inefficient queries, insufficient use of filters, insufficient RAM for caching, slow I/O or CPU.",
-                "format":"ms",
-                "val":"stats.indices.search.query_time_in_millis / stats.indices.search.query_total",
-                "upper_limit":[ "50", "500" ]
-            }
+            label:"Search - query",
+            comment:"High values indicate complex or inefficient queries, insufficient use of filters, insufficient RAM for caching, slow I/O or CPU.",
+            format:"ms",
+            value:"stats.searchquery",
+            upper_limit:[ "50", "500" ]
+
         },
         {
-            "Search - fetch":{
-                "comment":"High values indicate slow I/O, large docs, or fetching too many docs, eg deep paging.",
-                "format":"ms",
-                "val":"stats.indices.search.fetch_time_in_millis / stats.indices.search.fetch_total",
-                "upper_limit":[ "8", "15" ]
-            }
+            label:"Search - fetch",
+            comment:"High values indicate slow I/O, large docs, or fetching too many docs, eg deep paging.",
+            format:"ms",
+            value:"stats.searchfetch",
+            upper_limit:[ "8", "15" ]
+
         },
         {
-            "Get - total":{
-                "comment":"High values indicate slow I/O.",
-                "format":"ms",
-                "val":"stats.indices.get.time_in_millis / stats.indices.get.total",
-                "upper_limit":[ "5", "10" ]
-            }
+            label:"Get - total",
+            comment:"High values indicate slow I/O.",
+            format:"ms",
+            value:"stats.gettotal",
+            upper_limit:[ "5", "10" ]
+
         },
         {
-            "Get - exists":{
-                "comment":"???",
-                "format":"ms",
-                "val":"stats.indices.get.exists_time_in_millis / stats.indices.get.exists_total",
-                "upper_limit":[ "5", "10" ]
-            }
+            label:"Get - exists",
+            //comment:"???",
+            format:"ms",
+            value:"stats.getexists",
+            upper_limit:[ "5", "10" ]
+
         },
         {
-            "Get - missing":{
-                "comment":"???",
-                "format":"ms",
-                "val":"stats.indices.get.missing_time_in_millis / stats.indices.get.missing_total",
-                "upper_limit":[ "2", "5" ]
-            }
+            label:"Get - missing",
+            //comment:"???",
+            format:"ms",
+            value:"stats.getmissing",
+            upper_limit:[ "2", "5" ]
+
         },
         {
-            "Refresh":{
-                "comment":"High values indicate slow I/O.",
-                "format":"ms",
-                "val":"stats.indices.refresh.total_time_in_millis / stats.indices.refresh.total",
-                "upper_limit":[ "10", "20" ]
-            }
+            label:"Refresh",
+            comment:"High values indicate slow I/O.",
+            format:"ms",
+            value:"stats.refresh",
+            upper_limit:[ "10", "20" ]
+
         },
         {
-            "Flush":{
-                "comment":"High values indicate slow I/O.",
-                "format":"ms",
-                "val":"stats.indices.flush.total_time_in_millis / stats.indices.flush.total",
-                "upper_limit":[ "750", "1500" ]
-            }
+            label:"Flush",
+            comment:"High values indicate slow I/O.",
+            format:"ms",
+            value:"stats.flush",
+            upper_limit:[ "750", "1500" ]
+
         }
     ];
 }
@@ -298,44 +264,43 @@ function action_rules() {
 function cache_rules() {
     return [
         {
-            "Field size":{
-                "val":"stats.indices.fielddata.memory_size"
-            }
+            label:"Field Size:",
+            value:"stats.indices.fielddata.memory_size"
+
         },
         {
-            "Field evictions":{
-                "comment":"Field values should not be evicted - insufficient RAM for current queries.",
-                "format":"comma",
-                "val":"stats.indices.fielddata.evictions",
-                "upper_limit":[ "0", "0" ]
-            }
+            label:"Field Evictions:",
+            comment:"Field values should not be evicted - insufficient RAM for current queries.",
+            format:"comma",
+            value:"stats.indices.fielddata.evictions",
+            upper_limit:[ "0", "0" ]
+
         },
         {
-            "Filter size":{
-                "val":"stats.indices.cache.filter_size"
-            }
+            label:"Filter Size:",
+            value:"stats.indices.filter_cache.memory_size"
         },
         {
-            "Filter evictions":{
-                "unit":"per query",
-                "comment":"High values indicate insufficient RAM for current queries, or frequent use of one-off values in filters.",
-                "format":"float",
-                "val":"stats.indices.cache.filter_evictions / stats.indices.search.query_total",
-                "upper_limit":[ "0.1", "0.2" ]
-            }
+            label:"Filter Evictions:",
+            unit:"per query",
+            comment:"High values indicate insufficient RAM for current queries, or frequent use of one-off values in filters.",
+            format:"float",
+            value:"stats.filterevictions",
+            upper_limit:[ "0.1", "0.2" ]
+
         },
         {
-            "ID size":{
-                "val":"stats.indices.cache.id_cache_size"
-            }
+            label:"ID Size:",
+            value:"stats.indices.id_cache.memory_size"
+
         },
         {
-            "ID %":{
-                "val":"stats.indices.cache.id_cache_size_in_bytes / stats.jvm.mem.heap_committed_in_bytes",
-                "format":"pct",
-                "upper_limit":["0.2", "0.4"],
-                "comment":"Large parent/child ID caches reduce the amount of memory available on the heap."
-            }
+            label:"ID %:",
+            value:"stats.idpercentage",
+            format:"pct",
+            upper_limit:["0.2", "0.4"],
+            comment:"Large parent/child ID caches reduce the amount of memory available on the heap."
+
         }
     ];
 }
@@ -343,73 +308,73 @@ function cache_rules() {
 function memory_rules() {
     return [
         {
-            "Total mem":{
-                "unit":"gb",
-                "format":"comma",
-                "val":"( stats.os.mem.actual_used_in_bytes + stats.os.mem.actual_free_in_bytes ) / 1024 / 1024 / 1024"
-            }
+            label:"Total mem",
+            unit:"gb",
+            format:"comma",
+            value:"stats.totalmem"
+
         },
         {
-            "Heap size":{
-                "unit":"gb",
-                "comment":"A heap size over 32GB causes the JVM to use uncompressed pointers and can slow GC.",
-                "format":"float",
-                "val":"stats.jvm.mem.heap_committed_in_bytes / 1024 / 1024 / 1024",
-                "upper_limit":[ "30", "32" ]
-            }
+            label:"Heap size",
+            unit:"gb",
+            comment:"A heap size over 32GB causes the JVM to use uncompressed pointers and can slow GC.",
+            format:"float",
+            value:"stats.heapsize",
+            upper_limit:[ "30", "32" ]
+
         },
         {
-            "Heap % of RAM":{
-                "comment":"Approx 40-50% of RAM should be available to the kernel for file caching.",
-                "format":"pct",
-                "val":"stats.jvm.mem.heap_committed_in_bytes / (stats.os.mem.actual_used_in_bytes + stats.os.mem.actual_free_in_bytes)",
-                "upper_limit":[ "0.6", "0.75" ]
-            }
+            label:"Heap % of RAM",
+            comment:"Approx 40-50% of RAM should be available to the kernel for file caching.",
+            format:"pct",
+            value:"stats.heappercram",
+            upper_limit:[ "0.6", "0.75" ]
+
         },
         {
-            "Heap used %":{
-                "format":"pct",
-                "val":"stats.jvm.mem.heap_used_in_bytes / stats.jvm.mem.heap_committed_in_bytes"
-            }
+            label:"Heap used %",
+            format:"pct",
+            value:"stats.heapused"
+
         },
         {
-            "GC MarkSweep frequency":{
-                "unit":"s",
-                "comment":"Too frequent GC indicates memory pressure and need for more heap space.",
-                "format":"comma",
-                "val":"stats.jvm.uptime_in_millis /  stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count / 1000",
-                "lower_limit":[ "30", "15", "0" ]
-            }
+            label:"GC MarkSweep frequency",
+            unit:"s",
+            comment:"Too frequent GC indicates memory pressure and need for more heap space.",
+            format:"comma",
+            value:"stats.gcfreq",
+            lower_limit:[ "30", "15", "0" ]
+
         },
         {
-            "GC MarkSweep duration":{
-                "comment":"Long durations may indicate that swapping is slowing down GC, or need for more heap space.",
-                "format":"ms",
-                "val":"stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_time_in_millis / stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count",
-                "upper_limit":[ "150", "400" ]
-            }
+            label:"GC MarkSweep duration",
+            comment:"Long durations may indicate that swapping is slowing down GC, or need for more heap space.",
+            format:"ms",
+            value:"stats.gcduration",
+            upper_limit:[ "150", "400" ]
+
         },
         {
-            "GC ParNew frequency":{
-                "unit":"s",
-                "format":"comma",
-                "val":"stats.jvm.uptime_in_millis / stats.jvm.gc.collectors.ParNew.collection_count / 1000"
-            }
+            label:"GC ParNew frequency",
+            unit:"s",
+            format:"comma",
+            value:"stats.gcparnew"
+
         },
         {
-            "GC ParNew duration":{
-                "format":"ms",
-                "val":"stats.jvm.gc.collectors.ParNew.collection_time_in_millis / stats.jvm.gc.collectors.ParNew.collection_count",
-                "upper_limit":[ "100", "200" ]
-            }
+            label:"GC ParNew duration",
+            format:"ms",
+            value:"stats.gcparnewduration",
+            upper_limit:[ "100", "200" ]
+
         },
         {
-            "Swap":{
-                "val":"stats.os.swap.used_in_bytes / 1024 / 1024",
-                "unit":"mb",
-                "upper_limit":["1", "1"],
-                "comment":"Any use of swap by the JVM, no matter how small, can greatly impact the speed of the garbage collector."
-            }
+            label:"Swap",
+            value:"stats.swap",
+            unit:"mb",
+            upper_limit:["1", "1"],
+            comment:"Any use of swap by the JVM, no matter how small, can greatly impact the speed of the garbage collector."
+
         }
     ];
 }
@@ -417,13 +382,13 @@ function memory_rules() {
 function network_rules() {
     return [
         {
-            "HTTP connection rate":{
-                "unit":"per sec",
-                "comment":"Too many HTTP connection per second may exhaust the number of sockets available in the kernel, and cause a service outage.",
-                "format":"comma",
-                "val":"stats.http.total_opened / stats.jvm.uptime_in_millis * 1000",
-                "upper_limit":[ "5", "30" ]
-            }
+            label:"HTTP connection rate",
+            unit:"per sec",
+            comment:"Too many HTTP connection per second may exhaust the number of sockets available in the kernel, and cause a service outage.",
+            format:"comma",
+            value:"stats.httpconnectrate",
+            upper_limit:[ "5", "30" ]
+
         }
     ];
 }
