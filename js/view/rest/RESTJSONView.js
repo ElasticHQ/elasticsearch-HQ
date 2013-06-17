@@ -79,6 +79,9 @@ var RESTJSONView = Backbone.View.extend(
             else if (_this.model.cmd == 'indexclearcache') {
                 return 'Indices Cache Cleared';
             }
+            else if (_this.model.cmd == 'cluster_settings') {
+                return 'Cluster Settings';
+            }
 
         },
         str:undefined,
