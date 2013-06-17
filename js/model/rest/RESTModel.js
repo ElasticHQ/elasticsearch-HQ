@@ -33,6 +33,9 @@ var RESTModel = Backbone.Model.extend({
         else if (this.cmd == 'state') {
             this.fetchURL = '/_cluster/state';
         }
+        else if (this.cmd == 'cluster_settings') {
+            this.fetchURL = '/_cluster/settings';
+        }
         else if (this.cmd == 'ping') {
             this.fetchURL = '/';
         }

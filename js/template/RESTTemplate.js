@@ -23,6 +23,7 @@ restTemplate.sideNav = [
     '<li class="nav-header">Cluster</li>',
     '<li><a href="#restcall/health"><i class="icon-double-angle-right"></i> Health</a></li>',
     '<li><a href="#restcall/state"><i class="icon-double-angle-right"></i> State</a></li>',
+    '<li><a href="#restcall/cluster_settings"><i class="icon-double-angle-right"></i> Settings</a></li>',
     '<li><a href="#restcall/ping"><i class="icon-double-angle-right"></i> Ping</a></li>',
     '<li class="nav-header">Nodes</li>',
     '<li><a href="#restcall/nodeinfo"><i class="icon-double-angle-right"></i> Info</a></li>',
