@@ -28,7 +28,8 @@ var Cluster = Backbone.Model.extend({
         nodeList:undefined,
         connected:false,
         nodeStats:undefined, // the current node selected for a live feed.
-        nodeInfo:undefined // the current node selected for a live feed.
+        nodeInfo:undefined, // the current node selected for a live feed.
+        indexStats:undefined //
     },
     initialize:function (args) {
         var _this = this;
@@ -39,7 +40,7 @@ var Cluster = Backbone.Model.extend({
             success:function (model, response) {
                 console.log('Successful connect!');
 
-                $.cookie("resturl", args.connectionRootURL, { expires: 7 });
+                $.cookie("resturl", args.connectionRootURL, { expires:7 });
 
                 var version = ping.get("version");
                 if (version && version.number) {
@@ -85,6 +86,7 @@ var Cluster = Backbone.Model.extend({
         _this.set({connectionRootURL:conn});
         _this.set({clusterHealth:new ClusterHealth({connectionRootURL:conn})});
         _this.set({clusterState:new ClusterState({connectionRootURL:conn})});
+        _this.set({indexStats:new IndexStatsModel({connectionRootURL:conn})});
         var nodelistmodel = new NodeListModel();
         nodelistmodel.setConnectionRootURL(conn);
         _this.set({nodeList:nodelistmodel});

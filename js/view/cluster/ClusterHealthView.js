@@ -20,6 +20,10 @@
  Following the backbone vernacular. This obj simply handles the draw on the upper main screen.
  */
 var ClusterHealthView = Backbone.View.extend({
+    initialize:function (args) {
+        this.stateModel = args.stateModel;
+        this.indexModel = args.indexModel;
+    },
     events:{
         "click #clusterHealthButton":"clicked"
     },
@@ -28,8 +32,52 @@ var ClusterHealthView = Backbone.View.extend({
     },
     renderWorkspace:function () {
         var clusterHealth = this.model;
-        var tpl = _.template(clusterTemplate.HealthDescribe);
-        $('#workspace').html(tpl(clusterHealth.attributes));
+
+        if (this.stateModel == undefined) {
+            this.stateModel = cluster.get("clusterState");
+        }
+        if (this.indexModel == undefined) {
+            this.indexModel = cluster.get("indexStats");
+        }
+
+        var indices = {};
+        indices.shards = this.indexModel.get('_shards');
+        indices.docs = this.indexModel.get('_all').total.docs;
+        indices.store = this.indexModel.get('_all').total.store;
+
+        var indexKeys = _.keys(this.indexModel.get('indices'));
+        if (indexKeys != undefined) {
+            indices.count = indexKeys.length;
+        }
+        else {
+            indices.count = 0;
+        }
+        var metaIndices = this.stateModel.get('metadata').indices.twitter;
+        var indexValues = _.values(this.indexModel.get('indices'));
+        for (var i = 0; i < indexKeys.length; i++) {
+            indexValues[i].id = indexKeys[i];
+        }
+
+        indices.indices = [];
+        for (var $i = 0; $i < indexValues.length; $i++) {
+            var index = indexValues[$i];
+            index.name = uppercaseFirst(index.id);
+            index.numshards = this.stateModel.get('metadata').indices[index.id].settings['index.number_of_shards'];
+            index.numreplicas = this.stateModel.get('metadata').indices[index.id].settings['index.number_of_replicas'];
+            index.status = this.stateModel.get('metadata').indices[index.id].state;
+            if (index.docs == undefined) {
+                index.docs = {num_docs:0};
+            }
+            indices.indices.push(index);
+        }
+
+        var template = _.template(clusterTemplate.HealthDescribe, {
+            health:clusterHealth.attributes,
+            state:this.stateModel,
+            indices:indices
+        });
+        $('#workspace').html(template);
+
         return this;
     },
     render:function () {
@@ -39,12 +87,15 @@ var ClusterHealthView = Backbone.View.extend({
             var status = clusterHealth.get('status');
             if (status == 'yellow') {
                 clusterHealth.set({statusClass:'warning'});
+                clusterHealth.set({statusText:'Yellow'});
             }
             else if (status == 'green') {
                 clusterHealth.set({statusClass:'success'});
+                clusterHealth.set({statusText:'Green'});
             }
             else if (status == 'red') {
                 clusterHealth.set({statusClass:'danger'});
+                clusterHealth.set({statusText:'Red'});
             }
             var t = _.template(clusterTemplate.Health);
             $(this.el).html(t(clusterHealth.attributes));
@@ -54,5 +105,6 @@ var ClusterHealthView = Backbone.View.extend({
             $("[rel=popRight]").popover({});
         }
         return this;
-    }
+    },
+    stateModel:undefined
 });
