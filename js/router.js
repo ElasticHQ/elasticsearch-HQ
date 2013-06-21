@@ -60,23 +60,19 @@ $(document).ready(
             cluster:function () {
                 stopAllPollers();
 
+                // break apart the poller for the main menu/nodelist and the cluster-overview screen...
                 var healthModel = cluster.get("clusterHealth");
 
                 healthModel.fetch({
                     success:function () {
 
-                        // populate clusterstate
-                        //cluster.refreshClusterState();
-
                         var polloptions = {delay:10000};
-                        clusterHealthPoller = Backbone.Poller.get(healthModel, polloptions);
-                        clusterHealthPoller.start();
+                        mainMenuPoller = Backbone.Poller.get(healthModel, polloptions);
+                        mainMenuPoller.start();
 
-                        clusterHealthPoller.on('success', function (healthModel) {
+                        mainMenuPoller.on('success', function (healthModel) {
                             var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
                             clusterView.render();
-
-                            //cluster.refreshClusterState();
 
                             $("#toolbar").css("visibility", "visible");
 
@@ -98,20 +94,7 @@ $(document).ready(
                                 }
                             );
                         });
-
-                        // we render the workspace only once..
-                        $.when(cluster.get("clusterState").fetch(), cluster.get("indexStats").fetch())
-                            .done(function () {
-                                var clusterView = new ClusterHealthView(
-                                    {
-                                        model:healthModel,
-                                        stateModel:cluster.get("clusterState"),
-                                        indexModel:cluster.get("indexStats")
-                                    });
-                                clusterView.renderWorkspace();
-                            });
-
-                        clusterHealthPoller.on('error', function (healthModel, response) {
+                        mainMenuPoller.on('error', function (healthModel, response) {
                             var err = 'Unable to Connect to Server! Connection broken, or server has gone away. Please reconnect.';
                             console.log('Error! ' + err);
                             var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
@@ -129,6 +112,31 @@ $(document).ready(
                             nodeListView.render();
 
                         });
+
+                        /* cluster workspace */
+                        var clusterState = cluster.get("clusterState");
+                        clusterState.fetch({
+                            success:function () {
+                                clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:5000});
+                                clusterOverviewPoller.start();
+
+                                clusterOverviewPoller.on('success', function (clusterState) {
+                                    ajaxloading.show();
+                                    $.when(cluster.get("indexStats").fetch())
+                                        .done(function () {
+                                            var clusterView = new ClusterHealthView(
+                                                {
+                                                    model:healthModel,
+                                                    stateModel:cluster.get("clusterState"),
+                                                    indexModel:cluster.get("indexStats")
+                                                });
+                                            clusterView.renderWorkspace();
+                                        });
+                                    ajaxloading.hide();
+                                });
+                            }
+                        });
+                        show_stack_bottomright({type:'info', title:'Tip', text:'Cluster Overview refreshes every 5 seconds.'});
                     },
                     error:function (model, response) {
                         var err = 'Unable to Connect to Server! ';

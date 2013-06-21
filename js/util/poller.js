@@ -27,23 +27,29 @@ var nodePoller;
 //var compareNodesPoller;
 
 /**
- * Main button indicating cluster health.
+ * Main button indicating cluster health. Also refreshes the nodelist.
  */
-var clusterHealthPoller;
+var mainMenuPoller;
+
+/**
+ * Cluster Overview screen poller.
+ */
+var clusterOverviewPoller;
 
 var stopAllPollers = function () {
 
     stopAllNodePollers();
+    stopClusterOverviewPoller();
 
-    if (clusterHealthPoller != undefined) {
-        clusterHealthPoller.stop();
+    if (mainMenuPoller != undefined) {
+        mainMenuPoller.stop();
     }
 };
 
 var stopAllNodePollers = function () {
     stopNodePoller();
     //stopCompareNodesPoller();
-}
+};
 
 /**
  * Individual node poller
@@ -55,13 +61,19 @@ var stopNodePoller = function () {
     }
 };
 
+var stopClusterOverviewPoller = function () {
+    if (clusterOverviewPoller != undefined) {
+        clusterOverviewPoller.stop();
+    }
+};
+
 /**
  * Side-by-side view of all nodes poller.
  */
 /*
-var stopCompareNodesPoller = function () {
+ var stopCompareNodesPoller = function () {
 
-    if (compareNodesPoller != undefined) {
-        compareNodesPoller.stop();
-    }
-};*/
+ if (compareNodesPoller != undefined) {
+ compareNodesPoller.stop();
+ }
+ };*/

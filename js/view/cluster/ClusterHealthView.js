@@ -74,9 +74,12 @@ var ClusterHealthView = Backbone.View.extend({
         var template = _.template(clusterTemplate.HealthDescribe, {
             health:clusterHealth.attributes,
             state:this.stateModel,
-            indices:indices
+            indices:indices,
+            lastUpdateTime:timeUtil.lastUpdated()
         });
         $('#workspace').html(template);
+
+        $("[rel=tipRight]").tooltip();
 
         return this;
     },
