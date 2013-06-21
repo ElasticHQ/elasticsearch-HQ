@@ -27,6 +27,7 @@ $(document).ready(
 
             routes:{
                 "cluster":"cluster",
+                "refreshCluster":"refreshCluster",
                 "nodes":"nodes",
                 "nodes/:nodeId":"nodes",
                 "nodediagnostics":"nodeDiagnostics",
@@ -152,6 +153,9 @@ $(document).ready(
                         errorMsgView.render();
                     }
                 });
+            },
+            refreshCluster : function() {
+                router.navigate('cluster', true);
             },
             nodeDiagnostics:function () {
                 stopAllNodePollers();

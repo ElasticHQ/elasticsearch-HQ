@@ -9,7 +9,7 @@ clusterTemplate.Health = [
 
 clusterTemplate.HealthDescribe = [
     '<div class="row-fluid" style="padding: 15px;">',
-    '<div class="span2 pull-left"><a href="#cluster" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every 5 seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
+    '<div class="span2 pull-left"><a href="#refreshCluster" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every 5 seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
     '<div class="text-center span8"><span style="font-size: 28px;">Cluster Overview</span></div>',
     '<div class="span2"></div>',
     '</div>',
