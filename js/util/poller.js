@@ -48,7 +48,7 @@ var stopAllPollers = function () {
 
 var stopAllNodePollers = function () {
     stopNodePoller();
-    //stopCompareNodesPoller();
+    stopClusterOverviewPoller();
 };
 
 /**
