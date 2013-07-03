@@ -423,7 +423,6 @@ nodeTemplate.nodeInfo = [
     '<li class="divider"></li>',
     '</ul>',
 
-
     /* THREADPOOL */
     '<div class="lead text-left"><i class="icon-th-large"></i> Thread Pools</div>',
     '<div class="row-fluid">',
@@ -505,6 +504,7 @@ nodeTemplate.nodeInfo = [
     '</ul>',
 
     /* FS */
+    '<% if (fileSystem != undefined) { %>',
     '<div class="lead text-left"><i class="icon-th-large"></i> File System</div>',
     '<div class="row-fluid">',
 
@@ -544,7 +544,7 @@ nodeTemplate.nodeInfo = [
 
     '<ul class="nav nav-list">',
     '<li class="divider"></li>',
-    '</ul>'
-
+    '</ul>',
+    '<% } %>'
 
 ].join("\n");

@@ -32,7 +32,7 @@ var chart = {
     },
     draw:function (id, data, options) {
         return $.plot($(id), [
-            {data:data, lines:{ show:true, fill:true, fillColor:"#E0F0B0", lineWidth:3}, curvedLines:{apply:true}}
+            {data:data, points: { show: true }, lines:{ show:true, fill:true, fillColor:"#E0F0B0", lineWidth:3}, curvedLines:{apply:true}}
         ], options);
     }
 }
@@ -60,9 +60,9 @@ chart.jvmHeap = {
     options:function () {
         return {
             series:{
-                curvedLines:{
+                /*curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -95,9 +95,9 @@ chart.indices = {
     options:function () {
         return {
             series:{
-                curvedLines:{
+                /*curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -121,9 +121,9 @@ chart.cpu = {
     options:function () {
         return {
             series:{
-                curvedLines:{
+               /* curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -148,9 +148,9 @@ chart.mem = {
     options:function (max) {
         return {
             series:{
-                curvedLines:{
+               /* curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -174,9 +174,9 @@ chart.procscpu = {
     options:function (max) {
         return {
             series:{
-                curvedLines:{
+              /*  curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -201,9 +201,9 @@ chart.procmem = {
     options:function (max) {
         return {
             series:{
-                curvedLines:{
+              /*  curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -229,9 +229,9 @@ chart.fsreads = {
     options:function () {
         return {
             series:{
-                curvedLines:{
+              /*  curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -253,9 +253,9 @@ chart.fswrites = {
     options:function () {
         return {
             series:{
-                curvedLines:{
+                /*curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -278,9 +278,9 @@ chart.transporttxcount = {
     options:function () {
         return {
             series:{
-                curvedLines:{
+             /*   curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -304,9 +304,9 @@ chart.httpopen = {
     options:function () {
         return {
             series:{
-                curvedLines:{
+            /*    curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -328,9 +328,9 @@ chart.threadindex = {
     options:function () {
         return {
             series:{
-                curvedLines:{
+             /*   curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -352,9 +352,9 @@ chart.threadsearch = {
     options:function () {
         return {
             series:{
-                curvedLines:{
+              /*  curvedLines:{
                     active:true
-                },
+                },*/
                 color:"GREEN"
             },
             tooltip:true,

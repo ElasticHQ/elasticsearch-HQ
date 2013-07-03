@@ -23,11 +23,13 @@
  * @type {*}
  */
 var NodeStatsListModel = Backbone.Model.extend({//Backbone.Collection.extend({
+
     initialize:function () {
         console.log("Inside NodeStatsListModel");
     },
     url:function () {
         return '/_cluster/nodes/stats?all=1';
+        //return '/_nodes/stats?clear=true&os=false'; // test for incomplete dataset returns from server.
     },
     fetch:function (options) {
         ajaxloading.show();

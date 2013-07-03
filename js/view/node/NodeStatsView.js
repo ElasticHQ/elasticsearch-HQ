@@ -28,6 +28,7 @@ var NodeStatView = Backbone.View.extend(
             },
             render:function () {
                 var nodeStat = this.model.toJSON();
+                var nodeInfo = this.infoModel.toJSON();
                 var nodeId = nodeStat.nodeId;
                 var jvmStats = nodeStat.nodes[nodeId].jvm;
                 var osStats = nodeStat.nodes[nodeId].os;
@@ -36,32 +37,117 @@ var NodeStatView = Backbone.View.extend(
                 var address = nodeStat.nodes[nodeId].transport_address;
                 var hostName = nodeStat.nodes[nodeId].hostname;
                 var threadPool = nodeStat.nodes[nodeId].thread_pool;
-                var fileSystem = nodeStat.nodes[nodeId].fs.data[0];
+
+                var fileSystem = {};
+                if (!nodeStat.nodes[nodeId].fs) {
+                    fileSystem = nodeStat.nodes[nodeId].fs = {};
+                    fileSystem = nodeStat.nodes[nodeId].fs.data = [];
+                }
+                else {
+                    fileSystem = nodeStat.nodes[nodeId].fs.data[0];
+                }
+
                 var threads = nodeStat.nodes[nodeId].threads;
                 var indices = nodeStat.nodes[nodeId].indices;
                 var netStats = nodeStat.nodes[nodeId].transport;
                 var httpStats = nodeStat.nodes[nodeId].http;
+                var netInfo = nodeInfo.nodes[nodeId].network;
 
+                // check for empty values -- some server configuration do not return full datasets
+                var jvmVal = true;
+                var osVal = true;
+                var indicesVal = true;
+                var httpVal = true;
+                if (jQuery.isEmptyObject(nodeInfo.nodes[nodeId].jvm)) {
+                    jvmVal = false;
+                    jvmStats = {};
+                    jvmStats.mem = {};
+                    jvmStats.threads = {};
+                    jvmStats.gc = {};
+                    nodeInfo.nodes[nodeId].jvm = {};
+                }
+                if (jQuery.isEmptyObject(nodeInfo.nodes[nodeId].os) || jQuery.isEmptyObject(osStats)) {
+                    osVal = false;
+                    osStats = {};
+                    osStats.cpu = {};
+                    osStats.mem = {};
+                    osStats.swap = {};
+                    nodeInfo.nodes[nodeId].os = {};
+                    nodeInfo.nodes[nodeId].os.cpu = {};
+                }
+                if (jQuery.isEmptyObject(nodeStat.nodes[nodeId].process)) {
+                    processStats = {};
+                    processStats.cpu = {};
+                    processStats.cpu.sys = {};
+                    processStats.cpu.user = {};
+                    processStats.cpu.total = {};
+                    processStats.mem = {};
+                }
+                if (jQuery.isEmptyObject(netInfo)) {
+                    netInfo = {};
+                }
+                if (jQuery.isEmptyObject(nodeStat.nodes[nodeId].indices)) {
+                    indicesVal = false;
+                    indices = {};
+                    indices.docs = {};
+                    indices.store = {};
+                    indices.flush = {};
+                    indices.refresh = {};
+                    indices.get = {};
+                    indices.search = {};
+                    indices.indexing = {};
+                    indices.merges = {};
+                    indices.filter_cache = {};
+                    indices.id_cache = {};
+                }
+                if (jQuery.isEmptyObject(httpStats))
+                {
+                    httpStats = {};
+                }
+                if (jQuery.isEmptyObject(netStats))
+                {
+                    netStats = {};
+                }
+                if (jQuery.isEmptyObject(threadPool))
+                {
+                    threadPool = {};
+                    threadPool.index = {};
+                    threadPool.search = {};
+                    threadPool.get = {};
+                    threadPool.bulk = {};
+                    threadPool.refresh = {};
+                    threadPool.flush = {};
+                    threadPool.merge= {};
+                    threadPool.management = {};
+                }
 
-
-                var nodeInfo = this.infoModel.toJSON();
                 jvmStats.version = nodeInfo.nodes[nodeId].jvm.version;
                 jvmStats.vm_name = nodeInfo.nodes[nodeId].jvm.vm_name;
                 jvmStats.vm_vendor = nodeInfo.nodes[nodeId].jvm.vm_vendor;
                 jvmStats.pid = nodeInfo.nodes[nodeId].jvm.pid;
+
                 osStats.cpu.vendor = nodeInfo.nodes[nodeId].os.cpu.vendor;
                 osStats.cpu.model = nodeInfo.nodes[nodeId].os.cpu.model;
                 osStats.cpu.total_cores = nodeInfo.nodes[nodeId].os.cpu.total_cores;
                 osStats.available_processors = nodeInfo.nodes[nodeId].os.available_processors;
                 osStats.max_proc_cpu = 100 * osStats.available_processors
-                var netInfo = nodeInfo.nodes[nodeId].network;
+
                 netInfo.transport = nodeInfo.nodes[nodeId].transport;
+                if (!netInfo.transport) {
+                    netInfo.transport = {};
+                }
                 netInfo.transport.address = nodeInfo.nodes[nodeId].transport_address;
                 netInfo.http = nodeInfo.nodes[nodeId].http;
+                if (!netInfo.http) {
+                    netInfo.http = {};
+                }
                 netInfo.http.address = nodeInfo.nodes[nodeId].http_address;
 
                 // for modal
                 var settings = {};
+                if (!nodeInfo.nodes[nodeId].settings) {
+                    nodeInfo.nodes[nodeId].settings = [];
+                }
                 settings.nodeName = nodeInfo.nodes[nodeId].settings['name'];
                 settings.pathHome = nodeInfo.nodes[nodeId].settings['path.home'];
                 settings.nodeMaster = nodeInfo.nodes[nodeId].settings['node.master'];
@@ -79,17 +165,23 @@ var NodeStatView = Backbone.View.extend(
                 var host = nodeInfo.nodes[nodeId].hostname;
 
                 //massage
-                var jvmuptime = jvmStats.uptime.split('and');
-                jvmStats.uptime = jvmuptime[0];
+                if (jvmStats.uptime) {
+                    jvmStats.uptime = jvmStats.uptime.split('and')[0];
+                }
                 osStats.mem.total = convert.bytesToSize(osStats.mem.free_in_bytes + osStats.mem.used_in_bytes, 2);
                 osStats.swap.total = convert.bytesToSize(osStats.swap.used_in_bytes + osStats.swap.free_in_bytes, 2);
                 osStats.mem.used = convert.bytesToSize(osStats.mem.used_in_bytes, 2);
                 osStats.mem.free = convert.bytesToSize(osStats.mem.free_in_bytes, 2);
                 osStats.swap.used = convert.bytesToSize(osStats.swap.used_in_bytes, 2);
                 osStats.swap.free = convert.bytesToSize(osStats.swap.free_in_bytes, 2);
-                processStats.cpu.sys = processStats.cpu.sys.split('and')[0];
-                processStats.cpu.user = processStats.cpu.user.split('and')[0];
-                processStats.cpu.total = processStats.cpu.total.split('and')[0];
+
+                try {
+                    processStats.cpu.sys = processStats.cpu.sys.split('and')[0];
+                    processStats.cpu.user = processStats.cpu.user.split('and')[0];
+                    processStats.cpu.total = processStats.cpu.total.split('and')[0];
+                }
+                catch (e) {
+                }
 
                 var tpl = _.template(nodeTemplate.nodeInfo);
                 $('#workspace').html(tpl(
@@ -110,6 +202,10 @@ var NodeStatView = Backbone.View.extend(
                         lastUpdateTime:timeUtil.lastUpdated()
                     }));
 
+                // show warnings for missing data
+                if (!jvmVal || !osVal || !indicesVal || !httpVal)
+                    show_stack_bottomright({type:'error', title:'Missing Data', text:'Incomplete dataset from server. Some values left intentionally blank.'});
+
                 // flag check: poller will cause modal to close if it's currently being viewed, as it tried to draw
                 // the tpl every time.
                 if (!this.renderedModal) {
@@ -124,8 +220,8 @@ var NodeStatView = Backbone.View.extend(
                 this.renderedModal = true;
 
 
-                $("#refreshNodeInfo").click(function() {
-                   // stopAllNodePollers();
+                $("#refreshNodeInfo").click(function () {
+                    // stopAllNodePollers();
                     nodeRoute.refreshNodeInfo(nodeId);
                 });
 

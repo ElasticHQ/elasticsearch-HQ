@@ -17,5 +17,32 @@
  */
 
 var NodeSimple = Backbone.Model.extend({
-
+/*    defaults:{
+        stats:{
+            jvm:{
+                gc:{
+                    collectors:{
+                        ConcurrentMarkSweep:{},
+                        ParNew:{}
+                    }
+                }
+            },
+            os:{
+                mem:{},
+                swap:{}
+            },
+            indices:{
+                docs:{},
+                flush:{},
+                refresh:{},
+                get:{},
+                search:{},
+                indexing:{},
+                merges:{},
+                fliter_cache:{},
+                id_cache:{}
+            },
+            http:{}
+        }
+    }*/
 });

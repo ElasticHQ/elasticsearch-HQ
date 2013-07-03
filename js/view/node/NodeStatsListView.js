@@ -62,7 +62,50 @@ var NodeStatsListView = Backbone.View.extend(
                     node.info = nodeInfo.nodes[nodeId];
 
                     node.stats.transport_address = nodeStatModel.nodes[nodeId].transport_address.replace(/inet\[\/([^\]]+)\]/, "$1");
+
+                    // check for empty values -- some server configuration do not return full datasets
+                    var jvmVal = true;
+                    var osVal = true;
+                    var indicesVal = true;
+                    var httpVal = true;
+                    if (!node.stats.jvm) {
+                        jvmVal = false;
+                        node.stats.jvm = {};
+                        node.stats.jvm.mem = {};
+                        node.stats.jvm.gc = {};
+                        node.stats.jvm.gc.collectors = {};
+                        node.stats.jvm.gc.collectors.ConcurrentMarkSweep = {};
+                        node.stats.jvm.gc.collectors.ParNew = {};
+
+                    }
+                    if (!node.stats.os) {
+                        osVal = false;
+                        node.stats.os = {};
+                        node.stats.os.mem = {};
+                        node.stats.os.swap = {};
+                    }
+
+                    if (!node.stats.indices) {
+                        indicesVal = false;
+                        node.stats.indices = {};
+                        node.stats.indices.docs = {};
+                        node.stats.indices.flush = {};
+                        node.stats.indices.refresh = {};
+                        node.stats.indices.get = {};
+                        node.stats.indices.search = {};
+                        node.stats.indices.indexing = {};
+                        node.stats.indices.merges = {};
+                        node.stats.indices.filter_cache = {};
+                        node.stats.indices.id_cache = {};
+                    }
+
+                    if (!node.stats.http) {
+                        httpVal = false;
+                        node.stats.http = {};
+                    }
+
                     node.stats.jvm.uptime = (node.stats.jvm.uptime_in_millis / 1000 / 60 / 60 / 24).toFixed(2);
+
                     node.stats.docsdeletedperc = node.stats.indices.docs.deleted / node.stats.indices.docs.count;
                     node.stats.mergerate = node.stats.indices.merges.total_size_in_bytes / node.stats.indices.merges.total_time_in_millis / 1000
 
@@ -118,6 +161,10 @@ var NodeStatsListView = Backbone.View.extend(
 
                 $("[rel=tipRight]").tooltip();
                 $("[rel=popRight]").popover({});
+
+                // show warnings for missing data
+                if (!jvmVal || !osVal || !indicesVal || !httpVal)
+                    show_stack_bottomright({type:'error', title:'Missing Data', text:'Incomplete dataset from server. Some values left intentionally blank.'});
 
                 return this;
             },
