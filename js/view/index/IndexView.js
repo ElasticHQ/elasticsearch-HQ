@@ -80,10 +80,14 @@ var IndexView = Backbone.View.extend(
                     index:index,
                     totalShards:totalShards,
                     isOpenState:isOpenState,
-                    shards: shards
+                    shards: shards,
+                    indexTabClass : '',
+                    shardTabClass : 'active',
+                    adminTabClass : ''
                 }));
 
             $('#indexTab').tab('show');
+           // $('#shardTab').tab('show');
 
             $("#shardTable").tablesorter({ sortList:[
                 [0, 0]
