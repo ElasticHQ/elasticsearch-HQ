@@ -90,14 +90,17 @@ var ClusterHealthView = Backbone.View.extend({
             var status = clusterHealth.get('status');
             if (status == 'yellow') {
                 clusterHealth.set({statusClass:'warning'});
+                clusterHealth.set({statusClassLabel:'warning'});
                 clusterHealth.set({statusText:'Yellow'});
             }
             else if (status == 'green') {
                 clusterHealth.set({statusClass:'success'});
+                clusterHealth.set({statusClassLabel:'success'});
                 clusterHealth.set({statusText:'Green'});
             }
             else if (status == 'red') {
                 clusterHealth.set({statusClass:'danger'});
+                clusterHealth.set({statusClassLabel:'important'});
                 clusterHealth.set({statusText:'Red'});
             }
             var t = _.template(clusterTemplate.Health);

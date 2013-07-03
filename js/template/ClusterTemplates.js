@@ -72,7 +72,7 @@ clusterTemplate.HealthDescribe = [
     '<table class="table table-striped table-hover table-bordered  center-table">',
     '<tr>',
     '<td>Status</td>',
-    '<td><span class="label label-<%- health.statusClass %>"><%- health.statusText %></span></td>',
+    '<td><span class="label label-<%- health.statusClassLabel %>"><%- health.statusText %></span></td>',
     '</tr>',
     '<tr>',
     '<td>Timed Out?</td>',
