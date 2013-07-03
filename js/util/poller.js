@@ -21,6 +21,10 @@
  */
 var nodePoller;
 
+var nodeDiagnosticsPoller;
+
+var indicesPoller;
+
 /**
  * Monitor many nodes side-by-side
  */
@@ -39,23 +43,28 @@ var clusterOverviewPoller;
 var stopAllPollers = function () {
 
     stopAllNodePollers();
-    stopClusterOverviewPoller();
 
     if (mainMenuPoller != undefined) {
         mainMenuPoller.stop();
     }
 };
 
+/**
+ * Not very well named - stops all pollers, except for the main menu poller.
+ */
 var stopAllNodePollers = function () {
     stopNodePoller();
     stopClusterOverviewPoller();
+    stopNodeDiagnosticsPoller();
+
+    //
+    stopIndicesPoller();
 };
 
 /**
  * Individual node poller
  */
 var stopNodePoller = function () {
-
     if (nodePoller != undefined) {
         nodePoller.stop();
     }
@@ -67,13 +76,14 @@ var stopClusterOverviewPoller = function () {
     }
 };
 
-/**
- * Side-by-side view of all nodes poller.
- */
-/*
- var stopCompareNodesPoller = function () {
+var stopNodeDiagnosticsPoller = function () {
+    if (nodeDiagnosticsPoller != undefined) {
+        nodeDiagnosticsPoller.stop();
+    }
+};
 
- if (compareNodesPoller != undefined) {
- compareNodesPoller.stop();
- }
- };*/
+var stopIndicesPoller = function () {
+    if (indicesPoller != undefined) {
+        indicesPoller.stop();
+    }
+};

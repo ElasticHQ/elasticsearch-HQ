@@ -31,9 +31,11 @@ $(document).ready(
                 "nodes":"nodes",
                 "nodes/:nodeId":"nodes",
                 "nodediagnostics":"nodeDiagnostics",
+                "refreshNodeDiagnostics":"refreshNodeDiagnostics",
                 "shutdownNode/:nodeId":"killNode",
                 "showhotthreads/:nodeId":"showhotthreads",
                 "indices":"indices",
+                "refreshindices": "refreshIndices",
                 "optimizeall":"optimizeall",
                 "flushall":"flushall",
                 "clearcacheall":"clearcacheall",
@@ -60,151 +62,21 @@ $(document).ready(
             },
             cluster:function () {
                 stopAllPollers();
-
-                // break apart the poller for the main menu/nodelist and the cluster-overview screen...
-                var healthModel = cluster.get("clusterHealth");
-
-                healthModel.fetch({
-                    success:function () {
-
-                        var polloptions = {delay:10000};
-                        mainMenuPoller = Backbone.Poller.get(healthModel, polloptions);
-                        mainMenuPoller.start();
-
-                        mainMenuPoller.on('success', function (healthModel) {
-                            var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
-                            clusterView.render();
-
-                            $("#toolbar").css("visibility", "visible");
-
-                            var nodeList = cluster.get("nodeList");
-                            nodeList.fetch(
-                                {
-                                    success:function (model, response) {
-                                        console.log('Node List retrieved');
-                                        var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:nodeList});
-                                        nodeListView.render();
-                                    },
-                                    error:function (model, response, options) {
-                                        var err = 'Unable to Read Node List! ';
-                                        console.log('Error! ' + err);
-                                        var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
-                                        var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
-                                        errorMsgView.render();
-                                    }
-                                }
-                            );
-                        });
-                        mainMenuPoller.on('error', function (healthModel, response) {
-                            var err = 'Unable to Connect to Server! Connection broken, or server has gone away. Please reconnect.';
-                            console.log('Error! ' + err);
-                            var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
-                            var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
-                            errorMsgView.render();
-
-                            // update cluster button
-                            healthModel.attributes.status = 'red';
-                            var clusterView = new ClusterHealthView({el:$("#clusterHealth-loc"), model:healthModel});
-                            clusterView.render();
-                            $("#toolbar").css("visibility", "hidden");
-
-                            // update nodes view.
-                            var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:[]});
-                            nodeListView.render();
-
-                        });
-
-                        /* cluster workspace */
-                        var clusterState = cluster.get("clusterState");
-                        clusterState.fetch({
-                            success:function () {
-                                clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:5000});
-                                clusterOverviewPoller.start();
-
-                                clusterOverviewPoller.on('success', function (clusterState) {
-                                    ajaxloading.show();
-                                    $.when(cluster.get("indexStats").fetch())
-                                        .done(function () {
-                                            var clusterView = new ClusterHealthView(
-                                                {
-                                                    model:healthModel,
-                                                    stateModel:cluster.get("clusterState"),
-                                                    indexModel:cluster.get("indexStats")
-                                                });
-                                            clusterView.renderWorkspace();
-                                        });
-                                    ajaxloading.hide();
-                                });
-                            }
-                        });
-                        show_stack_bottomright({type:'info', title:'Tip', text:'Cluster Overview refreshes every 5 seconds.'});
-                    },
-                    error:function (model, response) {
-                        var err = 'Unable to Connect to Server! ';
-                        if (response) {
-                            err += 'Received Status Code: ' + response.status + '.';
-                            if (response.status == 0) {
-                                err += " A status code of 0, could mean the host is unreacheable or nothing is listening on the given port.";
-                            }
-                        }
-                        console.log('Error! ' + err);
-                        var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
-                        var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
-                        errorMsgView.render();
-                    }
-                });
+                clusterRoute.cluster();
             },
-            refreshCluster : function() {
+            refreshCluster:function () {
                 router.navigate('cluster', true);
             },
             nodeDiagnostics:function () {
                 stopAllNodePollers();
                 nodeRoute.diagnoseNodes();
             },
+            refreshNodeDiagnostics:function () {
+                router.navigate('nodediagnostics', true);
+            },
             nodes:function (nodeId) {
                 stopAllNodePollers(); // why was i stopping all pollers? changed to only stop node poller.
-                console.log("route nodeId: " + nodeId);
-
-                var nodeStat = new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
-                var nodeInfo = new NodeInfoModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
-                nodeInfo.fetch(
-                    {
-                        success:function (model, response) {
-                            var nodeInfoView = new NodeStatView({model:nodeStat, infoModel:nodeInfo});
-
-                            cluster.set({nodeStats:nodeStat, nodeInfo:nodeInfo});
-
-                            var polloptions = {delay:5000};
-                            nodePoller = Backbone.Poller.get(nodeStat, polloptions);
-                            nodePoller.start();
-                            nodePoller.on('success', function (nodeInfo) {
-                                console.log('another successful fetch!');
-                                nodeInfoView.render();
-                                ajaxloading.hide();
-                            });
-
-                            /*
-                             poller.on('complete', function (nodeStat) {
-                             console.log('hurray! we are done!');
-                             });
-                             */
-                            nodePoller.on('error', function (nodeInfo) {
-                                var err = 'Unable to Read Node Information! ';
-                                console.log('Error! ' + err);
-                                var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
-                                var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
-                                errorMsgView.render();
-                            });
-                        },
-                        error:function (model, response, options) {
-                            var err = 'Unable to Read Node Information! ';
-                            console.log('Error! ' + err);
-                            var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
-                            var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
-                            errorMsgView.render();
-                        }
-                    }
-                );
+                nodeRoute.nodeInfo(nodeId);
             },
             killNode:function (nodeId) {
                 stopAllPollers();
@@ -227,67 +99,25 @@ $(document).ready(
             },
             indices:function () {
                 stopAllNodePollers();
-                var indexStatusModel = new IndicesStatusModel();
-                indexStatusModel.setConnectionRootURL(cluster.get("connectionRootURL"));
-                indexStatusModel.fetch(
-                    {
-                        success:function () {
-                            // need to have a refreshed clusterstate
-                            cluster.get("clusterState").fetch({
-                                success:function (model, res) {
-                                    var indexListView = new IndexStatusListView({model:indexStatusModel});
-                                    indexListView.render();
-                                }});
-                        },
-                        error:function () {
-                            // TODO
-                        }
-                    }
-                );
+                indicesRoute.viewIndices();
+            },
+            refreshIndices : function() {
+                router.navigate('indices', true);
             },
             optimizeall:function () {
-                var optimizeAllModel = new OptimizeAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
-                optimizeAllModel.fetch({
-                    success:function (model, response) {
-                        var str = JSON.stringify(response, undefined, 2); // indentation level = 2
-                        var optimizeAllView = new OptimizeAllIndexView({model:str});
-                        optimizeAllView.render();
-                    },
-                    error:function () {
-                        // TODO
-                    }
-                });
+                indicesRoute.optimizeAll();
             },
             flushall:function () {
-                var flushAllModel = new FlushAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
-                flushAllModel.fetch({
-                    success:function (model, response) {
-                        var str = JSON.stringify(response, undefined, 2); // indentation level = 2
-                        var flushAllView = new FlushAllIndexView({model:str});
-                        flushAllView.render();
-                    },
-                    error:function () {
-                        // TODO
-                    }
-                });
+                indicesRoute.flushAll();
             },
             clearcacheall:function () {
-                var clearcacheAllModel = new ClearCacheAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
-                clearcacheAllModel.fetch({
-                    success:function (model, response) {
-                        var str = JSON.stringify(response, undefined, 2); // indentation level = 2
-                        var clearcacheAllView = new ClearCacheAllIndexView({model:str});
-                        clearcacheAllView.render();
-                    },
-                    error:function () {
-                        // TODO
-                    }
-                });
+                indicesRoute.clearCacheAll();
             },
             refreshAll:function () {
                 indicesRoute.refreshAll();
             },
             createIndex:function () {
+                stopAllNodePollers();
                 var createIndexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL")});
                 if (this.createIndexView == undefined) {
                     this.createIndexView = new CreateIndexView({model:createIndexModel});

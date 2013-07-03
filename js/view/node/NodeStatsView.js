@@ -119,9 +119,15 @@ var NodeStatView = Backbone.View.extend(
                         host:host,
                         settings:settings
                     }));
-                    show_stack_bottomright({type:'info', title:'Tip', text:'Polling Node "' + nodeName + '" every 5 seconds.'});
+                    //show_stack_bottomright({type:'info', title:'Tip', text:'Polling Node "' + nodeName + '" every 5 seconds.'});
                 }
                 this.renderedModal = true;
+
+
+                $("#refreshNodeInfo").click(function() {
+                   // stopAllNodePollers();
+                    nodeRoute.refreshNodeInfo(nodeId);
+                });
 
                 // -------- Charting -------- //
                 var now = new Date().getTime();

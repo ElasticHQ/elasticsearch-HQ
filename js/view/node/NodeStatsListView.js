@@ -102,7 +102,6 @@ var NodeStatsListView = Backbone.View.extend(
                     nodeArray.push(node);
                 }
 
-
                 var tpl = _.template(nodeTemplate.diagnostics);
                 $('#workspace').html(tpl(
                     {
@@ -113,8 +112,8 @@ var NodeStatsListView = Backbone.View.extend(
                         actionRules:action_rules(),
                         cacheRules:cache_rules(),
                         memoryRules:memory_rules(),
-                        networkRules:network_rules()
-                        //lastUpdateTime:timeUtil.lastUpdated()
+                        networkRules:network_rules(),
+                        lastUpdateTime:timeUtil.lastUpdated()
                     }));
 
                 $("[rel=tipRight]").tooltip();

@@ -18,8 +18,86 @@
 
 var indicesRoute = {};
 
+indicesRoute.viewIndices = function () {
+    /*    var indexStatusModel = new IndicesStatusModel();
+     indexStatusModel.setConnectionRootURL(cluster.get("connectionRootURL"));
+     var clusterStateModel = cluster.get("clusterState");
 
-indicesRoute.refreshAll = function (indexId) {
+     var indexListView = new IndexStatusListView({model:indexStatusModel});
+     $.when(indexStatusModel.fetch(), clusterStateModel.fetch())
+     .done(function () {
+     indexListView.render();
+     });*/
+
+    var indexStatusModel = new IndicesStatusModel();
+    indexStatusModel.setConnectionRootURL(cluster.get("connectionRootURL"));
+    var clusterStateModel = new ClusterState({connectionRootURL:cluster.get("connectionRootURL")});
+
+    indexStatusModel.fetch({
+        success:function (model, response) {
+
+            var polloptions = {delay:15000};
+            indicesPoller = Backbone.Poller.get(indexStatusModel, polloptions);
+            indicesPoller.start();
+            indicesPoller.on('success', function (indexStatusModel) {
+                ajaxloading.show();
+                $.when(clusterStateModel.fetch())
+                    .done(function () {
+                        //cluster.set("clusterState", clusterStateModel);
+                        var indexListView = new IndexStatusListView({model:indexStatusModel, clusterStateModel: clusterStateModel});
+                        indexListView.render();
+                    });
+                ajaxloading.hide();
+            });
+        }
+    });
+
+};
+
+indicesRoute.optimizeAll = function () {
+    var optimizeAllModel = new OptimizeAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+    optimizeAllModel.fetch({
+        success:function (model, response) {
+            var str = JSON.stringify(response, undefined, 2); // indentation level = 2
+            var optimizeAllView = new OptimizeAllIndexView({model:str});
+            optimizeAllView.render();
+        },
+        error:function () {
+            // TODO
+        }
+    });
+};
+
+indicesRoute.flushAll = function () {
+    var flushAllModel = new FlushAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+    flushAllModel.fetch({
+        success:function (model, response) {
+            var str = JSON.stringify(response, undefined, 2); // indentation level = 2
+            var flushAllView = new FlushAllIndexView({model:str});
+            flushAllView.render();
+        },
+        error:function () {
+            // TODO
+        }
+    });
+};
+
+indicesRoute.clearCacheAll = function () {
+    var clearcacheAllModel = new ClearCacheAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+    clearcacheAllModel.fetch({
+        success:function (model, response) {
+            var str = JSON.stringify(response, undefined, 2); // indentation level = 2
+            var clearcacheAllView = new ClearCacheAllIndexView({model:str});
+            clearcacheAllView.render();
+        },
+        error:function () {
+            // TODO
+        }
+    });
+};
+
+
+indicesRoute.refreshAll = function () {
     var refreshAllModel = new RefreshAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
     refreshAllModel.fetch({
         success:function (model, response) {

@@ -21,15 +21,20 @@
  */
 var IndexStatusListView = Backbone.View.extend(
     {
+        clusterStateModel:undefined,
+        initialize:function (args) {
+            this.clusterStateModel = args.clusterStateModel;
+        },
         render:function () {
             var indexStatus = this.model.toJSON();
 
             var indices = [];
 
-            var clusterState = cluster.get("clusterState").toJSON();
+            var clusterState = this.clusterStateModel.toJSON(); //cluster.get("clusterState").toJSON();
 
             for (var $i = 0; $i < indexStatus.length; $i++) {
                 var index = indexStatus[$i];
+                index.cid = index.id;
                 index.name = uppercaseFirst(index.id);
                 index.numshards = clusterState.metadata.indices[index.id].settings['index.number_of_shards'];
                 index.numreplicas = clusterState.metadata.indices[index.id].settings['index.number_of_replicas'];
@@ -46,10 +51,11 @@ var IndexStatusListView = Backbone.View.extend(
                 var blockKeys = _.keys(blocks);
                 for (var $i = 0; $i < blockKeys.length; $i++) {
                     var index = {};
+                    index.cid = index.id;
                     index.id = blockKeys[$i];
                     index.name = uppercaseFirst(blockKeys[$i]);
                     index.docs = {num_docs:0};
-                    index.index = {primary_size: 0};
+                    index.index = {primary_size:0};
                     index.status = 'closed';
                     indices.push(index);
                 }
@@ -60,10 +66,12 @@ var IndexStatusListView = Backbone.View.extend(
             var tpl = _.template(indexTemplate.indexList);
             $('#workspace').html(tpl(
                 {
-                    indices:indices
+                    indices:indices,
+                    lastUpdateTime:timeUtil.lastUpdated()
                 }));
 
             $("[rel=popRight]").popover();
+            $("[rel=tipRight]").tooltip();
 
             $("#indicesTable").tablesorter({ sortList:[
                 [1, 1]

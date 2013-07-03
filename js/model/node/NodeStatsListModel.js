@@ -28,5 +28,9 @@ var NodeStatsListModel = Backbone.Model.extend({//Backbone.Collection.extend({
     },
     url:function () {
         return '/_cluster/nodes/stats?all=1';
+    },
+    fetch:function (options) {
+        ajaxloading.show();
+        this.constructor.__super__.fetch.apply(this, arguments);
     }
 });
