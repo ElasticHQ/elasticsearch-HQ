@@ -81,8 +81,8 @@ var IndexView = Backbone.View.extend(
                     totalShards:totalShards,
                     isOpenState:isOpenState,
                     shards: shards,
-                    indexTabClass : '',
-                    shardTabClass : 'active',
+                    indexTabClass : 'active',
+                    shardTabClass : '',
                     adminTabClass : ''
                 }));
 
