@@ -49,6 +49,7 @@ $(document).ready(
                 "optimizeindex/:indexId":"optimizeIndex",
                 "refreshindex/:indexId":"refreshIndex",
                 "index/:indexId":"index",
+                "refreshindexpoller/:indexId":"refreshIndexPoller",
                 "mappings/:indexId/:mapName":"mappings",
                 "deletemapping/:indexId/:mapName":"deleteMapType",
                 "createmapping":"createMapping",
@@ -148,6 +149,10 @@ $(document).ready(
             index:function (indexId) {
                 stopAllNodePollers();
                 indexRoute.indexView(indexId);
+            },
+            refreshIndexPoller: function(indexId)
+            {
+                router.navigate('index/' + indexId, true);
             },
             mappings:function (indexId, mapName) {
                 stopAllNodePollers();

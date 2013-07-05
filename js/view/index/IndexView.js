@@ -21,6 +21,7 @@
  *
  * @type {*}
  */
+var activeTab = 'indexTab';
 var IndexView = Backbone.View.extend(
     {
         initialize:function (args) {
@@ -80,18 +81,30 @@ var IndexView = Backbone.View.extend(
                     index:index,
                     totalShards:totalShards,
                     isOpenState:isOpenState,
-                    shards: shards,
-                    indexTabClass : 'active',
-                    shardTabClass : '',
-                    adminTabClass : ''
+                    shards:shards,
+/*                    indexTabClass:'active',
+                    shardTabClass:'',
+                    adminTabClass:'',*/
+                    lastUpdateTime:timeUtil.lastUpdated()
                 }));
 
-            $('#indexTab').tab('show');
-           // $('#shardTab').tab('show');
+            //$('#indexTab').tab('show');
+            // $('#shardTab').tab('show');
 
             $("#shardTable").tablesorter({ sortList:[
                 [0, 0]
             ] });
+
+            // because of polling, we must set the current selected tab to show.
+            $('a[data-toggle="tab"]').on('shown', function (e) {
+               // e.target; // activated tab
+               // e.relatedTarget; // previous tab
+                activeTab = e.target.id;
+            });
+            $('#' + activeTab).tab('show');
+
+            $("[rel=popRight]").popover();
+            $("[rel=tipRight]").tooltip();
 
             return this;
         },

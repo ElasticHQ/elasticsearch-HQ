@@ -25,6 +25,8 @@ var nodeDiagnosticsPoller;
 
 var indicesPoller;
 
+var indexPoller;
+
 /**
  * Monitor many nodes side-by-side
  */
@@ -59,6 +61,7 @@ var stopAllNodePollers = function () {
 
     //
     stopIndicesPoller();
+    stopIndexPoller();
 };
 
 /**
@@ -87,3 +90,9 @@ var stopIndicesPoller = function () {
         indicesPoller.stop();
     }
 };
+
+var stopIndexPoller = function () {
+    if (indexPoller != undefined) {
+        indexPoller.stop();
+    }
+}

@@ -58,12 +58,14 @@ indexTemplate.indexView = [
     '</div>',
     '</div>',
 
+    '<div class="pull-left"><a href="#refreshindexpoller/<%- indexId %>" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every 15 seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
+
     '<div class="text-center"><h2><%- indexName %></h2>',
     '<div class="span12 center-table">',
     '<ul class="nav nav-tabs">',
-    '<li><a href="#metrics"  class="<%- indexTabClass %>" data-toggle="tab" id="indexTab">Metrics</a></li>',
-    '<li><a href="#shards" data-toggle="tab" class="<%- shardTabClass %>" id="shardTab">Shards</a></li>',
-    '<li><a href="#administration" data-toggle="tab" class="<%- adminTabClass %>" id="adminTab">Administration</a></li>',
+    '<li><a href="#metrics"  class="active" data-toggle="tab" id="indexTab">Metrics</a></li>',
+    '<li><a href="#shards" data-toggle="tab" id="shardTab">Shards</a></li>',
+    '<li><a href="#administration" data-toggle="tab" id="adminTab">Administration</a></li>',
     '</ul>',
     '<div class="tab-content">',
     '<div class="tab-pane active" id="metrics">',

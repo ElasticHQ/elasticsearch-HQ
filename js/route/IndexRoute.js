@@ -27,14 +27,23 @@ indexRoute.indexView = function (indexId) {
     var indexStatsModel = new IndexStatsModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
     var indexStatusModel = new IndexStatusModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
 
-    var indexView = new IndexView({indexId:indexId, model:indexStatsModel, statusModel:indexStatusModel});
-    var _thisView = this;
-    // This uses jQuery's Deferred functionality to bind render() so it runs
-    // after BOTH models have been fetched
-    $.when(indexStatsModel.fetch(), indexStatusModel.fetch())
-        .done(function () {
-            indexView.render();
-        });
+    indexStatusModel.fetch({
+        success:function (model, response) {
+
+            var polloptions = {delay:15000};
+            indexPoller = Backbone.Poller.get(indexStatusModel, polloptions);
+            indexPoller.start();
+            indexPoller.on('success', function (indexStatusModel) {
+                ajaxloading.show();
+                $.when(indexStatsModel.fetch())
+                    .done(function () {
+                        var indexView = new IndexView({indexId:indexId, model:indexStatsModel, statusModel:indexStatusModel});
+                        indexView.render();
+                    });
+                ajaxloading.hide();
+            });
+        }
+    });
 };
 
 indexRoute.deleteIndex = function (indexId) {
@@ -48,11 +57,11 @@ indexRoute.deleteIndex = function (indexId) {
             prettyPrint();
             $('#deleteindexmodal').modal('hide');
             $('#deleteindexmodal').on('hidden', function () {
-	            $('#defaultindexmodal').modal('show');
-	            $('#defaultindexmodal').on('hidden', function () {
-	                router.navigate("indices", true);
-	            });
-	        });
+                $('#defaultindexmodal').modal('show');
+                $('#defaultindexmodal').on('hidden', function () {
+                    router.navigate("indices", true);
+                });
+            });
         },
         error:function (model, response, options) {
             var str = JSON.stringify(response, undefined, 2);
@@ -61,11 +70,11 @@ indexRoute.deleteIndex = function (indexId) {
             prettyPrint();
             $('#deleteindexmodal').modal('hide');
             $('#deleteindexmodal').on('hidden', function () {
-	            $('#defaultindexmodal').modal('show');
-	            $('#defaultindexmodal').on('hidden', function () {
-	                router.navigate("indices", true);
-	            });
-	        });
+                $('#defaultindexmodal').modal('show');
+                $('#defaultindexmodal').on('hidden', function () {
+                    router.navigate("indices", true);
+                });
+            });
         }
     });
 
