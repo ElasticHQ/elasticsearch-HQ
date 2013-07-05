@@ -94,6 +94,26 @@ indexTemplate.indexView = [
     '<tr><td colspan="2"><div class="grid-table-title">',
     '<div class="pull-left">',
     '<div class="icon-title"><i class="icon-file-alt"></i></div>',
+    '<span class="text-left">Health</span>',
+    '</div>',
+    '</div>',
+    '</td></tr>',
+    '</thead>',
+    '<tr><td class="span3">Documents:</td><td><%- index.docs.num_docs %></td></tr>',
+    '<tr><td>Max Documents:</td><td><%- index.docs.max_doc %></td></tr>',
+    '<tr><td>Deleted Documents:</td><td><%- index.docs.deleted_docs %></td></tr>',
+    '<tr><td>Primary Size:</td><td><%- index.index.primary_size %></td></tr>',
+    '<tr><td>Total Size:</td><td><%- index.index.size %></td></tr>',
+    '</table>',
+
+    '</div>', // span6
+
+    '<div class="span6">',
+    '<table class="table table-bordered table-striped grid-table">',
+    '<thead>',
+    '<tr><td colspan="2"><div class="grid-table-title">',
+    '<div class="pull-left">',
+    '<div class="icon-title"><i class="icon-file-alt"></i></div>',
     '<span class="text-left">Documents</span>',
     '</div>',
     '</div>',
@@ -105,8 +125,11 @@ indexTemplate.indexView = [
     '<tr><td>Primary Size:</td><td><%- index.index.primary_size %></td></tr>',
     '<tr><td>Total Size:</td><td><%- index.index.size %></td></tr>',
     '</table>',
-    '</div>', // span6
 
+    '</div>', // span6
+    '</div> <!-- end row -->',
+
+    '<div class="row center-table">',
     '<div class="span6">',
     '<table class="table table-bordered table-striped grid-table">',
     '<thead>',
@@ -127,9 +150,8 @@ indexTemplate.indexView = [
     '</tbody>',
     '</table>',
     '</div>', // span6
-    '</div> <!-- end row -->',
 
-    '<div class="row center-table">',
+
     '<div class="span6">',
     '<table class="table table-bordered table-striped grid-table">',
     '<thead>',
@@ -148,8 +170,10 @@ indexTemplate.indexView = [
     '<tr><td>Delete Time:</td><td><%- index.total.indexing.delete_time %></td></tr>',
     '</table>',
     '</div>', // span6
+    '</div> <!-- end row -->',
 
 
+    '<div class="row center-table">',
     '<div class="span6">',
     '<table class="table table-bordered table-striped grid-table">',
     '<thead>',
@@ -169,11 +193,8 @@ indexTemplate.indexView = [
     '<tr><td>Missing Total:</td><td><%- index.total.get.missing_total %></td></tr>',
     '<tr><td>Missing Time:</td><td><%- index.total.get.missing_time %></td></tr>',
     '</table>',
-    '</div>', // span6
-    '</div> <!-- end row -->',
+    '</div>',
 
-
-    '<div class="row center-table">',
     '<div class="span6">',
     '<table class="table table-bordered table-striped grid-table">',
     '<thead>',
@@ -211,6 +232,7 @@ indexTemplate.indexView = [
     '<tr><td>Merge Total Size:</td><td><%- index.merges.total_size %></td></tr>',
     '</table>',
     '</div>',
+
     '<% } else { %>',
     '<div class="lead">You must open the index to see any statistics.</div> ',
     '<% } %>',
