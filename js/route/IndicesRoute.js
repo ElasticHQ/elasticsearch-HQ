@@ -19,15 +19,9 @@
 var indicesRoute = {};
 
 indicesRoute.viewIndices = function () {
-    /*    var indexStatusModel = new IndicesStatusModel();
-     indexStatusModel.setConnectionRootURL(cluster.get("connectionRootURL"));
-     var clusterStateModel = cluster.get("clusterState");
 
-     var indexListView = new IndexStatusListView({model:indexStatusModel});
-     $.when(indexStatusModel.fetch(), clusterStateModel.fetch())
-     .done(function () {
-     indexListView.render();
-     });*/
+    // reset the index tab to default
+    activeTab = 'indexTab';
 
     var indexStatusModel = new IndicesStatusModel();
     indexStatusModel.setConnectionRootURL(cluster.get("connectionRootURL"));

@@ -269,6 +269,7 @@ indexTemplate.indexView = [
 
     '<div class="tab-pane" id="aliases">',
     '<% if (isOpenState == true) { %>',
+    '<% if (!jQuery.isEmptyObject(index.aliases)) { %>',
 
     '<div class="row center-table">',
     '<div class="span12">',
@@ -288,6 +289,10 @@ indexTemplate.indexView = [
     '</table>',
     '</div>',
     '</div>',
+
+    '<% } else { %>',
+    '<div class="lead">No aliases associated with this index.</div> ',
+    '<% } %>',
 
     '<% } else { %>',
     '<div class="lead">You must open the index to see any alias information.</div> ',
