@@ -26,6 +26,7 @@ var IndexView = Backbone.View.extend(
     {
         initialize:function (args) {
             this.statusModel = args.statusModel;
+            this.healthModel = args.healthModel;
         },
         render:function () {
             var _this = this;
@@ -47,10 +48,11 @@ var IndexView = Backbone.View.extend(
             var totalShards = indexStats._shards;
             var stats = indexStats.indices[this.model.indexId];
             var indexStatus = this.statusModel.toJSON();
+            var health = this.healthModel.toJSON();
             var status = indexStatus.indices[this.model.indexId];
             var _shards = [];
             _shards = _.values(indexStatus.indices[this.model.indexId].shards);
-            var index = $.extend({}, stats, status);
+            var index = $.extend({}, stats, status, health);
 
 //console.log(JSON.stringify(index));
 
@@ -73,6 +75,9 @@ var IndexView = Backbone.View.extend(
                 }
             }
 
+            // statusClass
+
+
             var tpl = _.template(indexTemplate.indexView);
             $('#workspace').html(tpl(
                 {
@@ -82,9 +87,6 @@ var IndexView = Backbone.View.extend(
                     totalShards:totalShards,
                     isOpenState:isOpenState,
                     shards:shards,
-/*                    indexTabClass:'active',
-                    shardTabClass:'',
-                    adminTabClass:'',*/
                     lastUpdateTime:timeUtil.lastUpdated()
                 }));
 
@@ -97,8 +99,8 @@ var IndexView = Backbone.View.extend(
 
             // because of polling, we must set the current selected tab to show.
             $('a[data-toggle="tab"]').on('shown', function (e) {
-               // e.target; // activated tab
-               // e.relatedTarget; // previous tab
+                // e.target; // activated tab
+                // e.relatedTarget; // previous tab
                 activeTab = e.target.id;
             });
             $('#' + activeTab).tab('show');
@@ -109,6 +111,7 @@ var IndexView = Backbone.View.extend(
             return this;
         },
         indexId:undefined,
+        healthModel:undefined,
         statusModel:undefined,
         model:undefined
     }
