@@ -27,6 +27,7 @@ var IndexView = Backbone.View.extend(
         initialize:function (args) {
             this.statusModel = args.statusModel;
             this.healthModel = args.healthModel;
+            this.aliasModel = args.aliasModel;
         },
         render:function () {
             var _this = this;
@@ -49,14 +50,31 @@ var IndexView = Backbone.View.extend(
             var stats = indexStats.indices[this.model.indexId];
             var indexStatus = this.statusModel.toJSON();
             var health = this.healthModel.toJSON();
+            var _aliases = this.aliasModel.toJSON();
+            var aliases = _aliases[this.model.indexId];
             var status = indexStatus.indices[this.model.indexId];
-            var _shards = [];
-            _shards = _.values(indexStatus.indices[this.model.indexId].shards);
-            var index = $.extend({}, stats, status, health);
+
+            // status label
+            if (health.status == 'yellow') {
+                health.statusClassLabel = 'warning';
+                health.statusText = 'Yellow';
+            }
+            else if (health.status == 'green') {
+                health.statusClassLabel = 'success';
+                health.statusText = 'Green';
+            }
+            else if (health.status == 'red') {
+                health.statusClassLabel = 'important';
+                health.statusText = 'Red';
+            }
+
+            var index = $.extend({}, stats, status, health, aliases);
 
 //console.log(JSON.stringify(index));
 
             // assemble shards
+            var _shards = [];
+            _shards = _.values(indexStatus.indices[this.model.indexId].shards);
             var nodeList = cluster.get('nodeList');
             var shards = [];
             for (var $i = 0; $i < _shards.length; $i++) {
@@ -107,10 +125,12 @@ var IndexView = Backbone.View.extend(
 
             $("[rel=popRight]").popover();
             $("[rel=tipRight]").tooltip();
+            prettyPrint();
 
             return this;
         },
         indexId:undefined,
+        aliasModel:undefined,
         healthModel:undefined,
         statusModel:undefined,
         model:undefined

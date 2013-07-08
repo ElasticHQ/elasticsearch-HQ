@@ -27,6 +27,7 @@ indexRoute.indexView = function (indexId) {
     var indexStatsModel = new IndexStatsModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
     var indexStatusModel = new IndexStatusModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
     var indexHealthModel = new IndexHealthModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
+    var indexAliasModel = new IndexAliasModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId});
 
     indexStatusModel.fetch({
         success:function (model, response) {
@@ -36,9 +37,9 @@ indexRoute.indexView = function (indexId) {
             indexPoller.start();
             indexPoller.on('success', function (indexStatusModel) {
                 ajaxloading.show();
-                $.when(indexStatsModel.fetch(), indexHealthModel.fetch())
+                $.when(indexStatsModel.fetch(), indexHealthModel.fetch(), indexAliasModel.fetch())
                     .done(function () {
-                        var indexView = new IndexView({indexId:indexId, model:indexStatsModel, statusModel:indexStatusModel, healthModel:indexHealthModel});
+                        var indexView = new IndexView({indexId:indexId, model:indexStatsModel, statusModel:indexStatusModel, healthModel:indexHealthModel, aliasModel:indexAliasModel});
                         indexView.render();
                     });
                 ajaxloading.hide();
