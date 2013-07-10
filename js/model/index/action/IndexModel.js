@@ -54,7 +54,7 @@ var IndexModel = Backbone.Model.extend({
         indexId:{
             required:true,
             msg:'Please enter a valid Index ID'
-        },
+        }/*,
         shards:{
             required:true,
             min:1,
@@ -66,6 +66,6 @@ var IndexModel = Backbone.Model.extend({
             min:0,
             pattern:'number',
             msg:'Please enter a # value.'
-        }
+        }*/
     }
 });

@@ -30,13 +30,12 @@ var CreateIndexView = Backbone.View.extend(
             this.model.set(data);
             this.model.indexId = data.indexId.toLowerCase();
 
-
             // this triggers a RESTFul POST (or PUT) request to the URL specified in the model
             this.model.save(
                 {
                     "settings":{
-                        "number_of_shards":data.shards,
-                        "number_of_replicas":data.replicas
+                      /*  "number_of_shards":data.shards,
+                        "number_of_replicas":data.replicas*/
                     }
                 },
                 {
