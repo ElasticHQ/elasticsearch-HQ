@@ -20,7 +20,7 @@ var CreateAliasView = Backbone.View.extend(
     {
         el:$('#workspace'), // must be explicitly set for event binding to work!
         events:{
-            'submit':'saveToModel'
+            'click #createAliasSubmit':'saveToModel'
         },
         initialize:function (args) {
             this.indexId = args.indexId;
@@ -64,6 +64,7 @@ var CreateAliasView = Backbone.View.extend(
                 }
             );
             this.unbind();
+            this.model.unbind("#createAliasSubmit", this.render);
 
             Backbone.history.navigate('index/' + this.indexId, true);
 
@@ -84,7 +85,7 @@ var CreateAliasView = Backbone.View.extend(
             return this;
         },
         onClose:function () {
-            this.model.unbind("submit", this.render);
+            this.model.unbind("#createAliasSubmit", this.render);
         },
         indexId:undefined
     });

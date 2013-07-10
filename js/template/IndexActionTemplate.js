@@ -30,7 +30,7 @@ indexActionTemplate.createIndex = [
 
     '<div class="control-group">',
     '<div class="controls">',
-    '<button type="submit" class="btn btn-success">Create</button>',
+    '<button type="submit" id="createIndexSubmit" class="btn btn-success">Create</button>',
     '<a href="#indices" class="btn">Cancel</a>',
     '</div>',
     '</div>',
@@ -143,7 +143,7 @@ indexActionTemplate.createAlias = [
 
     '<div class="control-group">',
     '<div class="controls">',
-    '<button type="submit" class="btn btn-success">Create</button>',
+    '<button type="submit" id="createAliasSubmit" class="btn btn-success">Create</button>',
     '<a href="#index/<%- indexId %>" class="btn">Cancel</a>',
     '</div>',
     '</div>',

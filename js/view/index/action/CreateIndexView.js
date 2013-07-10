@@ -20,7 +20,7 @@ var CreateIndexView = Backbone.View.extend(
     {
         el:$('#workspace'), // must be explicitly set for event binding to work!
         events:{
-            'submit':'saveToModel'
+            'click #createIndexSubmit':'saveToModel'
         },
         saveToModel:function (e) {
             e.preventDefault();
@@ -55,6 +55,7 @@ var CreateIndexView = Backbone.View.extend(
                 }
             );
             this.unbind();
+            this.model.unbind("#createIndexSubmit", this.render);
 
             return false;
         },
@@ -67,6 +68,6 @@ var CreateIndexView = Backbone.View.extend(
             return this;
         },
         onClose:function () {
-            this.model.unbind("submit", this.render);
+            this.model.unbind("#createIndexSubmit", this.render);
         }
     });
