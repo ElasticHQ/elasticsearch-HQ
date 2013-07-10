@@ -35,7 +35,7 @@ $(document).ready(
                 "shutdownNode/:nodeId":"killNode",
                 "showhotthreads/:nodeId":"showhotthreads",
                 "indices":"indices",
-                "refreshindices": "refreshIndices",
+                "refreshindices":"refreshIndices",
                 "optimizeall":"optimizeall",
                 "flushall":"flushall",
                 "clearcacheall":"clearcacheall",
@@ -49,6 +49,8 @@ $(document).ready(
                 "optimizeindex/:indexId":"optimizeIndex",
                 "refreshindex/:indexId":"refreshIndex",
                 "index/:indexId":"index",
+                "createalias/:indexId":"createAlias",
+                "deletealias/:indexId":"deleteAlias",
                 "refreshindexpoller/:indexId":"refreshIndexPoller",
                 "mappings/:indexId/:mapName":"mappings",
                 "deletemapping/:indexId/:mapName":"deleteMapType",
@@ -102,7 +104,7 @@ $(document).ready(
                 stopAllNodePollers();
                 indicesRoute.viewIndices();
             },
-            refreshIndices : function() {
+            refreshIndices:function () {
                 router.navigate('indices', true);
             },
             optimizeall:function () {
@@ -150,8 +152,15 @@ $(document).ready(
                 stopAllNodePollers();
                 indexRoute.indexView(indexId);
             },
-            refreshIndexPoller: function(indexId)
-            {
+            createAlias:function (indexId) {
+                stopAllNodePollers();
+                var createAliasModel = new IndexAliasModel({connectionRootURL:cluster.get("connectionRootURL")});
+                if (this.createAliasView == undefined) {
+                    this.createAliasView = new CreateAliasView({model:createAliasModel, indexId:indexId});
+                }
+                this.createAliasView.render();
+            },
+            refreshIndexPoller:function (indexId) {
                 router.navigate('index/' + indexId, true);
             },
             mappings:function (indexId, mapName) {

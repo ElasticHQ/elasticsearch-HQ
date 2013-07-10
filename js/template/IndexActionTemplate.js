@@ -111,3 +111,44 @@ indexActionTemplate.clearCacheAll = [
     '</div>',
     '</div>'
 ].join("\n");
+
+indexActionTemplate.createAlias = [
+    '<div class="span8 center-table">',
+
+    '<form class="form-horizontal" id="createAliasForm">',
+    '<input type="hidden" name="indexId" value="<%- indexId %>">',
+    '<fieldset>',
+    '<div id="legend">',
+    '<legend class="">Create an Alias on Index "<%- indexName %>"</legend>',
+    '</div>',
+    '<div class="control-group">',
+    '<label class="control-label"  for="aliasId">Alias ID</label>',
+    '<div class="controls">',
+    '<input type="text" id="aliasId" name="aliasId" placeholder="" class="input-xlarge"  data-error-style="inline">',
+    '</div>',
+    '</div>',
+
+    '<div class="control-group">',
+    '<label class="control-label" for="index_routing">Index Routing</label>',
+    '<div class="controls">',
+    '<input type="text" id="index_routing" name="index_routing" placeholder="" class="input-mini"  data-error-style="inline">',
+    '</div>',
+    '</div>',
+    '<div class="control-group">',
+    '<label class="control-label" for="search_routing">Search Routing</label>',
+    '<div class="controls">',
+    '<input type="text" id="search_routing" name="search_routing" placeholder="" class="input-mini"  data-error-style="inline">',
+    '</div>',
+    '</div>',
+
+    '<div class="control-group">',
+    '<div class="controls">',
+    '<button type="submit" class="btn btn-success">Create</button>',
+    '<a href="#index/<%- indexId %>" class="btn">Cancel</a>',
+    '</div>',
+    '</div>',
+    '</fieldset>',
+    '</form>',
+
+    '</div>'
+].join("\n");

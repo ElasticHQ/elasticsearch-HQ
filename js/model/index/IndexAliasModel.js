@@ -25,6 +25,16 @@ var IndexAliasModel = Backbone.Model.extend({
         this.indexId = args.indexId;
     },
     url:function () {
-        return '/' + this.indexId + '/_aliases';
+        if (this.indexId != undefined) {
+            return '/' + this.indexId + '/_aliases';
+        } else {
+            return '/_aliases';
+        }
+    },
+    validation:{
+        aliasId:{
+            required:true,
+            msg:'Please enter a valid Alias ID'
+        }
     }
 });

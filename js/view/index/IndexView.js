@@ -93,9 +93,6 @@ var IndexView = Backbone.View.extend(
                 }
             }
 
-            // statusClass
-
-
             var tpl = _.template(indexTemplate.indexView);
             $('#workspace').html(tpl(
                 {
@@ -107,9 +104,6 @@ var IndexView = Backbone.View.extend(
                     shards:shards,
                     lastUpdateTime:timeUtil.lastUpdated()
                 }));
-
-            //$('#indexTab').tab('show');
-            // $('#shardTab').tab('show');
 
             $("#shardTable").tablesorter({ sortList:[
                 [0, 0]
@@ -123,11 +117,62 @@ var IndexView = Backbone.View.extend(
             });
             $('#' + activeTab).tab('show');
 
+            // on the delete click, show confirmation modal and stop the background polling, or it will refresh the
+            // workspace and close the modal.
+            $(document).on("click", ".opendeletealiasmodal", function () {
+                var myAliasId = $(this).data('id');
+                $(".modal-body #deleteAliasId").val(myAliasId);
+                $('#deletealiasmodal').modal('show');
+                indexPoller.stop();
+            });
+
+            // on closing of the delete confirmation modal, resume polling the index.
+            $('#deletealiasmodal').on('hidden', function () {
+                indexPoller.start();
+            });
+
+            // if someone confirms deletion of an index...
+            $('#deleteIndexBtn').on('click', function () {
+                _this.deleteAlias();
+            });
+
             $("[rel=popRight]").popover();
             $("[rel=tipRight]").tooltip();
             prettyPrint();
 
             return this;
+        },
+        deleteAlias:function () {
+            var _this = this;
+            var aliasId = $('#deleteAliasId').val();
+            var indexId = this.model.indexId;
+
+            // create new model used only for delete, as the url is different...
+            var delAliasModel = new IndexAliasModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:undefined});
+
+            delAliasModel.save(
+                {
+                    "actions":[
+                        {
+                            "remove":{ "index":indexId, "alias":aliasId}
+                        }
+                    ]
+                },
+                {
+                    success:function (model, response) {
+                        show_stack_bottomright({type:'success', title:'Alias Deleted', text:'"' + aliasId + '" alias deleted.'});
+                        $('#deletealiasmodal').modal('hide');
+                    },
+                    error:function (model, response, options) {
+                        {
+                            var err = '<p>Server Response is...</p><pre class="prettyprint language-json">' + response.responseText + '</pre>';
+                            show_stack_bottomright({type:'error', title:'Alias Delete Failed', text:err, hide:false, closer_hover:false});
+                            prettyPrint();
+                            $('#deletealiasmodal').modal('hide');
+                        }
+                    }
+                }
+            );
         },
         indexId:undefined,
         aliasModel:undefined,

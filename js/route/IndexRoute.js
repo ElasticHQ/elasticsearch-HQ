@@ -192,7 +192,7 @@ indexRoute.optimizeIndex = function (indexId) {
             $('#defaultindexmodal').modal('show');
         }
     });
-}
+};
 
 indexRoute.clearCacheIndex = function (indexId) {
     var indexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId, cmd:'_cache/clear'});
@@ -212,4 +212,4 @@ indexRoute.clearCacheIndex = function (indexId) {
             $('#defaultindexmodal').modal('show');
         }
     });
-}
+};
