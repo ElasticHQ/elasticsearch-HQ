@@ -156,8 +156,9 @@ $(document).ready(
                 stopAllNodePollers();
                 var createAliasModel = new IndexAliasModel({connectionRootURL:cluster.get("connectionRootURL")});
                 if (this.createAliasView == undefined) {
-                    this.createAliasView = new CreateAliasView({model:createAliasModel, indexId:indexId});
+                    this.createAliasView = new CreateAliasView({model:createAliasModel});
                 }
+                this.createAliasView.indexId = indexId;
                 this.createAliasView.render();
             },
             refreshIndexPoller:function (indexId) {
