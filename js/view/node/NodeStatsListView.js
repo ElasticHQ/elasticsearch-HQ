@@ -135,8 +135,15 @@ var NodeStatsListView = Backbone.View.extend(
                         node.stats.gcfreq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count / 1000;
                     }
                     node.stats.gcduration = node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_time_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count;
-                    node.stats.gcparnew = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count / 1000;
-                    node.stats.gcparnewduration = node.stats.jvm.gc.collectors.ParNew.collection_time_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count;
+
+                    if (node.stats.jvm.gc.collectors.ParNew) {
+                        node.stats.gcparnew = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count / 1000;
+                        node.stats.gcparnewduration = node.stats.jvm.gc.collectors.ParNew.collection_time_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count;
+                    }
+                    else {
+                        node.stats.gcparnew = 0;
+                        node.stats.gcparnewduration = 0;
+                    }
                     node.stats.swap = node.stats.os.swap.used_in_bytes / 1024 / 1024;
 
                     // network
