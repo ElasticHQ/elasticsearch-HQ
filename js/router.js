@@ -61,6 +61,7 @@ $(document).ready(
                 "query":"query",
                 "admin":"admin",
                 "admin/action":"admin",
+                "documents":"documents",
                 "*actions":"defaultRoute"
             },
             cluster:function () {
@@ -179,6 +180,10 @@ $(document).ready(
             viewRest:function () {
                 stopAllNodePollers();
                 restRoute.view();
+            },
+            documents:function () {
+                stopAllNodePollers();
+                queryRoute.browseDocuments();
             },
             callRest:function (command) {
                 stopAllNodePollers();

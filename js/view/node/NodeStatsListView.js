@@ -127,7 +127,7 @@ var NodeStatsListView = Backbone.View.extend(
                     // memory
                     node.stats.totalmem = 0;
                     node.stats.heappercram = 0;
-                    if (!jquery.isEmptyObject(node.stats.os.mem)) {
+                    if (!jQuery.isEmptyObject(node.stats.os.mem)) {
                         node.stats.totalmem = ( node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes ) / 1024 / 1024 / 1024;
                         node.stats.heappercram = node.stats.jvm.mem.heap_committed_in_bytes / (node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes);
                     }
@@ -151,7 +151,7 @@ var NodeStatsListView = Backbone.View.extend(
                     }
 
                     node.stats.swap = 0;
-                    if (!jquery.isEmptyObject(node.stats.os.swap)) {
+                    if (!jQuery.isEmptyObject(node.stats.os.swap)) {
                         node.stats.swap = node.stats.os.swap.used_in_bytes / 1024 / 1024;
                     }
 
