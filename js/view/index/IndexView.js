@@ -31,7 +31,7 @@ var IndexView = Backbone.View.extend(
         },
         render:function () {
             var _this = this;
-            var indexName = uppercaseFirst(_this.model.indexId);
+            var indexName = _this.model.indexId;
             var isOpenState = true;
 
             try {

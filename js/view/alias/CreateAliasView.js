@@ -77,7 +77,7 @@ var CreateAliasView = Backbone.View.extend(
             $('#workspace').html(tpl(
                 {
                     indexId:_this.indexId,
-                    indexName:uppercaseFirst(_this.indexId),
+                    indexName:_this.indexId,
                     model:_this.model
                 }));
 
