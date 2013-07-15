@@ -125,9 +125,14 @@ var NodeStatsListView = Backbone.View.extend(
                     node.stats.idpercentage = node.stats.indices.id_cache.memory_size_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
 
                     // memory
-                    node.stats.totalmem = ( node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes ) / 1024 / 1024 / 1024;
+                    node.stats.totalmem = 0;
+                    node.stats.heappercram = 0;
+                    if (!jquery.isEmptyObject(node.stats.os.mem)) {
+                        node.stats.totalmem = ( node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes ) / 1024 / 1024 / 1024;
+                        node.stats.heappercram = node.stats.jvm.mem.heap_committed_in_bytes / (node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes);
+                    }
                     node.stats.heapsize = node.stats.jvm.mem.heap_committed_in_bytes / 1024 / 1024 / 1024;
-                    node.stats.heappercram = node.stats.jvm.mem.heap_committed_in_bytes / (node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes);
+
                     node.stats.heapused = node.stats.jvm.mem.heap_used_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
                     if (node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count == 0) {
                         node.stats.gcfreq = 0;
@@ -144,7 +149,11 @@ var NodeStatsListView = Backbone.View.extend(
                         node.stats.gcparnew = 0;
                         node.stats.gcparnewduration = 0;
                     }
-                    node.stats.swap = node.stats.os.swap.used_in_bytes / 1024 / 1024;
+
+                    node.stats.swap = 0;
+                    if (!jquery.isEmptyObject(node.stats.os.swap)) {
+                        node.stats.swap = node.stats.os.swap.used_in_bytes / 1024 / 1024;
+                    }
 
                     // network
                     node.stats.httpconnectrate = node.stats.http.total_opened / node.stats.jvm.uptime_in_millis * 1000;
