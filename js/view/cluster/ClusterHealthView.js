@@ -42,8 +42,21 @@ var ClusterHealthView = Backbone.View.extend({
 
         var indices = {};
         indices.shards = this.indexModel.get('_shards');
-        indices.docs = this.indexModel.get('_all').total.docs;
+        if (jQuery.isEmptyObject(this.indexModel.get('_all'))) {
+            indices.docs = {};
+        }
+        else {
+            indices.docs = this.indexModel.get('_all').total.docs;
+        }
+        if (indices.docs == undefined) {
+            indices.docs = {};
+            indices.docs.count = 0;
+        }
         indices.store = this.indexModel.get('_all').total.store;
+        if (indices.store == undefined) {
+            indices.store = {};
+            indices.store.size = 0;
+        }
 
         var indexKeys = _.keys(this.indexModel.get('indices'));
         if (indexKeys != undefined) {

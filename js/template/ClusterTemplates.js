@@ -129,6 +129,7 @@ clusterTemplate.HealthDescribe = [
     '<div class="clearfix"></div>',
     '</div>',
     '<div class="grid-content overflow">',
+    '<% if (!jQuery.isEmptyObject(indices.indices)) { %>',
     '<table class="table table-bordered table-striped table-hover" id="indicesTable">',
     '<thead>',
     '<tr><th>Index</th><th># Docs</th><th>Primary Size</th><th># Shards</th><th># Replicas</th><th>Status</th></tr>',
@@ -141,6 +142,7 @@ clusterTemplate.HealthDescribe = [
     '<% }); %>',
     '</tbody>',
     '</table>',
+    '<% } %>',
 
     '<div class="clear"></div>',
     '</div>',
