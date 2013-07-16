@@ -95,7 +95,7 @@ nodeTemplate.diagnostics = [
     '<div class="span2 pull-left"><a href="#refreshNodeDiagnostics" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every 30 seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
     '<div class="pull-right"><a href="#diagnosticsModal" data-toggle="modal" role="button" class="btn"><i class="icon-question-sign"></i> Help</a></div>',
     '<div class="text-center">',
-    '<span style="font-size: 28px;">Node Diagnotics Information</span>',
+    '<span style="font-size: 28px;">Node Diagnostics Information</span>',
     '</div>',
     '</div><!-- well -->',
 
