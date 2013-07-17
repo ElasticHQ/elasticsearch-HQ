@@ -134,12 +134,26 @@ var NodeStatsListView = Backbone.View.extend(
                     node.stats.heapsize = node.stats.jvm.mem.heap_committed_in_bytes / 1024 / 1024 / 1024;
 
                     node.stats.heapused = node.stats.jvm.mem.heap_used_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
-                    if (node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count == 0) {
-                        node.stats.gcfreq = 0;
-                    } else {
-                        node.stats.gcfreq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count / 1000;
+
+                    node.stats.gcfreq = 0;
+                    node.stats.gcduration = 0;
+                    try {
+                        if (node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count == 0) {
+                            node.stats.gcfreq = 0;
+                        } else {
+                            node.stats.gcfreq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count / 1000;
+                        }
                     }
-                    node.stats.gcduration = node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_time_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count;
+                    catch (e) {
+                        // default to 0;
+                    }
+
+                    try {
+                        node.stats.gcduration = node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_time_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count;
+                    }
+                    catch (e) {
+                        // default to 0
+                    }
 
                     if (node.stats.jvm.gc.collectors.ParNew) {
                         node.stats.gcparnew = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count / 1000;
