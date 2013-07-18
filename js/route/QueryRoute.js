@@ -57,10 +57,11 @@ queryRoute.doQuery = function () {
 
     var queryString = $('#queryString').val();
 
-    var documentListModel = new DocumentList({indexCSV:indexCSV, queryString:queryString});
-    documentListModel.setConnectionRootURL(cluster.get("connectionRootURL"));
+    // prep model., we dont use backbone connection in this case.
+    var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString});
 
-    var documentListView = new DocumentListView({model:documentListModel});
+    // issue POST then render
+    var documentListView = new DocumentListView({model:queryModel});
     documentListView.postToModel();
     documentListView.render();
 };

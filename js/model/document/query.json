@@ -29,3 +29,6 @@ http://localhost:9200/comicbook/_search
 }
 }
 
+// no query string...
+{}
+

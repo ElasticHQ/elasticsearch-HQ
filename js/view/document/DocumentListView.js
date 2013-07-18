@@ -17,9 +17,35 @@
  */
 
 var DocumentListView = Backbone.View.extend({
-    initialize:function (args) {
-    },
+    requestBody:undefined,
     postToModel:function () {
+        var _this = this;
+        var requestBodyObject = QueryUtil.buildBody(this.model);
+
+        //fetch({ data: $.param({ page: 1}) });
+        // JSON.stringify(queryModel.toJSON().query);
+
+        var searchRequest = $.ajax({
+            url:this.model.getInstanceURL(),
+            type:"POST",
+            data: JSON.stringify(requestBodyObject)
+        });
+        /*
+
+
+         this.model.save(
+         {
+         query:JSON.stringify(requestBodyObject)
+         },
+         {
+         success:function (model, response) {
+         },
+         error:function (model, response, options) {
+         }
+         }
+
+         );
+         */
 
     },
     render:function () {

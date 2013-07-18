@@ -18,10 +18,14 @@
 
 var QueryUtil =
 {
-    buildBody:function (args) {
-        var query = "";
+    buildBody:function (queryModel) {
 
-
-        return query;
+        if (queryModel.queryString == '') {
+            return undefined;
+        }
+        else {
+            queryModel.get('queryObj').query.filtered.query.query_string.query = queryModel.queryString;
+            return queryModel.toJSON().queryObj;
+        }
     }
 };

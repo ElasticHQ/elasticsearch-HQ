@@ -15,37 +15,33 @@
 
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
-/**
- http://www.elasticsearch.org/guide/reference/api/search/
 
- http://localhost:9200/comicbook/_search
-
- {    "query": {
-        "filtered" : {
-            "query" : {
-                "query_string" : {
-                    "query" : "hulk"
+var QueryModel = Backbone.Model.extend({
+    defaults:{
+        indexCSV:undefined,
+        queryString:undefined,
+        queryObj:{
+            "query":{
+                "filtered":{
+                    "query":{
+                        "query_string":{
+                            "query":""
+                        }
+                    }
                 }
             }
         }
     },
-"sort" : { "_id" : { "order" : "asc"} }
-
-}
- */
-
-var DocumentList = Backbone.Collection.extend({
-    model:Document,
-    defaults:{
-        indexCSV:undefined,
-        queryString : undefined,
-    },
     initialize:function (args) {
-        console.log("Inside DocumentList");
+        console.log("Inside QueryModel");
 
         this.indexCSV = args.indexCSV;
+        this.queryString = args.queryString;
     },
     url:function () {
         return '/' + this.indexCSV + '/_search';
+    },
+    getInstanceURL:function () {
+        return cluster.get("connectionRootURL") + '/' + this.indexCSV + '/_search';
     }
 });
