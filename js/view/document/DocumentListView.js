@@ -16,15 +16,13 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-var DocumentListView = new DocumentListView(
-    {
-        initialize:function (args) {
-        },
-        postToModel:function () {
+var DocumentListView = Backbone.View.extend({
+    initialize:function (args) {
+    },
+    postToModel:function () {
 
-        },
-        render:function () {
+    },
+    render:function () {
 
-        }
     }
-);
+});

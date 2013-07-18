@@ -59,7 +59,7 @@ queryRoute.doQuery = function () {
 
     var documentListModel = new DocumentList({indexCSV:indexCSV, queryString:queryString});
     documentListModel.setConnectionRootURL(cluster.get("connectionRootURL"));
-    
+
     var documentListView = new DocumentListView({model:documentListModel});
     documentListView.postToModel();
     documentListView.render();
