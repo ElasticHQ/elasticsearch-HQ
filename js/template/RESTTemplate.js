@@ -59,7 +59,7 @@ restTemplate.mainView = [
     '<div class="span10">',
     '<div><h2>REST API UI', restTemplate.docsLink, '</h2></div>',
     '<p>Use the options on the left-hand menu to make REST API requests to your cluster. This screen will then display the JSON response.</p>',
-    '<p>All commands are issued in <b>\'_all\'</b> scope; meaning that the request will <b>affect all of your nodes, indices, or mappings</b>. Support for parameterized calls is coming soon.</p>',
+    '<p>All commands are issued in <b>\'_all\'</b> scope; meaning that the request will <b>affect all of your nodes, indices, or mappings</b>.</p>',
     '<p>\'<i class="icon-double-angle-right"></i>\' denote requests for information. \'<i class="icon-cog"></i>\' denote commands and actions.</p>',
     //'<div class="alert alert-danger"><i class="icon-info-sign"></i> USE AT YOUR OWN RISK! Commands are sent in <strong>_all</strong> scope. For example: a \'Shutdown\' command will <strong>shutdown all of your nodes.</strong>. </div>',
     '</div>'

@@ -36,13 +36,16 @@
 
 var DocumentList = Backbone.Collection.extend({
     model:Document,
+    defaults:{
+        indexCSV:undefined,
+        queryString : undefined,
+    },
     initialize:function (args) {
         console.log("Inside DocumentList");
+
+        this.indexCSV = args.indexCSV;
     },
     url:function () {
-        return '/_cluster/state?filter_nodes=false&filter_metadata=true&filter_routing_table=true&filter_blocks=true&filter_indices=true'
-    },
-    parse:function (data) {
-
+        return '/' + this.indexCSV + '/_search';
     }
 });

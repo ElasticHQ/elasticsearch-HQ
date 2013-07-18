@@ -15,3 +15,16 @@
 
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
+
+var DocumentListView = new DocumentListView(
+    {
+        initialize:function (args) {
+        },
+        postToModel:function () {
+
+        },
+        render:function () {
+
+        }
+    }
+);

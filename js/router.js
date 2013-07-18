@@ -58,10 +58,9 @@ $(document).ready(
                 "mappings":"mappings",
                 "restapi":"viewRest",
                 "restcall/:command":"callRest",
-                "query":"query",
                 "admin":"admin",
                 "admin/action":"admin",
-                "documents":"documents",
+                "documents":"queryView",
                 "*actions":"defaultRoute"
             },
             cluster:function () {
@@ -181,9 +180,9 @@ $(document).ready(
                 stopAllNodePollers();
                 restRoute.view();
             },
-            documents:function () {
+            queryView:function () {
                 stopAllNodePollers();
-                queryRoute.browseDocuments();
+                queryRoute.init();
             },
             callRest:function (command) {
                 stopAllNodePollers();

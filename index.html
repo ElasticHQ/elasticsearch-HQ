@@ -75,7 +75,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     </div>
 </div>
 
-<!--<div id="error-loc"></div>-->
+<div id="error-loc"></div>
 
 <div class="container-fluid subnav">
 
@@ -88,10 +88,10 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                 <a href="#indices" class="btn btn-large" rel="tipRight" data-placement="bottom"
                    data-title="Indices Management"><i
                         class="icon-list"></i> Indices
-                </a><!--
+                </a><
                 <a href="#documents" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
                    data-title="Browse Documents"><i
-                        class="icon-search"></i> Query</a>-->
+                        class="icon-search"></i> Query</a>
                 <a href="#mappings" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
                    data-title="Type Mappings"><i
                         class="icon-map-marker"></i> Mappings</a>
@@ -207,6 +207,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/template/IndexActionTemplate.js"></script>
 <script src="js/template/MappingTemplate.js"></script>
 <script src="js/template/RESTTemplate.js"></script>
+<script src="js/template/QueryTemplate.js"></script>
 
 <!-- Models -->
 <script src="js/model/core/Ping.js"></script>
@@ -233,6 +234,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/model/node/NodeInfoListModel.js"></script>
 <script src="js/model/node/NodeStatsListModel.js"></script>
 <script src="js/model/document/DocumentModel.js"></script>
+<script src="js/model/document/DocumentListModel.js"></script>
+<script src="js/model/document/QueryUtil.js"></script>
 
 <!-- Model Actions -->
 <script src="js/model/index/action/ClearCacheAllIndexModel.js"></script>
@@ -258,7 +261,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/view/node/NodeStatsListView.js"></script>
 <script src="js/view/node/DiagnosticsRules.js"></script>
 <script src="js/view/alias/CreateAliasView.js"></script>
-<script src="js/view/document/BrowseAllView.js"></script>
+<script src="js/view/document/QueryView.js"></script>
+<script src="js/view/document/DocumentListView.js"></script>
 
 <!-- View Action -->
 <script src="js/view/index/action/OptimizeAllIndexView.js"></script>

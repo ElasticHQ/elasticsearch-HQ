@@ -19,10 +19,48 @@
 
 var queryRoute = {};
 
-queryRoute.browseDocuments= function () {
+/**
+ * The initial query screen
+ */
+queryRoute.init = function () {
 
     var clusterState = cluster.get("clusterState").toJSON();
     var indices = clusterState.metadata.indices;
     console.log(clusterState);
 
+    var queryView = new QueryView({model:indices});
+    queryView.render();
+};
+
+/**
+ * Performs the query validation and delegates to the API
+ */
+queryRoute.doQuery = function () {
+
+    // get checked checkboxes and query string
+    var indices = new Array();
+    $('#checkboxindices input:checked').each(function () {
+        indices.push($(this).attr('name'));
+    });
+
+    var indexCSV = "";
+    if (indices.length > 0) {
+        indexCSV = indices.join(",");
+        $("#queryError-loc").empty();
+    }
+    else {
+        var errModel = new ErrorMessageModel({warningMessage:'', warningTitle:'Index is required!'});
+        var errorMsgView = new ErrorMessageView({el:$("#queryError-loc"), model:errModel});
+        errorMsgView.render();
+        return;
+    }
+
+    var queryString = $('#queryString').val();
+
+    var documentListModel = new DocumentList({indexCSV:indexCSV, queryString:queryString});
+    documentListModel.setConnectionRootURL(cluster.get("connectionRootURL"));
+    
+    var documentListView = new DocumentListView({model:documentListModel});
+    documentListView.postToModel();
+    documentListView.render();
 };
