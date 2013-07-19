@@ -48,7 +48,7 @@ queryRoute.doQuery = function () {
         indexCSV = indices.join(",");
         $("#queryError-loc").empty();
     }
-    else {
+    else { // error on no indices.
         var errModel = new ErrorMessageModel({warningMessage:'', warningTitle:'Index is required!'});
         var errorMsgView = new ErrorMessageView({el:$("#queryError-loc"), model:errModel});
         errorMsgView.render();
@@ -60,8 +60,7 @@ queryRoute.doQuery = function () {
     // prep model., we dont use backbone connection in this case.
     var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString});
 
-    // issue POST then render
+    // issue jquery ajax POST then render
     var documentListView = new DocumentListView({model:queryModel});
-    documentListView.postToModel();
     documentListView.render();
 };

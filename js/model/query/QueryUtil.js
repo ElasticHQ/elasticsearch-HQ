@@ -18,6 +18,11 @@
 
 var QueryUtil =
 {
+    /**
+     * Builds a request body for the search POST
+     * @param queryModel
+     * @return {*}
+     */
     buildBody:function (queryModel) {
 
         if (queryModel.queryString == '') {
