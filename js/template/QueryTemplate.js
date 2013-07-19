@@ -49,5 +49,26 @@ queryTemplate.view = [
 ].join("\n");
 
 queryTemplate.results = [
-
+    '<div class="pull-left muted"><small><%- results.totalHits %> Hits returned in <%- results.responseTime %>ms</small></div>',
+    '<div class="center-table">',
+    '<table class="table table-bordered table-striped table-hover" id="resultsTable">',
+    '<thead><tr>',
+    '<% _.each(columns, function(col) { %>',
+    '<% if (col.type == "source" )  { %> <th style="color: green"> ',
+    '<% } else { %> <th> <% } %>',
+    '<%- col.name %></th>',
+    '<% }); %>',
+    '</tr>',
+    '</thead>',
+    '<tbody>',
+    '<% _.each(results.results, function(hit, key) { %>',
+    '<tr>',
+    '<% _.each(columns, function(col) { %>',
+    '<td><%- hit[col.key] %></td>',
+    '<% }); %>',
+    '</tr>',
+    '<% }); %>',
+    '</tbody',
+    '</table>',
+    '</div>'
 ].join("\n");

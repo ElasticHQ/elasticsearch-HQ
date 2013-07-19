@@ -50,7 +50,7 @@ var DocumentListView = Backbone.View.extend({
                 // add columns for type data
                 var sourceKeys = _.keys(data.hits.hits[0]._source);
                 _.each(sourceKeys, function (item) {
-                    _this.columnArray.push({key:item, name:uppercaseFirst(item)}); // columns for
+                    _this.columnArray.push({key:item, name:uppercaseFirst(item), type: "source" }); // columns for
                 });
 
                 // Results...
@@ -65,31 +65,34 @@ var DocumentListView = Backbone.View.extend({
                     var result = {};
                     result = item;
                     result._raw = JSON.stringify(item);
-                    result._source = undefined; // dont need this object nested in here.
 
                     jQuery.extend(result, item._source); // merge _source items in to root level of object.
+
+                    result._source = undefined; // dont need this object nested in here.
 
                     queryResultsModel.results.push(result);
                 });
                 _this.resultsModel = queryResultsModel;
             }
-            console.log('11');
+
+            // Render...
+            var tpl = _.template(queryTemplate.results);
+            $('#searchResults').html(tpl({
+                columns:_this.columnArray,
+                requestBody:_this.requestBody,
+                results:_this.resultsModel,
+                resultBody:_this.resultBody
+            }));
+
+            $("[rel=tipRight]").tooltip();
+
+            return this;
+
         });
 
         searchRequest.error(function (jqXHR, textStatus, errorThrown) {
         });
 
-        // Render...
-        var tpl = _.template(queryTemplate.results);
-        $('#searchResults').html(tpl({
-            columns:_this.columnArray,
-            requestBody:_this.requestBody,
-            results:_this.resultsModel,
-            resultBody:_this.resultBody
-        }));
 
-        $("[rel=tipRight]").tooltip();
-
-        return this;
     }
 });
