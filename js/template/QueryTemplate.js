@@ -55,7 +55,7 @@ queryTemplate.results = [
     'The Query UI is still experimental and is not in a finished state!',
     '</div>',
 
-    '<div class="pull-left muted"><small><%- results.totalHits %> Hits returned in <%- results.responseTime %>ms</small></div>',
+    '<div class="pull-left muted"><small><%- results.totalHits %> results in <%- results.responseTime %>ms</small></div>',
     '<div class="center-table">',
     '<table class="table table-bordered table-striped table-hover" id="resultsTable">',
     '<thead><tr>',

@@ -50,7 +50,7 @@ var DocumentListView = Backbone.View.extend({
                 // add columns for type data
                 var sourceKeys = _.keys(data.hits.hits[0]._source);
                 _.each(sourceKeys, function (item) {
-                    _this.columnArray.push({key:item, name:uppercaseFirst(item), type: "source" }); // columns for
+                    _this.columnArray.push({key:item, name:uppercaseFirst(item), type:"source" }); // columns for
                 });
 
                 // Results...
@@ -74,8 +74,12 @@ var DocumentListView = Backbone.View.extend({
                 });
                 _this.resultsModel = queryResultsModel;
             }
+        });
 
-            // Render...
+        searchRequest.error(function (jqXHR, textStatus, errorThrown) {
+        });
+
+        searchRequest.complete(function () {
             var tpl = _.template(queryTemplate.results);
             $('#searchResults').html(tpl({
                 columns:_this.columnArray,
@@ -87,12 +91,7 @@ var DocumentListView = Backbone.View.extend({
             $("[rel=tipRight]").tooltip();
 
             return this;
-
         });
-
-        searchRequest.error(function (jqXHR, textStatus, errorThrown) {
-        });
-
 
     }
 });

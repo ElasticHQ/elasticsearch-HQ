@@ -105,9 +105,10 @@ var IndexView = Backbone.View.extend(
                     lastUpdateTime:timeUtil.lastUpdated()
                 }));
 
-            $("#shardTable").tablesorter({ sortList:[
-                [0, 0]
-            ] });
+            $("#shardTable").tablesorter({
+                headers: { 3: { sorter: 'datasize' }},
+                sortList:[ [0, 0] ]
+            });
 
             // because of polling, we must set the current selected tab to show.
             $('a[data-toggle="tab"]').on('shown', function (e) {
