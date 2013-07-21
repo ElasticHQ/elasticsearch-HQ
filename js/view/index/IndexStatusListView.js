@@ -75,8 +75,11 @@ var IndexStatusListView = Backbone.View.extend(
 
             if (!jQuery.isEmptyObject(indices)) {
                 $("#indicesTable").tablesorter({
-                    headers: { 2: { sorter: 'datasize' }},
-                    sortList:[[1, 1]]
+                    headers:{ 2:{ sorter:'datasize' }},
+                    widgets: ['sortPersist']
+/*                    sortList:[
+                        [1, 1]
+                    ]*/
                 });
             }
 

@@ -106,8 +106,10 @@ var IndexView = Backbone.View.extend(
                 }));
 
             $("#shardTable").tablesorter({
-                headers: { 3: { sorter: 'datasize' }},
-                sortList:[ [0, 0] ]
+                headers:{ 3:{ sorter:'datasize' }},
+                widgets:['sortPersist']
+                //,
+                //sortList:[ [0, 0] ]
             });
 
             // because of polling, we must set the current selected tab to show.
