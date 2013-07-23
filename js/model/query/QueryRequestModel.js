@@ -30,8 +30,8 @@ var QueryModel = Backbone.Model.extend({
                     }
                 }
             },
-            "from" : 0,
-            "size" : 10
+            "from":0,
+            "size":10
         }
     },
     initialize:function (args) {

@@ -31,6 +31,7 @@ var DocumentListView = Backbone.View.extend({
         var _this = this;
 
         var requestBodyObject = QueryUtil.buildBody(this.model, this.pageFrom);
+        _this.requestBody = JSON.stringify(requestBodyObject, undefined, 2);
 
         var searchRequest = $.ajax({
             url:this.model.getInstanceURL(),
@@ -43,7 +44,7 @@ var DocumentListView = Backbone.View.extend({
             queryResultsModel.responseTime = data.took;
             queryResultsModel.timeOut = data.timed_out;
 
-            _this.resultBody = JSON.stringify(data);
+            _this.resultBody = JSON.stringify(data, undefined, 2);
 
             if (data.hits && data.hits.hits.length > 0) {
 
@@ -113,30 +114,18 @@ var DocumentListView = Backbone.View.extend({
 
             _this.calcPager();
 
-            /*
-             .bind("sortEnd", function(event) {
-             var table = event.target,
-             currentSort = table.config.sortList,
-             // target the first sorted column
-             columnNum = currentSort[0][0],
-             columnName = $(table.config.headerList[columnNum]).text();
-
-             console.log(columnName);
-
-             });
-             */
-
+            prettyPrint();
 
             return this;
         });
     },
     pageNext:function () {
-        this.pageFrom = this.pageFrom + this.pageSize;
+        this.pageFrom = Math.floor(this.pageFrom) + Math.floor(this.pageSize);
         this.currentPage++;
     },
     pagePrev:function () {
         if (this.pageFrom != 0) {
-            this.pageFrom = this.pageFrom - this.pageSize;
+            this.pageFrom = Math.floor(this.pageFrom) - Math.floor(this.pageSize);
             this.currentPage--;
         }
     },
@@ -148,14 +137,6 @@ var DocumentListView = Backbone.View.extend({
             _this.render();
         });
         $("#loadPrev").click(function () {
-            _this.pagePrev();
-            _this.render();
-        });
-        $("#loadNextBtm").click(function () {
-            _this.pageNext();
-            _this.render();
-        });
-        $("#loadPrevBtm").click(function () {
             _this.pagePrev();
             _this.render();
         });

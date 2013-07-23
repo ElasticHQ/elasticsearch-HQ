@@ -80,15 +80,17 @@ queryTemplate.results = [
     '</div>',
 
     '<div class="span6">',
-    '<div class="pull-right pagination" style="margin: 0px;">',
-    '<ul>',
+    '<div class="pull-right">',
+
     '<% if (currentPage != 1) { %>',
-    '<li><a href="#" id="loadPrev"><i class="icon-double-angle-left"></i> Prev</a></li>',
+    '<a href="#" id="loadPrev" class="btn btn-success"><i class="icon-double-angle-left"></i> Prev</a>',
     '<% } %>',
     '<% if(currentPage != maxPages) { %>',
-    '<li><a href="#" id="loadNext">Next <i class="icon-double-angle-right"></i></a></li>',
+    '<a href="#" id="loadNext" class="btn btn-success">Next <i class="icon-double-angle-right"></i></a>',
     '<% } %>',
-    '</ul>',
+    '<a href="#queryJSONRequestModal" id="queryRequest" class="btn" rel="tipRight" data-title="View JSON Request." data-toggle="modal" role="button" ><i class="icon-upload"></i></a>',
+    '<a href="#queryJSONResponseModal" id="queryResponse" class="btn"  rel="tipRight" data-title="View JSON Response." data-toggle="modal" role="button" ><i class="icon-download"></i></a>',
+
     '</div>',
     '</div>',
 
@@ -120,7 +122,38 @@ queryTemplate.results = [
     '</table>',
     '</div>',
     '</div>',
+    '</div>',
+
+    '<div class="modal hide fade" id="queryJSONResponseModal">',
+    '<div class="modal-header">',
+    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
+    '<h3>JSON Response</h3>',
+    '</div>',
+    '<div class="modal-body">',
+    '<pre class="prettyprint language-json">',
+    '<%- resultBody %>',
+    '</pre>',
+    '</div>',
+    '<div class="modal-footer">',
+    '<a href="#" class="btn" data-dismiss="modal">Close</a>',
+    '</div>',
+    '</div>',
+
+    '<div class="modal hide fade" id="queryJSONRequestModal">',
+    '<div class="modal-header">',
+    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
+    '<h3>Query Request</h3>',
+    '</div>',
+    '<div class="modal-body">',
+    '<pre class="prettyprint language-json">',
+    '<%- requestBody %>',
+    '</pre>',
+    '</div>',
+    '<div class="modal-footer">',
+    '<a href="#" class="btn" data-dismiss="modal">Close</a>',
+    '</div>',
     '</div>'
+
 ].join("\n");
 
 
