@@ -40,7 +40,7 @@ var DocumentListView = Backbone.View.extend({
 
             _this.resultBody = JSON.stringify(data);
 
-            if (data.hits) {
+            if (data.hits && data.hits.hits.length > 0) {
 
                 // Columns...
                 _this.columnArray = [
@@ -74,6 +74,12 @@ var DocumentListView = Backbone.View.extend({
 
                     queryResultsModel.results.push(result);
                 });
+                _this.resultsModel = queryResultsModel;
+            }
+            else
+            {
+                queryResultsModel.totalHits = 0;
+                queryResultsModel.maxScore = 0;
                 _this.resultsModel = queryResultsModel;
             }
         });
@@ -110,23 +116,7 @@ var DocumentListView = Backbone.View.extend({
                 _this.render();
             });
 
-
-            // scroll-to-top button show and hide
-            //jQuery(document).ready(function () {
-                jQuery(window).scroll(function () {
-                    if (jQuery(this).scrollTop() > 100) {
-                        jQuery('.scrollup').fadeIn();
-                    } else {
-                        jQuery('.scrollup').fadeOut();
-                    }
-                });
-            // scroll-to-top animate
-                jQuery('.scrollup').click(function () {
-                    jQuery("html, body").animate({ scrollTop:0 }, 600);
-                    return false;
-                });
-            //});
-
+            scrollToTop.activate();
 
             return this;
         });
