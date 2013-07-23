@@ -23,15 +23,15 @@ var QueryUtil =
      * @param queryModel
      * @return {*}
      */
-    buildBody:function (queryModel, from, pageSize) {
+    buildBody:function (queryModel, from) {
 
         if (queryModel.queryString == '') {
-            return {"from":from, "size":pageSize };
+            return {"from":from, "size":queryModel.get('queryObj').size };
+            //, "sort":[ {"_id":{"order":"asc" }}], "version":true, "fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}} };
         }
         else {
             queryModel.get('queryObj').query.filtered.query.query_string.query = queryModel.queryString;
-            queryModel.get('queryObj').from = from;
-            queryModel.get('queryObj').size = pageSize;
+            queryModel.get('queryObj').from = from
             return queryModel.toJSON().queryObj;
         }
     }

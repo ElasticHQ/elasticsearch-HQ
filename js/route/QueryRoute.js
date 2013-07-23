@@ -56,9 +56,11 @@ queryRoute.doQuery = function () {
     }
 
     var queryString = $('#queryString').val();
+    var perPage = $('#perPage option:selected').val();
 
     // prep model., we dont use backbone connection in this case.
     var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString});
+    queryModel.get('queryObj').size = perPage;
 
     // issue jquery ajax POST then render
     var documentListView = new DocumentListView({model:queryModel});

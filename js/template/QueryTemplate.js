@@ -6,12 +6,12 @@ queryTemplate.sideNav = [
 
     '<input type="text" placeholder="Search Query..." name="queryString" class="span12" id="queryString">',
     '<hr/>',
-    '<div class="accordion" id="accordion2">',
+    '<div class="accordion" id="queryAccordion">',
 
-    '<a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">',
+    '<a data-toggle="collapse" data-parent="#queryAccordion" href="#collapseIndices">',
     '<b><i class="icon-expand-alt"></i> Indices</b>',
     '</a>',
-    '<div id="collapseOne" class="accordion-body collapse in">',
+    '<div id="collapseIndices" class="accordion-body collapse in">',
     '<div class="accordion-inner">',
 
     '<ul class="nav nav-list" id="checkboxindices">',
@@ -24,6 +24,28 @@ queryTemplate.sideNav = [
 
     '</div>',
     '</div>',
+
+    '<a data-toggle="collapse" data-parent="#queryAccordion" href="#collapseDisplay">',
+    '<b><i class="icon-expand-alt"></i> Display</b>',
+    '</a>',
+    '<div id="collapseDisplay" class="accordion-body collapse">',
+    '<div class="accordion-inner" style="padding-left: 0px;">',
+
+    '<div class="nav nav-list" id="collapseDisplay">',
+    '<div class="controls form-inline">',
+    '<label class="control-label">Per Page</label>',
+    '<select id="perPage" class="span6">',
+    '<option>50</option>',
+    '<option>100</option>',
+    '<option>500</option>',
+    '<option>1000</option>',
+    '</select>',
+    '</div>',
+    '</div>',
+
+    '</div>',
+    '</div>',
+
 
     '</div>',
 
@@ -53,15 +75,19 @@ queryTemplate.results = [
 
     '<div class="span6">',
     '<div class="pull-left muted"><small><%- results.totalHits %> results in <%- results.responseTime %>ms<br/>',
-    'Page 1 of 35. Showing 50 Per Page.</small>',
+    'Page <%- currentPage %> of <%- maxPages %>. Showing <%- pageSize %> Per Page.</small>',
     '</div>',
     '</div>',
 
     '<div class="span6">',
     '<div class="pull-right pagination" style="margin: 0px;">',
     '<ul>',
+    '<% if (currentPage != 1) { %>',
     '<li><a href="#" id="loadPrev"><i class="icon-double-angle-left"></i> Prev</a></li>',
+    '<% } %>',
+    '<% if(currentPage != maxPages) { %>',
     '<li><a href="#" id="loadNext">Next <i class="icon-double-angle-right"></i></a></li>',
+    '<% } %>',
     '</ul>',
     '</div>',
     '</div>',
@@ -71,7 +97,7 @@ queryTemplate.results = [
     '<div class="row-fluid">',
     '<div class="span12">',
     '<div class="center-table">',
-    '<table class="table table-bordered table-striped table-hover" id="resultsTable">',
+    '<table class="table table-bordered table-striped table-hover" id="queryResultsTable">',
     '<thead><tr>',
     //'<th></th>',
     '<% _.each(columns, function(col) { %>',
@@ -95,22 +121,6 @@ queryTemplate.results = [
     '</div>',
     '</div>',
     '</div>'
-
-    /*    '<div class="span6">',
-     '<div class="pull-left muted"><small><%- results.totalHits %> results in <%- results.responseTime %>ms<br/>',
-     'Page 1 of 35. Showing 50 Per Page.</small>',
-     '</div>',
-     '</div>',
-
-     '<div class="span6">',
-     '<div class="pull-right pagination" style="margin: 0px;">',
-     '<ul>',
-     '<li><a href="#" id="loadPrevBtm"><i class="icon-double-angle-left"></i> Prev</a></li>',
-     '<li><a href="#" id="loadNextBtm">Next <i class="icon-double-angle-right"></i></a></li>',
-     '</ul>',
-     '</div>',
-     '</div>'*/
-
 ].join("\n");
 
 

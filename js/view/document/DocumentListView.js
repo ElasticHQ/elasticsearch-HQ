@@ -17,15 +17,20 @@
  */
 
 var DocumentListView = Backbone.View.extend({
+    currentPage:1,
+    maxPages:0,
     pageFrom:0, // defines the offset from the first result you want to fetch
-    pageSize:10,
+    pageSize:0,
     columnArray:undefined,
     resultsModel:undefined,
     requestBody:undefined,
     resultBody:undefined,
+    sortColumns:'_id',
     render:function () {
+        this.pageSize = this.model.get('queryObj').size;
         var _this = this;
-        var requestBodyObject = QueryUtil.buildBody(this.model, this.pageFrom, this.pageSize);
+
+        var requestBodyObject = QueryUtil.buildBody(this.model, this.pageFrom);
 
         var searchRequest = $.ajax({
             url:this.model.getInstanceURL(),
@@ -75,9 +80,14 @@ var DocumentListView = Backbone.View.extend({
                     queryResultsModel.results.push(result);
                 });
                 _this.resultsModel = queryResultsModel;
+
+                // calc max pages
+                if (_this.maxPages == 0) // only do this once
+                {
+                    _this.maxPages = Math.floor(((queryResultsModel.totalHits - 1) / _this.pageSize) + 1);
+                }
             }
-            else
-            {
+            else {
                 queryResultsModel.totalHits = 0;
                 queryResultsModel.maxScore = 0;
                 _this.resultsModel = queryResultsModel;
@@ -93,38 +103,61 @@ var DocumentListView = Backbone.View.extend({
                 columns:_this.columnArray,
                 requestBody:_this.requestBody,
                 results:_this.resultsModel,
-                resultBody:_this.resultBody
+                resultBody:_this.resultBody,
+                currentPage:_this.currentPage,
+                pageSize:_this.pageSize,
+                maxPages:_this.maxPages
             }));
 
             $("[rel=tipRight]").tooltip();
 
-            // pagination bindings don't seem to work on using backbone event binding, so ...
-            $("#loadNext").click(function () {
-                _this.pageNext();
-                _this.render();
-            });
-            $("#loadPrev").click(function () {
-                _this.pagePrev();
-                _this.render();
-            });
-            $("#loadNextBtm").click(function () {
-                _this.pageNext();
-                _this.render();
-            });
-            $("#loadPrevBtm").click(function () {
-                _this.pagePrev();
-                _this.render();
-            });
+            _this.calcPager();
+
+            /*
+             .bind("sortEnd", function(event) {
+             var table = event.target,
+             currentSort = table.config.sortList,
+             // target the first sorted column
+             columnNum = currentSort[0][0],
+             columnName = $(table.config.headerList[columnNum]).text();
+
+             console.log(columnName);
+
+             });
+             */
+
 
             return this;
         });
     },
     pageNext:function () {
-        this.pageFrom = this.pageFrom + 10;
+        this.pageFrom = this.pageFrom + this.pageSize;
+        this.currentPage++;
     },
     pagePrev:function () {
         if (this.pageFrom != 0) {
-            this.pageFrom = this.pageFrom - 10;
+            this.pageFrom = this.pageFrom - this.pageSize;
+            this.currentPage--;
         }
+    },
+    calcPager:function () {
+        var _this = this;
+        // pagination bindings don't seem to work on using backbone event binding, so ...
+        $("#loadNext").click(function () {
+            _this.pageNext();
+            _this.render();
+        });
+        $("#loadPrev").click(function () {
+            _this.pagePrev();
+            _this.render();
+        });
+        $("#loadNextBtm").click(function () {
+            _this.pageNext();
+            _this.render();
+        });
+        $("#loadPrevBtm").click(function () {
+            _this.pagePrev();
+            _this.render();
+        });
     }
 });
