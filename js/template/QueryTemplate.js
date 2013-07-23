@@ -34,28 +34,42 @@ queryTemplate.sideNav = [
     '</form>'
 ].join("\n");
 
-
 queryTemplate.view = [
+
     '<div class="span2 sidebar-nav well">',
     queryTemplate.sideNav,
     '</div>',
-    '<div class="span10">',
 
-    '<div id="searchResults"><h2>Query UI</h2>',
+    '<div class="span10" id="searchResults">',
+    '<h2>Query UI</h2>',
     '<p>Use the options on the left-hand menu to query your indices.</p>',
-    '</div>',
-
     '</div>'
+
 ].join("\n");
 
 queryTemplate.results = [
 
-    '<div class="alert alert-info">',
-    '<h4>Warning!</h4>',
-    'The Query UI is still experimental and is not in a finished state!',
+    '<div class="row-fluid">',
+
+    '<div class="span6">',
+    '<div class="pull-left muted"><small><%- results.totalHits %> results in <%- results.responseTime %>ms<br/>',
+    'Page 1 of 35. Showing 50 Per Page.</small>',
+    '</div>',
     '</div>',
 
-    '<div class="pull-left muted"><small><%- results.totalHits %> results in <%- results.responseTime %>ms</small></div>',
+    '<div class="span6">',
+    '<div class="pull-right pagination" style="margin: 0px;">',
+    '<ul>',
+    '<li><a href="#" id="loadPrev"><i class="icon-double-angle-left"></i> Prev</a></li>',
+    '<li><a href="#" id="loadNext">Next <i class="icon-double-angle-right"></i></a></li>',
+    '</ul>',
+    '</div>',
+    '</div>',
+
+    '</div>',
+
+    '<div class="row-fluid">',
+    '<div class="span12">',
     '<div class="center-table">',
     '<table class="table table-bordered table-striped table-hover" id="resultsTable">',
     '<thead><tr>',
@@ -78,5 +92,27 @@ queryTemplate.results = [
     '<% }); %>',
     '</tbody',
     '</table>',
-    '</div>'
+    '</div>',
+    '</div>',
+    '</div>',
+
+    '<a class="scrollup" href="#">Scroll</a>'
+
+    /*    '<div class="span6">',
+     '<div class="pull-left muted"><small><%- results.totalHits %> results in <%- results.responseTime %>ms<br/>',
+     'Page 1 of 35. Showing 50 Per Page.</small>',
+     '</div>',
+     '</div>',
+
+     '<div class="span6">',
+     '<div class="pull-right pagination" style="margin: 0px;">',
+     '<ul>',
+     '<li><a href="#" id="loadPrevBtm"><i class="icon-double-angle-left"></i> Prev</a></li>',
+     '<li><a href="#" id="loadNextBtm">Next <i class="icon-double-angle-right"></i></a></li>',
+     '</ul>',
+     '</div>',
+     '</div>'*/
+
 ].join("\n");
+
+

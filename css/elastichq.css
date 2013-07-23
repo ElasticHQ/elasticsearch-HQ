@@ -362,3 +362,14 @@ Tables that have a grid-like header.
     padding-top: 8px;
     width: 200px;
 }
+
+.scrollup {
+    background: url("../images/icon_gototop.png") no-repeat scroll 0 0 transparent;
+    bottom: 20px;
+    display: none;
+    height: 40px;
+    position: fixed;
+    right: 20px;
+    text-indent: -9999px;
+    width: 40px;
+}

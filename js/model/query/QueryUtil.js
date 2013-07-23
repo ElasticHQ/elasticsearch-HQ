@@ -23,13 +23,15 @@ var QueryUtil =
      * @param queryModel
      * @return {*}
      */
-    buildBody:function (queryModel) {
+    buildBody:function (queryModel, from, pageSize) {
 
         if (queryModel.queryString == '') {
-            return undefined;
+            return {"from":from, "size":pageSize };
         }
         else {
             queryModel.get('queryObj').query.filtered.query.query_string.query = queryModel.queryString;
+            queryModel.get('queryObj').from = from;
+            queryModel.get('queryObj').size = pageSize;
             return queryModel.toJSON().queryObj;
         }
     }

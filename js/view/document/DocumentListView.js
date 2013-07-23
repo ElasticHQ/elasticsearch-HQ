@@ -17,13 +17,15 @@
  */
 
 var DocumentListView = Backbone.View.extend({
+    pageFrom:0, // defines the offset from the first result you want to fetch
+    pageSize:10,
     columnArray:undefined,
     resultsModel:undefined,
     requestBody:undefined,
     resultBody:undefined,
     render:function () {
         var _this = this;
-        var requestBodyObject = QueryUtil.buildBody(this.model);
+        var requestBodyObject = QueryUtil.buildBody(this.model, this.pageFrom, this.pageSize);
 
         var searchRequest = $.ajax({
             url:this.model.getInstanceURL(),
@@ -90,8 +92,51 @@ var DocumentListView = Backbone.View.extend({
 
             $("[rel=tipRight]").tooltip();
 
+            // pagination bindings don't seem to work on using backbone event binding, so ...
+            $("#loadNext").click(function () {
+                _this.pageNext();
+                _this.render();
+            });
+            $("#loadPrev").click(function () {
+                _this.pagePrev();
+                _this.render();
+            });
+            $("#loadNextBtm").click(function () {
+                _this.pageNext();
+                _this.render();
+            });
+            $("#loadPrevBtm").click(function () {
+                _this.pagePrev();
+                _this.render();
+            });
+
+
+            // scroll-to-top button show and hide
+            //jQuery(document).ready(function () {
+                jQuery(window).scroll(function () {
+                    if (jQuery(this).scrollTop() > 100) {
+                        jQuery('.scrollup').fadeIn();
+                    } else {
+                        jQuery('.scrollup').fadeOut();
+                    }
+                });
+            // scroll-to-top animate
+                jQuery('.scrollup').click(function () {
+                    jQuery("html, body").animate({ scrollTop:0 }, 600);
+                    return false;
+                });
+            //});
+
+
             return this;
         });
-
+    },
+    pageNext:function () {
+        this.pageFrom = this.pageFrom + 10;
+    },
+    pagePrev:function () {
+        if (this.pageFrom != 0) {
+            this.pageFrom = this.pageFrom - 10;
+        }
     }
 });
