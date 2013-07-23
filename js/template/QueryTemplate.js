@@ -94,9 +94,7 @@ queryTemplate.results = [
     '</table>',
     '</div>',
     '</div>',
-    '</div>',
-
-    '<a class="scrollup" href="#">Scroll</a>'
+    '</div>'
 
     /*    '<div class="span6">',
      '<div class="pull-left muted"><small><%- results.totalHits %> results in <%- results.responseTime %>ms<br/>',

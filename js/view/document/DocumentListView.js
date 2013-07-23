@@ -116,8 +116,6 @@ var DocumentListView = Backbone.View.extend({
                 _this.render();
             });
 
-            scrollToTop.activate();
-
             return this;
         });
     },

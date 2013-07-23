@@ -146,6 +146,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <div id="infoModal-loc"></div>
 
+<a class="scrollup" href="#">Scroll</a>
+
 <!-- Footer
 ================================================== -->
 <footer class="footer">
@@ -297,6 +299,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     $(document).ready(function () {
         $('#connectionURL').focus();
         ajaxloading.hide();
+        scrollToTop.activate();
 
         $("[rel=tipRight]").tooltip(
                 {

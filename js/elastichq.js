@@ -67,4 +67,4 @@ var doConnect = function (connectionRootURL) {
 
     router.navigate();
     router.navigate("cluster", true);
-}
+};
