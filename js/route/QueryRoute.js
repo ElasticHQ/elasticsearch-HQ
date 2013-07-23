@@ -60,7 +60,7 @@ queryRoute.doQuery = function () {
 
     // prep model., we dont use backbone connection in this case.
     var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString});
-    queryModel.get('queryObj').size = perPage;
+    queryModel.get('queryObj').size = Math.floor(perPage);
 
     // issue jquery ajax POST then render
     var documentListView = new DocumentListView({model:queryModel});

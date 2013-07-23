@@ -120,12 +120,12 @@ var DocumentListView = Backbone.View.extend({
         });
     },
     pageNext:function () {
-        this.pageFrom = Math.floor(this.pageFrom) + Math.floor(this.pageSize);
+        this.pageFrom = this.pageFrom + this.pageSize;
         this.currentPage++;
     },
     pagePrev:function () {
         if (this.pageFrom != 0) {
-            this.pageFrom = Math.floor(this.pageFrom) - Math.floor(this.pageSize);
+            this.pageFrom = this.pageFrom - this.pageSize;
             this.currentPage--;
         }
     },
