@@ -22,12 +22,19 @@ var scrollToTop = {
             jQuery(window).scroll(function () {
                 if (jQuery(this).scrollTop() > 100) {
                     jQuery('.scrollup').fadeIn();
+                    jQuery('.scrollupLeft').fadeIn();
                 } else {
                     jQuery('.scrollup').fadeOut();
+                    jQuery('.scrollupLeft').fadeOut();
                 }
             });
             // scroll-to-top animate
             jQuery('.scrollup').click(function () {
+                jQuery("html, body").animate({ scrollTop:0 }, 600);
+                return false;
+            });
+            // scroll-to-top animate
+            jQuery('.scrollupLeft').click(function () {
                 jQuery("html, body").animate({ scrollTop:0 }, 600);
                 return false;
             });
