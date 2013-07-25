@@ -384,3 +384,8 @@ Tables that have a grid-like header.
     text-indent: -9999px;
     width: 40px;
 }
+
+.modal.large {
+    width: 960px;
+    margin-left: -480px; /* - width/2 */
+}

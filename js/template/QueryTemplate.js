@@ -25,13 +25,35 @@ queryTemplate.sideNav = [
     '</div>',
     '</div>',
 
+    '<a data-toggle="collapse" data-parent="#queryAccordion" href="#collapseSort">',
+    '<b><i class="icon-expand-alt"></i> Sort By</b>',
+    '</a>',
+    '<div id="collapseSort" class="accordion-body collapse in">',
+    '<div class="accordion-inner" style="padding-left: 0px;">',
+
+    '<div class="nav nav-list" id="collapseSort">',
+    '<select id="sortBy" class="span12 selectpicker" data-container="body">',
+    '<% _.each(types, function(type) { %>',
+    '<option><%- type %></option>',
+    '<% }) %>',
+    '</select>',
+    '<select id="sortDir" class="span12 selectpicker" data-container="body">',
+    '<option data-icon="icon-chevron-sign-up">Ascending</option>',
+    '<option data-icon="icon-chevron-sign-down">Descending</option>',
+    '</select>',
+    '</div>',
+
+    '</div>',
+    '</div>',
+
+
     '<a data-toggle="collapse" data-parent="#queryAccordion" href="#collapseDisplay">',
     '<b><i class="icon-expand-alt"></i> Display</b>',
     '</a>',
-    '<div id="collapseDisplay" class="accordion-body collapse">',
+    '<div id="collapseDisplay" class="accordion-body collapse in">',
     '<div class="accordion-inner" style="padding-left: 0px;">',
 
-    '<div class="nav nav-list" id="collapseDisplay">',
+    '<div class="nav nav-list">',
     '<div class="controls form-inline">',
     '<label class="control-label">Per Page</label>',
     '<select id="perPage" class="span6">',
@@ -124,7 +146,7 @@ queryTemplate.results = [
     '</div>',
     '</div>',
 
-    '<div class="modal hide fade" id="queryJSONResponseModal">',
+    '<div class="modal hide fade large" id="queryJSONResponseModal">',
     '<div class="modal-header">',
     '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
     '<h3>JSON Response</h3>',
@@ -139,7 +161,7 @@ queryTemplate.results = [
     '</div>',
     '</div>',
 
-    '<div class="modal hide fade" id="queryJSONRequestModal">',
+    '<div class="modal hide fade large" id="queryJSONRequestModal">',
     '<div class="modal-header">',
     '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
     '<h3>Query Request</h3>',

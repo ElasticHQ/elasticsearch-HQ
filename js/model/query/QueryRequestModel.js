@@ -31,7 +31,12 @@ var QueryModel = Backbone.Model.extend({
                 }
             },
             "from":0,
-            "size":10
+            "size":10,
+            "sort":[
+                {
+                    "_score":{"order":"asc" }
+                }
+            ] // {"_id":{"order":"asc" }}
         }
     },
     initialize:function (args) {

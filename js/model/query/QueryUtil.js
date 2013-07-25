@@ -28,7 +28,8 @@ var QueryUtil =
         if (queryModel.queryString == '') {
             return {
                 "from":from,
-                "size":queryModel.get('queryObj').size
+                "size":queryModel.get('queryObj').size,
+                "sort":queryModel.get('queryObj').sort
             };
             //, "sort":[ {"_id":{"order":"asc" }}], "version":true, "fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}} };
         }

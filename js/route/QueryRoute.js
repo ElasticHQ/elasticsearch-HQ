@@ -57,10 +57,22 @@ queryRoute.doQuery = function () {
 
     var queryString = $('#queryString').val();
     var perPage = $('#perPage option:selected').val();
+    var sortBy = $('#sortBy option:selected').val();
+    var sortDir = $('#sortDir option:selected').val();
+    if (sortDir == 'Ascending') {
+        sortDir = 'asc';
+    }
+    else {
+        sortDir = 'desc';
+    }
+
+    var sortArray = {};
+    sortArray[sortBy] = {"order":sortDir};
 
     // prep model., we dont use backbone connection in this case.
     var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString});
     queryModel.get('queryObj').size = Math.floor(perPage);
+    queryModel.get('queryObj').sort = sortArray;
 
     // issue jquery ajax POST then render
     var documentListView = new DocumentListView({model:queryModel});
