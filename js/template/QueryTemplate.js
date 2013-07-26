@@ -31,7 +31,7 @@ queryTemplate.sideNav = [
     '<div id="collapseSort" class="accordion-body collapse in">',
     '<div class="accordion-inner" style="padding-left: 0px;">',
 
-    '<div class="nav nav-list" id="collapseSort">',
+    '<div id="collapseSort" style="padding-left: 0px;">',
     '<select id="sortBy" class="span12 selectpicker" data-container="body">',
     '<% _.each(types, function(type) { %>',
     '<option><%- type %></option>',
@@ -53,7 +53,7 @@ queryTemplate.sideNav = [
     '<div id="collapseDisplay" class="accordion-body collapse in">',
     '<div class="accordion-inner" style="padding-left: 0px;">',
 
-    '<div class="nav nav-list">',
+    '<div  style="padding-left: 0px;">',
     '<div class="controls form-inline">',
     '<label class="control-label">Per Page</label>',
     '<select id="perPage" class="span6">',

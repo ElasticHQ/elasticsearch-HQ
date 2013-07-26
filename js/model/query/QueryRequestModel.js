@@ -19,6 +19,7 @@
 var QueryModel = Backbone.Model.extend({
     defaults:{
         indexCSV:undefined,
+        indicesArray : undefined,
         queryString:undefined,
         queryObj:{
             "query":{
@@ -43,6 +44,7 @@ var QueryModel = Backbone.Model.extend({
         console.log("Inside QueryModel");
 
         this.indexCSV = args.indexCSV;
+        this.indicesArray = args.indicesArray;
         this.queryString = args.queryString;
     },
     url:function () {

@@ -28,24 +28,28 @@ var QueryView = Backbone.View.extend({
         var indices = _.keys(this.model);
 
         var types = ["_uid", "_score", "_type"];
-        for (var $i = 0; $i < indices.length; $i++) {
-            var mappingTypeKeys = _.keys(_.values(this.model)[$i].mappings);
-            var mappingTypeVals = _.values(_.values(this.model)[$i].mappings);
-            if (mappingTypeKeys != undefined) {
-                for (var $j = 0; $j < mappingTypeKeys.length; $j++) {
-                    if (mappingTypeVals[$j] != undefined) {
-                        var prop = mappingTypeVals[$j].properties;
-                        if (prop != undefined) {
-                            var tempTypes = _.keys(prop);
-                            for (var $k = 0; $k < tempTypes.length; $k++) {
-                                if (!_.contains(types, tempTypes[$k])) {
-                                    types.push(tempTypes[$k]);
+        try {
+            for (var $i = 0; $i < indices.length; $i++) {
+                var mappingTypeKeys = _.keys(_.values(this.model)[$i].mappings);
+                var mappingTypeVals = _.values(_.values(this.model)[$i].mappings);
+                if (mappingTypeKeys != undefined) {
+                    for (var $j = 0; $j < mappingTypeKeys.length; $j++) {
+                        if (mappingTypeVals[$j] != undefined) {
+                            var prop = mappingTypeVals[$j].properties;
+                            if (prop != undefined) {
+                                var tempTypes = _.keys(prop);
+                                for (var $k = 0; $k < tempTypes.length; $k++) {
+                                    if (!_.contains(types, tempTypes[$k])) {
+                                        types.push(tempTypes[$k]);
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        } catch (e) {
+            console.log(e.message);
         }
 
         var tpl = _.template(queryTemplate.view);

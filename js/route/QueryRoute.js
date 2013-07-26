@@ -70,7 +70,7 @@ queryRoute.doQuery = function () {
     sortArray[sortBy] = {"order":sortDir};
 
     // prep model., we dont use backbone connection in this case.
-    var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString});
+    var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString, indicesArray: indices});
     queryModel.get('queryObj').size = Math.floor(perPage);
     queryModel.get('queryObj').sort = sortArray;
 

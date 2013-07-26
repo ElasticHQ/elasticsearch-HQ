@@ -25,7 +25,6 @@ var DocumentListView = Backbone.View.extend({
     resultsModel:undefined,
     requestBody:undefined,
     resultBody:undefined,
-    sortColumns:'_id',
     render:function () {
         this.pageSize = this.model.get('queryObj').size;
         var _this = this;
@@ -55,11 +54,43 @@ var DocumentListView = Backbone.View.extend({
                     {key:"_score", name:"Score"},
                     {key:"_id", name:"ID"}
                 ];
-                // add columns for type data
-                var sourceKeys = _.keys(data.hits.hits[0]._source);
-                _.each(sourceKeys, function (item) {
-                    _this.columnArray.push({key:item, name:uppercaseFirst(item), type:"source" }); // columns for
-                });
+
+                // add columns for type data based on indices selected
+                var selectedIndices = _this.model.indicesArray;
+                var clusterState = cluster.get("clusterState").toJSON();
+                var allIndices = clusterState.metadata.indices;
+                for (var $i = 0; $i < selectedIndices.length; $i++) {
+                    if (selectedIndices[$i] in allIndices) {
+                        var foundIndex = allIndices[selectedIndices[$i]];
+                        var mappingTypeKeys = _.keys(foundIndex.mappings);
+                        var mappingTypeVals = _.values(foundIndex.mappings);
+                        if (mappingTypeKeys != undefined) {
+                            for (var $j = 0; $j < mappingTypeKeys.length; $j++) {
+                                if (mappingTypeVals[$j] != undefined) {
+                                    var prop = mappingTypeVals[$j].properties;
+                                    if (prop != undefined) {
+                                        var tempTypes = _.keys(prop);
+                                        for (var $k = 0; $k < tempTypes.length; $k++) {
+                                            var col = {key:tempTypes[$k], name:uppercaseFirst(tempTypes[$k]), type:"source" };
+                                            var found = false;
+                                            for (var $m = 0; $m < _this.columnArray.length; $m++) {
+                                                if (_this.columnArray[$m].key == tempTypes[$k]) {
+                                                    found = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (!found) {
+                                                _this.columnArray.push(col);
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
 
                 // Results...
                 queryResultsModel.totalHits = data.hits.total;
