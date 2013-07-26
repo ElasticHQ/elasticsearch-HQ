@@ -1,11 +1,13 @@
 ElasticHQ
 =========
 
-Monitoring and Management Web Application for ElasticSearch instances and clusters.
+Monitoring, Management, and Querying Web Interface for ElasticSearch instances and clusters.
 
 Benefits:
 * Active real-time monitoring of ElasticSearch clusters and nodes.
-* Manage Indices, Mappings, and Nodes.
+* Manage Indices, Mappings, Shards, Aliases, and Nodes.
+* Query UI for searching one or multiple Indices.
+* REST UI, eliminates the need for cURL and cumbersome JSON formats.
 * No software to install/download. 100% web browser-based.
 * Optimized to work on mobile phones, tablets, and other small screen devices.
 * Easy to use and attractive user interface.
