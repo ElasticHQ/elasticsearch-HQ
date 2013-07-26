@@ -103,7 +103,7 @@ var DocumentListView = Backbone.View.extend({
                 _.each(data.hits.hits, function (item) {
                     var result = {};
                     result = item;
-                    result._raw = JSON.stringify(item);
+                    result._raw = JSON.stringify(item, undefined, 2);
 
                     jQuery.extend(result, item._source); // merge _source items in to root level of object.
 
@@ -140,6 +140,14 @@ var DocumentListView = Backbone.View.extend({
                 pageSize:_this.pageSize,
                 maxPages:_this.maxPages
             }));
+
+            // for view of row-level json data
+            $(".itemjsoncl").click(function () {
+                $("#itemraw").val($(this).data('id'));
+                var htmlStr = _this.resultsModel.results[$(this).data('id')]._raw;
+                $("#itemraw").text(htmlStr);
+                prettyPrint();
+            });
 
             $("[rel=tipRight]").tooltip();
 

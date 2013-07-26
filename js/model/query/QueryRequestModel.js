@@ -19,7 +19,7 @@
 var QueryModel = Backbone.Model.extend({
     defaults:{
         indexCSV:undefined,
-        indicesArray : undefined,
+        indicesArray:undefined,
         queryString:undefined,
         queryObj:{
             "query":{
@@ -37,7 +37,8 @@ var QueryModel = Backbone.Model.extend({
                 {
                     "_score":{"order":"asc" }
                 }
-            ] // {"_id":{"order":"asc" }}
+            ],
+            "explain":true
         }
     },
     initialize:function (args) {

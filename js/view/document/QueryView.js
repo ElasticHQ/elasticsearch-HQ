@@ -27,7 +27,7 @@ var QueryView = Backbone.View.extend({
 
         var indices = _.keys(this.model);
 
-        var types = ["_uid", "_score", "_type"];
+        var types = ["_score", "_type", "_uid"];
         try {
             for (var $i = 0; $i < indices.length; $i++) {
                 var mappingTypeKeys = _.keys(_.values(this.model)[$i].mappings);
