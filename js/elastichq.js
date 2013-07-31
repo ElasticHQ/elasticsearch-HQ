@@ -56,7 +56,7 @@ $(document).ready(
         });
 
         var urlParameter = getURLParameter('url');
-        if (urlParameter != "null") {
+        if (urlParameter != null) {
             $('#connectionURL').val(urlParameter);
             connectButton.click();
         }

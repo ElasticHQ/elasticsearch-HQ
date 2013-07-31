@@ -184,7 +184,5 @@ function getValue(namespace, parent) {
 }
 
 var getURLParameter = function (name) {
-    return decodeURI(
-        (RegExp(name + '=' + '(.+?)(&|$)').exec(window.location.search) || [, null])[1]
-    );
+        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
 };
