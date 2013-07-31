@@ -182,3 +182,9 @@ function getValue(namespace, parent) {
     }
     return current;
 }
+
+var getURLParameter = function (name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(window.location.search) || [, null])[1]
+    );
+};

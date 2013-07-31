@@ -1,7 +1,7 @@
 var clusterTemplate = {};
 
 clusterTemplate.Health = [
-    '<a id="clusterHealthButton" class="btn btn-<%- statusClass %> btn-large" rel="popRight" data-trigger="hover"',
+    '<a id="clusterHealthButton" class="btn btn-<%- statusClass %> " rel="popRight" data-trigger="hover"',
     'data-content="Status: <span class=\'label label-<%- statusClassLabel %>\'><%- statusText %></span>" data-html="true"',
     'href="#cluster" role="button">',
     '<i class="icon-info-sign"></i> <%- cluster_name %></a>'
