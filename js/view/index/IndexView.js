@@ -102,6 +102,7 @@ var IndexView = Backbone.View.extend(
                     totalShards:totalShards,
                     isOpenState:isOpenState,
                     shards:shards,
+                    polling: INDEX_POLL_FREQUENCY,
                     lastUpdateTime:timeUtil.lastUpdated()
                 }));
 

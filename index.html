@@ -65,9 +65,13 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                 </ul>
 
                 <ul class="nav pull-right">
-                    <li><a href="http://www.elastichq.org/support.html" target="_blank"><i
+<!--                    <li><a style="visibility: hidden;" id="settingsButton" href="#settings" rel="tipRight" data-placement="bottom" data-title="Current Settings"><i
+                            class="icon-cogs icon-large"></i> Settings</a></li>-->
+                    <li><a href="http://www.elastichq.org/support.html" target="_blank" rel="tipRight"
+                           data-placement="bottom" data-title="Have a question?"><i
                             class="icon-comments-alt icon-large"></i> Get Help</a></li>
-                    <li><a href="https://github.com/royrusso/elasticsearch-HQ" target="_blank"><i
+                    <li><a href="https://github.com/royrusso/elasticsearch-HQ" target="_blank" rel="tipRight"
+                           data-placement="bottom" data-title="Thank you for your support!"><i
                             class="icon-github icon-large"></i> Star us on GitHub</a></li>
                 </ul>
             </div>
@@ -130,7 +134,10 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                         <br/>
                         <img src="images/gettingstarted1.png" style="padding-top: 30px;">
                         <br/>
-                        <span class="label label-info" style="margin-bottom: 5px;">Optional:</span><p>Quick Connect with 'URL' Parameter:<br/><code>http://domain/?url=http://localhost:9200</code></p>
+                        <span class="label label-info" style="margin-bottom: 5px;">Optional:</span>
+
+                        <p>Quick Connect with 'URL' Parameter:<br/><code>http://domain/?url=http://localhost:9200</code>
+                        </p>
                     </div>
                     <div class="span4" style="padding:10px;border-right: 1px solid #cccccc;"><h3>Step 2</h3>Cluster is
                         the green button. Nodes are blue. <i class="icon-bolt"></i> is the Master Node.<br/>
@@ -292,6 +299,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/route/QueryRoute.js"></script>
 
 <!-- Util -->
+<script src="js/util/constants.js"></script>
+<script src="js/util/versioncheck.js"></script>
 <script src="js/util/logger.js"></script>
 <script src="js/util/tools.js"></script>
 <script src="js/util/poller.js"></script>
@@ -311,12 +320,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
         ajaxloading.hide();
         scrollToTop.activate();
 
-        $("[rel=tipRight]").tooltip(
-                {
-                    'animation':true
-                }
-
-        );
+        $("[rel=tipRight]").tooltip();
         $("[rel=popRight]").popover(
                 {
                     'trigger':'hover',
@@ -325,5 +329,6 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
         );
     });
 </script>
+
 </body>
 </html>

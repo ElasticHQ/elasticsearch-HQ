@@ -187,7 +187,8 @@ $(document).ready(
             callRest:function (command) {
                 stopAllNodePollers();
                 restRoute.json(command);
-            }/*,
+            }
+            /*,
              defaultRoute:function () {
              stopAllNodePollers();
              console.log('defaultRoute');
