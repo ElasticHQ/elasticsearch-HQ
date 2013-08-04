@@ -77,7 +77,7 @@ chart.jvmHeap = {
             },
             xaxis:chart.ts_xaxis,
             yaxis:{
-                tickSize:50
+                //tickSize:50
             },
             tooltipOpts:{
                 //content: "'%s' of %x.1 is %y.4",
@@ -112,8 +112,8 @@ chart.indices = {
             },
             xaxis:chart.ts_xaxis,
             yaxis:{
-                min:0,
-                tickSize:20
+                min:0
+                //tickSize:20
             },
             tooltipOpts:{
                 //content: "'%s' of %x.1 is %y.4",
