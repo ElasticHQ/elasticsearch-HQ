@@ -95,7 +95,7 @@ clusterTemplate.HealthDescribe = [
     '<td><%- health.active_shards%></td>',
     '</tr>',
     '<tr>',
-    '<td>Reloacting Shards</td>',
+    '<td>Relocating Shards</td>',
     '<td><%- health.relocating_shards%></td>',
     '</tr>',
     '<tr>',
