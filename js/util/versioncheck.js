@@ -29,9 +29,13 @@ var checkVersion = function () {
         crossDomain:true,
         dataType:'json',
         success:function (data) {
-            if (data.version !== HQVERSION) {
-                var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider upgrading.<br/><small>(You are running version ' + HQVERSION + '.)</small>';
-                show_stack_bottomright({hide:false, type:'error', title:'New Version Available!', text:upgradeText});
+            if (data != undefined) {
+                if (data.version != undefined) {
+                    if (data.version !== HQVERSION) {
+                        var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider upgrading.<br/><small>(You are running version ' + HQVERSION + '.)</small>';
+                        show_stack_bottomright({hide:false, type:'error', title:'New Version Available!', text:upgradeText});
+                    }
+                }
             }
         },
         error:function (XMLHttpRequest, textStatus, errorThrown) {
