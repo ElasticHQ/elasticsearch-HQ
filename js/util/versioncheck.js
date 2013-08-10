@@ -28,14 +28,6 @@ var checkVersion = function () {
         cache:false,
         crossDomain:true,
         dataType:'json',
-        headers:{
-            'MyCustomHeader':'important information'
-        },
-        xhrFields:{
-            withCredentials:true
-        },
-        username:'myuser',
-        password:'mypassword',
         success:function (data) {
             if (data.version !== HQVERSION) {
                 var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider upgrading.<br/><small>(You are running version ' + HQVERSION + '.)</small>';
