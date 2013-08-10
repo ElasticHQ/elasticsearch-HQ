@@ -18,8 +18,8 @@
 
 var HQVERSION = .97;
 
-//var REMOTE_API_PATH = 'http://www.elastichq.org/api';
-var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
+var REMOTE_API_PATH = 'http://www.elastichq.org/api';
+//var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
 
 // values in ms.
 var CLUSTER_POLL_FREQUENCY = 10000;
