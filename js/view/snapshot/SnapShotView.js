@@ -16,14 +16,21 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-var HQVERSION = .97;
+var SnapShotView = Backbone.View.extend(
+    {
+//        clusterStateModel:undefined,
+        initialize:function (args) {
+//            this.clusterStateModel = args.clusterStateModel;
+        },
+        render:function () {
+            var tpl = _.template(snapShotTemplate.init);
+            $('#workspace').html(tpl(
+                {
+                }));
 
-//var REMOTE_API_PATH = 'http://www.elastichq.org/api';
-var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
+            $("[rel=tipRight]").tooltip();
 
-// values in ms.
-var CLUSTER_POLL_FREQUENCY = 10000;
-var NODE_DIAGNOSTICS_POLL_FREQUENCY = 30000;
-var NODE_POLL_FREQUENCY = 10000;
-var INDICES_POLL_FREQUENCY = 15000;
-var INDEX_POLL_FREQUENCY = 10000;
+            return this;
+        }
+    }
+);

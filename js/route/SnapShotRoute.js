@@ -16,14 +16,10 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-var HQVERSION = .97;
+var snapShotRoute = {};
 
-//var REMOTE_API_PATH = 'http://www.elastichq.org/api';
-var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
+snapShotRoute.init = function () {
 
-// values in ms.
-var CLUSTER_POLL_FREQUENCY = 10000;
-var NODE_DIAGNOSTICS_POLL_FREQUENCY = 30000;
-var NODE_POLL_FREQUENCY = 10000;
-var INDICES_POLL_FREQUENCY = 15000;
-var INDEX_POLL_FREQUENCY = 10000;
+    var snapShotView = new SnapShotView();
+    snapShotView.render();
+};

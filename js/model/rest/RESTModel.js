@@ -43,7 +43,7 @@ var RESTModel = Backbone.Model.extend({
             this.fetchURL = '/_cluster/nodes';
         }
         else if (this.cmd == 'nodestats') {
-            this.fetchURL = '/_cluster/nodes/stats';
+            this.fetchURL = '/_cluster/nodes/stats?all=true';
         }
         else if (this.cmd == 'indexaliases') {
             this.fetchURL = '/_aliases';
@@ -52,7 +52,7 @@ var RESTModel = Backbone.Model.extend({
             this.fetchURL = '/_settings';
         }
         else if (this.cmd == 'indexstats') {
-            this.fetchURL = '/_stats';
+            this.fetchURL = '/_stats?all=true';
         }
         else if (this.cmd == 'indexstatus') {
             this.fetchURL = '/_status';

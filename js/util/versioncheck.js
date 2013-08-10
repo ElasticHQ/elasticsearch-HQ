@@ -23,11 +23,19 @@ var checkVersion = function () {
 
     $.ajax({
         type:'GET',
-        url:"http://www.elastichq.org/api/hq_settings.php",
+        url:REMOTE_API_PATH + '/hq_settings.php',
         processData:false,
         cache:false,
         crossDomain:true,
         dataType:'json',
+        headers:{
+            'MyCustomHeader':'important information'
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        username:'myuser',
+        password:'mypassword',
         success:function (data) {
             if (data.version !== HQVERSION) {
                 var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider upgrading.<br/><small>(You are running version ' + HQVERSION + '.)</small>';

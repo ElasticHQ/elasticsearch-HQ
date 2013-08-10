@@ -16,14 +16,25 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-var HQVERSION = .97;
+var guid = {};
 
-//var REMOTE_API_PATH = 'http://www.elastichq.org/api';
-var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
+guid.setGUID = function () {
+    var guid = this.getGUID();
+    if (guid == undefined) {
+        guid = this.generateGUID();
+        $.cookie('hquid', guid, { expires:365, path:'/' });
+    }
+    return guid;
+};
 
-// values in ms.
-var CLUSTER_POLL_FREQUENCY = 10000;
-var NODE_DIAGNOSTICS_POLL_FREQUENCY = 30000;
-var NODE_POLL_FREQUENCY = 10000;
-var INDICES_POLL_FREQUENCY = 15000;
-var INDEX_POLL_FREQUENCY = 10000;
+guid.getGUID = function () {
+    return $.cookie('hquid');
+};
+
+guid.generateGUID = function () {
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+};
+
+guid.S4 = function () {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+};

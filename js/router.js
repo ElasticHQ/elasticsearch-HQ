@@ -61,6 +61,7 @@ $(document).ready(
                 "admin":"admin",
                 "admin/action":"admin",
                 "documents":"queryView",
+                "snapshots":"snapshots",
                 "*actions":"defaultRoute"
             },
             cluster:function () {
@@ -187,6 +188,10 @@ $(document).ready(
             callRest:function (command) {
                 stopAllNodePollers();
                 restRoute.json(command);
+            },
+            snapshots:function() {
+                stopAllNodePollers();
+                snapShotRoute.init();
             }
             /*,
              defaultRoute:function () {
