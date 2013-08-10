@@ -65,9 +65,13 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                 </ul>
 
                 <ul class="nav pull-right">
-                    <li><a href="http://www.elastichq.org/support.html" target="_blank"><i
+                    <!--                    <li><a style="visibility: hidden;" id="settingsButton" href="#settings" rel="tipRight" data-placement="bottom" data-title="Current Settings"><i
+                                                class="icon-cogs icon-large"></i> Settings</a></li>-->
+                    <li><a href="http://www.elastichq.org/support.html" target="_blank" rel="tipRight"
+                           data-placement="bottom" data-title="Have a question?"><i
                             class="icon-comments-alt icon-large"></i> Get Help</a></li>
-                    <li><a href="https://github.com/royrusso/elasticsearch-HQ" target="_blank"><i
+                    <li><a href="https://github.com/royrusso/elasticsearch-HQ" target="_blank" rel="tipRight"
+                           data-placement="bottom" data-title="Thank you for your support!"><i
                             class="icon-github icon-large"></i> Star us on GitHub</a></li>
                 </ul>
             </div>
@@ -82,23 +86,27 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
     <div class="row-fluid">
         <div class="pull-left" id="clusterHealth-loc" style="padding-bottom: 8px;">
+
         </div>
 
         <div id="toolbar" style="padding:0;margin:0;visibility: hidden;">
             <div class="btn-group pull-right ">
-                <a href="#indices" class="btn btn-large" rel="tipRight" data-placement="bottom"
+                <a href="#indices" class="btn btn-success" rel="tipRight" data-placement="bottom"
                    data-title="Indices Management"><i
                         class="icon-list"></i> Indices
-                </a><
-                <a href="#documents" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
+                </a>
+                <a href="#documents" class="btn btn-success" rel="tipRight" data-placement="bottom" data-html="true"
                    data-title="Browse Documents"><i
                         class="icon-search"></i> Query</a>
-                <a href="#mappings" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
+                <a href="#mappings" class="btn btn-success" rel="tipRight" data-placement="bottom" data-html="true"
                    data-title="Type Mappings"><i
                         class="icon-map-marker"></i> Mappings</a>
-                <a href="#restapi" class="btn  btn-large" rel="tipRight" data-placement="bottom" data-html="true"
-                   data-title="REST Console. Ya, for geeks."><i
+                <a href="#restapi" class="btn btn-success" rel="tipRight" data-placement="bottom" data-html="true"
+                   data-title="REST Console.<br/>Ya, for geeks."><i
                         class="icon-code"></i> REST</a>
+                <a href="#snapshots" class="btn btn-success" rel="tipRight" data-placement="bottom" data-html="true"
+                   data-title="Snapshots"><i
+                        class="icon-camera"></i> Snap!</a>
 
             </div>
         </div>
@@ -125,6 +133,11 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                         <small>(ie. <code>http://localhost:9200</code>)</small>
                         <br/>
                         <img src="images/gettingstarted1.png" style="padding-top: 30px;">
+                        <br/>
+                        <span class="label label-info" style="margin-bottom: 5px;">Optional:</span>
+
+                        <p>Quick Connect with 'URL' Parameter:<br/><code>http://domain/?url=http://localhost:9200</code>
+                        </p>
                     </div>
                     <div class="span4" style="padding:10px;border-right: 1px solid #cccccc;"><h3>Step 2</h3>Cluster is
                         the green button. Nodes are blue. <i class="icon-bolt"></i> is the Master Node.<br/>
@@ -199,8 +212,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/lib/pnotify/jquery.pnotify.min.js"></script>
 
 <!-- App -->
-<script src="js/elastichq.js"></script>
 <script src="js/router.js"></script>
+<script src="js/elastichq.js"></script>
 
 <!-- Overrides/Extensions must go first! -->
 <script src="js/model/util/ModelUtil.js"></script>
@@ -214,6 +227,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/template/MappingTemplate.js"></script>
 <script src="js/template/RESTTemplate.js"></script>
 <script src="js/template/QueryTemplate.js"></script>
+<script src="js/template/SnapShotTemplate.js"></script>
 
 <!-- Models -->
 <script src="js/model/core/Ping.js"></script>
@@ -269,6 +283,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/view/alias/CreateAliasView.js"></script>
 <script src="js/view/document/QueryView.js"></script>
 <script src="js/view/document/DocumentListView.js"></script>
+<script src="js/view/snapshot/SnapShotView.js"></script>
 
 <!-- View Action -->
 <script src="js/view/index/action/OptimizeAllIndexView.js"></script>
@@ -284,13 +299,17 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/route/RESTRoute.js"></script>
 <script src="js/route/NodeRoute.js"></script>
 <script src="js/route/QueryRoute.js"></script>
+<script src="js/route/SnapShotRoute.js"></script>
 
 <!-- Util -->
+<script src="js/util/constants.js"></script>
+<script src="js/util/versioncheck.js"></script>
 <script src="js/util/logger.js"></script>
 <script src="js/util/tools.js"></script>
 <script src="js/util/poller.js"></script>
 <script src="js/util/parser.js"></script>
 <script src="js/util/tablesorter.js"></script>
+<script src="js/util/guid.js"></script>
 
 <!-- Charts -->
 <script language="javascript" type="text/javascript" src="js/lib/flot/jquery.flot.js"></script>
@@ -305,12 +324,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
         ajaxloading.hide();
         scrollToTop.activate();
 
-        $("[rel=tipRight]").tooltip(
-                {
-                    'animation':true
-                }
-
-        );
+        $("[rel=tipRight]").tooltip();
         $("[rel=popRight]").popover(
                 {
                     'trigger':'hover',
@@ -319,5 +333,6 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
         );
     });
 </script>
+
 </body>
 </html>

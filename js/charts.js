@@ -77,7 +77,7 @@ chart.jvmHeap = {
             },
             xaxis:chart.ts_xaxis,
             yaxis:{
-                tickSize:50
+                //tickSize:50
             },
             tooltipOpts:{
                 //content: "'%s' of %x.1 is %y.4",
@@ -103,15 +103,25 @@ chart.indices = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
             },
             xaxis:chart.ts_xaxis,
             yaxis:{
-                min:0,
-                tickSize:20
+                min:0
+                //tickSize:20
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -129,7 +139,9 @@ chart.cpu = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -139,6 +151,14 @@ chart.cpu = {
                 min:0,
                 max:100,
                 tickSize:20
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y%",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -156,7 +176,9 @@ chart.mem = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -166,6 +188,14 @@ chart.mem = {
                 min:0,
                 max:max,
                 tickSize:2
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%yGB",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -182,7 +212,9 @@ chart.procscpu = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -192,6 +224,14 @@ chart.procscpu = {
                 min:0,
                 max:max,
                 tickSize:100
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y%",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -209,7 +249,9 @@ chart.procmem = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -219,6 +261,14 @@ chart.procmem = {
                 min:0,
                 max:max,
                 tickSize:.5
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -237,7 +287,9 @@ chart.fsreads = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -245,6 +297,14 @@ chart.fsreads = {
             xaxis:chart.ts_xaxis,
             yaxis:{
                 min:0
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -261,7 +321,9 @@ chart.fswrites = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -269,6 +331,14 @@ chart.fswrites = {
             xaxis:chart.ts_xaxis,
             yaxis:{
                 min:0
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -286,7 +356,9 @@ chart.transporttxcount = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -294,6 +366,14 @@ chart.transporttxcount = {
             xaxis:chart.ts_xaxis,
             yaxis:{
                 min:0
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -312,7 +392,9 @@ chart.httpopen = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -320,6 +402,14 @@ chart.httpopen = {
             xaxis:chart.ts_xaxis,
             yaxis:{
                 min:0
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -336,7 +426,9 @@ chart.threadindex = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -344,6 +436,14 @@ chart.threadindex = {
             xaxis:chart.ts_xaxis,
             yaxis:{
                 min:0
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }
@@ -360,7 +460,9 @@ chart.threadsearch = {
             tooltip:true,
             grid:{
                 show:true,
-                hoverable:false,
+                hoverable:true,
+                autoHighlight:true,
+                mouseActiveRadius:10,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -368,6 +470,14 @@ chart.threadsearch = {
             xaxis:chart.ts_xaxis,
             yaxis:{
                 min:0
+            },
+            tooltipOpts:{
+                //content: "'%s' of %x.1 is %y.4",
+                content:"%y",
+                shifts:{
+                    x:-60,
+                    y:25
+                }
             }
         }
     }

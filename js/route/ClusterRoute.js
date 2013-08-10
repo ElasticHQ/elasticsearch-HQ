@@ -25,6 +25,9 @@ clusterRoute.cluster = function () {
     healthModel.fetch({
         success:function () {
 
+            // version check...
+            checkVersion();
+
             var polloptions = {delay:10000};
             mainMenuPoller = Backbone.Poller.get(healthModel, polloptions);
             mainMenuPoller.start();
@@ -76,7 +79,7 @@ clusterRoute.cluster = function () {
             var clusterState = cluster.get("clusterState");
             clusterState.fetch({
                 success:function () {
-                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:5000});
+                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:CLUSTER_POLL_FREQUENCY});
                     clusterOverviewPoller.start();
 
                     clusterOverviewPoller.on('success', function (clusterState) {
@@ -95,7 +98,7 @@ clusterRoute.cluster = function () {
                     });
                 }
             });
-            show_stack_bottomright({type:'info', title:'Tip', text:'Cluster Overview refreshes every 5 seconds.'});
+            //show_stack_bottomright({type:'info', title:'Tip', text:'Cluster Overview refreshes every 5 seconds.'});
         },
         error:function (model, response) {
             var err = 'Unable to Connect to Server! ';
