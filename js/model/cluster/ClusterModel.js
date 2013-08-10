@@ -47,7 +47,7 @@ var Cluster = Backbone.Model.extend({
                     _this.supportedVersion(version.number);
                 }
                 //show_stack_bottomright({type:'info', title:'Tip', text:'ElasticHQ will refresh the Node List every 10 seconds.'});
-                show_stack_bottomright({type:'success', title:'Successful Connect!', text:'Connection to cluster has been established.'});
+                //show_stack_bottomright({type:'success', title:'Successful Connect!', text:'Connection to cluster has been established.'});
             },
             error:function (model, response, options) {
                 console.log('Failed to Connect on Ping!');
@@ -71,10 +71,10 @@ var Cluster = Backbone.Model.extend({
     supportedVersion:function (versionNumber) {
         var versionArr = versionNumber.split(".");
         if (versionArr[0] >= 0 && versionArr[1] >= 90) {
-            show_stack_bottomright({type:'success', title:'Version Check', text:'ES Version supported: ' + versionNumber + '.'});
+            //show_stack_bottomright({type:'success', title:'Version Check', text:'ES Version supported: ' + versionNumber + '.'});
         }
         else if (versionArr[0] >= 1 && versionArr[1] >= 0) {
-            show_stack_bottomright({type:'success', title:'Version Check', text:'ES Version supported: ' + versionNumber + '.'});
+            //show_stack_bottomright({type:'success', title:'Version Check', text:'ES Version supported: ' + versionNumber + '.'});
         }
         else {
             show_stack_bottomright({type:'warning', title:'Version Warning!', text:'ElasticHQ may not work with version ' + versionNumber + '. Tested on 0.90.0-1.0.0.'});

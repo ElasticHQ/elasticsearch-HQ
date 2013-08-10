@@ -21,6 +21,7 @@ var debugMode = 0;
 
 var cluster; // globally available cluster object maintains state of models and connection url.
 $(document).ready(
+
     function ($) {
 
         if (debugMode == 1) {
@@ -33,32 +34,46 @@ $(document).ready(
         var connectButton = $('#connectButton');
         var connectionURL = $('#connectionURL');
 
-        // check for plugin mode
-        // plugin takes precedence over cookie
-        if (window.location.href.indexOf("/_plugin/") != -1) {
-            connectionURL = window.location.protocol + "//" + window.location.host;
-            $('#connectionURL').val(connectionURL);
-        }
-        else {
-            var cookieURL = $.cookie('resturl');
-            if (cookieURL != undefined) {
-                $('#connectionURL').val(cookieURL);
-            }
-        }
-
         // bind click even on connect button
         connectButton.click(function () {
             $("#error-loc").empty();
             doConnect($('#connectionURL').val());
         });
-
-/*        connectionURL.keypress(function(e) {
-            // Enter pressed?
-            if(e.which == 10 || e.which == 13) {
-                doConnect($('#connectionURL').val());
+        // bind connect() on enter key
+        connectionURL.bind("keypress", function (event) {
+            if (typeof event == 'undefined' && window.event) {
+                event = window.event;
             }
-        });*/
+            if (event.keyCode == 13) {
+                if (event.cancelable && event.preventDefault) {
+                    event.preventDefault();
+                    connectButton.click();
+                } else {
+                    connectButton.click();
+                    return false;
+                }
+            }
+        });
 
+        var urlParameter = getURLParameter('url');
+        if (urlParameter != null) {
+            $('#connectionURL').val(urlParameter);
+            connectButton.click();
+        }
+        else {
+            // check for plugin mode
+            // plugin takes precedence over cookie
+            if (window.location.href.indexOf("/_plugin/") != -1) {
+                connectionURL = window.location.protocol + "//" + window.location.host;
+                $('#connectionURL').val(connectionURL);
+            }
+            else {
+                var cookieURL = $.cookie('resturl');
+                if (cookieURL != undefined) {
+                    $('#connectionURL').val(cookieURL);
+                }
+            }
+        }
     });
 
 var doConnect = function (connectionRootURL) {

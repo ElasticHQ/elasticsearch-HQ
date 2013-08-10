@@ -186,6 +186,7 @@ var NodeStatsListView = Backbone.View.extend(
                         cacheRules:cache_rules(),
                         memoryRules:memory_rules(),
                         networkRules:network_rules(),
+                        polling: NODE_DIAGNOSTICS_POLL_FREQUENCY,
                         lastUpdateTime:timeUtil.lastUpdated()
                     }));
 

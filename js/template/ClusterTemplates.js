@@ -1,7 +1,7 @@
 var clusterTemplate = {};
 
 clusterTemplate.Health = [
-    '<a id="clusterHealthButton" class="btn btn-<%- statusClass %> btn-large" rel="popRight" data-trigger="hover"',
+    '<a id="clusterHealthButton" class="btn btn-<%- statusClass %> " rel="popRight" data-trigger="hover"',
     'data-content="Status: <span class=\'label label-<%- statusClassLabel %>\'><%- statusText %></span>" data-html="true"',
     'href="#cluster" role="button">',
     '<i class="icon-info-sign"></i> <%- cluster_name %></a>'
@@ -9,7 +9,7 @@ clusterTemplate.Health = [
 
 clusterTemplate.HealthDescribe = [
     '<div class="row-fluid" style="padding: 15px;">',
-    '<div class="span2 pull-left"><a href="#refreshCluster" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every 5 seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
+    '<div class="span2 pull-left"><a href="#refreshCluster" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- CLUSTER_POLL_FREQUENCY/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
     '<div class="text-center span8"><span style="font-size: 28px;">Cluster Overview</span></div>',
     '<div class="span2"></div>',
     '</div>',
