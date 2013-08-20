@@ -32,7 +32,7 @@ var checkVersion = function () {
             if (data != undefined) {
                 if (data.version != undefined) {
                     if (data.version !== HQVERSION) {
-                        var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider upgrading.<br/><small>(You are running version ' + HQVERSION + '.)</small>';
+                        var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider <a href="http://www.elastichq.org/gettingstarted.html" target="_blank">upgrading</a>.<br/><small>(You are running version ' + HQVERSION + '.)</small>';
                         show_stack_bottomright({hide:false, type:'error', title:'New Version Available!', text:upgradeText});
                     }
                 }

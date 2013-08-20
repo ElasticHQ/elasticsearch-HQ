@@ -32,7 +32,7 @@ indexRoute.indexView = function (indexId) {
     indexStatusModel.fetch({
         success:function (model, response) {
 
-            var polloptions = {delay:INDEX_POLL_FREQUENCY};
+            var polloptions = {delay:settingsModel.get('settings').poller.index};
             indexPoller = Backbone.Poller.get(indexStatusModel, polloptions);
             indexPoller.start();
             indexPoller.on('success', function (indexStatusModel) {

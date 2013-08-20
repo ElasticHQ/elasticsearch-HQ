@@ -25,8 +25,13 @@ clusterRoute.cluster = function () {
     healthModel.fetch({
         success:function () {
 
-            // version check...
+            // BEGIN: INIT: we only do these things on successful connect...
             checkVersion();
+
+            settingsModel = new SettingsModel();
+
+            activateLogging();
+            // END: INIT
 
             var polloptions = {delay:10000};
             mainMenuPoller = Backbone.Poller.get(healthModel, polloptions);
@@ -79,7 +84,7 @@ clusterRoute.cluster = function () {
             var clusterState = cluster.get("clusterState");
             clusterState.fetch({
                 success:function () {
-                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:CLUSTER_POLL_FREQUENCY});
+                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:settingsModel.get('settings').poller.cluster});
                     clusterOverviewPoller.start();
 
                     clusterOverviewPoller.on('success', function (clusterState) {

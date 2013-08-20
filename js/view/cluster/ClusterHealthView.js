@@ -88,7 +88,7 @@ var ClusterHealthView = Backbone.View.extend({
             health:clusterHealth.attributes,
             state:this.stateModel,
             indices:indices,
-            polling: CLUSTER_POLL_FREQUENCY,
+            polling: settingsModel.get('settings').poller.cluster,
             lastUpdateTime:timeUtil.lastUpdated()
         });
         $('#workspace').html(template);

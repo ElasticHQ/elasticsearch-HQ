@@ -16,27 +16,10 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-var guid = {};
 
-guid.setGUID = function () {
-    var guid = this.getGUID();
-    if (guid == undefined) {
-        guid = this.generateGUID();
-        localStorage.setItem('hqsettings', guid);
-    }
-    return guid;
-};
+var settingsRoute = {};
 
-guid.getGUID = function () {
-    if (localStorage) {
-        return localStorage.getItem('hqsettings');
-    }
-};
-
-guid.generateGUID = function () {
-    return (guid.S4() + guid.S4() + "-" + guid.S4() + "-" + guid.S4() + "-" + guid.S4() + "-" + guid.S4() + guid.S4() + guid.S4());
-};
-
-guid.S4 = function () {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+settingsRoute.init = function () {
+    var settingsView = new SettingsView({model: settingsModel});
+    settingsView.render();
 };

@@ -16,14 +16,22 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-var HQVERSION = .97;
+var HQVERSION = .98;
 
 var REMOTE_API_PATH = 'http://www.elastichq.org/api';
 //var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
 
-// values in ms.
-var CLUSTER_POLL_FREQUENCY = 10000;
+// default settings. can be overwritten in the SettingsModel
+/*var CLUSTER_POLL_FREQUENCY = 10000;
 var NODE_DIAGNOSTICS_POLL_FREQUENCY = 30000;
 var NODE_POLL_FREQUENCY = 10000;
 var INDICES_POLL_FREQUENCY = 15000;
-var INDEX_POLL_FREQUENCY = 10000;
+var INDEX_POLL_FREQUENCY = 10000;*/
+
+/**** GLOBALS ****/
+// log =1, no-log =0.
+var debugMode = 0;
+
+var cluster; // globally available cluster object maintains state of models and connection url.
+
+var settingsModel; // personalization

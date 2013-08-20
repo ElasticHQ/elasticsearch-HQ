@@ -62,6 +62,7 @@ $(document).ready(
                 "admin/action":"admin",
                 "documents":"queryView",
                 "snapshots":"snapshots",
+                "loadsettings":"loadSettings",
                 "*actions":"defaultRoute"
             },
             cluster:function () {
@@ -189,9 +190,17 @@ $(document).ready(
                 stopAllNodePollers();
                 restRoute.json(command);
             },
-            snapshots:function() {
+            snapshots:function () {
                 stopAllNodePollers();
                 snapShotRoute.init();
+            },
+            loadSettings : function() {
+                stopAllNodePollers();
+                if (this.settingsView == undefined) {
+                    this.settingsView = new SettingsView({model:settingsModel});
+                }
+                this.settingsView.clusterPoller = 'TTTTTT';
+                this.settingsView.render();
             }
             /*,
              defaultRoute:function () {

@@ -2,7 +2,7 @@ var indexTemplate = {};
 
 
 indexTemplate.indexList = [
-    '<div class="pull-left"><a href="#refreshindices" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- INDICES_POLL_FREQUENCY/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
+    '<div class="pull-left"><a href="#refreshindices" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
 
     '<div class="text-center"><h2>Indices</h2></div>',
     '<div class="span11 center-table">',
@@ -73,7 +73,7 @@ indexTemplate.indexView = [
     '</div>',
     '</div>',
 
-    '<div class="pull-left"><a href="#refreshindexpoller/<%- indexId %>" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- INDEX_POLL_FREQUENCY/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
+    '<div class="pull-left"><a href="#refreshindexpoller/<%- indexId %>" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
 
     '<div class="text-center"><h2><%- indexName %></h2>',
     '<div class="span12 center-table">',

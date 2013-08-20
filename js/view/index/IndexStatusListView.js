@@ -67,7 +67,7 @@ var IndexStatusListView = Backbone.View.extend(
             $('#workspace').html(tpl(
                 {
                     indices:indices,
-                    polling: INDICES_POLL_FREQUENCY,
+                    polling: settingsModel.get('settings').poller.indices,
                     lastUpdateTime:timeUtil.lastUpdated()
                 }));
 
