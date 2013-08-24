@@ -21,17 +21,17 @@ var HQVERSION = .98;
 var REMOTE_API_PATH = 'http://www.elastichq.org/api';
 //var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
 
-// default settings. can be overwritten in the SettingsModel
-/*var CLUSTER_POLL_FREQUENCY = 10000;
-var NODE_DIAGNOSTICS_POLL_FREQUENCY = 30000;
-var NODE_POLL_FREQUENCY = 10000;
-var INDICES_POLL_FREQUENCY = 15000;
-var INDEX_POLL_FREQUENCY = 10000;*/
-
 /**** GLOBALS ****/
 // log =1, no-log =0.
 var debugMode = 0;
 
-var cluster; // globally available cluster object maintains state of models and connection url.
+// globally available cluster object maintains state of models and connection url.
+var cluster;
 
-var settingsModel; // personalization
+// personalization
+var settingsModel;
+
+var POLLER_MIN_FREQUENCY = 5000;
+var POLLER_MAX_FREQUENCY = 3600000;
+
+var showedVersionCheckMessage = false;

@@ -63,12 +63,15 @@ $(document).ready(
                 }
             }
         }
+
+        router.navigate();
+
+        settingsModel = new SettingsModel();
     });
 
 var doConnect = function (connectionRootURL) {
 
     cluster = new Cluster({connectionRootURL:connectionRootURL});
 
-    router.navigate();
     router.navigate("cluster", true);
 };

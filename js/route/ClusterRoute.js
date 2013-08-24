@@ -28,7 +28,7 @@ clusterRoute.cluster = function () {
             // BEGIN: INIT: we only do these things on successful connect...
             checkVersion();
 
-            settingsModel = new SettingsModel();
+//            $("#settings").css("visibility", "visible");
 
             activateLogging();
             // END: INIT

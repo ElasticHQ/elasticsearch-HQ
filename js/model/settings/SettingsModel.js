@@ -42,7 +42,7 @@ var SettingsModel = Backbone.Model.extend({
     loadFromStorage:function () {
         if (localStorage) {
             var settings = localStorage.getItem("hqsettings");
-            if (settings != undefined) {
+            if (settings != undefined && settings != "undefined") {
                 this.buildSettings($.parseJSON(settings));
                 this.saveToStorage(); // make sure any future additions are saved.
             }
@@ -50,6 +50,7 @@ var SettingsModel = Backbone.Model.extend({
             {
                 this.saveToStorage();
             }
+            return this;
         }
     },
     /**
@@ -63,38 +64,64 @@ var SettingsModel = Backbone.Model.extend({
         // sanity check (mostly because of null fields)
         this.buildSettings(this.getSettings());
 
-        localStorage.setItem('hqsettings', JSON.stringify(this.getSettings()));
+        try {
+            localStorage.setItem('hqsettings', JSON.stringify(this.getSettings()));
+        }
+        catch (e) {
+            console.log('Unable to save settings in local storage. ' + e.message);
+        }
     },
     /**
      * Builds the this.settings object. optimized for future compatibility
      * @param settingsArg
      */
     buildSettings:function (settingsArg) {
-        this.get('settings').uuid = (settingsArg.uuid != null) ? settingsArg.uuid : guid.generateGUID();
-        if (settingsArg.poller == undefined) {
-            settingsArg.poller = {};
+        try {
+            this.get('settings').uuid = (settingsArg.uuid != null) ? settingsArg.uuid : guid.generateGUID();
+            if (settingsArg.poller == undefined) {
+                settingsArg.poller = {};
+            }
+            this.get('settings').debugMode = (settingsArg.debugMode != undefined) ? settingsArg.debugMode : this.get('settings').debugMode;
+            this.get('settings').poller.cluster = (settingsArg.poller.cluster != undefined) ? settingsArg.poller.cluster : this.get('settings').poller.cluster;
+            this.get('settings').poller.nodeDiagnostics = (settingsArg.poller.nodeDiagnostics != undefined) ? settingsArg.poller.nodeDiagnostics : this.get('settings').poller.nodeDiagnostics;
+            this.get('settings').poller.node = (settingsArg.poller.node != undefined) ? settingsArg.poller.node : this.get('settings').poller.node;
+            this.get('settings').poller.indices = (settingsArg.poller.indices != undefined) ? settingsArg.poller.indices : this.get('settings').poller.indices;
+            this.get('settings').poller.index = (settingsArg.poller.index != undefined) ? settingsArg.poller.index : this.get('settings').poller.index;
         }
-        this.get('settings').debugMode = (settingsArg.debugMode != undefined) ? settingsArg.debugMode : this.get('settings').debugMode;
-        this.get('settings').poller.cluster = (settingsArg.poller.cluster != undefined) ? settingsArg.poller.cluster : this.get('settings').poller.cluster;
-        this.get('settings').poller.nodeDiagnostics = (settingsArg.poller.nodeDiagnostics != undefined) ? settingsArg.poller.nodeDiagnostics : this.get('settings').poller.nodeDiagnostics;
-        this.get('settings').poller.node = (settingsArg.poller.node != undefined) ? settingsArg.poller.node : this.get('settings').poller.node;
-        this.get('settings').poller.indices = (settingsArg.poller.indices != undefined) ? settingsArg.poller.indices : this.get('settings').poller.indices;
-        this.get('settings').poller.index = (settingsArg.poller.index != undefined) ? settingsArg.poller.index : this.get('settings').poller.index;
+        catch (e) {
+            console.log('Cannot build settings object. Using defaults. ' + e.message);
+        }
     },
-    validation:{/*
-        'settings.poller.cluster':{
+    validation:{
+        clusterPoller:{
             required:true,
-            min:1,
-            max:5,
+            range:[POLLER_MIN_FREQUENCY, POLLER_MAX_FREQUENCY],
             pattern:'number',
-            msg:'Please enter a # value.'
-        },*/
-        clusterPoller : {
+            msg:'Acceptable Range is ' + POLLER_MIN_FREQUENCY + ' to ' + POLLER_MAX_FREQUENCY
+        },
+        ndPoller:{
             required:true,
-            min:1,
-            max:5,
+            range:[POLLER_MIN_FREQUENCY, POLLER_MAX_FREQUENCY],
             pattern:'number',
-            msg:'Please enter a # value.'
+            msg:'Acceptable Range is ' + POLLER_MIN_FREQUENCY + ' to ' + POLLER_MAX_FREQUENCY
+        },
+        nPoller:{
+            required:true,
+            range:[POLLER_MIN_FREQUENCY, POLLER_MAX_FREQUENCY],
+            pattern:'number',
+            msg:'Acceptable Range is ' + POLLER_MIN_FREQUENCY + ' to ' + POLLER_MAX_FREQUENCY
+        },
+        indicesPoller:{
+            required:true,
+            range:[POLLER_MIN_FREQUENCY, POLLER_MAX_FREQUENCY],
+            pattern:'number',
+            msg:'Acceptable Range is ' + POLLER_MIN_FREQUENCY + ' to ' + POLLER_MAX_FREQUENCY
+        },
+        indexPoller:{
+            required:true,
+            range:[POLLER_MIN_FREQUENCY, POLLER_MAX_FREQUENCY],
+            pattern:'number',
+            msg:'Acceptable Range is ' + POLLER_MIN_FREQUENCY + ' to ' + POLLER_MAX_FREQUENCY
         }
     }
 });

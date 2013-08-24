@@ -62,7 +62,7 @@ $(document).ready(
                 "admin/action":"admin",
                 "documents":"queryView",
                 "snapshots":"snapshots",
-                "loadsettings":"loadSettings",
+                "viewsettings":"viewSettings",
                 "*actions":"defaultRoute"
             },
             cluster:function () {
@@ -194,19 +194,17 @@ $(document).ready(
                 stopAllNodePollers();
                 snapShotRoute.init();
             },
-            loadSettings : function() {
+            viewSettings:function () {
                 stopAllNodePollers();
                 if (this.settingsView == undefined) {
                     this.settingsView = new SettingsView({model:settingsModel});
                 }
-                this.settingsView.clusterPoller = 'TTTTTT';
                 this.settingsView.render();
-            }
-            /*,
-             defaultRoute:function () {
-             stopAllNodePollers();
-             console.log('defaultRoute');
-             }*/
+            }/*,
+            defaultRoute:function () {
+                stopAllNodePollers();
+                console.log('defaultRoute');
+            }*/
         });
 
         Backbone.history.start();

@@ -18,30 +18,42 @@
 
 var SettingsView = Backbone.View.extend(
     {
-        clusterPoller: undefined,
         el:$('#workspace'), // must be explicitly set for event binding to work!
         events:{
             'click #editSettingsSubmit':'saveToModel'
-        },
-        initialize:function (args) {
-            this.clusterPoller = args.clusterPoller;
         },
         saveToModel:function (e) {
             e.preventDefault();
 
             var data = this.$('#editSettingsForm').serializeObject();
-            this.model.set(data);
-            this.model.clusterPoller = data.clusterPoller;
+            try { // functions below are only here to trigger validation. useless otherwise
+                this.model.set(data);
+                this.model.save({});
+            }
+            catch (e) {
+                //
+            }
 
-            var isValid = this.model.isValid('clusterPoller');
-            console.log(isValid);
+            if (this.model.isValid()) {
+                this.model = settingsModel;
+                this.model.get('settings').poller.cluster = data.clusterPoller;
+                this.model.get('settings').poller.nodeDiagnostics = data.ndPoller;
+                this.model.get('settings').poller.node = data.nPoller;
+                this.model.get('settings').poller.indices = data.indicesPoller;
+                this.model.get('settings').poller.index = data.indexPoller;
+                this.model.get('settings').debugMode = (data.debugMode != undefined) ? 1 : 0;
+                this.model.saveToStorage();
 
-            this.model.save({});
+                settingsModel = settingsModel.loadFromStorage();
+            }
 
             this.unbind();
             this.model.unbind("#editSettingsSubmit", this.render);
 
-            console.log('done!');
+            //show_stack_bottomright({type:'success', title:'Settings Saved', text:'Settings updated successfully.'});
+            var tpl = _.template(settingsTemplate.saved);
+            $('#savedSettings').html(tpl(
+                { }));
 
             return false;
         },
@@ -51,31 +63,10 @@ var SettingsView = Backbone.View.extend(
             var tpl = _.template(settingsTemplate.init);
             $('#workspace').html(tpl(
                 {
-                    clusterPoller:_this.clusterPoller,
-                    model:_this.model
+                    settings:_this.model.get('settings')
                 }));
 
             Backbone.Validation.bind(this);
-            return this;
-
-
-            /*            var tpl = _.template(settingsTemplate.init);
-             $('#workspace').html(tpl(
-             {
-             model:this.model//.get('settings')
-             }));
-
-             Backbone.Validation.bind(this, {
-             valid:function (view, attr) {
-             console.log('valid');
-             },
-             invalid:function (view, attr, error) {
-             console.log('invalid');
-             }
-             });
-
-             $("[rel=tipRight]").tooltip();*/
-
             return this;
         },
         onClose:function () {
