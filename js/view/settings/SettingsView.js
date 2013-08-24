@@ -45,15 +45,15 @@ var SettingsView = Backbone.View.extend(
                 this.model.saveToStorage();
 
                 settingsModel = settingsModel.loadFromStorage();
+
+                var tpl = _.template(settingsTemplate.saved);
+                $('#savedSettings').html(tpl(
+                    { }));
             }
 
             this.unbind();
             this.model.unbind("#editSettingsSubmit", this.render);
 
-            //show_stack_bottomright({type:'success', title:'Settings Saved', text:'Settings updated successfully.'});
-            var tpl = _.template(settingsTemplate.saved);
-            $('#savedSettings').html(tpl(
-                { }));
 
             return false;
         },
