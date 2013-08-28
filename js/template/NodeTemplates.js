@@ -92,7 +92,7 @@ nodeTemplate.nodeInfoModal = [
  */
 nodeTemplate.diagnostics = [
     '<div class="well">',
-    '<div class="span2 pull-left"><a href="#refreshNodeDiagnostics" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- NODE_DIAGNOSTICS_POLL_FREQUENCY/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
+    '<div class="span2 pull-left"><a href="#refreshNodeDiagnostics" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
     '<div class="pull-right"><a href="#diagnosticsModal" data-toggle="modal" role="button" class="btn"><i class="icon-question-sign"></i> Help</a></div>',
     '<div class="text-center">',
     '<span style="font-size: 28px;">Node Diagnostics Information</span>',
@@ -231,7 +231,7 @@ nodeTemplate.nodeInfo = [
 
 
     '<div class="well">',
-    '<div class="pull-left"><button id="refreshNodeInfo" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- NODE_POLL_FREQUENCY/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></button></div>',
+    '<div class="pull-left"><button id="refreshNodeInfo" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></button></div>',
     //'<div class="pull-left" style="line-height: 13px;font-size: 10px;">Refreshed:<br/><%- lastUpdateTime %></div>',
 
     '<div id="toolbar" class="pull-right">',

@@ -55,42 +55,51 @@ var DocumentListView = Backbone.View.extend({
                     {key:"_id", name:"ID"}
                 ];
 
-                // add columns for type data based on indices selected
-                var selectedIndices = _this.model.indicesArray;
-                var clusterState = cluster.get("clusterState").toJSON();
-                var allIndices = clusterState.metadata.indices;
-                for (var $i = 0; $i < selectedIndices.length; $i++) {
-                    if (selectedIndices[$i] in allIndices) {
-                        var foundIndex = allIndices[selectedIndices[$i]];
-                        var mappingTypeKeys = _.keys(foundIndex.mappings);
-                        var mappingTypeVals = _.values(foundIndex.mappings);
-                        if (mappingTypeKeys != undefined) {
-                            for (var $j = 0; $j < mappingTypeKeys.length; $j++) {
-                                if (mappingTypeVals[$j] != undefined) {
-                                    var prop = mappingTypeVals[$j].properties;
-                                    if (prop != undefined) {
-                                        var tempTypes = _.keys(prop);
-                                        for (var $k = 0; $k < tempTypes.length; $k++) {
-                                            var col = {key:tempTypes[$k], name:uppercaseFirst(tempTypes[$k]), type:"source" };
-                                            var found = false;
-                                            for (var $m = 0; $m < _this.columnArray.length; $m++) {
-                                                if (_this.columnArray[$m].key == tempTypes[$k]) {
-                                                    found = true;
-                                                    break;
-                                                }
-                                            }
-                                            if (!found) {
-                                                _this.columnArray.push(col);
-                                            }
-                                        }
+                if (!_.isEmpty(_this.model.get('queryObj').fields)) {
+                    var fieldsArray = _this.model.get('queryObj').fields;
+                    _.each(fieldsArray, function (field) {
 
-                                    }
-                                }
-                            }
-                        }
-
-                    }
+                        var col = {key:field, name:uppercaseFirst(field), type:"source" };
+                        _this.columnArray.push(col);
+                    });
                 }
+
+                // add columns for type data based on indices selected
+                /*                var selectedIndices = _this.model.indicesArray;
+                 var clusterState = cluster.get("clusterState").toJSON();
+                 var allIndices = clusterState.metadata.indices;
+                 for (var $i = 0; $i < selectedIndices.length; $i++) {
+                 if (selectedIndices[$i] in allIndices) {
+                 var foundIndex = allIndices[selectedIndices[$i]];
+                 var mappingTypeKeys = _.keys(foundIndex.mappings);
+                 var mappingTypeVals = _.values(foundIndex.mappings);
+                 if (mappingTypeKeys != undefined) {
+                 for (var $j = 0; $j < mappingTypeKeys.length; $j++) {
+                 if (mappingTypeVals[$j] != undefined) {
+                 var prop = mappingTypeVals[$j].properties;
+                 if (prop != undefined) {
+                 var tempTypes = _.keys(prop);
+                 for (var $k = 0; $k < tempTypes.length; $k++) {
+                 var col = {key:tempTypes[$k], name:uppercaseFirst(tempTypes[$k]), type:"source" };
+                 var found = false;
+                 for (var $m = 0; $m < _this.columnArray.length; $m++) {
+                 if (_this.columnArray[$m].key == tempTypes[$k]) {
+                 found = true;
+                 break;
+                 }
+                 }
+                 if (!found) {
+                 _this.columnArray.push(col);
+                 }
+                 }
+
+                 }
+                 }
+                 }
+                 }
+
+                 }
+                 }*/
 
                 // Results...
                 queryResultsModel.totalHits = data.hits.total;
@@ -105,9 +114,9 @@ var DocumentListView = Backbone.View.extend({
                     result = item;
                     result._raw = JSON.stringify(item, undefined, 2);
 
-                    jQuery.extend(result, item._source); // merge _source items in to root level of object.
+                    jQuery.extend(result, item.fields); // merge _source items in to root level of object.
 
-                    result._source = undefined; // dont need this object nested in here.
+                    result.fields = undefined; // dont need this object nested in here.
 
                     queryResultsModel.results.push(result);
                 });

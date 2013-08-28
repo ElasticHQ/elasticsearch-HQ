@@ -43,6 +43,12 @@ queryRoute.doQuery = function () {
         indices.push($(this).attr('name'));
     });
 
+    // get fields
+    var fields = new Array();
+    $('#checkboxfields input:checked').each(function () {
+        fields.push($(this).attr('name'));
+    });
+
     var indexCSV = "";
     if (indices.length > 0) {
         indexCSV = indices.join(",");
@@ -73,6 +79,7 @@ queryRoute.doQuery = function () {
     var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString, indicesArray: indices});
     queryModel.get('queryObj').size = Math.floor(perPage);
     queryModel.get('queryObj').sort = sortArray;
+    queryModel.get('queryObj').fields = fields;
 
     // issue jquery ajax POST then render
     var documentListView = new DocumentListView({model:queryModel});

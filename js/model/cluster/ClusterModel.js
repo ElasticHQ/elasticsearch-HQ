@@ -40,7 +40,7 @@ var Cluster = Backbone.Model.extend({
             success:function (model, response) {
                 console.log('Successful connect!');
 
-                $.cookie("resturl", args.connectionRootURL, { expires:7 });
+                $.cookie("resturl", args.connectionRootURL, { expires:7, path:'/' });
 
                 var version = ping.get("version");
                 if (version && version.number) {

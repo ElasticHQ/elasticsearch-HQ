@@ -25,7 +25,7 @@ nodeRoute.diagnoseNodes = function () {
         success:function (model, response) {
             var nodeListView = new NodeStatsListView({infoModel:nodeInfoListModel, model:nodeStatsListModel});
 
-            var polloptions = {delay:NODE_DIAGNOSTICS_POLL_FREQUENCY};
+            var polloptions = {delay:settingsModel.get('settings').poller.nodeDiagnostics};
             nodeDiagnosticsPoller = Backbone.Poller.get(nodeStatsListModel, polloptions);
             nodeDiagnosticsPoller.start();
             nodeDiagnosticsPoller.on('success', function (nodeInfoListModel) {
@@ -58,7 +58,7 @@ nodeRoute.nodeInfo = function (nodeId) {
 
                 cluster.set({nodeStats:nodeStat, nodeInfo:nodeInfo});
 
-                var polloptions = {delay:NODE_POLL_FREQUENCY};
+                var polloptions = {delay:settingsModel.get('settings').poller.node};
                 nodePoller = Backbone.Poller.get(nodeStat, polloptions);
                 nodePoller.start();
                 nodePoller.on('success', function (nodeInfo) {

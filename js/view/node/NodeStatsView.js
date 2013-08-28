@@ -199,7 +199,7 @@ var NodeStatView = Backbone.View.extend(
                         indices:indices,
                         netInfo:netInfo,
                         netStats:netStats,
-                        polling: NODE_POLL_FREQUENCY,
+                        polling: settingsModel.get('settings').poller.node,
                         lastUpdateTime:timeUtil.lastUpdated()
                     }));
 

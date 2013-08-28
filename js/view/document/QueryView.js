@@ -26,6 +26,7 @@ var QueryView = Backbone.View.extend({
     render:function () {
 
         var indices = _.keys(this.model);
+        var fields = [];
 
         var types = ["_score", "_type", "_uid"];
         try {
@@ -41,6 +42,7 @@ var QueryView = Backbone.View.extend({
                                 for (var $k = 0; $k < tempTypes.length; $k++) {
                                     if (!_.contains(types, tempTypes[$k])) {
                                         types.push(tempTypes[$k]);
+                                        fields.push(tempTypes[$k]);
                                     }
                                 }
                             }
@@ -55,6 +57,7 @@ var QueryView = Backbone.View.extend({
         var tpl = _.template(queryTemplate.view);
         $('#workspace').html(tpl({
             indices:indices,
+            fields: fields,
             types:types
         }));
 

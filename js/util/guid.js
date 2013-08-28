@@ -22,17 +22,19 @@ guid.setGUID = function () {
     var guid = this.getGUID();
     if (guid == undefined) {
         guid = this.generateGUID();
-        $.cookie('hquid', guid, { expires:365, path:'/' });
+        localStorage.setItem('hqsettings', guid);
     }
     return guid;
 };
 
 guid.getGUID = function () {
-    return $.cookie('hquid');
+    if (localStorage) {
+        return localStorage.getItem('hqsettings');
+    }
 };
 
 guid.generateGUID = function () {
-    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    return (guid.S4() + guid.S4() + "-" + guid.S4() + "-" + guid.S4() + "-" + guid.S4() + "-" + guid.S4() + guid.S4() + guid.S4());
 };
 
 guid.S4 = function () {

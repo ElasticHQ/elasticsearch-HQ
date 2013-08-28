@@ -17,3 +17,14 @@ var logger = function () {
 
     return pub;
 }();
+
+
+var activateLogging = function () {
+    var debugMode = settingsModel.get('settings').debugMode;
+    if (debugMode == 1) {
+        logger.enableLogger()
+    }
+    else {
+        logger.disableLogger();
+    }
+}

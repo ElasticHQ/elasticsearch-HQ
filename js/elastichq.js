@@ -16,20 +16,9 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-// log =1, no-log =0.
-var debugMode = 0;
-
-var cluster; // globally available cluster object maintains state of models and connection url.
 $(document).ready(
 
     function ($) {
-
-        if (debugMode == 1) {
-            logger.enableLogger()
-        }
-        else {
-            logger.disableLogger();
-        }
 
         var connectButton = $('#connectButton');
         var connectionURL = $('#connectionURL');
@@ -74,12 +63,15 @@ $(document).ready(
                 }
             }
         }
+
+        router.navigate();
+
+        settingsModel = new SettingsModel();
     });
 
 var doConnect = function (connectionRootURL) {
 
     cluster = new Cluster({connectionRootURL:connectionRootURL});
 
-    router.navigate();
     router.navigate("cluster", true);
 };
