@@ -102,7 +102,7 @@ var IndexView = Backbone.View.extend(
                     totalShards:totalShards,
                     isOpenState:isOpenState,
                     shards:shards,
-                    polling: INDEX_POLL_FREQUENCY,
+                    polling: settingsModel.get('settings').poller.index,
                     lastUpdateTime:timeUtil.lastUpdated()
                 }));
 

@@ -25,6 +25,23 @@ queryTemplate.sideNav = [
     '</div>',
     '</div>',
 
+    '<a data-toggle="collapse" data-parent="#queryAccordion" href="#collapseFields">',
+    '<b><i class="icon-expand-alt"></i> Fields</b>',
+    '</a>',
+    '<div id="collapseFields" class="accordion-body collapse in">',
+    '<div class="accordion-inner">',
+
+    '<ul class="nav nav-list" id="checkboxfields">',
+    '<% _.each(fields, function(field) { %>',
+    '<li>',
+    '<label><input type="checkbox" name="<%- field %>" style="margin: 0px;" checked> <span><%- field %></span></label>',
+    '</li>',
+    '<% }) %>',
+    '</ul>',
+
+    '</div>',
+    '</div>',
+
     '<a data-toggle="collapse" data-parent="#queryAccordion" href="#collapseSort">',
     '<b><i class="icon-expand-alt"></i> Sort By</b>',
     '</a>',

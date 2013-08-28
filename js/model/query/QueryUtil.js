@@ -30,7 +30,8 @@ var QueryUtil =
                 "from":from,
                 "size":queryModel.get('queryObj').size,
                 "sort":queryModel.get('queryObj').sort,
-                "explain": true
+                "fields":queryModel.get('queryObj').fields,
+                "explain":true
             };
             //, "sort":[ {"_id":{"order":"asc" }}], "version":true, "fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}} };
         }

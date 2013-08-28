@@ -21,26 +21,30 @@
  */
 var checkVersion = function () {
 
-    $.ajax({
-        type:'GET',
-        url:REMOTE_API_PATH + '/hq_settings.php',
-        processData:false,
-        cache:false,
-        crossDomain:true,
-        dataType:'json',
-        success:function (data) {
-            if (data != undefined) {
-                if (data.version != undefined) {
-                    if (data.version !== HQVERSION) {
-                        var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider upgrading.<br/><small>(You are running version ' + HQVERSION + '.)</small>';
-                        show_stack_bottomright({hide:false, type:'error', title:'New Version Available!', text:upgradeText});
+    if (!showedVersionCheckMessage) {
+
+        $.ajax({
+            type:'GET',
+            url:REMOTE_API_PATH + '/hq_settings.php',
+            processData:false,
+            cache:false,
+            crossDomain:true,
+            dataType:'json',
+            success:function (data) {
+                if (data != undefined) {
+                    if (data.version != undefined) {
+                        if (data.version !== HQVERSION) {
+                            var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider <a href="http://www.elastichq.org/gettingstarted.html" target="_blank">upgrading</a>.<br/><small>(You are running version ' + HQVERSION + '.)</small>';
+                            show_stack_bottomright({hide:false, type:'error', title:'New Version Available!', text:upgradeText});
+                            showedVersionCheckMessage = true;
+                        }
                     }
                 }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown) {
+                // die silently
+                console.log('ERROR! ' + XMLHttpRequest.responseText);
             }
-        },
-        error:function (XMLHttpRequest, textStatus, errorThrown) {
-            // die silently
-            console.log('ERROR! ' + XMLHttpRequest.responseText);
-        }
-    });
+        });
+    }
 };

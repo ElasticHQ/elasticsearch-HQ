@@ -64,6 +64,7 @@ var timeUtil = {
  * Notification system. https://github.com/sciactive/pnotify
  * @type {Object}
  */
+$.pnotify.defaults.history = false;
 var stack_bottomright = {"dir1":"up", "dir2":"left", "firstpos1":25, "firstpos2":25};
 function show_stack_bottomright(args) {
     var opts = {
@@ -157,7 +158,7 @@ function lookupValue(obj, string) {
     var returnString = obj[string];
     if (obj[string] == undefined) {
         returnString = getValue(string, obj);
-        console.log(obj);
+        //console.log(obj);
     }
     return returnString;
 }

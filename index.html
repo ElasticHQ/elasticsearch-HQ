@@ -39,7 +39,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="http://www.elastichq.org"><i class="icon-dashboard"></i> Elastic HQ</a>
+            <a class="brand" href="http://www.elastichq.org" target="_blank"><i class="icon-dashboard"></i> Elastic HQ</a>
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
@@ -67,6 +67,9 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                 <ul class="nav pull-right">
                     <!--                    <li><a style="visibility: hidden;" id="settingsButton" href="#settings" rel="tipRight" data-placement="bottom" data-title="Current Settings"><i
                                                 class="icon-cogs icon-large"></i> Settings</a></li>-->
+                    <li><a href="#viewsettings" rel="tipRight" id="settings" style="visibility: visible;"
+                           data-placement="bottom" data-title="Personalize ElasticHQ"><i
+                            class="icon-cog icon-large"></i> My Settings</a></li>
                     <li><a href="http://www.elastichq.org/support.html" target="_blank" rel="tipRight"
                            data-placement="bottom" data-title="Have a question?"><i
                             class="icon-comments-alt icon-large"></i> Get Help</a></li>
@@ -104,11 +107,11 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                 <a href="#restapi" class="btn btn-success" rel="tipRight" data-placement="bottom" data-html="true"
                    data-title="REST Console.<br/>Ya, for geeks."><i
                         class="icon-code"></i> REST</a>
-<!--
-                <a href="#snapshots" class="btn btn-success" rel="tipRight" data-placement="bottom" data-html="true"
-                   data-title="Snapshots"><i
-                        class="icon-camera"></i> Snap!</a>
--->
+                <!--
+                                <a href="#snapshots" class="btn btn-success" rel="tipRight" data-placement="bottom" data-html="true"
+                                   data-title="Snapshots"><i
+                                        class="icon-camera"></i> Snap!</a>
+                -->
 
             </div>
         </div>
@@ -190,6 +193,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     </div>
 </footer>
 
+<script src="js/util/constants.js"></script>
 
 <!-- JQuery -->
 <script src="js/lib/jquery/jquery.1.9.1.min.js"></script>
@@ -230,6 +234,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/template/RESTTemplate.js"></script>
 <script src="js/template/QueryTemplate.js"></script>
 <script src="js/template/SnapShotTemplate.js"></script>
+<script src="js/template/SettingsTemplate.js"></script>
 
 <!-- Models -->
 <script src="js/model/core/Ping.js"></script>
@@ -258,6 +263,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/model/query/QueryResultsModel.js"></script>
 <script src="js/model/query/QueryRequestModel.js"></script>
 <script src="js/model/query/QueryUtil.js"></script>
+<script src="js/model/settings/SettingsModel.js"></script>
 
 <!-- Model Actions -->
 <script src="js/model/index/action/ClearCacheAllIndexModel.js"></script>
@@ -286,6 +292,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/view/document/QueryView.js"></script>
 <script src="js/view/document/DocumentListView.js"></script>
 <script src="js/view/snapshot/SnapShotView.js"></script>
+<script src="js/view/settings/SettingsView.js"></script>
 
 <!-- View Action -->
 <script src="js/view/index/action/OptimizeAllIndexView.js"></script>
@@ -301,7 +308,6 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/route/RESTRoute.js"></script>
 <script src="js/route/NodeRoute.js"></script>
 <script src="js/route/QueryRoute.js"></script>
-<script src="js/route/SnapShotRoute.js"></script>
 
 <!-- Util -->
 <script src="js/util/constants.js"></script>
