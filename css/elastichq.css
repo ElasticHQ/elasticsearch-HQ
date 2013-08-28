@@ -3,6 +3,12 @@ body {
     padding-bottom: 40px;
 }
 
+@media (max-width: 979px){
+    body {
+        padding-top: 0;
+    }
+}
+
 .center-table {
     margin: 0 auto !important;
     float: none !important;
