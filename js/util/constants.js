@@ -16,7 +16,7 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
-var HQVERSION = .98;
+var HQVERSION = .99;
 
 var REMOTE_API_PATH = 'http://www.elastichq.org/api';
 //var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
