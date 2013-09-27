@@ -91,8 +91,13 @@ indexRoute.openIndex = function (indexId) {
             $('#infoModal-loc').html(template);
             prettyPrint();
             $('#defaultindexmodal').modal('show');
-            $('#defaultindexmodal').on('hidden', function () {
-                router.navigate("indices", true);
+            var clusterState = cluster.get("clusterState");
+            clusterState.fetch({
+                success:function () {
+                    $('#defaultindexmodal').on('hidden', function () {
+                        router.navigate("indices", true);
+                    });
+                }
             });
         },
         error:function (model, response, options) {
@@ -117,8 +122,14 @@ indexRoute.closeIndex = function (indexId) {
             $('#infoModal-loc').html(template);
             prettyPrint();
             $('#defaultindexmodal').modal('show');
-            $('#defaultindexmodal').on('hidden', function () {
-                router.navigate("indices", true);
+
+            var clusterState = cluster.get("clusterState");
+            clusterState.fetch({
+                success:function () {
+                    $('#defaultindexmodal').on('hidden', function () {
+                        router.navigate("indices", true);
+                    });
+                }
             });
         },
         error:function (model, response, options) {
