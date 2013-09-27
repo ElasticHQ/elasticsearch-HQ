@@ -389,7 +389,7 @@ nodeTemplate.nodeInfo = [
     '<div class="span4"> ',
     '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
-    '<tr><td>Open File Descriptors:</td><td><%- osStats.uptime %></td></tr>',
+    '<tr><td>Open File Descriptors:</td><td><%- processStats.open_file_descriptors %></td></tr>',
     '<tr><td>CPU Usage:</td><td><%- processStats.cpu.percent %>% of <%- osStats.max_proc_cpu %>%</td></tr>',
     '<tr><td>CPU System:</td><td><%- processStats.cpu.sys %></td></tr>',
     '<tr><td>CPU User:</td><td><%- processStats.cpu.user %></td></tr>',
