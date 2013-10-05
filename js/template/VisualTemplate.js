@@ -20,6 +20,7 @@
 var visualTemplate = {};
 
 visualTemplate.init = [
-    '<div class="span10" id="thechart">',
+    '<div class="span12 center-table">',
+    '<div id="thechart" style="width: <%- svgwidth %>px; margin: 0 auto;"></div>',
     '</div>'
 ].join("\n");
