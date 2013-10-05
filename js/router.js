@@ -63,6 +63,7 @@ $(document).ready(
                 "documents":"queryView",
                 "snapshots":"snapshots",
                 "viewsettings":"viewSettings",
+                "visualize":"visualize",
                 "*actions":"defaultRoute"
             },
             cluster:function () {
@@ -200,11 +201,16 @@ $(document).ready(
                     this.settingsView = new SettingsView({model:settingsModel});
                 }
                 this.settingsView.render();
-            }/*,
-            defaultRoute:function () {
+            },
+            visualize:function () {
                 stopAllNodePollers();
-                console.log('defaultRoute');
-            }*/
+                visualRoute.init();
+            }
+            /*,
+             defaultRoute:function () {
+             stopAllNodePollers();
+             console.log('defaultRoute');
+             }*/
         });
 
         Backbone.history.start();

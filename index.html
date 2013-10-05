@@ -27,8 +27,56 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     <link href="css/elastichq.css" rel="stylesheet" media="screen">
     <link href="css/jquery.pnotify.default.css" rel="stylesheet" media="screen">
     <link href="css/jquery.pnotify.default.icons.css" rel="stylesheet" media="screen">
-    <link href="css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
     <link href="css/prettify.css" rel="stylesheet" media="screen">
+
+    <style type="text/css">
+        circle {
+            cursor: pointer;
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+
+        text {
+            font-size:10px;
+            font-weight:bold;
+            text-indent:5000px;
+        }
+
+        path.link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
+        }
+
+
+        .node {
+            cursor: pointer;
+        }
+
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 2px;
+        }
+
+        .node text {
+            font: 12px sans-serif;
+            font-Weight: bold
+        ;
+
+
+        }
+
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
+            opacity:0.6;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -39,7 +87,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="http://www.elastichq.org" target="_blank"><i class="icon-dashboard"></i> Elastic HQ</a>
+            <a class="brand" href="http://www.elastichq.org" target="_blank"><i class="icon-dashboard"></i> Elastic
+                HQ</a>
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
@@ -235,6 +284,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/template/QueryTemplate.js"></script>
 <script src="js/template/SnapShotTemplate.js"></script>
 <script src="js/template/SettingsTemplate.js"></script>
+<script src="js/template/VisualTemplate.js"></script>
 
 <!-- Models -->
 <script src="js/model/core/Ping.js"></script>
@@ -293,6 +343,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/view/document/DocumentListView.js"></script>
 <script src="js/view/snapshot/SnapShotView.js"></script>
 <script src="js/view/settings/SettingsView.js"></script>
+<script src="js/view/visual/VisualView.js"></script>
 
 <!-- View Action -->
 <script src="js/view/index/action/OptimizeAllIndexView.js"></script>
@@ -308,6 +359,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/route/RESTRoute.js"></script>
 <script src="js/route/NodeRoute.js"></script>
 <script src="js/route/QueryRoute.js"></script>
+<script src="js/route/VisualRoute.js"></script>
 
 <!-- Util -->
 <script src="js/util/constants.js"></script>
@@ -325,6 +377,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script language="javascript" type="text/javascript" src="js/lib/flot/plugin/jquery.flot.tooltip.min.js"></script>
 <script language="javascript" type="text/javascript" src="js/lib/flot/plugin/curvedlines.js"></script>
 <script language="javascript" type="text/javascript" src="js/charts.js"></script>
+<script language="javascript" type="text/javascript" src="js/lib/d3/d3.v3.min.js"></script>
+
 
 <script>
     $(document).ready(function () {
