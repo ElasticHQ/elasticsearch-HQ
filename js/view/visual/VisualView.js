@@ -19,30 +19,86 @@
 
 var VisualView = Backbone.View.extend(
     {
+        indicesArray:undefined, // array used on filter
+        initialize:function (args) {
+            this.indicesArray = args.indicesArray;
+        },
         render:function () {
+
+            var _this = this;
 
             var realWidth = window.innerWidth;
             var realHeight = window.innerHeight;
-            var m = [40, 240, 40, 240],
+            var m = [40, 200, 40, 120],
                 w = realWidth - m[1] - m[3],
                 h = realHeight - m[0] - m[2],
                 i = 0,
                 root;
 
+            var jsonObj = {};
+            // clustername
+            var clustername = _this.model.get('cluster_name');
+            var masterNode = _this.model.get('master_node');
+            var indices = _.keys(_this.model.get('metadata').indices);
+            //jsonObj.name = clustername;
+            jsonObj.type = "cluster";
+
+            // filter indices
+            if (_this.indicesArray == undefined) {
+                _this.indicesArray = indices;
+            }
+
             var tpl = _.template(visualTemplate.init);
             $('#workspace').html(tpl(
                 {
-                    svgwidth: w
+                    indicesArray:_this.indicesArray,
+                    indices:indices,
+                    svgwidth:w
                 }));
-
-            var jsontree = {};
-            // clustername
+            $("#filterVizSubmit").click(function () {
+                visualRoute.doFilter();
+            });
 
             // add nodes
+            var nodeKeys = _.keys(_this.model.get('nodes'));
+            var nodeValues = _.values(_this.model.get('nodes'));
+            var nodes = [];
+            for (var i = 0; i < nodeKeys.length; i++) {
+                nodeValues[i].id = nodeKeys[i];
+                if (nodeValues[i].id == masterNode) {
+                    nodes[i] = {name:'*' + nodeValues[i].name, type:'node', id:nodeValues[i].id};
+                }
+                else {
+                    nodes[i] = {name:nodeValues[i].name, type:'node', id:nodeValues[i].id};
+                }
+            }
 
-            // add shards to nodes
+            // shards
+            var routing_nodes = _this.model.get('routing_nodes').nodes;
+            for (var j = 0; j < nodes.length; j++) {
+                var items = routing_nodes[nodes[j].id];
+                var shards = [];
+                _.each(items, function (item) {
+                    var shardName = item.shard;
+                    if (item.primary) {
+                        shardName = '*' + shardName;
+                    }
 
-            // add indices to shards
+                    var shardChildren = [];
+                    if (item.index) {
+                        if (_.contains(_this.indicesArray, item.index)) {
+                            shardChildren.push({name:item.index, type:'index'});
+                            var shard = {name:shardName, type:'shard', children:shardChildren};
+                            shards.push(shard);
+                        }
+                    }
+                });
+                nodes[j].children = shards;
+            }
+
+            jsonObj.children = nodes;
+
+            var jsontree = JSON.stringify(jsonObj);
 
 
             var tree = d3.layout.tree()
@@ -54,48 +110,55 @@ var VisualView = Backbone.View.extend(
                 });
 
             var vis = d3.select("#thechart").append("svg:svg")
-                .attr("class","svg_container")
+                .attr("class", "svg_container")
                 .attr("width", w)
                 .attr("height", h)
                 .style("overflow", "scroll")
                 .style("margin", "0 auto")
-                .style("background-color","#F4F4F4")
-                .style("border","1px solid #CCCCCC")
+                .style("background-color", "#F4F4F4")
+                .style("border", "1px solid #CCCCCC")
                 .append("svg:g")
-                .attr("class","drawarea")
-                .append("svg:g")
-                .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
-
-/*
-                .attr("width", w + m[1] + m[3])
-                .attr("height", h + m[0] + m[2])
+                .attr("class", "drawarea")
                 .append("svg:g")
                 .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
-*/
 
-            d3.json("flare.json", function (json) {
-                root = json;
-                root.x0 = h / 2;
-                root.y0 = 0;
+            /*
+             .attr("width", w + m[1] + m[3])
+             .attr("height", h + m[0] + m[2])
+             .append("svg:g")
+             .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+             */
 
-                function toggleAll(d) {
-                    if (d.children) {
-                        d.children.forEach(toggleAll);
-                        toggle(d);
-                    }
-                }
+            /*           d3.json("flare.json", function (json) {
+             root = json;
+             root.x0 = h / 2;
+             root.y0 = 0;
 
-                // Initialize the display to show a few nodes.
-                root.children.forEach(toggleAll);
-                /*
-                 toggle(root.children[1]);
-                 toggle(root.children[1].children[2]);
-                 toggle(root.children[9]);
-                 toggle(root.children[9].children[0]);*/
+             function toggleAll(d) {
+             if (d.children) {
+             d.children.forEach(toggleAll);
+             toggle(d);
+             }
+             }
+
+             // Initialize the display to show a few nodes.
+             root.children.forEach(toggleAll);
+             toggle(root.children[1]);
+             toggle(root.children[1].children[2]);
+             toggle(root.children[9]);
+             toggle(root.children[9].children[0]);*/
+            /**/
+            /*
 
 
-                update(root);
-            });
+
+             update(root);
+             });*/
+
+            var root = jsonObj;
+            root.x0 = h / 2;
+            root.y0 = 0;
+            update(root);
 
             function update(source) {
                 var duration = d3.event && d3.event.altKey ? 5000 : 500;
@@ -125,14 +188,6 @@ var VisualView = Backbone.View.extend(
                         update(d);
                     });
 
-                /*
-                 nodeEnter.append("svg:circle")
-                 .attr("r", 1e-6)
-                 .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
-                 .style("stroke", function(d) { return d.type === "shard" ? "red" : ""; });
-                 */
-                //.style("fill", function(d) { return d.type == 'shard' ? "red" : "#CCC"; });
-
                 nodeEnter.append("svg:text")
                     .attr("x", function (d) {
                         return d.children || d._children ? -10 : 10;
@@ -146,12 +201,43 @@ var VisualView = Backbone.View.extend(
                     })
                     .style("fill-opacity", 1e-6);
 
-                node.append("image")
-                    .attr("xlink:href", "https://github.com/favicon.ico")
-                    .attr("x", -8)
-                    .attr("y", -8)
-                    .attr("width", 16)
-                    .attr("height", 16);
+                /*                node.append("image")
+                 .attr("xlink:href", function (d) {
+                 if (d.type == 'cluster') {
+                 return "https://github.com/favicon.ico";
+                 }
+                 else if (d.type == 'node') {
+                 return "images/ajax-loader.gif";
+                 }
+                 else if (d.type == 'shard') {
+
+                 }
+                 else if (d.type == 'index') {
+
+                 }
+                 })
+                 .attr("x", -8)
+                 .attr("y", -8)
+                 .attr("width", 16)
+                 .attr("height", 16);*/
+
+                nodeEnter.append("circle")
+                    .attr("r", 1e-6)
+                    .style("stroke", function (d) {
+                        if (d.type == 'cluster') {
+                            return "red";
+                        }
+                        else if (d.type == 'node') {
+                            return "blue";
+                        }
+                        else if (d.type == 'shard') {
+                            return "green";
+                        }
+                        else if (d.type == 'index') {
+                            return "orange";
+                        }
+                    });
+
 
                 // Transition nodes to their new position.
                 var nodeUpdate = node.transition()
@@ -163,7 +249,20 @@ var VisualView = Backbone.View.extend(
                 nodeUpdate.select("circle")
                     .attr("r", 4.5)
                     .style("fill", function (d) {
-                        return d._children ? "lightsteelblue" : "#fff";
+                        if (d._children) {
+                            if (d.type == 'cluster') {
+                                return "red";
+                            }
+                            else if (d.type == 'node') {
+                                return "blue";
+                            }
+                            else if (d.type == 'shard') {
+                                return "green";
+                            }
+                            else if (d.type == 'index') {
+                                return "orange";
+                            }
+                        }
                     });
 
                 nodeUpdate.select("text")

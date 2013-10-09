@@ -20,7 +20,39 @@ var visualRoute = {};
 
 visualRoute.init = function () {
 
-        var visualView = new VisualView();
-        visualView.render();
+    var clusterStateModel = new ClusterState({connectionRootURL:cluster.get("connectionRootURL")});
+    clusterStateModel.fetch(
+        {
+            success:function (model, response) {
+                var visualView = new VisualView({model:clusterStateModel});
+                visualView.render();
+            },
+            error:function (model, response, options) {
+                var err = 'Unable to Read Cluster State! ';
+                console.log('Error! ' + err);
+                show_stack_bottomright({type:'error', title:'Fetch Failed', text:err, hide:false, closer_hover:false});
+            }
+        });
+};
 
+visualRoute.doFilter= function () {
+    // get checked checkboxes and query string
+    var indices = new Array();
+    $('#vcheckboxindices input:checked').each(function () {
+        indices.push($(this).attr('name'));
+    });
+
+    var clusterStateModel = new ClusterState({connectionRootURL:cluster.get("connectionRootURL")});
+    clusterStateModel.fetch(
+        {
+            success:function (model, response) {
+                var visualView = new VisualView({model:clusterStateModel, indicesArray: indices});
+                visualView.render();
+            },
+            error:function (model, response, options) {
+                var err = 'Unable to Read Cluster State! ';
+                console.log('Error! ' + err);
+                show_stack_bottomright({type:'error', title:'Fetch Failed', text:err, hide:false, closer_hover:false});
+            }
+        });
 };

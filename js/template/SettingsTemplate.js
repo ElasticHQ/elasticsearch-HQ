@@ -81,7 +81,7 @@ settingsTemplate.init = [
     '</div>',
     '</div>',
     '</td>',
-    '<td>Polling frequency used on the Node Diagnostics page.</td>',
+    '<td>Polling frequency used on individual Node Monitoring page.</td>',
     '</tr>',
 
     '<tr>',

@@ -39,9 +39,9 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
         }
 
         text {
-            font-size:10px;
-            font-weight:bold;
-            text-indent:5000px;
+            font-size: 10px;
+            font-weight: bold;
+            text-indent: 5000px;
         }
 
         path.link {
@@ -49,7 +49,6 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
             stroke: #ccc;
             stroke-width: 1.5px;
         }
-
 
         .node {
             cursor: pointer;
@@ -63,9 +62,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
         .node text {
             font: 12px sans-serif;
-            font-Weight: bold
-        ;
-
+            font-Weight: bold;
 
         }
 
@@ -73,7 +70,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
             fill: none;
             stroke: #ccc;
             stroke-width: 1.5px;
-            opacity:0.6;
+            opacity: 0.6;
         }
 
     </style>
@@ -222,7 +219,6 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 ================================================== -->
 <footer class="footer">
     <div class="container">
-        <p>Designed and built by <a href="http://twitter.com/royrusso" target="_blank">@royrusso</a>.</p>
 
         <p>Current versions can always be found running at <a href="http://www.elastichq.org"
                                                               target="_blank">ElasticHQ</a>. </p>
@@ -238,6 +234,10 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
             <li><a href="https://twitter.com/ElasticHQ" target="_blank">@ElasticHQ</a></li>
             <li class="muted">&middot;</li>
             <li><a href="https://groups.google.com/d/forum/elastichq" target="_blank">Google Group</a></li>
+        </ul>
+
+        <ul class="footer-links">
+            <li><a href="#legalModal" data-toggle="modal" role="button">The Legal Stuff</a></li>
         </ul>
     </div>
 </footer>
@@ -395,6 +395,31 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
         );
     });
 </script>
+
+
+<div class="modal hide fade" id="legalModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>The Legal Stuff</h3>
+    </div>
+    <div class="modal-body">
+        <p>By using ElasticHQ, you agree to everything on this page. We have to do this to protect both you and us and
+            make running this
+            FREE software service possible. If you break these terms, you can't use ElasticHQ anymore.</p>
+
+        <h3>So here it is, in plain english...</h3>
+
+        <h4>1. We are not liable for misuse of ElasticHQ, or for it not meeting your needs. </h4>
+        <h4>2. We don't store PII(Personally Identifiable Information). From time to time, the software will collect
+            anonymous usage data. None of it is being sold to anyone, so chill. The data collected gives us the
+            information we need to
+            customize the software for our users.</h4>
+        <h4>3. We are not responsible for any possible downtime on the hosted version.</h4>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+</div>
 
 </body>
 </html>
