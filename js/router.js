@@ -85,12 +85,14 @@ $(document).ready(
                 nodeRoute.nodeInfo(nodeId);
             },
             killNode:function (nodeId) {
+                $('#killnodemodal').modal('hide');
                 stopAllPollers();
                 console.log("shutdown for nodeId: " + nodeId);
                 var nodeShutdown = new NodeShutdownModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
                 nodeShutdown.save();
                 var nodeShutdownView = new NodeShutdownView();
                 nodeShutdownView.render();
+
                 show_stack_bottomright({type:'info', title:'Tip', text:'Node List will soon refresh and remove the dead node.'});
 
             },
