@@ -23,6 +23,8 @@ var checkVersion = function () {
 
     if (!showedVersionCheckMessage) {
 
+        var uuid = settingsModel.get('settings').uuid;
+
         $.ajax({
             type:'GET',
             url:REMOTE_API_PATH + '/hq_settings.php',
@@ -30,6 +32,7 @@ var checkVersion = function () {
             cache:false,
             crossDomain:true,
             dataType:'json',
+            data:"uuid=" + uuid,
             success:function (data) {
                 if (data != undefined) {
                     if (data.version != undefined) {

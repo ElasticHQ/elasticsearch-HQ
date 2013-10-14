@@ -227,6 +227,21 @@ nodeTemplate.diagnostics = [
 ].join("\n");
 
 nodeTemplate.nodeInfo = [
+
+    '<div class="modal hide fade" id="killnodemodal">',
+    '<div class="modal-header">',
+    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
+    '<h3>WARNING!</h3>',
+    '</div>',
+    '<div class="modal-body">',
+    '<p>Are you sure you want to Shutdown this Node?<br/><br/>You will have to re-start the node manually after this action!</p>',
+    '</div>',
+    '<div class="modal-footer">',
+    '<a href="#" class="btn" data-dismiss="modal">Close</a>',
+    '<a href="#shutdownNode/<%- nodeId %>" class="btn btn-danger">Shutdown!</a>',
+    '</div>',
+    '</div>',
+
     '<div class="row-fluid"">',
 
 
@@ -238,7 +253,7 @@ nodeTemplate.nodeInfo = [
     '<div class="btn-group">',
     '<a href="#nodeInfoModal" role="button" data-toggle="modal" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Just the Facts, Ma\'am"',
     '><i class="icon-info-sign"></i></a>',
-    '<a href="#shutdownNode/<%- nodeId %>" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Shutdown Node"><i',
+    '<a href="#killnodemodal" data-toggle="modal" role="button" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Shutdown Node"><i',
     'class="icon-off"></i>',
     '</a>',
     '</div> <!-- btn group -->',
@@ -389,7 +404,7 @@ nodeTemplate.nodeInfo = [
     '<div class="span4"> ',
     '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
-    '<tr><td>Open File Descriptors:</td><td><%- osStats.uptime %></td></tr>',
+    '<tr><td>Open File Descriptors:</td><td><%- processStats.open_file_descriptors %></td></tr>',
     '<tr><td>CPU Usage:</td><td><%- processStats.cpu.percent %>% of <%- osStats.max_proc_cpu %>%</td></tr>',
     '<tr><td>CPU System:</td><td><%- processStats.cpu.sys %></td></tr>',
     '<tr><td>CPU User:</td><td><%- processStats.cpu.user %></td></tr>',

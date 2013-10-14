@@ -8,10 +8,14 @@ clusterTemplate.Health = [
 ].join("\n");
 
 clusterTemplate.HealthDescribe = [
-    '<div class="row-fluid" style="padding: 15px;">',
+    //'<div class="row-fluid" style="padding: 15px;">',
+    '<div class="well">',
     '<div class="span2 pull-left"><a href="#refreshCluster" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
     '<div class="text-center span8"><span style="font-size: 28px;">Cluster Overview</span></div>',
-    '<div class="span2"></div>',
+    '<div class="pull-right">',
+    '<a href="#visualize" class="btn btn-info" rel="tipRight" data-placement="bottom" data-html="true" data-title="View Cluster Diagram">',
+    '<i class="icon-sitemap"></i></a>',
+    '</div>',
     '</div>',
 
     '<div class="row-fluid">',

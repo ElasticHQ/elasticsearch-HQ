@@ -98,6 +98,13 @@ clusterRoute.cluster = function () {
                                         indexModel:cluster.get("indexStats")
                                     });
                                 clusterView.renderWorkspace();
+
+                                // Once the initial cluster workspace is drawn, post stats data - only once per connect.
+                                if (!postedStatsData) {
+                                    postedStatsData = true;
+                                    var statsModel = new StatsModel();
+
+                                }
                             });
                         ajaxloading.hide();
                     });
