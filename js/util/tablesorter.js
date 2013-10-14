@@ -25,23 +25,25 @@ $.tablesorter.addParser({
         return s.match(new RegExp(/[0-9]+(\.[0-9]+)?\ (B|K|KB|G|GB|M|MB|T|TB)/i));
     },
     format:function (s) {
-        var suf = s.match(new RegExp(/(B|K|KB|G|GB|M|MB|T|TB)/i))[1];
-        var num = parseFloat(s.match(new RegExp(/^[0-9]+(\.[0-9]+)?/))[0]);
-        switch (suf.toLowerCase()) {
-            case 'b':
-                return num;
-            case 'k':
-            case 'kb':
-                return num * 1024;
-            case 'm':
-            case 'mb':
-                return num * 1024 * 1024;
-            case 'g':
-            case 'gb':
-                return num * 1024 * 1024 * 1024;
-            case 't':
-            case 'tb':
-                return num * 1024 * 1024 * 1024 * 1024;
+        if (s != 0) {
+            var suf = s.match(new RegExp(/(B|K|KB|G|GB|M|MB|T|TB)/i))[1];
+            var num = parseFloat(s.match(new RegExp(/^[0-9]+(\.[0-9]+)?/))[0]);
+            switch (suf.toLowerCase()) {
+                case 'b':
+                    return num;
+                case 'k':
+                case 'kb':
+                    return num * 1024;
+                case 'm':
+                case 'mb':
+                    return num * 1024 * 1024;
+                case 'g':
+                case 'gb':
+                    return num * 1024 * 1024 * 1024;
+                case 't':
+                case 'tb':
+                    return num * 1024 * 1024 * 1024 * 1024;
+            }
         }
     },
     type:'numeric'

@@ -63,6 +63,7 @@ $(document).ready(
                 "documents":"queryView",
                 "snapshots":"snapshots",
                 "viewsettings":"viewSettings",
+                "visualize":"visualize",
                 "*actions":"defaultRoute"
             },
             cluster:function () {
@@ -84,12 +85,14 @@ $(document).ready(
                 nodeRoute.nodeInfo(nodeId);
             },
             killNode:function (nodeId) {
+                $('#killnodemodal').modal('hide');
                 stopAllPollers();
                 console.log("shutdown for nodeId: " + nodeId);
                 var nodeShutdown = new NodeShutdownModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
                 nodeShutdown.save();
                 var nodeShutdownView = new NodeShutdownView();
                 nodeShutdownView.render();
+
                 show_stack_bottomright({type:'info', title:'Tip', text:'Node List will soon refresh and remove the dead node.'});
 
             },
@@ -200,11 +203,16 @@ $(document).ready(
                     this.settingsView = new SettingsView({model:settingsModel});
                 }
                 this.settingsView.render();
-            }/*,
-            defaultRoute:function () {
+            },
+            visualize:function () {
                 stopAllNodePollers();
-                console.log('defaultRoute');
-            }*/
+                visualRoute.init();
+            }
+            /*,
+             defaultRoute:function () {
+             stopAllNodePollers();
+             console.log('defaultRoute');
+             }*/
         });
 
         Backbone.history.start();

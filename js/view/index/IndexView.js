@@ -74,7 +74,11 @@ var IndexView = Backbone.View.extend(
 
             // assemble shards
             var _shards = [];
-            _shards = _.values(indexStatus.indices[this.model.indexId].shards);
+            if (indexStatus.indices[this.model.indexId] != undefined) // happens on closed indices
+            {
+                _shards = _.values(indexStatus.indices[this.model.indexId].shards);
+            }
+
             var nodeList = cluster.get('nodeList');
             var shards = [];
             for (var $i = 0; $i < _shards.length; $i++) {
@@ -102,7 +106,7 @@ var IndexView = Backbone.View.extend(
                     totalShards:totalShards,
                     isOpenState:isOpenState,
                     shards:shards,
-                    polling: settingsModel.get('settings').poller.index,
+                    polling:settingsModel.get('settings').poller.index,
                     lastUpdateTime:timeUtil.lastUpdated()
                 }));
 
