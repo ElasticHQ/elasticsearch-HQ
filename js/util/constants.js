@@ -18,8 +18,8 @@
 
 var HQVERSION = .99;
 
-var REMOTE_API_PATH = 'http://www.elastichq.org/api';
-//var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
+//var REMOTE_API_PATH = 'http://www.elastichq.org/api';
+var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
 
 /**** GLOBALS ****/
 // log =1, no-log =0.
@@ -35,3 +35,5 @@ var POLLER_MIN_FREQUENCY = 5000;
 var POLLER_MAX_FREQUENCY = 3600000;
 
 var showedVersionCheckMessage = false;
+
+var postedStatsData = false;
