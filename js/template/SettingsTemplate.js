@@ -131,6 +131,22 @@ settingsTemplate.init = [
     '</tr>',
 
     '<tr>',
+    '<td><label for="optoutStats"><strong>Statistics Opt-Out?</strong></label></td>',
+    '<td>',
+    '<div class="controls">',
+    '<label class="checkbox">',
+    '<% if ( settings.optoutStats == 1) { %>',
+    '<input type="checkbox" value="on" checked id="optoutStats" name="optoutStats"> Opt-Out of Statistics',
+    '<% } else { %>',
+    '<input type="checkbox" value="on" id="optoutStats" name="optoutStats"> Opt-Out of Statistics',
+    '<% } %>',
+    '</label>',
+    '</div>',
+    '</td>',
+    '<td>If checked, will opt you out of stats gathering. <a href="#optModal" data-toggle="modal" role="button"><small>What is this?</small></a></td>',
+    '</tr>',
+
+    '<tr>',
     '<td style="white-space: nowrap;"><label for="uuid"><strong>User ID</strong></label></td>',
     '<td>',
     '<div class="">',
@@ -158,5 +174,21 @@ settingsTemplate.init = [
 
     '</form>',
 
+    '</div>',
+
+    '<div class="modal hide fade" id="optModal">',
+    '<div class="modal-header">',
+    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
+    '<h3>Statistics</h3>',
+    '</div>',
+    '<div class="modal-body">',
+    '<p>From time to time, ElasticHQ gathers <b>Anonymous</b> Usage data that is aggregated and presented to the ',
+    'ElasticSearch community. <b>There is no Personally Identifiable Information gathered. Only general use data is collected.</b>',
+    '<br/><br/>To view the data gathered, <a href="http://www.elastichq.org/elasticsearchstats.php" target="_blank">click here.</a>',
+    '<br/><br/>By opting-out, you will not be participating in the data gathering.</p>',
+    '</div>',
+    '<div class="modal-footer">',
+    '<a href="#" class="btn" data-dismiss="modal">Close</a>',
+    '</div>',
     '</div>'
 ].join("\n");

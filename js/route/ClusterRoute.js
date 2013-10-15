@@ -100,7 +100,7 @@ clusterRoute.cluster = function () {
                                 clusterView.renderWorkspace();
 
                                 // Once the initial cluster workspace is drawn, post stats data - only once per connect.
-                                if (!postedStatsData) {
+                                if (!postedStatsData && !settingsModel.get('settings').optoutStats) {
                                     postedStatsData = true;
                                     var statsModel = new StatsModel();
 

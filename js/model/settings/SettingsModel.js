@@ -29,7 +29,8 @@ var SettingsModel = Backbone.Model.extend({
                 indices:15000,
                 index:10000
             },
-            debugMode:0
+            debugMode:0,
+            optoutStats: false
         }
     },
     initialize:function () {
@@ -82,6 +83,7 @@ var SettingsModel = Backbone.Model.extend({
                 settingsArg.poller = {};
             }
             this.get('settings').debugMode = (settingsArg.debugMode != undefined) ? settingsArg.debugMode : this.get('settings').debugMode;
+            this.get('settings').optoutStats = (settingsArg.optoutStats != undefined) ? settingsArg.optoutStats : this.get('settings').optoutStats;
             this.get('settings').poller.cluster = (settingsArg.poller.cluster != undefined) ? settingsArg.poller.cluster : this.get('settings').poller.cluster;
             this.get('settings').poller.nodeDiagnostics = (settingsArg.poller.nodeDiagnostics != undefined) ? settingsArg.poller.nodeDiagnostics : this.get('settings').poller.nodeDiagnostics;
             this.get('settings').poller.node = (settingsArg.poller.node != undefined) ? settingsArg.poller.node : this.get('settings').poller.node;
