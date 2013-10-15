@@ -34,8 +34,8 @@ var CreateIndexView = Backbone.View.extend(
             this.model.save(
                 {
                     "settings":{
-                      /*  "number_of_shards":data.shards,
-                        "number_of_replicas":data.replicas*/
+                        "number_of_shards":data.shards,
+                        "number_of_replicas":data.replicas
                     }
                 },
                 {
