@@ -64,18 +64,17 @@
     // Basic Auth supports two modes: URL-based and function-based.
     var credentials, remoteUrl, remoteUrlParts;
 
+    // Handle both string and function urls
+    remoteUrl = options.url || _.result(model, 'url');
+
     if(model.credentials) {
       // Try function-based.
       credentials = _.result(model, 'credentials');
     }
 
     if(credentials == null) {
-      // Try URL-based.
-      // Handle both string and function urls
-      remoteURL = options.url || _.result(model, 'url');
-
       // Retrieve the auth credentials from the model url
-      remoteUrlParts = remoteURL.match(/\/\/(.*):(.*)@/);
+      remoteUrlParts = remoteUrl.match(/\/\/(.*):(.*)@/);
       if (remoteUrlParts && remoteUrlParts.length === 3) {
         credentials = {
           username: remoteUrlParts[1],
@@ -88,6 +87,12 @@
     if (credentials != null) {
       options.headers = options.headers || {};
       _.extend(options.headers, Backbone.BasicAuth.getHeader(credentials));
+    }
+
+    // Indicate a credentialed CORS request
+    if (credentials != null && remoteUrl.indexOf(window.location.origin) == -1) {
+      options.xhrFields = options.xhrFields || {};
+      options.xhrFields.withCredentials = true;
     }
 
     // Perform the sync
