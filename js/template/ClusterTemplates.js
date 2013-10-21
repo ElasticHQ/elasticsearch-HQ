@@ -157,4 +157,3 @@ clusterTemplate.HealthDescribe = [
     '</div>',
     '</div>'
 ].join("\n");
-
