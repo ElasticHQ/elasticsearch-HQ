@@ -139,7 +139,7 @@ clusterTemplate.HealthDescribe = [
     '<tr><th>Index</th><th># Docs</th><th>Primary Size</th><th># Shards</th><th># Replicas</th><th>Status</th></tr>',
     '</thead>',
     '<tbody>',
-    '<% _.each(indices.indices, function(index) { %>',
+    '<% _.each(indices.indices.sort(function(a,b) {return (a.name > b.name) ? -1 : ((b.name > a.name) ? 11 : 0);} ), function(index) { %>',
     '<tr><td>',
     '<a href="#index/<%- index.id %>"  rel="tipRight" data-placement="bottom" data-title="Index Information"><%- index.name %></a>',
     '</td><td><%- index.total.docs.count %></td><td><%- index.total.store.size %></td><td><%- index.numshards %></td><td><%- index.numreplicas %></td><td><%- index.status %></td></tr>',
@@ -157,3 +157,4 @@ clusterTemplate.HealthDescribe = [
     '</div>',
     '</div>'
 ].join("\n");
+
