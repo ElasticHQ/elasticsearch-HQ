@@ -39,9 +39,10 @@ var CreateAliasView = Backbone.View.extend(
                     "actions":[
                         {
                             "add":{
-                                "index":_this.model.get('indexId'), "alias":_this.model.get('aliasId'),
-                                "search_routing":_this.model.get('search_routing'),
-                                "index_routing":_this.model.get('index_routing')
+                                "index":_this.model.get('indexId'),
+                                "alias":_this.model.get('aliasId'),
+                                "search_routing":_this.model.get('search_routing') || undefined,
+                                "index_routing":_this.model.get('index_routing') || undefined
                             }
                         }
                     ]
