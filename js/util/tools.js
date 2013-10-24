@@ -15,6 +15,30 @@ var ajaxloading = {
     }
 };
 
+/**
+ * Binds a specific button with an input field, when it is focused so users can hit 'enter' to submit.
+ * @param field
+ * @param button
+ */
+var doFocus = function (field, button) {
+    var theField = $(field);
+    var theSubmitButton = $(button);
+    theField.bind("keypress", function (event) {
+        if (typeof event == 'undefined' && window.event) {
+            event = window.event;
+        }
+        if (event.keyCode == 13) {
+            if (event.cancelable && event.preventDefault) {
+                event.preventDefault();
+                theSubmitButton.click();
+            } else {
+                theSubmitButton.click();
+                return false;
+            }
+        }
+    });
+};
+
 var scrollToTop = {
     activate:function () {
         // scroll-to-top button show and hide
@@ -185,5 +209,5 @@ function getValue(namespace, parent) {
 }
 
 var getURLParameter = function (name) {
-        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
 };

@@ -61,6 +61,9 @@ var QueryView = Backbone.View.extend({
             types:types
         }));
 
+        $('#queryString').bind('focus', doFocus('#queryString', '#querySubmit'), false);
+        $("#queryString").focus();
+
         $("#querySubmit").click(function () {
             queryRoute.doQuery();
         });

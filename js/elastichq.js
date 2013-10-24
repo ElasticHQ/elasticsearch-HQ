@@ -28,21 +28,8 @@ $(document).ready(
             $("#error-loc").empty();
             doConnect($('#connectionURL').val());
         });
-        // bind connect() on enter key
-        connectionURL.bind("keypress", function (event) {
-            if (typeof event == 'undefined' && window.event) {
-                event = window.event;
-            }
-            if (event.keyCode == 13) {
-                if (event.cancelable && event.preventDefault) {
-                    event.preventDefault();
-                    connectButton.click();
-                } else {
-                    connectButton.click();
-                    return false;
-                }
-            }
-        });
+
+        $('#connectionURL').bind('focus', doFocus('#connectionURL', '#connectButton'), false);
 
         var urlParameter = getURLParameter('url');
         if (urlParameter != null) {
