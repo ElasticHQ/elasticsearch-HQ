@@ -33,6 +33,31 @@ Backbone.Model = Backbone.Model.extend({
             options = options || {};
             options.url = this.get('connectionRootURL') + url;
         }
+
+        // override for auth credentials being passed in URLs
+        try {
+            if (options.url && options.url.indexOf("@") >= 0) { // possible auth credentials
+                options.beforeSend = function (xhr) {
+                    var protocol = options.url.split("@")[0]; // http://foo:bar
+                    if (protocol.indexOf("http://") >= 0 || protocol.indexOf("https://") >= 0) {
+                        protocol = protocol.replace("http://", "");
+                        protocol = protocol.replace("https://", "");
+                    }
+
+                    if (protocol.indexOf(":") >= 0) {
+                        var auth = protocol.split(":");
+                        var user = auth[0];
+                        var pass = auth[1];
+                        var token = user.concat(":", pass);
+                        xhr.setRequestHeader('Authorization', ("Basic ".concat(btoa(token))));
+                    }
+                }
+            }
+        }
+        catch (e) {
+            console.log('Could not parse URL for auth credentials! ' + e.message);
+        }
+
         return Backbone.sync(method, model, options);
     },
     initialize:function (attributes, options) {
@@ -53,6 +78,31 @@ Backbone.Collection = Backbone.Collection.extend({
             options = options || {};
             options.url = this.getConnectionRootURL() + url;
         }
+
+        // override for auth credentials being passed in URLs
+        try {
+            if (options.url && options.url.indexOf("@") >= 0) { // possible auth credentials
+                options.beforeSend = function (xhr) {
+                    var protocol = options.url.split("@")[0]; // http://foo:bar
+                    if (protocol.indexOf("http://") >= 0 || protocol.indexOf("https://") >= 0) {
+                        protocol = protocol.replace("http://", "");
+                        protocol = protocol.replace("https://", "");
+                    }
+
+                    if (protocol.indexOf(":") >= 0) {
+                        var auth = protocol.split(":");
+                        var user = auth[0];
+                        var pass = auth[1];
+                        var token = user.concat(":", pass);
+                        xhr.setRequestHeader('Authorization', ("Basic ".concat(btoa(token))));
+                    }
+                }
+            }
+        }
+        catch (e) {
+            console.log('Could not parse URL for auth credentials! ' + e.message);
+        }
+
         return Backbone.sync(method, model, options);
     },
     initialize:function (attributes, options) {
