@@ -36,21 +36,10 @@ Backbone.Model = Backbone.Model.extend({
 
         // override for auth credentials being passed in URLs
         try {
-            if (options.url && options.url.indexOf("@") >= 0) { // possible auth credentials
+            var token = tokenizeUserPassFromURL(options.url);
+            if (token != undefined) {
                 options.beforeSend = function (xhr) {
-                    var protocol = options.url.split("@")[0]; // http://foo:bar
-                    if (protocol.indexOf("http://") >= 0 || protocol.indexOf("https://") >= 0) {
-                        protocol = protocol.replace("http://", "");
-                        protocol = protocol.replace("https://", "");
-                    }
-
-                    if (protocol.indexOf(":") >= 0) {
-                        var auth = protocol.split(":");
-                        var user = auth[0];
-                        var pass = auth[1];
-                        var token = user.concat(":", pass);
-                        xhr.setRequestHeader('Authorization', ("Basic ".concat(btoa(token))));
-                    }
+                    xhr.setRequestHeader('Authorization', ("Basic ".concat(btoa(token))));
                 }
             }
         }
@@ -81,21 +70,10 @@ Backbone.Collection = Backbone.Collection.extend({
 
         // override for auth credentials being passed in URLs
         try {
-            if (options.url && options.url.indexOf("@") >= 0) { // possible auth credentials
+            var token = tokenizeUserPassFromURL(options.url);
+            if (token != undefined) {
                 options.beforeSend = function (xhr) {
-                    var protocol = options.url.split("@")[0]; // http://foo:bar
-                    if (protocol.indexOf("http://") >= 0 || protocol.indexOf("https://") >= 0) {
-                        protocol = protocol.replace("http://", "");
-                        protocol = protocol.replace("https://", "");
-                    }
-
-                    if (protocol.indexOf(":") >= 0) {
-                        var auth = protocol.split(":");
-                        var user = auth[0];
-                        var pass = auth[1];
-                        var token = user.concat(":", pass);
-                        xhr.setRequestHeader('Authorization', ("Basic ".concat(btoa(token))));
-                    }
+                    xhr.setRequestHeader('Authorization', ("Basic ".concat(btoa(token))));
                 }
             }
         }

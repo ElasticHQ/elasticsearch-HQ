@@ -15,6 +15,25 @@ var ajaxloading = {
     }
 };
 
+var tokenizeUserPassFromURL = function (url) {
+    if (url && url.indexOf("@") >= 0) { // possible auth credentials
+        var protocol = url.split("@")[0]; // http://foo:bar
+        if (protocol.indexOf("http://") >= 0 || protocol.indexOf("https://") >= 0) {
+            protocol = protocol.replace("http://", "");
+            protocol = protocol.replace("https://", "");
+        }
+
+        if (protocol.indexOf(":") >= 0) {
+            var auth = protocol.split(":");
+            var user = auth[0];
+            var pass = auth[1];
+            var token = user.concat(":", pass);
+            return token;
+        }
+        return undefined;
+    }
+}
+
 /**
  * Binds a specific button with an input field, when it is focused so users can hit 'enter' to submit.
  * @param field
@@ -90,6 +109,7 @@ var timeUtil = {
  */
 $.pnotify.defaults.history = false;
 var stack_bottomright = {"dir1":"up", "dir2":"left", "firstpos1":25, "firstpos2":25};
+
 function show_stack_bottomright(args) {
     var opts = {
         title:args.title,
