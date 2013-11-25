@@ -2,8 +2,7 @@ module.exports = function (grunt) {
 
     var config = {
         pkg:grunt.file.readJSON('package.json'),
-        srcDir:'src',
-        destDir:'dist',
+        distDir:'dist',
         tempDir:'tmp',
         meta:{
             banner:'/*! \n' +
@@ -20,15 +19,29 @@ module.exports = function (grunt) {
         cssmin:{
             combine:{
                 files:{
-                    'dist/css/output.css':['bootstrap.min.css','bootstrap-select.min.css']
+                    'dist/css/output.css':['dist/css/elastichq.min.css', 'dist/css/pnotify.min.css']
+                },
+                options:{
+                    banner:'<%= meta.banner %>'
                 }
             },
             minify:{
                 expand:true,
                 cwd:'css/',
                 src:['*.css', '!*.min.css'],
-                dest:'<%= destDir %>/css/',
-                ext:'.min.css'
+                dest:'<%= distDir %>/css/',
+                ext:'.min.css',
+                options:{
+                    report:'min'
+                }
+            }
+        },
+        copy:{
+            copycss:{
+                cwd:'css/',
+                expand:true,
+                src:['**/*.min.css'],
+                dest:'<%= distDir %>/css'
             }
         },
         uglify:{
@@ -56,8 +69,20 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-string-replace');
 
     grunt.initConfig(config);
 
-    grunt.registerTask('default', [ 'clean', 'uglify', 'cssmin:minify', 'cssmin:combine' ]);
+    grunt.registerTask('default', [ 'clean', 'uglify', 'copy:copycss', 'cssmin:minify', 'cssmin:combine' ]);
+
+    // Concat and Minify the src directory into dist
+    grunt.registerTask('build-dev',
+        [
+            'clean',
+            'uglify',
+            'cssmin:minify',
+            'cssmin:combine' ]
+    );
 };
