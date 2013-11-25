@@ -3,7 +3,7 @@ body {
     padding-bottom: 40px;
 }
 
-@media (max-width: 979px){
+@media (max-width: 979px) {
     body {
         padding-top: 0;
     }
@@ -394,4 +394,47 @@ Tables that have a grid-like header.
 .modal.large {
     width: 960px;
     margin-left: -480px; /* - width/2 */
+}
+
+/** Cluster Diagram **/
+circle {
+    cursor: pointer;
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+text {
+    font-size: 10px;
+    font-weight: bold;
+    text-indent: 5000px;
+}
+
+path.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
+
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 2px;
+}
+
+.node text {
+    font: 12px sans-serif;
+    font-Weight: bold;
+
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+    opacity: 0.6;
 }
