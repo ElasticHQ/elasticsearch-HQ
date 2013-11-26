@@ -21,7 +21,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    
+    <!--(if target dev)><!-->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap-select.min.css" rel="stylesheet" media="screen">
@@ -30,9 +30,11 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     <link href="css/pnotify-icons.css" rel="stylesheet" media="screen">
     <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
     <link href="css/prettify.css" rel="stylesheet" media="screen">
-    
+    <!--<!(endif)-->
 
-    
+    <!--(if target dist)>
+    <link href="css/all.min.css" rel="stylesheet" media="screen">
+    <!(endif)-->
 
 </head>
 <body>
@@ -204,9 +206,31 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <script src="js/util/constants.js"></script>
 
+<!--(if target dist)>
+<!-- JQuery -->
+<script src="js/lib/jquery/jquery.1.9.1.min.js"></script>
+<script src="js/lib/jquery/jquery.cookie.min.js"></script>
+<script src="js/lib/jquery/jquery.tablesorter.min.js"></script>
+<script src="js/lib/jquery/jquery.metadata.min.js"></script>
+<script src="js/lib/jquery/jquery.tablesorter.pager.min.js"></script>
 
+<!-- Twitter Bootstrap -->
+<script src="js/lib/bootstrap/bootstrap.min.js"></script>
+<script src="js/lib/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="js/lib/prettify/prettify.min.js"></script>
 
+<!-- Backbone -->
+<script src="js/lib/underscore/underscore-min.js"></script>
+<script src="js/lib/backbone/backbone-min.js"></script>
+<script src="js/lib/backbone-poller/backbone.poller.min.js"></script>
+<script src="js/lib/backbone-validation/backbone-validation-min.js"></script>
+<script src="js/lib/backbone-validation/backbone.validation.bootstrap.min.js"></script>
 
+<!-- Notify -->
+<script src="js/lib/pnotify/jquery.pnotify.min.js"></script>
+<!(endif)-->
+
+<!--(if target dev)><!-->
 <!-- JQuery -->
 <script src="js/lib/jquery/jquery.1.9.1.min.js"></script>
 <script src="js/lib/jquery/jquery.cookie.js"></script>
@@ -228,7 +252,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <!-- Notify -->
 <script src="js/lib/pnotify/jquery.pnotify.min.js"></script>
-
+<!(endif)-->
 
 <!-- Overrides/Extensions must go first! -->
 <script src="js/model/util/ModelUtil.js"></script>
@@ -237,9 +261,11 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/router.js"></script>
 <script src="js/elastichq.js"></script>
 
+<!--(if target dist)>
+<script src="js/all.min.js"></script>
+<!(endif)-->
 
-
-
+<!--(if target dev)><!-->
 <!-- Templates -->
 <script src="js/template/ClusterTemplates.js"></script>
 <script src="js/template/NodeTemplates.js"></script>
@@ -341,14 +367,17 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/util/parser.js"></script>
 <script src="js/util/tablesorter.js"></script>
 <script src="js/util/guid.js"></script>
+<!(endif)-->
 
+<!--(if target dist)><!-->
+<!-- Charts -->
+<script language="javascript" type="text/javascript" src="js/lib/flot/jquery.flot.min.js"></script>
+<!(endif)-->
 
-
-
-
+<!--(if target dev)><!-->
 <!-- Charts -->
 <script language="javascript" type="text/javascript" src="js/lib/flot/jquery.flot.js"></script>
-
+<!(endif)-->
 
 <script language="javascript" type="text/javascript" src="js/lib/flot/plugin/jquery.flot.time.js"></script>
 <script language="javascript" type="text/javascript" src="js/lib/flot/plugin/jquery.flot.tooltip.min.js"></script>
