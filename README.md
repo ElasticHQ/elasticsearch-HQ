@@ -27,6 +27,10 @@ Requirements
 * A Web Browser.
 * A running instance of ElasticSearch with reachable REST endpoint.
 
+Contributing
+------------
+You can find helpful build tips for local development tips in the [Development Guide](DEVELOPMENT.md)
+
 Notes + Support
 ------------
 * Google Group can be found here: https://groups.google.com/d/forum/elastichq
@@ -35,4 +39,6 @@ Notes + Support
  
 License
 ------------
-See included LICENSE.md file.
+See included [License File](LICENSE.md).
+
+
