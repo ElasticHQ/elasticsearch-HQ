@@ -257,6 +257,7 @@ function fs_rules() {
             value:"stats.indices.docs.count",
             formula:"stats.indices.docs.count",
             formulaKeys:"stats.indices.docs.count",
+            format:"comma",
             calc:false
         },
         {

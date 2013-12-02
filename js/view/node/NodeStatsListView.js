@@ -166,7 +166,7 @@ var NodeStatsListView = Backbone.View.extend(
 
                     node.stats.swap = 0;
                     if (!jQuery.isEmptyObject(node.stats.os.swap)) {
-                        node.stats.swap = node.stats.os.swap.used_in_bytes / 1024 / 1024;
+                        node.stats.swap = numeral(node.stats.os.swap.used_in_bytes / 1024 / 1024).format('0,0.0000');
                     }
 
                     // network
