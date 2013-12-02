@@ -95,7 +95,7 @@ indexTemplate.indexView = [
     '<div class="well"><span class="stat-detail"><%- index.index.primary_size %></span><span>Primary Size</span>',
     '</div></div>',
     '<div class="span3">',
-    '<div class="well"><span class="stat-detail"><%- numeral(index.index.size).format("0,0") %></span><span>Total Size</span>',
+    '<div class="well"><span class="stat-detail"><%- index.index.size %></span><span>Total Size</span>',
     '</div></div>',
     '<div class="span3">',
     '<div class="well"><span class="stat-detail"><%- numeral(totalShards.total).format("0,0") %></span><span>Total Shards</span>',
