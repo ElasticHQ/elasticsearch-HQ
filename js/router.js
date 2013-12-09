@@ -58,6 +58,7 @@ $(document).ready(
                 "mappings":"mappings",
                 "restapi":"viewRest",
                 "restcall/:command":"callRest",
+                "jsoneditor":"jsoneditor",
                 "admin":"admin",
                 "admin/action":"admin",
                 "documents":"queryView",
@@ -192,6 +193,10 @@ $(document).ready(
             callRest:function (command) {
                 stopAllNodePollers();
                 restRoute.json(command);
+            },
+            jsoneditor:function (command) {
+                stopAllNodePollers();
+                restRoute.editorView();
             },
             snapshots:function () {
                 stopAllNodePollers();

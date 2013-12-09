@@ -19,3 +19,9 @@ DISTRIBUTION
 The distribution will rewrite the index.html file in the root directory, using the index.html in the tpl directory, to point to minified and concatenated JS and CSS files.
 
 To build the distribution, simply drop to console and type: **grunt dist**
+
+CHANGELOG
+--------------
+
+Changelog generation is achieved through the gh-chngelog Node plugin: https://npmjs.org/package/github-changelog
+

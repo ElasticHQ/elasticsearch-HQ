@@ -438,3 +438,14 @@ path.link {
     stroke-width: 1.5px;
     opacity: 0.6;
 }
+
+#jsoneditor {
+    margin: 0;
+    position: absolute;
+    /*        top: 0;
+            bottom: 0;*/
+    height: 300px;
+    width: 300px;
+    /*left: 0;
+    right: 0;*/
+}

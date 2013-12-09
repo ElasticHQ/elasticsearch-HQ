@@ -20,6 +20,8 @@ var restTemplate = {};
 
 restTemplate.sideNav = [
     '<ul class="nav nav-list">',
+    '<li class="nav-header">Editor</li>',
+    '<li><a href="#jsoneditor"><i class="icon-double-angle-right"></i> JSON Editor</a></li>',
     '<li class="nav-header">Cluster</li>',
     '<li><a href="#restcall/health"><i class="icon-double-angle-right"></i> Health</a></li>',
     '<li><a href="#restcall/state"><i class="icon-double-angle-right"></i> State</a></li>',
@@ -76,5 +78,15 @@ restTemplate.JSONView = [
     '<pre class="prettyprint linenums language-json">',
     '<%- res %>',
     '</pre>',
+    '</div>'
+].join("\n");
+
+restTemplate.jsonEditorView = [
+    '<div class="span2 well sidebar-nav">',
+    restTemplate.sideNav,
+    '</div>',
+    '<div class="span10">',
+    '<div><h2>REST Editor</h2></div>',
+    '<pre id="jsoneditor"></pre>',
     '</div>'
 ].join("\n");

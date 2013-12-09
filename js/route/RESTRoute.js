@@ -23,6 +23,11 @@ restRoute.view = function () {
     restView.render();
 };
 
+restRoute.editorView = function () {
+    var jsoneditorView = new JSONEditorView();
+    jsoneditorView.render();
+};
+
 restRoute.json = function (command) {
     if (command == 'cputhreads') {
         window.open(cluster.get("connectionRootURL") + '/_nodes/hot_threads?type=cpu&threads=10', '_blank');
