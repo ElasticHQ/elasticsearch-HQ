@@ -22,9 +22,12 @@ var JSONEditorView = Backbone.View.extend(
         },
         render:function () {
             var _this = this;
-            var template = _.template(restTemplate.jsonEditorView, {});
-            $('#workspace').html(template);
-            $("[rel=popRight]").popover();
+            var template = _.template(restTemplate.jsonEditorView);
+            $('#workspace').html(template(
+                {
+                })
+            );
+            _this.redrawEndPointSelect();
 
             ace.require("ace/ext/language_tools");
             var editor = ace.edit("jsoneditor");
@@ -53,6 +56,43 @@ var JSONEditorView = Backbone.View.extend(
             output.getSession().setUseSoftTabs(true);
             output.getSession().setUseWrapMode(true);
 
+            $("#jsonformsubmit").click(function () {
+                restRoute.doEditorQuery();
+            });
+
+            $("#jsonformaction").change(function () {
+                _this.redrawEndPointSelect();
+                $('.selectpicker').selectpicker();
+            });
+
+            $("[rel=tipRight]").tooltip();
+            $("[rel=popRight]").popover();
+            $('.selectpicker').selectpicker();
+
             return this;
+        },
+        getEndPoints:function () {
+            var action = $('#jsonformaction option:selected').val();
+            var endpoints = [];
+            if (action === "GET" || action === undefined) {
+                endpoints.push("/");
+                endpoints.push("/_cluster/health");
+            }
+            else if (action === "POST") {
+                endpoints.push("/_refresh");
+            }
+            else if (action === "PUT") {
+                endpoints.push("/_refresh");
+            }
+            return endpoints;
+        },
+        redrawEndPointSelect:function () {
+            var template = _.template(restTemplate.jsonapiendpoints);
+            $('#endpointSelect').html(template(
+                {
+                    endpoints:this.getEndPoints()
+                })
+            );
+
         }
     });
