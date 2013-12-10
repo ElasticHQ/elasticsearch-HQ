@@ -440,12 +440,17 @@ path.link {
 }
 
 #jsoneditor {
-    margin: 0;
-    position: absolute;
-    /*        top: 0;
-            bottom: 0;*/
-    height: 300px;
-    width: 300px;
-    /*left: 0;
-    right: 0;*/
+    overflow: hidden;
+    /*margin: 0;*/
+    position: relative;
+    height: 600px;
+    width: 100%;
+}
+
+#jsonoutput{
+    overflow: hidden;
+    /*margin: 0;*/
+    position: relative;
+    height: 600px;
+    width: 100%;
 }

@@ -30,17 +30,28 @@ var JSONEditorView = Backbone.View.extend(
             var editor = ace.edit("jsoneditor");
             editor.getSession().setMode("ace/mode/json");
             editor.setTheme("ace/theme/monokai");
+            editor.setShowPrintMargin(false);
+            editor.setFontSize(13);
+            editor.getSession().setUseSoftTabs(true);
+            editor.getSession().setUseWrapMode(true);
             editor.setOptions({
-                enableBasicAutocompletion: true
+                enableBasicAutocompletion:true
             });
-            //editor.setTheme("ace/theme/crimson_editor");
 
             editor.setValue("{\n\n}");
             var code = editor.getSession().getValue();
 
             editor.getSession().setValue(code); // prettify
             editor.focus();
-            editor.getSession().getSelection().selectionLead.setPosition(1,1);
+            editor.getSession().getSelection().selectionLead.setPosition(1, 1);
+
+            var output = ace.edit("jsonoutput");
+            output.getSession().setMode("ace/mode/json");
+            output.setTheme("ace/theme/monokai");
+            output.setShowPrintMargin(false);
+            output.setFontSize(13);
+            output.getSession().setUseSoftTabs(true);
+            output.getSession().setUseWrapMode(true);
 
             return this;
         }

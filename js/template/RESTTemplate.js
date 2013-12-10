@@ -85,8 +85,35 @@ restTemplate.jsonEditorView = [
     '<div class="span2 well sidebar-nav">',
     restTemplate.sideNav,
     '</div>',
+
     '<div class="span10">',
-    '<div><h2>REST Editor</h2></div>',
+
+    '<h2>REST Editor</h2>',
+
+    '<form class="form-inline">',
+    '<select class="span2 selectpicker" data-container="body" id="jsonformaction">',
+    '<option data-icon="icon-chevron-sign-up">GET</option>',
+    '<option data-icon="icon-chevron-sign-down">POST</option>',
+    '<option data-icon="icon-chevron-sign-down">PUT</option>',
+    '</select>',
+
+    '<select class="span2 selectpicker" data-container="body" id="jsonformendpoint">',
+    '<option data-icon="icon-chevron-sign-up">_cluster</option>',
+    '<option data-icon="icon-chevron-sign-down">_cluster/health</option>',
+    '</select>',
+    '<button class="btn btn-success" type="button" id="jsonformsubmit"><b><i class="icon-caret-right"></i></b></button>',
+    '</form>',
+
+    //'<div class="span12">',
+    '<div class="span3" style="padding: 0;margin: 0;">',
     '<pre id="jsoneditor"></pre>',
+    '</div>',
+
+    '<div class="span8">',
+    '<pre id="jsonoutput"></pre>',
+    '</div>',
+    // '</div>',
+
+
     '</div>'
 ].join("\n");
