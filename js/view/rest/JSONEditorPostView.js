@@ -48,7 +48,7 @@ var JSONEditorPostView = Backbone.View.extend(
                     readOnly:true
                 });
                 output.moveCursorTo(1,1);
-                output.getSession().foldAll(1, 28);
+                output.getSession().foldAll(1, 10000);
             });
 
             return this;

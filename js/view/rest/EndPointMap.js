@@ -21,6 +21,7 @@ var endPointMap = {};
 endPointMap.getEndPointStruct = function (action) {
     var endpoints = [];
     endpoints.push({key:'Cluster', value:endPointMap.CLUSTER(action)});
+    endpoints.push({key:'Search', value:endPointMap.SEARCH(action)});
     endpoints.push({key:'Indices', value:endPointMap.INDICES(action)});
     return endpoints;
 };
@@ -28,13 +29,31 @@ endPointMap.getEndPointStruct = function (action) {
 endPointMap.INDICES = function (action) {
     var ep = [];
     ep.POST = [
-        "/_refresh"
+        "/_refresh",
+        "/_aliases"
     ];
     ep.GET = [
+        "/_aliases",
+        "/_mapping",
         "/_stats",
+        "/_status",
         "/_segments"
     ];
-    ep.PUT = [];
+    ep.PUT = [
+        "/_mapping"
+    ];
+
+    return ep[action];
+};
+
+endPointMap.SEARCH = function (action) {
+    var ep = [];
+    ep.POST = [
+        "/_search"
+    ];
+    ep.GET = [
+        "/_search"
+    ];
 
     return ep[action];
 };
@@ -44,9 +63,12 @@ endPointMap.CLUSTER = function (action) {
     ep.POST = [];
     ep.GET = [
         "/",
+        "/_cluster/settings",
         "/_cluster/health",
         "/_cluster/state",
-        "/_cluster/pending_tasks"
+        "/_cluster/pending_tasks",
+        "/_cluster/nodes/stats",
+        "/_cache/clear"
     ];
     ep.PUT = [
         "_cluster/settings"
