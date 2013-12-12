@@ -87,27 +87,13 @@ restTemplate.jsonEditorView = [
     '<h2>REST Editor</h2>',
 
     '<form class="form-inline">',
-    '<select class="span2 selectpicker" data-container="body" id="jsonformaction">',
+    '<select  data-width="auto" class="selectpicker" data-container="body" id="jsonformaction">',
     '<option>GET</option>',
     '<option>POST</option>',
     '<option>PUT</option>',
     '</select>',
     '<span id="endpointSelect">',
-/*    '<select class="span3 selectpicker" data-container="body" id="jsonformendpoint">',
-    '<% _.each(endpoints, function(ep) { %>',
-    '<option><%- ep %></option>',
-    '<% }) %>',
-    '</select>',*/
     '</span>',
-    /*    '<select class="span3 selectpicker" data-container="body" id="jsonformendpoint">',
-     '<option>/</option>',
-     '<option>/_cluster/health</option>',
-     '<option>/_cluster/state</option>',
-     '<option>/_cluster/pending_tasks</option>',
-     '<option>/_cluster/nodes/stats</option>',
-     '<option>/_cluster/nodes</option>',
-     '<option>/_nodes/hot_threads</option>',
-     '</select>',*/
     '<button class="btn btn-success" type="button" id="jsonformsubmit"><b><i class="icon-caret-right"></i></b></button>',
     '</form>',
 
@@ -126,9 +112,12 @@ restTemplate.jsonEditorView = [
 ].join("\n");
 
 restTemplate.jsonapiendpoints = [
-    '<select class="span3 selectpicker" data-container="body" id="jsonformendpoint">',
+    '<select  data-width="auto" class=" selectpicker" data-container="body" id="jsonformendpoint">',
     '<% _.each(endpoints, function(ep) { %>',
-    '<option><%- ep %></option>',
+    '<optgroup label="<%- ep.key %>">',
+    '<% _.each(ep.value, function(val) { %>',
+    '<option><%- val %></option>',
+    '<% }) %>',
     '<% }) %>',
     '</select>',
 ].join("\n");

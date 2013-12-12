@@ -73,17 +73,11 @@ var JSONEditorView = Backbone.View.extend(
         },
         getEndPoints:function () {
             var action = $('#jsonformaction option:selected').val();
-            var endpoints = [];
-            if (action === "GET" || action === undefined) {
-                endpoints.push("/");
-                endpoints.push("/_cluster/health");
+            if (action === undefined) {
+                action = "GET";
             }
-            else if (action === "POST") {
-                endpoints.push("/_refresh");
-            }
-            else if (action === "PUT") {
-                endpoints.push("/_refresh");
-            }
+            var endpoints = endPointMap.getEndPointStruct(action);
+
             return endpoints;
         },
         redrawEndPointSelect:function () {
