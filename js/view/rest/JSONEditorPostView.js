@@ -76,20 +76,8 @@ var JSONEditorPostView = Backbone.View.extend(
             });
 
             request.complete(function (jqXHR, textStatus) {
+// TODO: may be a good place to add help or response information.
 
-                var output = ace.edit("jsonoutput");
-                output.getSession().setMode("ace/mode/json");
-                output.setTheme("ace/theme/monokai");
-                output.setShowPrintMargin(false);
-                output.setFontSize(13);
-                output.getSession().setUseSoftTabs(true);
-                output.getSession().setUseWrapMode(true);
-                output.setValue("sssss");
-                output.getSession().selection.clearSelection();
-                output.setOptions({
-                    readOnly:true
-                });
-                output.moveCursorTo(1, 1);
             });
 
             return this;
