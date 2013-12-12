@@ -29,8 +29,11 @@ endPointMap.getEndPointStruct = function (action) {
 endPointMap.INDICES = function (action) {
     var ep = [];
     ep.POST = [
-        "/_refresh",
-        "/_aliases"
+        "/_aliases",
+        "/_cache/clear",
+        "/_flush",
+        "/_optimize",
+        "/_refresh"
     ];
     ep.GET = [
         "/_aliases",
@@ -39,9 +42,9 @@ endPointMap.INDICES = function (action) {
         "/_status",
         "/_segments"
     ];
-    ep.PUT = [
+/*    ep.PUT = [
         "/_mapping"
-    ];
+    ];*/
 
     return ep[action];
 };
@@ -67,12 +70,13 @@ endPointMap.CLUSTER = function (action) {
         "/_cluster/health",
         "/_cluster/state",
         "/_cluster/pending_tasks",
-        "/_cluster/nodes/stats",
-        "/_cache/clear"
+        "/_cluster/nodes/stats"
     ];
+/*
     ep.PUT = [
         "_cluster/settings"
     ];
+*/
 
     return ep[action];
 };

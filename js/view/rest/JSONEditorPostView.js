@@ -25,10 +25,14 @@ var JSONEditorPostView = Backbone.View.extend(
         render:function () {
             var _this = this;
 
+            ace.require("ace/ext/language_tools");
+            var editor = ace.edit("jsoneditor");
+            var requestBodyObject = editor.getSession().getValue();
+
             var request = $.ajax({
                 url:cluster.get("connectionRootURL") + this.model.endpoint,
-                type:this.model.action//,
-                //data:JSON.stringify(requestBodyObject)
+                type:this.model.action,
+                data:requestBodyObject
             });
 
             request.success(function (data, textStatus, jqXHR) {
@@ -47,8 +51,45 @@ var JSONEditorPostView = Backbone.View.extend(
                 output.setOptions({
                     readOnly:true
                 });
-                output.moveCursorTo(1,1);
+                output.moveCursorTo(1, 1);
                 output.getSession().foldAll(1, 10000);
+            });
+
+            request.error(function (data, textStatus, jqXHR) {
+
+                _this.resultBody = JSON.stringify(data, undefined, 2);
+
+                var output = ace.edit("jsonoutput");
+                output.getSession().setMode("ace/mode/json");
+                output.setTheme("ace/theme/monokai");
+                output.setShowPrintMargin(false);
+                output.setFontSize(13);
+                output.getSession().setUseSoftTabs(true);
+                output.getSession().setUseWrapMode(true);
+                output.setValue(_this.resultBody);
+                output.getSession().selection.clearSelection();
+                output.setOptions({
+                    readOnly:true
+                });
+                output.moveCursorTo(1, 1);
+                //output.getSession().foldAll(1, 10000);
+            });
+
+            request.complete(function (jqXHR, textStatus) {
+
+                var output = ace.edit("jsonoutput");
+                output.getSession().setMode("ace/mode/json");
+                output.setTheme("ace/theme/monokai");
+                output.setShowPrintMargin(false);
+                output.setFontSize(13);
+                output.getSession().setUseSoftTabs(true);
+                output.getSession().setUseWrapMode(true);
+                output.setValue("sssss");
+                output.getSession().selection.clearSelection();
+                output.setOptions({
+                    readOnly:true
+                });
+                output.moveCursorTo(1, 1);
             });
 
             return this;

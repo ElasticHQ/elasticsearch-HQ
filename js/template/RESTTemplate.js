@@ -95,6 +95,9 @@ restTemplate.jsonEditorView = [
     '<span id="endpointSelect">',
     '</span>',
     '<button class="btn btn-success" type="button" id="jsonformsubmit"><b><i class="icon-caret-right"></i></b></button>',
+
+    //'<span id="restHelp" class="alert alert-success pull-right"><i class="icon-question-sign"></i> Simple Heartbeat request.</span>',
+
     '</form>',
 
     //'<div class="span12">',
