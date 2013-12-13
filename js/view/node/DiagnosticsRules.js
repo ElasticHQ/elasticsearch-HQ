@@ -55,9 +55,9 @@ function calculateRuleValue(node, ruleKey, ruleUnits, ruleFormat) {
 function calculateCellClass(node, rule) {
 
     var val = lookupValue(node, rule.value);
-    if (val === undefined)
+    if (val === undefined) {
         val = 0;
-
+    }
 
     if (rule.upper_limit) {
         if (val <= rule.upper_limit[0]) {
@@ -84,7 +84,7 @@ function calculateCellClass(node, rule) {
             }
         }
     }
-    return ''
+    return '';
 }
 
 /**
@@ -100,7 +100,7 @@ function makeDiagnosticsPopOver(node, rule) {
         tpl = tpl + '<div class="alert alert-info"><i class="icon-info-sign"></i> ' + rule.comment + '</div>';
     }
 
-    if (rule.formula != undefined) {
+    if (rule.formula !== undefined) {
         tpl = tpl + '<li><b>Keys: </b> ' + rule.formula + '</li>';
     }
     else {
@@ -136,7 +136,7 @@ function makeDiagnosticsPopOver(node, rule) {
         mathInt = 0;
     }
 
-    if (rule.calc != false) {
+    if (rule.calc !== false) {
         tpl = tpl + keyString + ' = ' + mathInt + '</li>';
     }
     else {
@@ -174,7 +174,7 @@ var Formats = {
             if (new_n === n) {
                 break;
             }
-            n = new_n
+            n = new_n;
         }
         return n;
     },

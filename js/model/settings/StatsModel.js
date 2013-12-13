@@ -33,8 +33,7 @@ var StatsModel = Backbone.Model.extend({
             cpucores:null,
             plugins:null,
             javaversion:null,
-            esversion:null,
-            uuid:null
+            esversion:null
         }
     },
     initialize:function () {
@@ -72,17 +71,17 @@ var StatsModel = Backbone.Model.extend({
                 //
                 var master_node = cluster.get('clusterState').get('master_node');
                 var theNode = allNodeInfo.nodes[cluster.get('clusterState').get('master_node')];
-                if (theNode.jvm != undefined) {
+                if (theNode.jvm !== undefined) {
                     _this.get('stats').javaversion = theNode.jvm.version;
-                    if (theNode.jvm.mem != undefined) {
+                    if (theNode.jvm.mem !== undefined) {
                         _this.get('stats').heapcommitted = theNode.jvm.mem.heap_init_in_bytes;
                     }
                 }
-                if (theNode.os != undefined) {
-                    if (theNode.os.cpu != undefined) {
+                if (theNode.os !== undefined) {
+                    if (theNode.os.cpu !== undefined) {
                         _this.get('stats').cpucores = theNode.os.cpu.total_cores;
                     }
-                    if (theNode.os.mem != undefined) {
+                    if (theNode.os.mem !== undefined) {
                         _this.get('stats').totalmemory = theNode.os.mem.total_in_bytes;
                     }
                 }

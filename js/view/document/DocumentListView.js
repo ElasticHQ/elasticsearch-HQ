@@ -123,7 +123,7 @@ var DocumentListView = Backbone.View.extend({
                 _this.resultsModel = queryResultsModel;
 
                 // calc max pages
-                if (_this.maxPages == 0) // only do this once
+                if (_this.maxPages === 0) // only do this once
                 {
                     _this.maxPages = Math.floor(((queryResultsModel.totalHits - 1) / _this.pageSize) + 1);
                 }
@@ -172,7 +172,7 @@ var DocumentListView = Backbone.View.extend({
         this.currentPage++;
     },
     pagePrev:function () {
-        if (this.pageFrom != 0) {
+        if (this.pageFrom !== 0) {
             this.pageFrom = this.pageFrom - this.pageSize;
             this.currentPage--;
         }

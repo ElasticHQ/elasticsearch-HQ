@@ -33,10 +33,10 @@ var ClusterHealthView = Backbone.View.extend({
     renderWorkspace:function () {
         var clusterHealth = this.model;
 
-        if (this.stateModel == undefined) {
+        if (this.stateModel === undefined) {
             this.stateModel = cluster.get("clusterState");
         }
-        if (this.indexModel == undefined) {
+        if (this.indexModel === undefined) {
             this.indexModel = cluster.get("indexStats");
         }
 
@@ -48,18 +48,18 @@ var ClusterHealthView = Backbone.View.extend({
         else {
             indices.docs = this.indexModel.get('_all').total.docs;
         }
-        if (indices.docs == undefined) {
+        if (indices.docs === undefined) {
             indices.docs = {};
             indices.docs.count = 0;
         }
         indices.store = this.indexModel.get('_all').total.store;
-        if (indices.store == undefined) {
+        if (indices.store === undefined) {
             indices.store = {};
             indices.store.size = 0;
         }
 
         var indexKeys = _.keys(this.indexModel.get('indices'));
-        if (indexKeys != undefined) {
+        if (indexKeys !== undefined) {
             indices.count = indexKeys.length;
         }
         else {
@@ -78,7 +78,7 @@ var ClusterHealthView = Backbone.View.extend({
             index.numshards = this.stateModel.get('metadata').indices[index.id].settings['index.number_of_shards'];
             index.numreplicas = this.stateModel.get('metadata').indices[index.id].settings['index.number_of_replicas'];
             index.status = this.stateModel.get('metadata').indices[index.id].state;
-            if (index.docs == undefined) {
+            if (index.docs === undefined) {
                 index.docs = {num_docs:0};
             }
             indices.indices.push(index);
@@ -88,7 +88,7 @@ var ClusterHealthView = Backbone.View.extend({
             health:clusterHealth.attributes,
             state:this.stateModel,
             indices:indices,
-            polling: settingsModel.get('settings').poller.cluster,
+            polling:settingsModel.get('settings').poller.cluster,
             lastUpdateTime:timeUtil.lastUpdated()
         });
         $('#workspace').html(template);

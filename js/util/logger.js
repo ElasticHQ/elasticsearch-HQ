@@ -3,8 +3,9 @@ var logger = function () {
     var pub = {};
 
     pub.enableLogger = function enableLogger() {
-        if (oldConsoleLog == null)
+        if (oldConsoleLog == null) {
             return;
+        }
 
         window['console']['log'] = oldConsoleLog;
     };
@@ -22,7 +23,7 @@ var logger = function () {
 var activateLogging = function () {
     var debugMode = settingsModel.get('settings').debugMode;
     if (debugMode == 1) {
-        logger.enableLogger()
+        logger.enableLogger();
     }
     else {
         logger.disableLogger();

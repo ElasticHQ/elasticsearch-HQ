@@ -37,7 +37,7 @@ visualRoute.init = function () {
 
 visualRoute.doFilter= function () {
     // get checked checkboxes and query string
-    var indices = new Array();
+    var indices = [];
     $('#vcheckboxindices input:checked').each(function () {
         indices.push($(this).attr('name'));
     });

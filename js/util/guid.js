@@ -20,7 +20,7 @@ var guid = {};
 
 guid.setGUID = function () {
     var guid = this.getGUID();
-    if (guid == undefined) {
+    if (guid === undefined) {
         guid = this.generateGUID();
         localStorage.setItem('hqsettings', guid);
     }

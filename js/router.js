@@ -128,7 +128,7 @@ $(document).ready(
             createIndex:function () {
                 stopAllNodePollers();
                 var createIndexModel = new IndexModel({connectionRootURL:cluster.get("connectionRootURL")});
-                if (this.createIndexView == undefined) {
+                if (this.createIndexView === undefined) {
                     this.createIndexView = new CreateIndexView({model:createIndexModel});
                 }
                 this.createIndexView.render();
@@ -161,7 +161,7 @@ $(document).ready(
             createAlias:function (indexId) {
                 stopAllNodePollers();
                 var createAliasModel = new IndexAliasModel({connectionRootURL:cluster.get("connectionRootURL")});
-                if (this.createAliasView == undefined) {
+                if (this.createAliasView === undefined) {
                     this.createAliasView = new CreateAliasView({model:createAliasModel});
                 }
                 this.createAliasView.indexId = indexId;
@@ -204,7 +204,7 @@ $(document).ready(
             },
             viewSettings:function () {
                 stopAllNodePollers();
-                if (this.settingsView == undefined) {
+                if (this.settingsView === undefined) {
                     this.settingsView = new SettingsView({model:settingsModel});
                 }
                 this.settingsView.render();

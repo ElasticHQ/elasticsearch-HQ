@@ -32,7 +32,7 @@ var tokenizeUserPassFromURL = function (url) {
         }
         return undefined;
     }
-}
+};
 
 /**
  * Binds a specific button with an input field, when it is focused so users can hit 'enter' to submit.
@@ -91,14 +91,17 @@ var timeUtil = {
         var hours = dt.getHours();
         var minutes = dt.getMinutes();
         var seconds = dt.getSeconds();
-        if (hours < 10)
+        if (hours < 10) {
             hours = '0' + hours;
+        }
 
-        if (minutes < 10)
+        if (minutes < 10) {
             minutes = '0' + minutes;
+        }
 
-        if (seconds < 10)
+        if (seconds < 10) {
             seconds = '0' + seconds;
+        }
         return hours + ":" + minutes + ":" + seconds;
     }
 };
@@ -119,8 +122,8 @@ function show_stack_bottomright(args) {
         styling:"bootstrap",
         history:false,
         icon:true,
-        hide:(args.hide == undefined) ? true : args.hide,
-        closer_hover:(args.closer_hover == undefined) ? true : args.closer_hover,
+        hide:(args.hide === undefined) ? true : args.hide,
+        closer_hover:(args.closer_hover === undefined) ? true : args.closer_hover,
         delay:5000
     };
     switch (args.type) {
@@ -135,7 +138,7 @@ function show_stack_bottomright(args) {
             break;
     }
     $.pnotify(opts);
-};
+}
 
 /**
  * Convert number of bytes into human readable format
@@ -200,7 +203,7 @@ $.fn.serializeObject = function () {
  */
 function lookupValue(obj, string) {
     var returnString = obj[string];
-    if (obj[string] == undefined) {
+    if (obj[string] === undefined) {
         returnString = getValue(string, obj);
         //console.log(obj);
     }
@@ -221,8 +224,9 @@ function getValue(namespace, parent) {
         if (current[parts[i]]) {
             current = current[parts[i]];
         } else {
-            if (i >= parts.length - 1)
+            if (i >= parts.length - 1) {
                 return undefined;
+            }
         }
     }
     return current;

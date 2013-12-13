@@ -46,13 +46,13 @@ queryRoute.init = function () {
 queryRoute.doQuery = function () {
 
     // get checked checkboxes and query string
-    var indices = new Array();
+    var indices = [];
     $('#checkboxindices input:checked').each(function () {
         indices.push($(this).attr('name'));
     });
 
     // get fields
-    var fields = new Array();
+    var fields = [];
     $('#checkboxfields input:checked').each(function () {
         fields.push($(this).attr('name'));
     });
