@@ -37,12 +37,12 @@ var IndexModel = Backbone.Model.extend({
     initialize:function (args) {
         console.log("Creating Index " + args.indexId);
         this.indexId = args.indexId;
-        if (args.cmd != undefined) {
+        if (args.cmd !== undefined) {
             this.cmd = args.cmd;
         }
     },
     url:function () {
-        if (this.cmd != undefined) {
+        if (this.cmd !== undefined) {
             return '/' + this.indexId + '/' + this.cmd;
         }
         else {
@@ -55,17 +55,17 @@ var IndexModel = Backbone.Model.extend({
             required:true,
             msg:'Please enter a valid Index ID'
         }/*,
-        shards:{
-            required:true,
-            min:1,
-            pattern:'number',
-            msg:'Please enter a # value.'
-        },
-        replicas:{
-            required:true,
-            min:0,
-            pattern:'number',
-            msg:'Please enter a # value.'
-        }*/
+         shards:{
+         required:true,
+         min:1,
+         pattern:'number',
+         msg:'Please enter a # value.'
+         },
+         replicas:{
+         required:true,
+         min:0,
+         pattern:'number',
+         msg:'Please enter a # value.'
+         }*/
     }
 });

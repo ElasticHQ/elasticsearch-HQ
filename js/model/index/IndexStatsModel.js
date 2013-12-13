@@ -29,11 +29,11 @@ var IndexStatsModel = Backbone.Model.extend({
         this.indexId = args.indexId;
     },
     url:function () {
-        if (this.indexId != undefined) {
+        if (this.indexId !== undefined) {
             return '/' + this.indexId + '/_stats';
         }
         else {
-            return '/_stats'
+            return '/_stats';
         }
     }
 });
