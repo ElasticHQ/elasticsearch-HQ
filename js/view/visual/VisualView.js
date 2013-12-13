@@ -44,7 +44,7 @@ var VisualView = Backbone.View.extend(
             jsonObj.type = "cluster";
 
             // filter indices
-            if (_this.indicesArray == undefined) {
+            if (_this.indicesArray === undefined) {
                 _this.indicesArray = indices;
             }
 
@@ -122,43 +122,6 @@ var VisualView = Backbone.View.extend(
                 .append("svg:g")
                 .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-            /*
-             .attr("width", w + m[1] + m[3])
-             .attr("height", h + m[0] + m[2])
-             .append("svg:g")
-             .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
-             */
-
-            /*           d3.json("flare.json", function (json) {
-             root = json;
-             root.x0 = h / 2;
-             root.y0 = 0;
-
-             function toggleAll(d) {
-             if (d.children) {
-             d.children.forEach(toggleAll);
-             toggle(d);
-             }
-             }
-
-             // Initialize the display to show a few nodes.
-             root.children.forEach(toggleAll);
-             toggle(root.children[1]);
-             toggle(root.children[1].children[2]);
-             toggle(root.children[9]);
-             toggle(root.children[9].children[0]);*/
-            /**/
-            /*
-
-
-
-             update(root);
-             });*/
-
-            var root = jsonObj;
-            root.x0 = h / 2;
-            root.y0 = 0;
-            update(root);
 
             function update(source) {
                 var duration = d3.event && d3.event.altKey ? 5000 : 500;
@@ -324,6 +287,11 @@ var VisualView = Backbone.View.extend(
                     .scaleExtent([0.5, 5])
                     .on("zoom", zoom));
             }
+
+            root = jsonObj;
+            root.x0 = h / 2;
+            root.y0 = 0;
+            update(root);
 
 // Toggle children.
             function toggle(d) {
