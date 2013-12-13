@@ -11,6 +11,7 @@
     "browser": true,
     "eqeqeq":false,
     "loopfunc" : true,
+    //"indent": 4,
     "globals": {
         "define": true,
         "jQuery": true,

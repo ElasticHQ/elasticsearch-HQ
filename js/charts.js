@@ -17,8 +17,8 @@
  */
 var chart = {
     addData:function (data, primeXY, newXY) {
-        if (data == undefined) {
-            data = [primeXY]
+        if (data === undefined) {
+            data = [primeXY];
         }
         else {
             if (data.length > 5) {
@@ -26,16 +26,16 @@ var chart = {
             }
         }
         return data;
-
-        data.push(newXY);
-        return data;
+        /*
+         data.push(newXY);
+         return data;*/
     },
     draw:function (id, data, options) {
         return $.plot($(id), [
-            {data:data, points: { show: true }, lines:{ show:true, fill:true, fillColor:"#E0F0B0", lineWidth:3}, curvedLines:{apply:true}}
+            {data:data, points:{ show:true }, lines:{ show:true, fill:true, fillColor:"#E0F0B0", lineWidth:3}, curvedLines:{apply:true}}
         ], options);
     }
-}
+};
 
 chart.ts_xaxis =
 {
@@ -44,7 +44,7 @@ chart.ts_xaxis =
     tickFormatter:function (v, axis) {
         var date = new Date(v);
 
-        if (date.getSeconds() % 10 == 0) {
+        if (date.getSeconds() % 10 === 0) {
             var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
             var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
             var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
@@ -54,15 +54,15 @@ chart.ts_xaxis =
             return "";
         }
     }
-}
+};
 
 chart.jvmHeap = {
     options:function () {
         return {
             series:{
                 /*curvedLines:{
-                    active:true
-                },*/
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -88,7 +88,7 @@ chart.jvmHeap = {
                 }
             }
 
-        }
+        };
     }
 };
 chart.indices = {
@@ -96,8 +96,8 @@ chart.indices = {
         return {
             series:{
                 /*curvedLines:{
-                    active:true
-                },*/
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -123,7 +123,7 @@ chart.indices = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 
@@ -131,9 +131,9 @@ chart.cpu = {
     options:function () {
         return {
             series:{
-               /* curvedLines:{
-                    active:true
-                },*/
+                /* curvedLines:{
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -160,7 +160,7 @@ chart.cpu = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 
@@ -168,9 +168,9 @@ chart.mem = {
     options:function (max) {
         return {
             series:{
-               /* curvedLines:{
-                    active:true
-                },*/
+                /* curvedLines:{
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -197,16 +197,16 @@ chart.mem = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 chart.procscpu = {
     options:function (max) {
         return {
             series:{
-              /*  curvedLines:{
-                    active:true
-                },*/
+                /*  curvedLines:{
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -233,7 +233,7 @@ chart.procscpu = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 
@@ -241,9 +241,9 @@ chart.procmem = {
     options:function (max) {
         return {
             series:{
-              /*  curvedLines:{
-                    active:true
-                },*/
+                /*  curvedLines:{
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -260,7 +260,7 @@ chart.procmem = {
             yaxis:{
                 min:0,
                 max:max,
-                tickSize:.5
+                tickSize:0.5
             },
             tooltipOpts:{
                 //content: "'%s' of %x.1 is %y.4",
@@ -270,7 +270,7 @@ chart.procmem = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 
@@ -279,9 +279,9 @@ chart.fsreads = {
     options:function () {
         return {
             series:{
-              /*  curvedLines:{
-                    active:true
-                },*/
+                /*  curvedLines:{
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -306,7 +306,7 @@ chart.fsreads = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 chart.fswrites = {
@@ -314,8 +314,8 @@ chart.fswrites = {
         return {
             series:{
                 /*curvedLines:{
-                    active:true
-                },*/
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -340,7 +340,7 @@ chart.fswrites = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 
@@ -348,9 +348,9 @@ chart.transporttxcount = {
     options:function () {
         return {
             series:{
-             /*   curvedLines:{
-                    active:true
-                },*/
+                /*   curvedLines:{
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -375,7 +375,7 @@ chart.transporttxcount = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 
@@ -384,9 +384,9 @@ chart.httpopen = {
     options:function () {
         return {
             series:{
-            /*    curvedLines:{
-                    active:true
-                },*/
+                /*    curvedLines:{
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -411,16 +411,16 @@ chart.httpopen = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 chart.threadindex = {
     options:function () {
         return {
             series:{
-             /*   curvedLines:{
-                    active:true
-                },*/
+                /*   curvedLines:{
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -445,16 +445,16 @@ chart.threadindex = {
                     y:25
                 }
             }
-        }
+        };
     }
 };
 chart.threadsearch = {
     options:function () {
         return {
             series:{
-              /*  curvedLines:{
-                    active:true
-                },*/
+                /*  curvedLines:{
+                 active:true
+                 },*/
                 color:"GREEN"
             },
             tooltip:true,
@@ -479,6 +479,6 @@ chart.threadsearch = {
                     y:25
                 }
             }
-        }
+        };
     }
 };

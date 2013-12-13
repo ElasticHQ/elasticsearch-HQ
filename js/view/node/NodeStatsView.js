@@ -127,7 +127,7 @@ var NodeStatView = Backbone.View.extend(
             osStats.cpu.model = nodeInfo.nodes[nodeId].os.cpu.model;
             osStats.cpu.total_cores = nodeInfo.nodes[nodeId].os.cpu.total_cores;
             osStats.available_processors = nodeInfo.nodes[nodeId].os.available_processors;
-            osStats.max_proc_cpu = 100 * osStats.available_processors
+            osStats.max_proc_cpu = 100 * osStats.available_processors;
 
             netInfo.transport = nodeInfo.nodes[nodeId].transport;
             if (!netInfo.transport) {
