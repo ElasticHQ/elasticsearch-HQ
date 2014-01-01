@@ -18,8 +18,8 @@
 
 var HQVERSION = .991;
 
-//var REMOTE_API_PATH = 'http://www.elastichq.org/api';
-var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
+var REMOTE_API_PATH = 'http://www.elastichq.org/api';
+//var REMOTE_API_PATH = 'http://local.dev/elastichqorg/api';
 
 /**** GLOBALS ****/
 // log =1, no-log =0.
