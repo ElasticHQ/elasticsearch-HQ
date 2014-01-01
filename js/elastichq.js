@@ -16,6 +16,14 @@
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
  */
 
+
+var doConnect = function (connectionRootURL) {
+
+    cluster = new Cluster({connectionRootURL:connectionRootURL});
+
+    router.navigate("cluster", true);
+};
+
 $(document).ready(
 
     function ($) {
@@ -45,7 +53,7 @@ $(document).ready(
             }
             else {
                 var cookieURL = $.cookie('resturl');
-                if (cookieURL != undefined) {
+                if (cookieURL !== undefined) {
                     $('#connectionURL').val(cookieURL);
                 }
             }
@@ -55,10 +63,3 @@ $(document).ready(
 
         settingsModel = new SettingsModel();
     });
-
-var doConnect = function (connectionRootURL) {
-
-    cluster = new Cluster({connectionRootURL:connectionRootURL});
-
-    router.navigate("cluster", true);
-};

@@ -31,17 +31,17 @@
  */
 function calculateRuleValue(node, ruleKey, ruleUnits, ruleFormat) {
     var theValue = "N/A";
-    if (node != undefined && ruleKey != undefined) {
+    if (node !== undefined && ruleKey !== undefined) {
         theValue = lookupValue(node, ruleKey);
-        if (ruleFormat != undefined) {
-            if (theValue != undefined) {
+        if (ruleFormat !== undefined) {
+            if (theValue !== undefined) {
                 theValue = Formats[ruleFormat](theValue);
             }
             else {
                 theValue = Formats[ruleFormat](0);
             }
         }
-        if (ruleUnits != undefined) {
+        if (ruleUnits !== undefined) {
             theValue = theValue + ' ' + ruleUnits;
         }
     }
@@ -55,9 +55,9 @@ function calculateRuleValue(node, ruleKey, ruleUnits, ruleFormat) {
 function calculateCellClass(node, rule) {
 
     var val = lookupValue(node, rule.value);
-    if (val == undefined)
+    if (val === undefined) {
         val = 0;
-
+    }
 
     if (rule.upper_limit) {
         if (val <= rule.upper_limit[0]) {
@@ -84,7 +84,7 @@ function calculateCellClass(node, rule) {
             }
         }
     }
-    return ''
+    return '';
 }
 
 /**
@@ -96,12 +96,11 @@ function makeDiagnosticsPopOver(node, rule) {
     var tpl = '';
 
     tpl = '<ul style="font-size: 13px;">';
-    if (rule.comment)
-    {
+    if (rule.comment) {
         tpl = tpl + '<div class="alert alert-info"><i class="icon-info-sign"></i> ' + rule.comment + '</div>';
     }
 
-    if (rule.formula != undefined) {
+    if (rule.formula !== undefined) {
         tpl = tpl + '<li><b>Keys: </b> ' + rule.formula + '</li>';
     }
     else {
@@ -114,13 +113,13 @@ function makeDiagnosticsPopOver(node, rule) {
     tpl = tpl + '<li><b>Value: </b> ';
     var mathInt = 0;
     var keyString = rule.formula;
-    if (rule.formulaKeys != undefined) {
+    if (rule.formulaKeys !== undefined) {
         keyString = rule.formula;
         var keys = rule.formulaKeys.split(/@@/);
         for (i = 0; i < keys.length; i++) {
             var part = keys[i]; // stats.foo.bar.size
             var partValue = lookupValue(node, part);
-            if (partValue == undefined) {
+            if (partValue === undefined) {
                 partValue = 0;
             }
             keyString = keyString.replace(part, partValue);
@@ -137,7 +136,7 @@ function makeDiagnosticsPopOver(node, rule) {
         mathInt = 0;
     }
 
-    if (rule.calc != false) {
+    if (rule.calc !== false) {
         tpl = tpl + keyString + ' = ' + mathInt + '</li>';
     }
     else {
@@ -175,7 +174,7 @@ var Formats = {
             if (new_n === n) {
                 break;
             }
-            n = new_n
+            n = new_n;
         }
         return n;
     },
@@ -257,6 +256,7 @@ function fs_rules() {
             value:"stats.indices.docs.count",
             formula:"stats.indices.docs.count",
             formulaKeys:"stats.indices.docs.count",
+            format:"comma",
             calc:false
         },
         {

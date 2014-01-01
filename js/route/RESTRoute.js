@@ -23,6 +23,24 @@ restRoute.view = function () {
     restView.render();
 };
 
+restRoute.editorView = function () {
+    var jsoneditorView = new JSONEditorView();
+    jsoneditorView.render();
+};
+
+restRoute.doEditorQuery = function () {
+
+    var action = $('#jsonformaction option:selected').val();
+    var endpoint = $('#jsonformendpoint option:selected').val();
+
+    // prep model., we dont use backbone connection in this case.
+    var jsonapiModel = new JSONAPIModel({action:action, endpoint:endpoint});
+
+    // issue jquery ajax POST then render
+    var jsoneditorpostView = new JSONEditorPostView({model:jsonapiModel});
+    jsoneditorpostView.render();
+};
+
 restRoute.json = function (command) {
     if (command == 'cputhreads') {
         window.open(cluster.get("connectionRootURL") + '/_nodes/hot_threads?type=cpu&threads=10', '_blank');

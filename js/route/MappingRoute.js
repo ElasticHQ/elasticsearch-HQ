@@ -1,4 +1,4 @@
-    /*
+/*
  Copyright 2013 Roy Russo
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ var mapRoute = {};
 
 mapRoute.createMapping = function () {
     var createTypeModel = new MappingSimple({connectionRootURL:cluster.get("connectionRootURL")});
-    if (this.createTypeView == undefined) {
+    if (this.createTypeView === undefined) {
         this.createTypeView = new CreateTypeView({model:createTypeModel});
     }
     this.createTypeView.render();
@@ -47,8 +47,8 @@ mapRoute.deleteMapType = function (indexId, mappingName) {
 };
 
 mapRoute.viewMappings = function (indexId, mappingName) {
-    if (indexId == undefined && mappingName == undefined) { // list all mapping types
-        var mappingModel = new MappingsModel();
+    var mappingModel = new MappingsModel();
+    if (indexId === undefined && mappingName === undefined) { // list all mapping types
         mappingModel.setConnectionRootURL(cluster.get("connectionRootURL"));
         mappingModel.fetch({
             success:function (model, response) {
@@ -60,7 +60,7 @@ mapRoute.viewMappings = function (indexId, mappingName) {
             }
         });
     } else {
-        var mappingModel = new MappingSimple({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId, mappingName:mappingName});
+        mappingModel = new MappingSimple({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId, mappingName:mappingName});
         mappingModel.fetch({
             success:function (model, response) {
                 var mappingView = new MapTypeView({model:mappingModel});

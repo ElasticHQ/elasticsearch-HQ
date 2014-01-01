@@ -55,7 +55,7 @@ var Cluster = Backbone.Model.extend({
                 var err = 'Unable to Connect to Server! ';
                 if (response) {
                     err += 'Received Status Code: ' + response.status + '.';
-                    if (response.status == 0) {
+                    if (response.status === 0) {
                         err += " A status code of 0, could mean the host is unreacheable or nothing is listening on the given port.";
                     }
                 }

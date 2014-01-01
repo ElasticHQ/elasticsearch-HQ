@@ -25,7 +25,7 @@ var QueryUtil =
      */
     buildBody:function (queryModel, from) {
 
-        if (queryModel.queryString == '') {
+        if (queryModel.queryString === '') {
             return {
                 "from":from,
                 "size":queryModel.get('queryObj').size,
@@ -37,7 +37,7 @@ var QueryUtil =
         }
         else {
             queryModel.get('queryObj').query.filtered.query.query_string.query = queryModel.queryString;
-            queryModel.get('queryObj').from = from
+            queryModel.get('queryObj').from = from;
             return queryModel.toJSON().queryObj;
         }
     }

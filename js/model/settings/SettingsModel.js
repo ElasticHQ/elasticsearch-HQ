@@ -30,7 +30,7 @@ var SettingsModel = Backbone.Model.extend({
                 index:10000
             },
             debugMode:0,
-            optoutStats: false
+            optoutStats:false
         }
     },
     initialize:function () {
@@ -43,7 +43,7 @@ var SettingsModel = Backbone.Model.extend({
     loadFromStorage:function () {
         if (localStorage) {
             var settings = localStorage.getItem("hqsettings");
-            if (settings != undefined && settings != "undefined") {
+            if (settings !== undefined && settings != "undefined") {
                 this.buildSettings($.parseJSON(settings));
                 this.saveToStorage(); // make sure any future additions are saved.
             }
@@ -79,16 +79,16 @@ var SettingsModel = Backbone.Model.extend({
     buildSettings:function (settingsArg) {
         try {
             this.get('settings').uuid = (settingsArg.uuid != null) ? settingsArg.uuid : guid.generateGUID();
-            if (settingsArg.poller == undefined) {
+            if (settingsArg.poller === undefined) {
                 settingsArg.poller = {};
             }
-            this.get('settings').debugMode = (settingsArg.debugMode != undefined) ? settingsArg.debugMode : this.get('settings').debugMode;
-            this.get('settings').optoutStats = (settingsArg.optoutStats != undefined) ? settingsArg.optoutStats : this.get('settings').optoutStats;
-            this.get('settings').poller.cluster = (settingsArg.poller.cluster != undefined) ? settingsArg.poller.cluster : this.get('settings').poller.cluster;
-            this.get('settings').poller.nodeDiagnostics = (settingsArg.poller.nodeDiagnostics != undefined) ? settingsArg.poller.nodeDiagnostics : this.get('settings').poller.nodeDiagnostics;
-            this.get('settings').poller.node = (settingsArg.poller.node != undefined) ? settingsArg.poller.node : this.get('settings').poller.node;
-            this.get('settings').poller.indices = (settingsArg.poller.indices != undefined) ? settingsArg.poller.indices : this.get('settings').poller.indices;
-            this.get('settings').poller.index = (settingsArg.poller.index != undefined) ? settingsArg.poller.index : this.get('settings').poller.index;
+            this.get('settings').debugMode = (settingsArg.debugMode !== undefined) ? settingsArg.debugMode : this.get('settings').debugMode;
+            this.get('settings').optoutStats = (settingsArg.optoutStats !== undefined) ? settingsArg.optoutStats : this.get('settings').optoutStats;
+            this.get('settings').poller.cluster = (settingsArg.poller.cluster !== undefined) ? settingsArg.poller.cluster : this.get('settings').poller.cluster;
+            this.get('settings').poller.nodeDiagnostics = (settingsArg.poller.nodeDiagnostics !== undefined) ? settingsArg.poller.nodeDiagnostics : this.get('settings').poller.nodeDiagnostics;
+            this.get('settings').poller.node = (settingsArg.poller.node !== undefined) ? settingsArg.poller.node : this.get('settings').poller.node;
+            this.get('settings').poller.indices = (settingsArg.poller.indices !== undefined) ? settingsArg.poller.indices : this.get('settings').poller.indices;
+            this.get('settings').poller.index = (settingsArg.poller.index !== undefined) ? settingsArg.poller.index : this.get('settings').poller.index;
         }
         catch (e) {
             console.log('Cannot build settings object. Using defaults. ' + e.message);

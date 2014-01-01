@@ -37,10 +37,10 @@ Backbone.Model = Backbone.Model.extend({
         // override for auth credentials being passed in URLs
         try {
             var token = tokenizeUserPassFromURL(options.url);
-            if (token != undefined) {
+            if (token !== undefined) {
                 options.beforeSend = function (xhr) {
                     xhr.setRequestHeader('Authorization', ("Basic ".concat(btoa(token))));
-                }
+                };
             }
         }
         catch (e) {
@@ -71,10 +71,10 @@ Backbone.Collection = Backbone.Collection.extend({
         // override for auth credentials being passed in URLs
         try {
             var token = tokenizeUserPassFromURL(options.url);
-            if (token != undefined) {
+            if (token !== undefined) {
                 options.beforeSend = function (xhr) {
                     xhr.setRequestHeader('Authorization', ("Basic ".concat(btoa(token))));
-                }
+                };
             }
         }
         catch (e) {

@@ -48,8 +48,12 @@ var NodeStatsListView = Backbone.View.extend(
                 sortArray.sort(function (a, b) {
                     var keyA = a.nodeId,
                         keyB = b.nodeId;
-                    if (keyA < keyB) return -1;
-                    if (keyA > keyB) return 1;
+                    if (keyA < keyB) {
+                        return -1;
+                    }
+                    if (keyA > keyB) {
+                        return 1;
+                    }
                     return 0;
                 }); // end sort
 
@@ -107,7 +111,7 @@ var NodeStatsListView = Backbone.View.extend(
                     node.stats.jvm.uptime = (node.stats.jvm.uptime_in_millis / 1000 / 60 / 60 / 24).toFixed(2);
 
                     node.stats.docsdeletedperc = node.stats.indices.docs.deleted / node.stats.indices.docs.count;
-                    node.stats.mergerate = node.stats.indices.merges.total_size_in_bytes / node.stats.indices.merges.total_time_in_millis / 1000
+                    node.stats.mergerate = node.stats.indices.merges.total_size_in_bytes / node.stats.indices.merges.total_time_in_millis / 1000;
 
                     // actions
                     node.stats.flush = node.stats.indices.flush.total_time_in_millis / node.stats.indices.flush.total;
@@ -138,7 +142,7 @@ var NodeStatsListView = Backbone.View.extend(
                     node.stats.gcfreq = 0;
                     node.stats.gcduration = 0;
                     try {
-                        if (node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count == 0) {
+                        if (node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count === 0) {
                             node.stats.gcfreq = 0;
                         } else {
                             node.stats.gcfreq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count / 1000;
@@ -166,7 +170,7 @@ var NodeStatsListView = Backbone.View.extend(
 
                     node.stats.swap = 0;
                     if (!jQuery.isEmptyObject(node.stats.os.swap)) {
-                        node.stats.swap = node.stats.os.swap.used_in_bytes / 1024 / 1024;
+                        node.stats.swap = numeral(node.stats.os.swap.used_in_bytes / 1024 / 1024).format('0,0.0000');
                     }
 
                     // network
@@ -186,16 +190,17 @@ var NodeStatsListView = Backbone.View.extend(
                         cacheRules:cache_rules(),
                         memoryRules:memory_rules(),
                         networkRules:network_rules(),
-                        polling: settingsModel.get('settings').poller.nodeDiagnostics,
+                        polling:settingsModel.get('settings').poller.nodeDiagnostics,
                         lastUpdateTime:timeUtil.lastUpdated()
                     }));
 
                 $("[rel=tipRight]").tooltip();
                 $("[rel=popRight]").popover({});
 
-                // show warnings for missing data
-                if (!jvmVal || !osVal || !indicesVal || !httpVal)
-                    show_stack_bottomright({type:'error', title:'Missing Data', text:'Incomplete dataset from server. Some values left intentionally blank.'});
+                /*                // show warnings for missing data
+                 if (!jvmVal || !osVal || !indicesVal || !httpVal) {
+                 show_stack_bottomright({type:'error', title:'Missing Data', text:'Incomplete dataset from server. Some values left intentionally blank.'});
+                 }*/
 
                 return this;
             },

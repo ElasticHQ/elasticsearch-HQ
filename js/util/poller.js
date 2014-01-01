@@ -42,12 +42,37 @@ var mainMenuPoller;
  */
 var clusterOverviewPoller;
 
-var stopAllPollers = function () {
 
-    stopAllNodePollers();
+/**
+ * Individual node poller
+ */
+var stopNodePoller = function () {
+    if (nodePoller !== undefined) {
+        nodePoller.stop();
+    }
+};
 
-    if (mainMenuPoller != undefined) {
-        mainMenuPoller.stop();
+var stopClusterOverviewPoller = function () {
+    if (clusterOverviewPoller !== undefined) {
+        clusterOverviewPoller.stop();
+    }
+};
+
+var stopNodeDiagnosticsPoller = function () {
+    if (nodeDiagnosticsPoller !== undefined) {
+        nodeDiagnosticsPoller.stop();
+    }
+};
+
+var stopIndicesPoller = function () {
+    if (indicesPoller !== undefined) {
+        indicesPoller.stop();
+    }
+};
+
+var stopIndexPoller = function () {
+    if (indexPoller !== undefined) {
+        indexPoller.stop();
     }
 };
 
@@ -64,35 +89,11 @@ var stopAllNodePollers = function () {
     stopIndexPoller();
 };
 
-/**
- * Individual node poller
- */
-var stopNodePoller = function () {
-    if (nodePoller != undefined) {
-        nodePoller.stop();
+var stopAllPollers = function () {
+
+    stopAllNodePollers();
+
+    if (mainMenuPoller !== undefined) {
+        mainMenuPoller.stop();
     }
 };
-
-var stopClusterOverviewPoller = function () {
-    if (clusterOverviewPoller != undefined) {
-        clusterOverviewPoller.stop();
-    }
-};
-
-var stopNodeDiagnosticsPoller = function () {
-    if (nodeDiagnosticsPoller != undefined) {
-        nodeDiagnosticsPoller.stop();
-    }
-};
-
-var stopIndicesPoller = function () {
-    if (indicesPoller != undefined) {
-        indicesPoller.stop();
-    }
-};
-
-var stopIndexPoller = function () {
-    if (indexPoller != undefined) {
-        indexPoller.stop();
-    }
-}

@@ -25,8 +25,16 @@ var queryRoute = {};
 queryRoute.init = function () {
 
     var clusterState = cluster.get("clusterState").toJSON();
-    var indices = clusterState.metadata.indices;
+    var indicesTemp = clusterState.metadata.indices;
     console.log(clusterState);
+
+    var indices = {};
+    var indexKeys = _.keys(indicesTemp);
+    for (var $i = 0; $i < indexKeys.length; $i++) {
+        if (indicesTemp[indexKeys[$i]].state == "open") {
+            indices[indexKeys[$i]] = indicesTemp[indexKeys[$i]];
+        }
+    }
 
     var queryView = new QueryView({model:indices});
     queryView.render();
@@ -38,13 +46,13 @@ queryRoute.init = function () {
 queryRoute.doQuery = function () {
 
     // get checked checkboxes and query string
-    var indices = new Array();
+    var indices = [];
     $('#checkboxindices input:checked').each(function () {
         indices.push($(this).attr('name'));
     });
 
     // get fields
-    var fields = new Array();
+    var fields = [];
     $('#checkboxfields input:checked').each(function () {
         fields.push($(this).attr('name'));
     });
@@ -76,7 +84,7 @@ queryRoute.doQuery = function () {
     sortArray[sortBy] = {"order":sortDir};
 
     // prep model., we dont use backbone connection in this case.
-    var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString, indicesArray: indices});
+    var queryModel = new QueryModel({indexCSV:indexCSV, queryString:queryString, indicesArray:indices});
     queryModel.get('queryObj').size = Math.floor(perPage);
     queryModel.get('queryObj').sort = sortArray;
     queryModel.get('queryObj').fields = fields;

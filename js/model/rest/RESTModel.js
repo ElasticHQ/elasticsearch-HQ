@@ -22,7 +22,7 @@ var RESTModel = Backbone.Model.extend({
         cmd:undefined
     },
     initialize:function (args) {
-        if (args.cmd != undefined) {
+        if (args.cmd !== undefined) {
             this.cmd = args.cmd;
         }
     },

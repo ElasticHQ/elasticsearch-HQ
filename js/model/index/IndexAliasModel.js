@@ -25,7 +25,7 @@ var IndexAliasModel = Backbone.Model.extend({
         this.indexId = args.indexId;
     },
     url:function () {
-        if (this.indexId != undefined) {
+        if (this.indexId !== undefined) {
             return '/' + this.indexId + '/_aliases';
         } else {
             return '/_aliases';

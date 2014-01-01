@@ -20,6 +20,8 @@ var restTemplate = {};
 
 restTemplate.sideNav = [
     '<ul class="nav nav-list">',
+    '<li class="nav-header">Editor</li>',
+    '<li><a href="#jsoneditor"><i class="icon-double-angle-right"></i> JSON Editor</a></li>',
     '<li class="nav-header">Cluster</li>',
     '<li><a href="#restcall/health"><i class="icon-double-angle-right"></i> Health</a></li>',
     '<li><a href="#restcall/state"><i class="icon-double-angle-right"></i> State</a></li>',
@@ -77,4 +79,48 @@ restTemplate.JSONView = [
     '<%- res %>',
     '</pre>',
     '</div>'
+].join("\n");
+
+restTemplate.jsonEditorView = [
+    '<div class="span12">',
+
+    '<h2>REST Editor</h2>',
+
+    '<form class="form-inline">',
+    '<select  data-width="auto" class="selectpicker" data-container="body" id="jsonformaction">',
+    '<option>GET</option>',
+    '<option>POST</option>',
+    /*'<option>PUT</option>',*/
+    '</select>',
+    '<span id="endpointSelect">',
+    '</span>',
+    '<button class="btn btn-success" type="button" id="jsonformsubmit"><b><i class="icon-caret-right"></i></b></button>',
+
+    //'<span id="restHelp" class="alert alert-success pull-right"><i class="icon-question-sign"></i> Simple Heartbeat request.</span>',
+
+    '</form>',
+
+    //'<div class="span12">',
+    '<div class="span3" style="padding: 0;margin: 0;">',
+    '<pre id="jsoneditor"></pre>',
+    '</div>',
+
+    '<div class="span9">',
+    '<pre id="jsonoutput"></pre>',
+    '</div>',
+    // '</div>',
+
+
+    '</div>'
+].join("\n");
+
+restTemplate.jsonapiendpoints = [
+    '<select  data-width="auto" class=" selectpicker" data-container="body" id="jsonformendpoint">',
+    '<% _.each(endpoints, function(ep) { %>',
+    '<optgroup label="<%- ep.key %>">',
+    '<% _.each(ep.value, function(val) { %>',
+    '<option><%- val %></option>',
+    '<% }) %>',
+    '<% }) %>',
+    '</select>',
 ].join("\n");

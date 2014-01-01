@@ -32,7 +32,7 @@ var NodeListModel = Backbone.Collection.extend({
         console.log("Inside NodeList");
     },
     url:function () {
-        return '/_cluster/state?filter_nodes=false&filter_metadata=true&filter_routing_table=true&filter_blocks=true&filter_indices=true'
+        return '/_cluster/state?filter_nodes=false&filter_metadata=true&filter_routing_table=true&filter_blocks=true&filter_indices=true';
     },
     parse:function (data) {
         if (data.master_node) {

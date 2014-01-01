@@ -190,17 +190,21 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
             <li class="muted">&middot;</li>
             <li><a href="https://groups.google.com/d/forum/elastichq" target="_blank">Google Group</a></li>
         </ul>
-        <p>Current versions can always be found running at <a href="http://www.elastichq.org"
-                                                              target="_blank">ElasticHQ</a>. </p>
-
-        <p><a href="#legalModal" data-toggle="modal" role="button">TOS & Privacy Policy Stuff</a> | Code licensed under
-            <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License
-                v2.0</a></p>
-
-
-        <ul class="footer-links">
-            <li></li>
-        </ul>
+        <p>
+            <small>Current versions can always be found running at <a href="http://www.elastichq.org"
+                                                                      target="_blank">ElasticHQ</a>.
+            </small>
+            <br/>
+            <small><a href="#legalModal" data-toggle="modal" role="button">TOS & Privacy Policy Stuff</a> | Code
+                licensed under
+                <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License
+                    v2.0</a>
+            </small>
+            <br/>
+            <small>&copy;Razorback, LLC. All Rights Reserved.</small>
+            <br/>
+            <small>We are not affiliated with ElasticSearch, Inc.</small>
+        </p>
     </div>
 </footer>
 
@@ -228,6 +232,13 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <!-- Notify -->
 <script src="js/lib/pnotify/jquery.pnotify.min.js"></script>
+
+<!-- Numeral -->
+<script src="js/lib/numeraljs/min/numeral.min.js"></script>
+
+<!-- load ace -->
+<script src="js/lib/ace/src-min-noconflict/ace.js"></script>
+<script src="js/lib/ace/src-min-noconflict/ext-language_tools.js"></script>
 <!(endif)-->
 
 <!--(if target dev)><!-->
@@ -252,6 +263,13 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <!-- Notify -->
 <script src="js/lib/pnotify/jquery.pnotify.min.js"></script>
+
+<!-- Numeral -->
+<script src="js/lib/numeraljs/numeral.js"></script>
+
+<!-- load ace -->
+<script src="js/lib/ace/src-noconflict/ace.js"></script>
+<script src="js/lib/ace/src-noconflict/ext-language_tools.js"></script>
 <!(endif)-->
 
 <!-- Overrides/Extensions must go first! -->
@@ -290,14 +308,13 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/model/node/NodeInfoModel.js"></script>
 <script src="js/model/node/NodeShutdownModel.js"></script>
 <script src="js/model/node/NodeHotThreadsModel.js"></script>
-
 <script src="js/model/index/IndexSimple.js"></script>
-
 <script src="js/model/index/IndexAliasModel.js"></script>
 <script src="js/model/index/IndexHealthModel.js"></script>
 <script src="js/model/index/IndexStatsModel.js"></script>
 <script src="js/model/index/IndexStatusModel.js"></script>
 <script src="js/model/index/IndexSettingsModel.js"></script>
+<script src="js/model/rest/JSONAPIModel.js"></script>
 <script src="js/model/mapping/MappingSimple.js"></script>
 <script src="js/model/rest/RESTModel.js"></script>
 <script src="js/model/query/QueryResultsModel.js"></script>
@@ -329,6 +346,9 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/view/node/NodeHotThreadView.js"></script>
 <script src="js/view/index/IndexStatusListView.js"></script>
 <script src="js/view/index/IndexView.js"></script>
+<script src="js/view/rest/EndPointMap.js"></script>
+<script src="js/view/rest/JSONEditorView.js"></script>
+<script src="js/view/rest/JSONEditorPostView.js"></script>
 <script src="js/view/mapping/MappingListView.js"></script>
 <script src="js/view/mapping/MapTypeView.js"></script>
 <script src="js/view/mapping/action/CreateTypeView.js"></script>

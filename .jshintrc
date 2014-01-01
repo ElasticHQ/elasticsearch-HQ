@@ -1,0 +1,25 @@
+{
+    "curly": true,
+    "immed": false,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "sub": true,
+    "undef": false, // TODO
+    "boss": true,
+    "eqnull": true,
+    "browser": true,
+    "eqeqeq":false,
+    "loopfunc" : true,
+    //"indent": 4,
+    "globals": {
+        "define": true,
+        "jQuery": true,
+        "$": true,
+        "ace": true,
+        "chart": true,
+        "Backbone": true,
+        "d3": true,
+        "_": true
+    }
+}
