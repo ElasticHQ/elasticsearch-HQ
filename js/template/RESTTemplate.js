@@ -90,7 +90,7 @@ restTemplate.jsonEditorView = [
     '<select  data-width="auto" class="selectpicker" data-container="body" id="jsonformaction">',
     '<option>GET</option>',
     '<option>POST</option>',
-    '<option>PUT</option>',
+    /*'<option>PUT</option>',*/
     '</select>',
     '<span id="endpointSelect">',
     '</span>',
