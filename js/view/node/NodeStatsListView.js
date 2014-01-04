@@ -101,6 +101,7 @@ var NodeStatsListView = Backbone.View.extend(
                         node.stats.indices.merges = {};
                         node.stats.indices.filter_cache = {};
                         node.stats.indices.id_cache = {};
+                        node.stats.indices.store = {};
                     }
 
                     if (!node.stats.http) {
@@ -109,7 +110,9 @@ var NodeStatsListView = Backbone.View.extend(
                     }
 
                     node.stats.jvm.uptime = (node.stats.jvm.uptime_in_millis / 1000 / 60 / 60 / 24).toFixed(2);
-
+                    node.stats.storeSize = numeral(node.stats.indices.store.size_in_bytes).format('0.0b');
+                    node.stats.mergeSize = numeral(node.stats.indices.merges.total_size_in_bytes).format('0.0b');
+                    node.stats.mergeTime = timeUtil.convertMS(node.stats.indices.merges.total_time_in_millis);
                     node.stats.docsdeletedperc = node.stats.indices.docs.deleted / node.stats.indices.docs.count;
                     node.stats.mergerate = node.stats.indices.merges.total_size_in_bytes / node.stats.indices.merges.total_time_in_millis / 1000;
 
@@ -126,6 +129,8 @@ var NodeStatsListView = Backbone.View.extend(
 
                     // cache
                     node.stats.filterevictions = node.stats.indices.filter_cache.evictions / node.stats.indices.search.query_total;
+                    node.stats.fieldsize = numeral(node.stats.indices.fielddata.memory_size_in_bytes).format('0.0b');
+                    node.stats.filtercache= numeral(node.stats.indices.filter_cache.memory_size_in_bytes).format('0.0b');
                     node.stats.idpercentage = node.stats.indices.id_cache.memory_size_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
 
                     // memory

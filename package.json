@@ -22,5 +22,8 @@
     "grunt-rev": "~0.1.0",
     "grunt-usemin": "~2.0.2"
   },
-  "license": "Apache License"
+  "license": "Apache License",
+  "dependencies": {
+    "moment": "~2.5.0"
+  }
 }

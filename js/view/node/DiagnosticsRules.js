@@ -246,9 +246,9 @@ function fs_rules() {
     return [
         {
             label:"Store Size:",
-            value:"stats.indices.store.size",
-            formula:"stats.indices.store.size",
-            formulaKeys:"stats.indices.store.size",
+            value:"stats.storeSize",
+            formula:"stats.indices.store.size_in_bytes",
+            formulaKeys:"stats.indices.store.size_in_bytes",
             calc:false
         },
         {
@@ -270,16 +270,16 @@ function fs_rules() {
         },
         {
             label:"Merge Size:",
-            value:"stats.indices.merges.total_size",
-            formula:"stats.indices.merges.total_size",
-            formulaKeys:"stats.indices.merges.total_size",
+            value:"stats.mergeSize",
+            formula:"stats.indices.merges.total_size_in_bytes",
+            formulaKeys:"stats.indices.merges.total_size_in_bytes",
             calc:false
         },
         {
             label:"Merge Time:",
-            value:"stats.indices.merges.total_time",
-            formula:"stats.indices.merges.total_time",
-            formulaKeys:"stats.indices.merges.total_time",
+            value:"stats.mergeTime",
+            formula:"stats.indices.merges.total_time_in_millis",
+            formulaKeys:"stats.indices.merges.total_time_in_millis",
             calc:false
         },
         {
@@ -287,7 +287,7 @@ function fs_rules() {
             unit:"MB/s",
             comment:"Low rates indicate throttling or slow I/O",
             format:"float",
-            value:"node.stats.mergerate",
+            value:"stats.mergerate",
             formula:"stats.indices.merges.total_size_in_bytes / stats.indices.merges.total_time_in_millis / 1000",
             formulaKeys:"stats.indices.merges.total_size_in_bytes@@stats.indices.merges.total_time_in_millis"
         },
@@ -395,7 +395,9 @@ function cache_rules() {
     return [
         {
             label:"Field Size:",
-            value:"stats.indices.fielddata.memory_size",
+            value:"stats.fieldsize",
+            formula:"stats.indices.fielddata.memory_size_in_bytes",
+            formulaKeys:"stats.indices.fielddata.memory_size_in_bytes",
             calc:false
 
         },
@@ -410,7 +412,9 @@ function cache_rules() {
         },
         {
             label:"Filter Cache Size:",
-            value:"stats.indices.filter_cache.memory_size",
+            value:"stats.filtercache",
+            formula:"stats.indices.filter_cache.memory_size_in_bytes",
+            formulaKeys:"stats.indices.filter_cache.memory_size_in_bytes",
             calc:false
         },
         {
