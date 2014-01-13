@@ -41,6 +41,7 @@ var SettingsView = Backbone.View.extend(
                 this.model.get('settings').poller.node = data.nPoller;
                 this.model.get('settings').poller.indices = data.indicesPoller;
                 this.model.get('settings').poller.index = data.indexPoller;
+                this.model.get('settings').nodeDiagnosticsMax = data.nodeDiagnosticsMax;
                 this.model.get('settings').debugMode = (data.debugMode !== undefined) ? 1 : 0;
                 this.model.get('settings').optoutStats = (data.optoutStats !== undefined) ? true : false;
                 this.model.saveToStorage();

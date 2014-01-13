@@ -18,12 +18,28 @@
  http://localhost:9200/_cluster/nodes
  */
 
-var NodeInfoListModel = Backbone.Model.extend({//Backbone.Collection.extend({
+var NodeInfoListModel = Backbone.Model.extend({
+    defaults:{
+        selectedNodes:undefined
+    },
     initialize:function () {
         console.log("Inside NodeInfoListModel");
     },
     url:function () {
-        return '/_cluster/nodes?all=1';
+        var sNodes = this.get('selectedNodes');
+        if (sNodes == undefined || sNodes.length == 0) {
+            return '/_cluster/nodes?all=1';
+        }
+        else {
+            var nodes = '';
+            for (var i = 0; i < sNodes.length; i++) {
+                nodes = nodes + sNodes[i];
+                if (sNodes.length-1 > i) {
+                    nodes = nodes + ',';
+                }
+            }
+            return '/_cluster/nodes/' + nodes;
+        }
     }
 
 });
