@@ -23,12 +23,27 @@
  * @type {*}
  */
 var NodeStatsListModel = Backbone.Model.extend({//Backbone.Collection.extend({
-
+    defaults:{
+        selectedNodes:undefined
+    },
     initialize:function () {
         console.log("Inside NodeStatsListModel");
     },
     url:function () {
-        return '/_cluster/nodes/stats?all=1';
+        var sNodes = this.get('selectedNodes');
+        if (sNodes == undefined || sNodes.length == 0) {
+            return '/_cluster/nodes/stats?all=1';
+        }
+        else {
+            var nodes = '';
+            for (var i = 0; i < sNodes.length; i++) {
+                nodes = nodes + sNodes[i];
+                if (sNodes.length - 1 > i) {
+                    nodes = nodes + ',';
+                }
+            }
+            return '/_cluster/nodes/' + nodes + '/stats?all=1';
+        }
         //return '/_nodes/stats?clear=true&os=false'; // test for incomplete dataset returns from server.
     },
     fetch:function (options) {

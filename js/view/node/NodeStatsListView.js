@@ -23,6 +23,23 @@ var NodeStatsListView = Backbone.View.extend(
             },
             render:function () {
 
+                var _this = this;
+
+                // all nodes
+                var nodeList = cluster.get("nodeList");
+                var selectedNodes = this.infoModel.get('selectedNodes');
+                var allNodes = [];
+                for (var i = 0; i < nodeList.models.length; i++) {
+                    var node = new NodeSimple();
+                    node.id = nodeList.models[i].id;
+                    node.name = nodeList.models[i].get('name');
+                    for (var j = 0; j < selectedNodes.length; j++) {
+                        if (node.id == selectedNodes[j])
+                            node.selected = true;
+                    }
+                    allNodes.push(node);
+                }
+
                 var nodeStatModel = this.model.toJSON();
                 var nodeInfo = this.infoModel.toJSON();
                 var nodeArray = [];
@@ -130,7 +147,7 @@ var NodeStatsListView = Backbone.View.extend(
                     // cache
                     node.stats.filterevictions = node.stats.indices.filter_cache.evictions / node.stats.indices.search.query_total;
                     node.stats.fieldsize = numeral(node.stats.indices.fielddata.memory_size_in_bytes).format('0.0b');
-                    node.stats.filtercache= numeral(node.stats.indices.filter_cache.memory_size_in_bytes).format('0.0b');
+                    node.stats.filtercache = numeral(node.stats.indices.filter_cache.memory_size_in_bytes).format('0.0b');
                     node.stats.idpercentage = node.stats.indices.id_cache.memory_size_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
 
                     // memory
@@ -184,9 +201,12 @@ var NodeStatsListView = Backbone.View.extend(
                     nodeArray.push(node);
                 }
 
+                var maxNodes = settingsModel.get('settings').nodeDiagnosticsMax;
+
                 var tpl = _.template(nodeTemplate.diagnostics);
                 $('#workspace').html(tpl(
                     {
+                        allNodes:allNodes,
                         nodes:nodeArray,
                         labels:keysArray,
                         generalRules:general_rules(),
@@ -201,13 +221,32 @@ var NodeStatsListView = Backbone.View.extend(
 
                 $("[rel=tipRight]").tooltip();
                 $("[rel=popRight]").popover({});
+                $('.selectpicker').selectpicker();
 
-                /*                // show warnings for missing data
-                 if (!jvmVal || !osVal || !indicesVal || !httpVal) {
-                 show_stack_bottomright({type:'error', title:'Missing Data', text:'Incomplete dataset from server. Some values left intentionally blank.'});
-                 }*/
+                // on the click, show modal and stop the background polling, or it will refresh the
+                // workspace and close the modal.
+                $(document).on("click", "#openNodeSelect", function () {
+                    $('#selectDiagnosticsNodeModal').modal('show');
+                    nodeDiagnosticsPoller.stop();
+                });
+                // on closing of the modal, resume polling
+                $('#selectDiagnosticsNodeModal').on('hidden', function () {
+                    nodeDiagnosticsPoller.start();
+                });
 
+                // if someone confirms filtering of nodes...
+                $('#refreshSelectedNodes').on('click', function () {
+                    _this.refreshSelectedNodes();
+                    $('#selectDiagnosticsNodeModal').modal('hide');
+                });
                 return this;
+            },
+            refreshSelectedNodes:function () {
+                var selectedNodes = $('#selectedNodes').val();
+                if (selectedNodes != undefined && selectedNodes.length != 0) {
+                    nodeRoute.selectedDiagnoseNodeIDs = $('#selectedNodes').val();
+                }
+                nodeRoute.diagnoseNodes();
             },
             renderedModal:false,
             infoModel:undefined,

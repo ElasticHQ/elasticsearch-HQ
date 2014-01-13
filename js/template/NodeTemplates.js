@@ -5,6 +5,7 @@ var nodeTemplate = {};
  * @type {String}
  */
 nodeTemplate.nodeList = [
+
     '<a href="#nodediagnostics" class="btn btn-info" rel="tipRight" data-trigger="hover" data-placement="bottom" data-title="Provides helpful diagnostic & performance information for all nodes in your cluster."><i class="icon-ambulance"></i> Node Diagnostics</a>',
 
     '<!-- if more than 5 nodes, show dropdown. else, show individual nodes. -->',
@@ -93,7 +94,12 @@ nodeTemplate.nodeInfoModal = [
 nodeTemplate.diagnostics = [
     '<div class="well">',
     '<div class="span2 pull-left"><a href="#refreshNodeDiagnostics" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
-    '<div class="pull-right"><a href="#diagnosticsModal" data-toggle="modal" role="button" class="btn"><i class="icon-question-sign"></i> Help</a></div>',
+    '<div class="pull-right">',
+
+    '<div class="btn-group">',
+    '<a href="#selectDiagnosticsNodeModal" id="openNodeSelect" class="btn" rel="tipRight" data-placement="bottom" data-html="true" data-title="Monitoring <%- nodes.length %> of <%- allNodes.length %> nodes."><i class="icon-list-ul"></i> Select</a>',
+    '<a href="#diagnosticsModal" data-toggle="modal" role="button" class="btn" rel="tipRight" data-placement="bottom" data-html="true" data-title="Trouble understanding this screen?"><i class="icon-question-sign"></i> Help</a></div>',
+    '</div>',
     '<div class="text-center">',
     '<span style="font-size: 28px;">Node Diagnostics Information</span>',
     '</div>',
@@ -203,6 +209,29 @@ nodeTemplate.diagnostics = [
 
     '</table>',
     '</div> <!-- row -->',
+
+    '<div class="modal hide fade" id="selectDiagnosticsNodeModal">',
+    '<div class="modal-header">',
+    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
+    '<h3>Select Nodes</h3>',
+    '</div>',
+    '<div class="modal-body" style="overflow-y: visible;">',
+    '<div class="alert alert-info" id="selectNodes">',
+    '<p>Choose which nodes you would like to diagnose. Note that selecting a large number of nodes, may negatively impact performance.</p>',
+    '<form  class="form-inline"><select id="selectedNodes" class="selectpicker" data-style="btn-default" data-selected-text-format="count>5" multiple title="Select Nodes..." data-size="10">',
+    '<% _.each(allNodes, function(node, key) { %>',
+    '<% if (node.selected == true) { %>',
+    '<option selected value="<%- node.id %>"><%- node.name %></option>',
+    '<% } else { %>',
+    '<option value="<%- node.id %>"><%- node.name %></option>',
+    '<% } %>',
+    '<% }) %>',
+    '</select>',
+    '<button class="btn btn-info" id="refreshSelectedNodes">Filter</button>',
+    '</form>',
+    '</div>',
+    '</div>',
+    '</div>',
 
     '<div class="modal hide fade" id="diagnosticsModal">',
     '<div class="modal-header">',

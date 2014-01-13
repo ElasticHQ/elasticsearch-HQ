@@ -29,6 +29,7 @@ var SettingsModel = Backbone.Model.extend({
                 indices:15000,
                 index:10000
             },
+            nodeDiagnosticsMax:10,
             debugMode:0,
             optoutStats:false
         }
@@ -83,6 +84,7 @@ var SettingsModel = Backbone.Model.extend({
                 settingsArg.poller = {};
             }
             this.get('settings').debugMode = (settingsArg.debugMode !== undefined) ? settingsArg.debugMode : this.get('settings').debugMode;
+            this.get('settings').nodeDiagnosticsMax = (settingsArg.nodeDiagnosticsMax !== undefined) ? settingsArg.nodeDiagnosticsMax : this.get('settings').nodeDiagnosticsMax;
             this.get('settings').optoutStats = (settingsArg.optoutStats !== undefined) ? settingsArg.optoutStats : this.get('settings').optoutStats;
             this.get('settings').poller.cluster = (settingsArg.poller.cluster !== undefined) ? settingsArg.poller.cluster : this.get('settings').poller.cluster;
             this.get('settings').poller.nodeDiagnostics = (settingsArg.poller.nodeDiagnostics !== undefined) ? settingsArg.poller.nodeDiagnostics : this.get('settings').poller.nodeDiagnostics;
@@ -124,6 +126,12 @@ var SettingsModel = Backbone.Model.extend({
             range:[POLLER_MIN_FREQUENCY, POLLER_MAX_FREQUENCY],
             pattern:'number',
             msg:'Acceptable Range is ' + POLLER_MIN_FREQUENCY + ' to ' + POLLER_MAX_FREQUENCY
+        },
+        nodeDiagnosticsMax:{
+            required:true,
+            range:[1, 200],
+            pattern:'number',
+            msg:'Acceptable Range is 1 to 200'
         }
     }
 });
