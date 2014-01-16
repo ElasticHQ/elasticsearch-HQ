@@ -29,9 +29,11 @@ var NodeInfoModel = Backbone.Model.extend({
     url:function () {
         if (this.nodeId) {
             return '/_cluster/nodes/' + this.nodeId + '?all=true';
+            // 100rc1 return '/_nodes/' + this.nodeId + '?all=true';
         }
         else {
             return '/_cluster/nodes?all=true';
+            //100rc1 return '/_nodes?all=true';
         }
     }
 

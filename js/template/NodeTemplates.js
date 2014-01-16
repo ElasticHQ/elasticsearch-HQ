@@ -548,11 +548,14 @@ nodeTemplate.nodeInfo = [
     '</ul>',
 
     /* FS */
-    '<% if (fileSystem != undefined) { %>',
     '<div class="lead text-left"><i class="icon-th-large"></i> File System</div>',
-    '<div class="row-fluid">',
 
+    '<% if (_.size(fileSystemArr) > 0) { %>',
+    '<% _.each(fileSystemArr, function(fileSystem, count) { %>',
+    '<% if (fileSystem != undefined) { %>',
+    '<div class="row-fluid">',
     '<div class="span4"> ',
+    '<h4>FileSystem <%- count %></h4>',
     '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
     '<tr><td>Path:</td><td><%- fileSystem.path %></td></tr>',
@@ -570,7 +573,7 @@ nodeTemplate.nodeInfo = [
     '<div class="span4">',
     '<div class="text-center"><strong># Disk Reads</strong></div>',
     '<div class="chart-container text-center">',
-    '<div id="chart-fsreads" class="chart-placeholder"></div>',
+    '<div id="chart-fsreads<%- count %>" class="chart-placeholder"></div>',
     '<div id="legend"></div>',
     '</div>',
     '</div>',
@@ -578,7 +581,7 @@ nodeTemplate.nodeInfo = [
     '<div class="span4">',
     '<div class="text-center"><strong># Disk Writes</strong></div>',
     '<div class="chart-container text-center">',
-    '<div id="chart-fswrites" class="chart-placeholder"></div>',
+    '<div id="chart-fswrites<%- count %>" class="chart-placeholder"></div>',
     '<div id="legend"></div>',
     '</div>',
     '</div>',
@@ -589,6 +592,9 @@ nodeTemplate.nodeInfo = [
     '<ul class="nav nav-list">',
     '<li class="divider"></li>',
     '</ul>',
+
+    '<% } %>',
+    '<% }) %>',
     '<% } %>'
 
 ].join("\n");

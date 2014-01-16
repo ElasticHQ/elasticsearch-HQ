@@ -49,6 +49,12 @@ var NodeListModel = Backbone.Collection.extend({
         for (var i = 0; i < nodeKeys.length; i++) {
             nodeValues[i].id = nodeKeys[i];
         }
+
+        // sort by name
+        nodeValues = _.sortBy(nodeValues, function (node) {
+            return node.name;
+        });
+
         nodeValues = _.sortBy(nodeValues, function (node) { // put masternode first in line
             return node.master;
         });

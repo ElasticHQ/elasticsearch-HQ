@@ -53,29 +53,30 @@ var NodeStatsListView = Backbone.View.extend(
                     {title:'JVM Uptime', key:'jvmStats.uptime'}
                 ];
 
-                // sorting is only really necessary if we plan to auto-refresh the screen
-                var sortArray = [];
-                for (i in nodeStatModel.nodes) {
-
-                    var node = new NodeSimple();
-                    node.nodeId = i;
-                    sortArray.push(node);
+                var nodeKeys = _.keys(nodeStatModel.nodes);
+                var nodeValues = _.values(nodeStatModel.nodes);
+                for (var i = 0; i < nodeKeys.length; i++) {
+                    nodeValues[i].id = nodeKeys[i];
                 }
-                // order by id
-                sortArray.sort(function (a, b) {
-                    var keyA = a.nodeId,
-                        keyB = b.nodeId;
-                    if (keyA < keyB) {
-                        return -1;
+                nodeValues = _.sortBy(nodeValues, function (node) {
+                    return node.name;
+                });
+                nodeValues = _.sortBy(nodeValues, function (node) { // put masternode first in line
+                    if (node.attributes) { // the logic is backward here, becaue it requires a string compare.
+                        if (node.attributes.master) {
+                            return "true";
+                        }
+                        else {
+                            return "false";
+                        }
                     }
-                    if (keyA > keyB) {
-                        return 1;
+                    else {
+                        return "false";
                     }
-                    return 0;
-                }); // end sort
+                });
 
-                for (var i = 0; i < sortArray.length; i++) {
-                    var nodeId = sortArray[i].nodeId;
+                for (var i = 0; i < nodeValues.length; i++) {
+                    var nodeId = nodeValues[i].id;
 
                     var node = new NodeSimple();
                     node.id = nodeId;
@@ -97,7 +98,8 @@ var NodeStatsListView = Backbone.View.extend(
                         node.stats.jvm.gc.collectors = {};
                         node.stats.jvm.gc.collectors.ConcurrentMarkSweep = {};
                         node.stats.jvm.gc.collectors.ParNew = {};
-
+                        node.stats.jvm.gc.collectors['G1 Young Generation'] = {};
+                        node.stats.jvm.gc.collectors['G1 Old Generation'] = {};
                     }
                     if (!node.stats.os) {
                         osVal = false;
@@ -162,12 +164,24 @@ var NodeStatsListView = Backbone.View.extend(
                     node.stats.heapused = node.stats.jvm.mem.heap_used_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
 
                     node.stats.gcfreq = 0;
+                    node.stats.g1gcfreq = 0;
                     node.stats.gcduration = 0;
+                    node.stats.g1gcduration = 0;
                     try {
                         if (node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count === 0) {
                             node.stats.gcfreq = 0;
                         } else {
                             node.stats.gcfreq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count / 1000;
+                        }
+                    }
+                    catch (e) {
+                        // default to 0;
+                    }
+                    try {
+                        if (node.stats.jvm.gc.collectors['G1 Young Generation'].collection_count === 0) {
+                            node.stats.g1gcfreq = 0;
+                        } else {
+                            node.stats.g1gcfreq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors['G1 Young Generation'].collection_count / 1000;
                         }
                     }
                     catch (e) {
@@ -180,6 +194,12 @@ var NodeStatsListView = Backbone.View.extend(
                     catch (e) {
                         // default to 0
                     }
+                    try {
+                        node.stats.g1gcduration = node.stats.jvm.gc.collectors['G1 Young Generation'].collection_time_in_millis / node.stats.jvm.gc.collectors['G1 Young Generation'].collection_count;
+                    }
+                    catch (e) {
+                        // default to 0
+                    }
 
                     if (node.stats.jvm.gc.collectors.ParNew) {
                         node.stats.gcparnew = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count / 1000;
@@ -188,6 +208,14 @@ var NodeStatsListView = Backbone.View.extend(
                     else {
                         node.stats.gcparnew = 0;
                         node.stats.gcparnewduration = 0;
+                    }
+                    if (node.stats.jvm.gc.collectors['G1 Old Generation'] && node.stats.jvm.gc.collectors['G1 Old Generation'].collection_count !== 0) {
+                        node.stats.g1gcold = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors['G1 Old Generation'].collection_count / 1000;
+                        node.stats.g1gcoldduration = node.stats.jvm.gc.collectors['G1 Old Generation'].collection_time_in_millis / node.stats.jvm.gc.collectors['G1 Old Generation'].collection_count;
+                    }
+                    else {
+                        node.stats.g1gcold = 0;
+                        node.stats.g1gcoldduration = 0;
                     }
 
                     node.stats.swap = 0;

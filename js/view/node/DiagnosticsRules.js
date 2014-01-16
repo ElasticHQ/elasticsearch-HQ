@@ -220,21 +220,21 @@ function general_rules() {
             formula:"stats.jvm.uptime_in_millis/1000/60/60/24",
             formulaKeys:"stats.jvm.uptime_in_millis",
             unit:"days"
-        },
-        {
-            label:"CPU:",
-            value:"info.os.cpu.model",
-            formula:"info.os.cpu.model",
-            formulaKeys:"info.os.cpu.model",
-            calc:false
-        },
-        {
-            label:"# Cores:",
-            value:"info.os.cpu.total_cores",
-            formula:"info.os.cpu.total_cores",
-            formulaKeys:"info.os.cpu.total_cores",
-            calc:false
         }/*,
+         {
+         label:"CPU:",
+         value:"info.os.cpu.model",
+         formula:"info.os.cpu.model",
+         formulaKeys:"info.os.cpu.model",
+         calc:false
+         },
+         {
+         label:"# Cores:",
+         value:"info.os.cpu.total_cores",
+         formula:"info.os.cpu.total_cores",
+         formulaKeys:"info.os.cpu.total_cores",
+         calc:false
+         }*//*,
          {
          label:"",
          value:""
@@ -517,6 +517,44 @@ function memory_rules() {
             formula:"stats.jvm.gc.collectors.ParNew.collection_time_in_millis / stats.jvm.gc.collectors.ParNew.collection_count",
             formulaKeys:"stats.jvm.gc.collectors.ParNew.collection_time_in_millis@@stats.jvm.gc.collectors.ParNew.collection_count",
             upper_limit:[ "100", "200" ]
+        },
+        {
+            label:"G1 GC Young Generation Freq:",
+            unit:"s",
+            comment:"Too frequent GC indicates memory pressure and need for more heap space.",
+            format:"comma",
+            value:"stats.g1gcfreq",
+            formula:"stats.jvm.uptime_in_millis / stats.jvm.gc.collectors['G1 Young Generation'].collection_count / 1000",
+            formulaKeys:"stats.jvm.uptime_in_millis@@stats.jvm.gc.collectors['G1 Young Generation'].collection_count",
+            lower_limit:[ "30", "15", "0" ]
+        },
+        {
+            label:"G1 GC Young Generation Duration:",
+            comment:"Long durations may indicate that swapping is slowing down GC, or need for more heap space.",
+            format:"ms",
+            value:"stats.g1gcduration",
+            formula:"stats.jvm.gc.collectors['G1 Young Generation'].collection_time_in_millis / stats.jvm.gc.collectors['G1 Young Generation'].collection_count",
+            formulaKeys:"stats.jvm.gc.collectors['G1 Young Generation'].collection_time_in_millis@@stats.jvm.gc.collectors['G1 Young Generation'].collection_count",
+            upper_limit:[ "150", "400" ]
+        },
+        {
+            label:"G1 GC Old Generation Freq:",
+            unit:"s",
+            comment:"Too frequent GC indicates memory pressure and need for more heap space.",
+            format:"comma",
+            value:"stats.g1gcold",
+            formula:"stats.jvm.uptime_in_millis / stats.jvm.gc.collectors['G1 Old Generation'].collection_count / 1000",
+            formulaKeys:"stats.jvm.uptime_in_millis@@stats.jvm.gc.collectors['G1 Old Generation'].collection_count",
+            lower_limit:[ "30", "15", "0" ]
+        },
+        {
+            label:"G1 GC Old Generation Duration:",
+            comment:"Long durations may indicate that swapping is slowing down GC, or need for more heap space.",
+            format:"ms",
+            value:"stats.g1gcoldduration",
+            formula:"stats.jvm.gc.collectors['G1 Old Generation'].collection_time_in_millis / stats.jvm.gc.collectors['G1 Old Generation'].collection_count",
+            formulaKeys:"stats.jvm.gc.collectors['G1 Old Generation'].collection_time_in_millis@@stats.jvm.gc.collectors['G1 Old Generation'].collection_count",
+            upper_limit:[ "150", "400" ]
         },
         {
             label:"Swap Space:",

@@ -39,13 +39,16 @@ var NodeStatView = Backbone.View.extend(
             var threadPool = nodeStat.nodes[nodeId].thread_pool;
 
             var fileSystem = {};
+            var fileSystemArr = [];
             if (!nodeStat.nodes[nodeId].fs) {
                 fileSystem = nodeStat.nodes[nodeId].fs = {};
                 fileSystem = nodeStat.nodes[nodeId].fs.data = [];
             }
             else {
-                fileSystem = nodeStat.nodes[nodeId].fs.data[0];
+                //fileSystem = nodeStat.nodes[nodeId].fs.data[0];
+                // moved out of else
             }
+            fileSystemArr = nodeStat.nodes[nodeId].fs.data;
 
             var threads = nodeStat.nodes[nodeId].threads;
             var indices = nodeStat.nodes[nodeId].indices;
@@ -191,7 +194,7 @@ var NodeStatView = Backbone.View.extend(
                     address:address,
                     hostName:hostName,
                     threadPool:threadPool,
-                    fileSystem:fileSystem,
+                    fileSystemArr:fileSystemArr,
                     threads:threads,
                     indices:indices,
                     netInfo:netInfo,
@@ -276,15 +279,18 @@ var NodeStatView = Backbone.View.extend(
             this.procmemchart.setData([this.procmemdata]);
 
             // fs
-            this.fsreaddata = chart.addData(this.fsreaddata, [new Date().getTime() + 1, fileSystem.disk_reads]);
-            this.fsreaddata.push([now, fileSystem.disk_reads]);
-            this.fsreadchart = chart.draw("#chart-fsreads", this.fsreaddata, chart.fsreads.options());
-            this.fsreadchart.setData([this.fsreaddata]);
+            for (var i = 0; i < fileSystemArr.length; i++) {
+                fileSystem = fileSystemArr[i];
+                this.fsreaddata = chart.addData(this.fsreaddata, [new Date().getTime() + 1, fileSystem.disk_reads]);
+                this.fsreaddata.push([now, fileSystem.disk_reads]);
+                this.fsreadchart = chart.draw("#chart-fsreads" + i, this.fsreaddata, chart.fsreads.options());
+                this.fsreadchart.setData([this.fsreaddata]);
 
-            this.fswritedata = chart.addData(this.fswritedata, [new Date().getTime() + 1, fileSystem.disk_writes]);
-            this.fswritedata.push([now, fileSystem.disk_writes]);
-            this.fswritechart = chart.draw("#chart-fswrites", this.fswritedata, chart.fswrites.options());
-            this.fswritechart.setData([this.fswritedata]);
+                this.fswritedata = chart.addData(this.fswritedata, [new Date().getTime() + 1, fileSystem.disk_writes]);
+                this.fswritedata.push([now, fileSystem.disk_writes]);
+                this.fswritechart = chart.draw("#chart-fswrites" + i, this.fswritedata, chart.fswrites.options());
+                this.fswritechart.setData([this.fswritedata]);
+            }
 
             // network
             this.httptxdata = chart.addData(this.httptxdata, [new Date().getTime() + 1, httpStats.current_open]);
