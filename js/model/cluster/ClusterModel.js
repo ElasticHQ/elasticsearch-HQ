@@ -22,6 +22,12 @@
  */
 var Cluster = Backbone.Model.extend({
     defaults:{
+        versionNumber:{
+            concat:undefined,
+            major:undefined,
+            minor:undefined,
+            rev:undefined
+        },
         connectionRootURL:undefined,
         clusterHealth:undefined,
         clusterState:undefined,
@@ -43,7 +49,13 @@ var Cluster = Backbone.Model.extend({
                 $.cookie("resturl", args.connectionRootURL, { expires:7, path:'/' });
 
                 var version = ping.get("version");
+                if (!version) {
+                    version = {};
+                    version.number = "0.99.0";
+                }
+
                 if (version && version.number) {
+                    _this.setVersionNumber(version.number);
                     _this.supportedVersion(version.number);
                 }
                 //show_stack_bottomright({type:'info', title:'Tip', text:'ElasticHQ will refresh the Node List every 10 seconds.'});
@@ -67,6 +79,19 @@ var Cluster = Backbone.Model.extend({
             }
         });
         _this.initModel(args.connectionRootURL); // init cluster objects
+    },
+    setVersionNumber:function (versionNumber) {
+        var _this = this;
+
+        //versionNumber = versionNumber.replace(/\D/g, '');
+        var versionArr = versionNumber.split(".");
+        _this.versionNumber = {
+            major:versionArr[0],
+            minor:versionArr[1],
+            rev:versionArr[2],
+            concat:versionArr[0] + "." + versionArr[1] + "." + versionArr[2]
+        };
+        //console.log(versionUtil.isNewer("1.0.0", versionNumber));
     },
     supportedVersion:function (versionNumber) {
         var versionArr = versionNumber.split(".");

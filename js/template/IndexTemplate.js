@@ -35,7 +35,7 @@ indexTemplate.indexList = [
     '<% _.each(indices, function(index) { %>',
     '<tr><td>',
     '<a href="#index/<%- index.id %>"  rel="tipRight" data-placement="bottom" data-title="Index Information"><%- index.name %></a>',
-    '</td><td><%- numeral(index.docs.num_docs).format("0,0") %></td><td><%- index.index.primary_size %></td><td><%- numeral(index.numshards).format("0,0") %></td><td><%- numeral(index.numreplicas).format("0,0") %></td><td><%- index.status %></td></tr>',
+    '</td><td><%- numeral(index.docs.num_docs).format("0,0") %></td><td><%- numeral(index.index.primary_size_in_bytes).format("0.0b")  %></td><td><%- numeral(index.numshards).format("0,0") %></td><td><%- numeral(index.numreplicas).format("0,0") %></td><td><%- index.status %></td></tr>',
     '<% }); %>',
     '</tbody>',
     '</table>',
@@ -92,10 +92,10 @@ indexTemplate.indexView = [
     '<div class="well"><span class="stat-detail"><%- numeral(index.docs.num_docs).format("0,0") %></span><span>Documents</span>',
     '</div></div>',
     '<div class="span3">',
-    '<div class="well"><span class="stat-detail"><%- index.index.primary_size %></span><span>Primary Size</span>',
+    '<div class="well"><span class="stat-detail"><%- numeral(index.index.primary_size_in_bytes).format("0.0b") %></span><span>Primary Size</span>',
     '</div></div>',
     '<div class="span3">',
-    '<div class="well"><span class="stat-detail"><%- index.index.size %></span><span>Total Size</span>',
+    '<div class="well"><span class="stat-detail"><%- numeral(index.index.size_in_bytes).format("0.0b") %></span><span>Total Size</span>',
     '</div></div>',
     '<div class="span3">',
     '<div class="well"><span class="stat-detail"><%- numeral(totalShards.total).format("0,0") %></span><span>Total Shards</span>',
@@ -141,8 +141,8 @@ indexTemplate.indexView = [
     '<tr><td class="span3">Documents:</td><td><%- numeral(index.docs.num_docs).format("0,0") %></td></tr>',
     '<tr><td>Max Documents:</td><td><%- numeral(index.docs.max_doc).format("0,0") %></td></tr>',
     '<tr><td>Deleted Documents:</td><td><%- numeral(index.docs.deleted_docs).format("0,0") %></td></tr>',
-    '<tr><td>Primary Size:</td><td><%- index.index.primary_size %></td></tr>',
-    '<tr><td>Total Size:</td><td><%- index.index.size %></td></tr>',
+    '<tr><td>Primary Size:</td><td><%- numeral(index.index.primary_size_in_bytes).format("0.0b")  %></td></tr>',
+    '<tr><td>Total Size:</td><td><%- numeral(index.index.size_in_bytes).format("0.0b")  %></td></tr>',
     '</table>',
 
     '</div>', // span6
@@ -163,9 +163,9 @@ indexTemplate.indexView = [
 
     '<tbody>',
     '<tr><td class="span3">Query Total:</td><td><%- numeral(index.total.search.query_total).format("0,0") %></td></tr>',
-    '<tr><td>Query Time:</td><td><%- index.total.search.query_time %></td></tr>',
+    '<tr><td>Query Time:</td><td><%- timeUtil.convertMS(index.total.search.query_time_in_millis) %></td></tr>',
     '<tr><td>Fetch Total:</td><td><%- numeral(index.total.search.fetch_total).format("0,0") %></td></tr>',
-    '<tr><td>Fetch Time:</td><td><%- index.total.search.fetch_time %></td></tr>',
+    '<tr><td>Fetch Time:</td><td><%- timeUtil.convertMS(index.total.search.fetch_time_in_millis) %></td></tr>',
     '</tbody>',
     '</table>',
     '</div>', // span6
@@ -184,9 +184,9 @@ indexTemplate.indexView = [
     '</thead>',
 
     '<tr><td class="span3">Index Total:</td><td><%- numeral(index.total.indexing.index_total).format("0,0") %></td></tr>',
-    '<tr><td class="span3">Index Time:</td><td><%- index.total.indexing.index_time %></td></tr>',
+    '<tr><td class="span3">Index Time:</td><td><%- timeUtil.convertMS(index.total.indexing.index_time_in_millis) %></td></tr>',
     '<tr><td>Delete Total:</td><td><%- numeral(index.total.indexing.delete_total).format("0,0") %></td></tr>',
-    '<tr><td>Delete Time:</td><td><%- index.total.indexing.delete_time %></td></tr>',
+    '<tr><td>Delete Time:</td><td><%- timeUtil.convertMS(index.total.indexing.delete_time_in_millis) %></td></tr>',
     '</table>',
     '</div>', // span6
     '</div> <!-- end row -->',
@@ -206,11 +206,11 @@ indexTemplate.indexView = [
     '</thead>',
 
     '<tr><td class="span3">Get Total:</td><td><%- numeral(index.total.get.total).format("0,0") %></td></tr>',
-    '<tr><td>Get Time:</td><td><%- index.total.get.get_time %></td></tr>',
+    '<tr><td>Get Time:</td><td><%- timeUtil.convertMS(index.total.get.time_in_millis) %></td></tr>',
     '<tr><td>Exists Total:</td><td><%- numeral(index.total.get.exists_total).format("0,0") %></td></tr>',
-    '<tr><td>Exists Time:</td><td><%- index.total.get.exists_time %></td></tr>',
+    '<tr><td>Exists Time:</td><td><%- timeUtil.convertMS(index.total.get.exists_time_in_millis) %></td></tr>',
     '<tr><td>Missing Total:</td><td><%- numeral(index.total.get.missing_total).format("0,0") %></td></tr>',
-    '<tr><td>Missing Time:</td><td><%- index.total.get.missing_time %></td></tr>',
+    '<tr><td>Missing Time:</td><td><%- timeUtil.convertMS(index.total.get.missing_time_in_millis) %></td></tr>',
     '</table>',
     '</div>',
 
@@ -227,9 +227,9 @@ indexTemplate.indexView = [
     '</thead>',
 
     '<tr><td class="span3">Refresh Total:</td><td><%- numeral(index.refresh.total).format("0,0") %></td></tr>',
-    '<tr><td class="span3">Refresh Time:</td><td><%- index.refresh.total_time %></td></tr>',
+    '<tr><td class="span3">Refresh Time:</td><td><%- timeUtil.convertMS(index.refresh.total_time_in_millis) %></td></tr>',
     '<tr><td>Flush Total:</td><td><%- numeral(index.flush.total).format("0,0") %></td></tr>',
-    '<tr><td>Flush Time:</td><td><%- index.flush.total_time %></td></tr>',
+    '<tr><td>Flush Time:</td><td><%- timeUtil.convertMS(index.flush.total_time_in_millis) %></td></tr>',
     '</table>',
     '</div>',
 
@@ -246,9 +246,9 @@ indexTemplate.indexView = [
     '</thead>',
 
     '<tr><td class="span3">Merge Total:</td><td><%- numeral(index.merges.total).format("0,0") %></td></tr>',
-    '<tr><td>Merge Total Time:</td><td><%- index.merges.total_time %></td></tr>',
+    '<tr><td>Merge Total Time:</td><td><%- timeUtil.convertMS(index.merges.total_time_in_millis) %></td></tr>',
     '<tr><td>Merge Total Docs:</td><td><%- numeral(index.merges.total_docs).format("0,0") %></td></tr>',
-    '<tr><td>Merge Total Size:</td><td><%- index.merges.total_size %></td></tr>',
+    '<tr><td>Merge Total Size:</td><td><%- numeral(index.merges.total_size_in_bytes).format("0.0b") %></td></tr>',
     '</table>',
     '</div>',
 
@@ -270,7 +270,7 @@ indexTemplate.indexView = [
     '</thead>',
     '<tbody>',
     '<% _.each(shards, function(shard) { %>',
-    '<tr><td><%- shard.routing.shard %></td><td><%- shard.state %></td><td><%- numeral(shard.docs.num_docs).format("0,0") %></td><td><%- shard.index.size %></td><td><%- shard.routing.primary %></td><td><%- shard.node %></td></tr>',
+    '<tr><td><%- shard.routing.shard %></td><td><%- shard.state %></td><td><%- numeral(shard.docs.num_docs).format("0,0") %></td><td><%- numeral(shard.index.size_in_bytes).format("0.0b") %></td><td><%- shard.routing.primary %></td><td><%- shard.node %></td></tr>',
     '<% }) %>',
     '</tbody>',
     '</table>',
