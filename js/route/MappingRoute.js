@@ -46,7 +46,7 @@ mapRoute.deleteMapType = function (indexId, mappingName) {
 };
 
 mapRoute.viewMappings = function (indexId, mappingName) {
-    var mappingModel = new MappingsFactory().create();
+    var mappingModel = new MappingsModelFactory().create();
     if (indexId === undefined && mappingName === undefined) { // list all mapping types
         mappingModel.setConnectionRootURL(cluster.get("connectionRootURL"));
         mappingModel.fetch({
