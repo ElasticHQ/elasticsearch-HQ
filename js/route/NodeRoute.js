@@ -40,8 +40,8 @@ nodeRoute.diagnoseNodes = function () {
         nodeRoute.selectDiagnoseNodes(nodeList);
     }
 
-    var nodeInfoListModel = new NodeInfoListModel({connectionRootURL:cluster.get("connectionRootURL"), selectedNodes:nodeRoute.selectedDiagnoseNodeIDs});
-    var nodeStatsListModel = new NodeStatsListModel({connectionRootURL:cluster.get("connectionRootURL"), selectedNodes:nodeRoute.selectedDiagnoseNodeIDs});
+    var nodeInfoListModel = new NodeInfoListModelFactory().create(nodeRoute.selectedDiagnoseNodeIDs);
+    var nodeStatsListModel = new NodeStatsListModelFactory().create(nodeRoute.selectedDiagnoseNodeIDs);
     nodeInfoListModel.fetch({
         success:function (model, response) {
             var nodeListView = new NodeStatsListView({infoModel:nodeInfoListModel, model:nodeStatsListModel});

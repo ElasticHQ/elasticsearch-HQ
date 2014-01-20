@@ -50,3 +50,61 @@ function NodeStatsModelFactory() {
         }
     }
 }
+
+function NodeStatsListModelFactory() {
+    this.create = function (selectedNodes) {
+        var model = new NodeStatsListModel({connectionRootURL:cluster.get("connectionRootURL"), selectedNodes:selectedNodes});
+        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+            model.url = function () {
+                var sNodes = this.get('selectedNodes');
+                if (sNodes == undefined || sNodes.length == 0) {
+                    return '/_nodes/stats?all=1';
+                }
+                else {
+                    var nodes = '';
+                    for (var i = 0; i < sNodes.length; i++) {
+                        nodes = nodes + sNodes[i];
+                        if (sNodes.length - 1 > i) {
+                            nodes = nodes + ',';
+                        }
+                    }
+                    return '/_nodes/' + nodes + '/stats?all=1';
+                }
+
+
+            };
+            return model;
+        }
+        else {
+            return  model;
+        }
+    }
+}
+
+function NodeInfoListModelFactory() {
+    this.create = function (selectedNodes) {
+        var model = new NodeInfoListModel({connectionRootURL:cluster.get("connectionRootURL"), selectedNodes:selectedNodes});
+        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+            model.url = function () {
+                var sNodes = this.get('selectedNodes');
+                if (sNodes == undefined || sNodes.length == 0) {
+                    return '/_nodes?all=1';
+                }
+                else {
+                    var nodes = '';
+                    for (var i = 0; i < sNodes.length; i++) {
+                        nodes = nodes + sNodes[i];
+                        if (sNodes.length - 1 > i) {
+                            nodes = nodes + ',';
+                        }
+                    }
+                    return '/_nodes/' + nodes + '?all=1';
+                }
+            };
+            return model;
+        }
+        else {
+            return  model;
+        }
+    }
+}
