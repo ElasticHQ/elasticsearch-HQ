@@ -50,3 +50,5 @@ function NodeStatsModelFactory() {
         }
     }
 };
+
+function NodeListModelFactory () {}
