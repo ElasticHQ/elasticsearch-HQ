@@ -56,6 +56,7 @@ var ClusterHealthView = Backbone.View.extend({
         if (indices.store === undefined) {
             indices.store = {};
             indices.store.size = 0;
+            indices.store.size_in_bytes = 0;
         }
 
         var indexKeys = _.keys(this.indexModel.get('indices'));

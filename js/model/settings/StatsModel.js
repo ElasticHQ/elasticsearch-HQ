@@ -49,7 +49,8 @@ var StatsModel = Backbone.Model.extend({
         var _this = this;
         try // assemble post data.
         {
-            var allNodeInfo = new NodeInfoModel({connectionRootURL:cluster.get("connectionRootURL")});
+            //var allNodeInfo = new NodeInfoModel({connectionRootURL:cluster.get("connectionRootURL")});
+            var allNodeInfo = new NodeInfoModelFactory().create();
 
             $.when(allNodeInfo.fetch()).done(function (allNodeInfo) {
 
@@ -105,7 +106,6 @@ var StatsModel = Backbone.Model.extend({
                         console.log('ERROR! ' + XMLHttpRequest.responseText);
                     }
                 });
-                console.log('aaa');
             });//,
             /*                error:function (model, response, options) {
              // die silently

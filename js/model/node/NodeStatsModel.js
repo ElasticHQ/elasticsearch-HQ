@@ -31,9 +31,7 @@ var NodeStatsModel = Backbone.Model.extend({
         this.nodeId = args.nodeId;
     },
     url:function () {
-        //return '/_nodes/' + this.nodeId + '/stats?clear=true&os=false';
         return '/_cluster/nodes/' + this.nodeId + '/stats?all=true&plugin=true';
-        // 100rc1 return '/_nodes/' + this.nodeId + '/stats?all=1'; //?all=true&plugin=true';
     },
     fetch:function (options) {
         console.log('Fetching NodeStats');

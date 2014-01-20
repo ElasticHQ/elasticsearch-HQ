@@ -34,10 +34,13 @@ var MappingsModel = Backbone.Collection.extend({
 
             var mapArr = _.keys(indexValues[i]);
             var mapVArr = _.values(indexValues[i]);
-            for (var j = 0; j < mapArr.length; j++) { // TODO: only shows indexes with mappings. Change?
+            for (var j = 0; j < mapArr.length; j++) {
                 var simpleMapping = new MappingSimple();
                 simpleMapping.indexId = indexName;
-                simpleMapping.mappingName = mapArr[j];
+                simpleMapping.mappingName = mapArr[j];/*
+                if (mapVArr[j] == 'mappings') { // stupid v1.0.0 change
+                    console.log(_.keys(mapVArr[j]));
+                }*/
                 simpleMapping.properties = mapVArr[j].properties;
                 mappings.push(simpleMapping);
             }

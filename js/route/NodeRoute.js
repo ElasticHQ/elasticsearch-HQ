@@ -40,8 +40,8 @@ nodeRoute.diagnoseNodes = function () {
         nodeRoute.selectDiagnoseNodes(nodeList);
     }
 
-    var nodeInfoListModel = new NodeInfoListModel({connectionRootURL:cluster.get("connectionRootURL"), selectedNodes:nodeRoute.selectedDiagnoseNodeIDs});
-    var nodeStatsListModel = new NodeStatsListModel({connectionRootURL:cluster.get("connectionRootURL"), selectedNodes:nodeRoute.selectedDiagnoseNodeIDs});
+    var nodeInfoListModel = new NodeInfoListModelFactory().create(nodeRoute.selectedDiagnoseNodeIDs);
+    var nodeStatsListModel = new NodeStatsListModelFactory().create(nodeRoute.selectedDiagnoseNodeIDs);
     nodeInfoListModel.fetch({
         success:function (model, response) {
             var nodeListView = new NodeStatsListView({infoModel:nodeInfoListModel, model:nodeStatsListModel});
@@ -70,12 +70,12 @@ nodeRoute.nodeInfo = function (nodeId) {
 
     console.log("route nodeId: " + nodeId);
 
-    var nodeStat = new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
-    var nodeInfo = new NodeInfoModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
+    var nodeStat = new NodeStatsModelFactory().create(nodeId);//new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
+    var nodeInfo = new NodeInfoModelFactory().create(nodeId);
     nodeInfo.fetch(
         {
             success:function (model, response) {
-                var nodeInfoView = new NodeStatView({model:nodeStat, infoModel:nodeInfo});
+                var nodeInfoView = new NodeStatsViewFactory().create(nodeStat, nodeInfo);
 
                 cluster.set({nodeStats:nodeStat, nodeInfo:nodeInfo});
 

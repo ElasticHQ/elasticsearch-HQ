@@ -43,11 +43,10 @@ mapRoute.deleteMapType = function (indexId, mappingName) {
             });
         }
     });
-
 };
 
 mapRoute.viewMappings = function (indexId, mappingName) {
-    var mappingModel = new MappingsModel();
+    var mappingModel = new MappingsModelFactory().create();
     if (indexId === undefined && mappingName === undefined) { // list all mapping types
         mappingModel.setConnectionRootURL(cluster.get("connectionRootURL"));
         mappingModel.fetch({
@@ -63,7 +62,7 @@ mapRoute.viewMappings = function (indexId, mappingName) {
         mappingModel = new MappingSimple({connectionRootURL:cluster.get("connectionRootURL"), indexId:indexId, mappingName:mappingName});
         mappingModel.fetch({
             success:function (model, response) {
-                var mappingView = new MapTypeView({model:mappingModel});
+                var mappingView = new MapTypeViewFactory().create({model:mappingModel});
                 mappingView.render();
             }
         });

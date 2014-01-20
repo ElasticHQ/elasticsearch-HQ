@@ -26,11 +26,35 @@ var NodeStatView = Backbone.View.extend(
         initialize:function (args) {
             this.infoModel = args.infoModel;
         },
+        buildJVMStats:function (nodeStat) {
+            var jvmStats = nodeStat.nodes[nodeStat.nodeId].jvm;
+            return jvmStats;
+        },
+        buildSettings:function (nodeInfo, nodeId) {
+            var settings = {};
+            if (!nodeInfo.nodes[nodeId].settings) {
+                nodeInfo.nodes[nodeId].settings = [];
+            }
+            settings.nodeName = nodeInfo.nodes[nodeId].settings['name'];
+            settings.pathHome = nodeInfo.nodes[nodeId].settings['path.home'];
+            settings.nodeMaster = nodeInfo.nodes[nodeId].settings['node.master'];
+            settings.nodeData = nodeInfo.nodes[nodeId].settings['node.data'];
+            // TODO: hack! for some reason, the master never returns a bool for either of these, yet the other nodes do.
+            if (settings.nodeMaster === undefined && settings.nodeData === undefined) {
+                settings.nodeMaster = true;
+                settings.nodeData = true;
+            }
+            settings.logPrefix = nodeInfo.nodes[nodeId].settings['logger.prefix'];
+            settings.clusterName = nodeInfo.nodes[nodeId].settings['cluster.name'];
+            settings.logPath = nodeInfo.nodes[nodeId].settings['path.logs'];
+            settings.http_address = nodeInfo.nodes[nodeId].http_address;
+            return settings;
+        },
         render:function () {
             var nodeStat = this.model.toJSON();
             var nodeInfo = this.infoModel.toJSON();
             var nodeId = nodeStat.nodeId;
-            var jvmStats = nodeStat.nodes[nodeId].jvm;
+            var jvmStats = this.buildJVMStats(nodeStat);
             var osStats = nodeStat.nodes[nodeId].os;
             var processStats = nodeStat.nodes[nodeId].process;
             var nodeName = nodeStat.nodes[nodeId].name;
@@ -67,6 +91,9 @@ var NodeStatView = Backbone.View.extend(
                 jvmStats.mem = {};
                 jvmStats.threads = {};
                 jvmStats.gc = {};
+                jvmStats.gc.collectors = {};
+                jvmStats.gc.collectors.young = {};
+                jvmStats.gc.collectors.old = {};
                 nodeInfo.nodes[nodeId].jvm = {};
             }
             if (jQuery.isEmptyObject(nodeInfo.nodes[nodeId].os) || jQuery.isEmptyObject(osStats)) {
@@ -144,23 +171,8 @@ var NodeStatView = Backbone.View.extend(
             netInfo.http.address = nodeInfo.nodes[nodeId].http_address;
 
             // for modal
-            var settings = {};
-            if (!nodeInfo.nodes[nodeId].settings) {
-                nodeInfo.nodes[nodeId].settings = [];
-            }
-            settings.nodeName = nodeInfo.nodes[nodeId].settings['name'];
-            settings.pathHome = nodeInfo.nodes[nodeId].settings['path.home'];
-            settings.nodeMaster = nodeInfo.nodes[nodeId].settings['node.master'];
-            settings.nodeData = nodeInfo.nodes[nodeId].settings['node.data'];
-            // TODO: hack! for some reason, the master never returns a bool for either of these, yet the other nodes do.
-            if (settings.nodeMaster === undefined && settings.nodeData === undefined) {
-                settings.nodeMaster = true;
-                settings.nodeData = true;
-            }
-            settings.logPrefix = nodeInfo.nodes[nodeId].settings['logger.prefix'];
-            settings.clusterName = nodeInfo.nodes[nodeId].settings['cluster.name'];
-            settings.logPath = nodeInfo.nodes[nodeId].settings['path.logs'];
-            settings.http_address = nodeInfo.nodes[nodeId].http_address;
+            var settings = this.buildSettings(nodeInfo, nodeId);
+
             var version = nodeInfo.nodes[nodeId].version;
             var host = nodeInfo.nodes[nodeId].hostname;
 

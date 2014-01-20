@@ -71,11 +71,15 @@ nodeTemplate.nodeInfoModal = [
     '<tr><td>Node is Master?</td><td><%- settings.nodeMaster %></td></tr>',
     '<tr><td>Node Holds Data?</td><td><%- settings.nodeData %></td></tr>',
     '<tr><td>Cluster Name:</td><td><%- settings.clusterName %></td></tr>',
+    '<% if(versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) { %>',
+    '<tr><td>Hostname:</td><td><%- settings.host %></td></tr>',
+    '<% } else { %> ',
     '<tr><td>Hostname:</td><td><%- host %></td></tr>',
+    '<tr><td>Logger Prefix:</td><td><%- settings.logPrefix %></td></tr>',
+    '<% } %>',
     '<tr><td>HTTP Address:</td><td><%- settings.http_address %></td></tr>',
     '<tr><td>Home Path:</td><td><%- settings.pathHome %></td></tr>',
     '<tr><td>Log Path:</td><td><%- settings.logPath %></td></tr>',
-    '<tr><td>Logger Prefix:</td><td><%- settings.logPrefix %></td></tr>',
 
     '</table>',
     '</p>',
@@ -255,6 +259,32 @@ nodeTemplate.diagnostics = [
 
 ].join("\n");
 
+nodeTemplate.jvminfotable = [
+    '<div class="span4"> ',
+    '<div class="text-center">&nbsp;</div>',
+    '<table class="table table-condensed table-striped table-bordered">',
+    '<tr><td>Heap Used:</td><td><%- numeral(jvmStats.mem.heap_used_in_bytes).format("0.0b") %></td></tr>',
+    '<tr><td>Heap Committed:</td><td><%- numeral(jvmStats.mem.heap_committed_in_bytes).format("0.0b") %></td></tr>',
+    '<tr><td>Non Heap Used:</td><td><%- numeral(jvmStats.mem.non_heap_used_in_bytes).format("0.0b") %></td></tr>',
+    '<tr><td>Non Heap Committed:</td><td><%- numeral(jvmStats.mem.non_heap_committed_in_bytes).format("0.0b") %></td></tr>',
+    '<tr><td>JVM Uptime:</td><td><%- timeUtil.convertMS(jvmStats.uptime_in_millis) %></td></tr>',
+    '<tr><td>Thread Count/Peak:</td><td><%- jvmStats.threads.count %> / <%- jvmStats.threads.peak_count %></td></tr>',
+    '<% if(versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) { %>',
+    '<tr><td>GC (Old) Count:</td><td><%- jvmStats.gc.collectors.young.collection_count %></td></tr>',
+    '<tr><td>GC (Old)Time:</td><td><%- timeUtil.convertMS(jvmStats.gc.collectors.young.collection_time_in_millis) %></td></tr>',
+    '<tr><td>GC (Young) Count:</td><td><%- jvmStats.gc.collectors.old.collection_count %></td></tr>',
+    '<tr><td>GC (Young)Time:</td><td><%- timeUtil.convertMS(jvmStats.gc.collectors.old.collection_time_in_millis) %></td></tr>',
+    '<% } else { %>',
+    '<tr><td>GC Count:</td><td><%- jvmStats.gc.collection_count %></td></tr>',
+    '<tr><td>GC Time:</td><td><%- timeUtil.convertMS(jvmStats.gc.collection_time_in_millis) %></td></tr>',
+    '<% } %>',
+    '<tr><td>Java Version:</td><td><%- jvmStats.version %></td></tr>',
+    '<tr><td>JVM Vendor:</td><td><%- jvmStats.vm_vendor %></td></tr>',
+    '<tr><td>JVM:</td><td><%- jvmStats.vm_name %></td></tr>',
+    '</table>',
+    '</div>'
+].join("\n");
+
 nodeTemplate.nodeInfo = [
 
     '<div class="modal hide fade" id="killnodemodal">',
@@ -283,7 +313,7 @@ nodeTemplate.nodeInfo = [
     '<a href="#nodeInfoModal" role="button" data-toggle="modal" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Just the Facts, Ma\'am"',
     '><i class="icon-info-sign"></i></a>',
     '<a href="#killnodemodal" data-toggle="modal" role="button" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Shutdown Node"><i',
-    'class="icon-off"></i>',
+    ' class="icon-off"></i>',
     '</a>',
     '</div> <!-- btn group -->',
     '</div> <!-- toolbar --> ',
@@ -297,23 +327,7 @@ nodeTemplate.nodeInfo = [
     /*JVM*/
     '<div class="lead text-left"><i class="icon-th-large"></i> JVM</div>',
     '<div class="row-fluid">',
-
-    '<div class="span4"> ',
-    '<div class="text-center">&nbsp;</div>',
-    '<table class="table table-condensed table-striped table-bordered">',
-    '<tr><td>Heap Used:</td><td><%- numeral(jvmStats.mem.heap_used_in_bytes).format("0.0b") %></td></tr>',
-    '<tr><td>Heap Committed:</td><td><%- numeral(jvmStats.mem.heap_committed_in_bytes).format("0.0b") %></td></tr>',
-    '<tr><td>Non Heap Used:</td><td><%- numeral(jvmStats.mem.non_heap_used_in_bytes).format("0.0b") %></td></tr>',
-    '<tr><td>Non Heap Committed:</td><td><%- numeral(jvmStats.mem.non_heap_committed_in_bytes).format("0.0b") %></td></tr>',
-    '<tr><td>JVM Uptime:</td><td><%- timeUtil.convertMS(jvmStats.uptime_in_millis) %></td></tr>',
-    '<tr><td>Thread Count/Peak:</td><td><%- jvmStats.threads.count %> / <%- jvmStats.threads.peak_count %></td></tr>',
-    '<tr><td>GC Count:</td><td><%- jvmStats.gc.collection_count %></td></tr>',
-    '<tr><td>GC Time:</td><td><%- timeUtil.convertMS(jvmStats.gc.collection_time_in_millis) %></td></tr>',
-    '<tr><td>Java Version:</td><td><%- jvmStats.version %></td></tr>',
-    '<tr><td>JVM Vendor:</td><td><%- jvmStats.vm_vendor %></td></tr>',
-    '<tr><td>JVM:</td><td><%- jvmStats.vm_name %></td></tr>',
-    '</table>',
-    '</div>',
+    nodeTemplate.jvminfotable,
 
     '<div class="span4">',
     '<div class="text-center"><strong>Heap Memory</strong></div>',
