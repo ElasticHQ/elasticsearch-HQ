@@ -38,7 +38,8 @@ var checkVersion = function () {
                     if (data != undefined) {
                         if (data.version != undefined) {
                             if (data.version !== HQVERSION) {
-                                var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider <a href="http://www.elastichq.org/gettingstarted.html" target="_blank">upgrading</a>.[<a href="https://github.com/royrusso/elasticsearch-HQ/issues?milestone=13&page=1&state=closed" target="_blank">ChangeLog</a>]<br/><small>(You are running version ' + HQVERSION + '.)</small>';
+                                var upgradeText = 'ElasticHQ v' + data.version + ' is available.<br/>You should consider <a href="http://www.elastichq.org/gettingstarted.html" target="_blank">upgrading</a>.'
+                                    + '[<a href="https://github.com/royrusso/elasticsearch-HQ/issues?milestone=16&page=1&state=closed" target="_blank">ChangeLog</a>]<br/><small>(You are running version ' + HQVERSION + '.)</small>';
                                 show_stack_bottomright({hide:false, type:'error', title:'New Version Available!', text:upgradeText});
                                 showedVersionCheckMessage = true;
                             }
