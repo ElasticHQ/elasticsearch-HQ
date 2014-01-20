@@ -75,7 +75,7 @@ nodeRoute.nodeInfo = function (nodeId) {
     nodeInfo.fetch(
         {
             success:function (model, response) {
-                var nodeInfoView = new NodeStatView({model:nodeStat, infoModel:nodeInfo});
+                var nodeInfoView = new NodeStatsViewFactory().create(nodeStat, nodeInfo);
 
                 cluster.set({nodeStats:nodeStat, nodeInfo:nodeInfo});
 

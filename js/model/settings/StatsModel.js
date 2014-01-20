@@ -106,7 +106,6 @@ var StatsModel = Backbone.Model.extend({
                         console.log('ERROR! ' + XMLHttpRequest.responseText);
                     }
                 });
-                console.log('aaa');
             });//,
             /*                error:function (model, response, options) {
              // die silently
