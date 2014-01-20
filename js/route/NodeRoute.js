@@ -70,8 +70,8 @@ nodeRoute.nodeInfo = function (nodeId) {
 
     console.log("route nodeId: " + nodeId);
 
-    var nodeStat = new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
-    var nodeInfo = new NodeInfoModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
+    var nodeStat = new NodeStatsModelFactory().create(nodeId);//new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
+    var nodeInfo = new NodeInfoModelFactory().create(nodeId);
     nodeInfo.fetch(
         {
             success:function (model, response) {
