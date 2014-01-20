@@ -34,7 +34,7 @@ function NodeInfoModelFactory() {
             return  new NodeInfoModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
         }
     }
-};
+}
 
 function NodeStatsModelFactory() {
     this.create = function (nodeId) {
@@ -49,6 +49,4 @@ function NodeStatsModelFactory() {
             return  new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
         }
     }
-};
-
-function NodeListModelFactory () {}
+}

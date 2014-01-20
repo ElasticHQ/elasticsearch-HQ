@@ -55,7 +55,7 @@ restRoute.json = function (command) {
         return;
     }
 
-    var restModel = new RESTModel({connectionRootURL:cluster.get("connectionRootURL"), cmd:command});
+    var restModel = new RESTModelFactory().create(command);
     restModel.fetch({
         success:function (model, response) {
             var str = JSON.stringify(response, undefined, 2);
