@@ -46,13 +46,13 @@ var ClusterHealthView = Backbone.View.extend({
             indices.docs = {};
         }
         else {
-            indices.docs = this.indexModel.get('_all').total.docs;
+            indices.docs = this.indexModel.get('_all').primaries.docs;
         }
         if (indices.docs === undefined) {
             indices.docs = {};
             indices.docs.count = 0;
         }
-        indices.store = this.indexModel.get('_all').total.store;
+        indices.store = this.indexModel.get('_all').primaries.store;
         if (indices.store === undefined) {
             indices.store = {};
             indices.store.size = 0;
@@ -76,8 +76,14 @@ var ClusterHealthView = Backbone.View.extend({
         for (var $i = 0; $i < indexValues.length; $i++) {
             var index = indexValues[$i];
             index.name = index.id;
-            index.numshards = this.stateModel.get('metadata').indices[index.id].settings['index.number_of_shards'];
-            index.numreplicas = this.stateModel.get('metadata').indices[index.id].settings['index.number_of_replicas'];
+            if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+                index.numshards = this.stateModel.get('metadata').indices[index.id].settings.index.number_of_shards;
+                index.numreplicas = this.stateModel.get('metadata').indices[index.id].settings.index.number_of_replicas;
+            }
+            else {
+                index.numshards = this.stateModel.get('metadata').indices[index.id].settings['index.number_of_shards'];
+                index.numreplicas = this.stateModel.get('metadata').indices[index.id].settings['index.number_of_replicas'];
+            }
             index.status = this.stateModel.get('metadata').indices[index.id].state;
             if (index.docs === undefined) {
                 index.docs = {num_docs:0};
