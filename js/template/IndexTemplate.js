@@ -2,9 +2,18 @@ var indexTemplate = {};
 
 
 indexTemplate.indexList = [
-    '<div class="pull-left"><a href="#refreshindices" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
 
-    '<div class="text-center"><h2>Indices</h2></div>',
+    '<div class="well">',
+    '<div class="span2 pull-left"><a href="#refreshindices" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
+    '<div class="text-center span8"><span style="font-size: 28px;">Indices Overview</span></div>',
+/*
+    '<div class="pull-right">',
+    '<a href="#visualize" class="btn btn-info" rel="tipRight" data-placement="bottom" data-html="true" data-title="View Indices Distribution across Nodes">',
+    '<i class="icon-sitemap"></i> Indices Distribution</a>',
+    '</div>',
+*/
+    '</div>',
+
     '<div class="span11 center-table">',
 
     '<div id="toolbar" class="pull-right" style="padding-bottom: 10px;">',

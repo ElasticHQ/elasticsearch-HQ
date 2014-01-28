@@ -32,7 +32,7 @@ var chart = {
     },
     draw:function (id, data, options) {
         return $.plot($(id), [
-            {data:data, points:{ show:true }, lines:{ show:true, fill:true, fillColor:"#E0F0B0", lineWidth:3}, curvedLines:{apply:true}}
+            {data:data, points:{ show:true }, lines:{ show:true, fill:true, fillColor:"#c0d0f0", lineWidth:3}, curvedLines:{apply:true}}
         ], options);
     }
 };
@@ -63,7 +63,7 @@ chart.jvmHeap = {
                 /*curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -98,7 +98,7 @@ chart.indices = {
                 /*curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -134,7 +134,7 @@ chart.cpu = {
                 /* curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -171,7 +171,7 @@ chart.mem = {
                 /* curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -207,7 +207,7 @@ chart.procscpu = {
                 /*  curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -244,7 +244,7 @@ chart.procmem = {
                 /*  curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -282,7 +282,7 @@ chart.fsreads = {
                 /*  curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -316,7 +316,7 @@ chart.fswrites = {
                 /*curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -351,7 +351,7 @@ chart.transporttxcount = {
                 /*   curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -387,7 +387,7 @@ chart.httpopen = {
                 /*    curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -421,7 +421,7 @@ chart.threadindex = {
                 /*   curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{
@@ -455,7 +455,7 @@ chart.threadsearch = {
                 /*  curvedLines:{
                  active:true
                  },*/
-                color:"GREEN"
+                color:"#0000f0"
             },
             tooltip:true,
             grid:{

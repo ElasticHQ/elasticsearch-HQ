@@ -44,12 +44,19 @@ clusterRoute.cluster = function () {
                 $("#toolbar").css("visibility", "visible");
 
                 var nodeList = cluster.get("nodeList");
+                var existingListSize = _.size(nodeList);
                 nodeList.fetch(
                     {
                         success:function (model, response) {
                             console.log('Node List retrieved');
-                            var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:nodeList});
-                            nodeListView.render();
+                            if (existingListSize != _.size(model.models)) {
+                                var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:nodeList});
+                                nodeListView.render();
+                                console.log('Node List updated');
+                            }
+                            else {
+                                console.log('Node List eq. Nothing to update.');
+                            }
                         },
                         error:function (model, response, options) {
                             var err = 'Unable to Read Node List! ';
