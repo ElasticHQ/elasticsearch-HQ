@@ -89,6 +89,7 @@ module.exports = function (grunt) {
                     'js/model//*//*.js',
                     'js/model//index//action//*.js',
                     'js/collection/*/*.js',
+                    'js/view*//*.js',
                     'js/view*//*//*.js',
                     'js/view*//index//action//*.js',
                     'js/view*//mapping//action//*.js',
