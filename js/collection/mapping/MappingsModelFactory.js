@@ -48,7 +48,7 @@
 function MappingsModelFactory() {
     this.create = function () {
         var _this = this;
-        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
 //            MappingsModel.prototype = new MappingsModel();
             var model = new MappingsModel(); //{
             //MappingsModel.prototype.parse = function (data) {

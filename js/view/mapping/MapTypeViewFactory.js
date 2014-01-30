@@ -48,7 +48,7 @@
  */
 function MapTypeViewFactory() {
     this.create = function (model) {
-        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
             var mapTypeView = new MapTypeView({model:model});
             mapTypeView.render = function () {
                 var _mapping = this.model.model.toJSON();
