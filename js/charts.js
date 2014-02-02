@@ -32,7 +32,21 @@ var chart = {
     },
     draw:function (id, data, options) {
         return $.plot($(id), [
-            {data:data, points:{ show:true }, lines:{ show:true, fill:true, fillColor:"#c0d0f0", lineWidth:3}, curvedLines:{apply:true}}
+            {data:data,
+                points:{
+                    fill:1,
+                    fillColor:false,
+                    radius:2,
+                    show:true
+                },
+                lines:{
+                    show:true,
+                    fill:false,
+                    //fillColor:"#c0d0f0",
+                    lineWidth:3
+                },
+                curvedLines:{apply:true},
+                shadowSize:1}
         ], options);
     }
 };
@@ -63,14 +77,14 @@ chart.jvmHeap = {
                 /*curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -98,14 +112,14 @@ chart.indices = {
                 /*curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -134,14 +148,14 @@ chart.cpu = {
                 /* curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -171,14 +185,14 @@ chart.mem = {
                 /* curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -207,14 +221,14 @@ chart.procscpu = {
                 /*  curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -244,14 +258,14 @@ chart.procmem = {
                 /*  curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -282,14 +296,14 @@ chart.fsreads = {
                 /*  curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -316,14 +330,14 @@ chart.fswrites = {
                 /*curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -351,14 +365,14 @@ chart.transporttxcount = {
                 /*   curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -387,14 +401,14 @@ chart.httpopen = {
                 /*    curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -421,14 +435,14 @@ chart.threadindex = {
                 /*   curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
@@ -455,14 +469,14 @@ chart.threadsearch = {
                 /*  curvedLines:{
                  active:true
                  },*/
-                color:"#0000f0"
+                color:"#2f8bfa"
             },
             tooltip:true,
             grid:{
                 show:true,
                 hoverable:true,
                 autoHighlight:true,
-                mouseActiveRadius:10,
+                mouseActiveRadius:30,
                 backgroundColor:{ colors:[ "#fff", "#eee" ] },
                 borderWidth:1,
                 borderColor:'#CCCCCC'
