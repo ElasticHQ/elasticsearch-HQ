@@ -19,7 +19,7 @@
 function RESTModelFactory() {
     this.create = function (command) {
         var model = new RESTModel({connectionRootURL:cluster.get("connectionRootURL"), cmd:command}); //{
-        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
             model.url = function () {
                 if (this.cmd == 'health') {
                     this.fetchURL = '/_cluster/health';

@@ -18,7 +18,7 @@
 
 function NodeInfoModelFactory() {
     this.create = function (nodeId) {
-        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
             var model = new NodeInfoModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")}); //{
             model.url = function () {
                 if (nodeId) {
@@ -38,7 +38,7 @@ function NodeInfoModelFactory() {
 
 function NodeStatsModelFactory() {
     this.create = function (nodeId) {
-        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
             var model = new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")}); //{
             model.url = function () {
                 return '/_nodes/' + this.nodeId + '/stats?all=1';
@@ -54,7 +54,7 @@ function NodeStatsModelFactory() {
 function NodeStatsListModelFactory() {
     this.create = function (selectedNodes) {
         var model = new NodeStatsListModel({connectionRootURL:cluster.get("connectionRootURL"), selectedNodes:selectedNodes});
-        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
             model.url = function () {
                 var sNodes = this.get('selectedNodes');
                 if (sNodes == undefined || sNodes.length == 0) {
@@ -84,7 +84,7 @@ function NodeStatsListModelFactory() {
 function NodeInfoListModelFactory() {
     this.create = function (selectedNodes) {
         var model = new NodeInfoListModel({connectionRootURL:cluster.get("connectionRootURL"), selectedNodes:selectedNodes});
-        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
             model.url = function () {
                 var sNodes = this.get('selectedNodes');
                 if (sNodes == undefined || sNodes.length == 0) {

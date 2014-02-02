@@ -19,7 +19,7 @@
 function NodeStatsViewFactory() {
     this.create = function (nodeStat,nodeInfo) {
         var view = new NodeStatView({model:nodeStat, infoModel:nodeInfo});
-        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
             view.buildJVMStats = function (nodeStat) {
                 var jvmStats = nodeStat.nodes[nodeStat.nodeId].jvm;
                 return jvmStats;
