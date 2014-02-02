@@ -72,6 +72,6 @@ visualTemplate.init = [
 
     '</div>',
 
-    '<div class="span10" id="thechart" style="width: <%- svgwidth %>px; margin: 0 auto;"></div>',
+    '<div class="span10" id="thechart" style="width: <%- svgwidth-10 %>px; margin: 0 auto;"></div>',
     '</div>'
 ].join("\n");

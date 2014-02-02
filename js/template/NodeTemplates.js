@@ -21,6 +21,7 @@ nodeTemplate.nodeList = [
     '<%= node.attributes.name %></a>',
     '<% }); %>',
     '</ul>',
+    '</div>',
 
     '<% } else { %>',
     '<% _.each(nodes.models, function(node, key) { %>',
@@ -32,6 +33,10 @@ nodeTemplate.nodeList = [
     '<%= node.attributes.name %></a>',
     '<% }); %>',
     '<% } %>'
+/*
+    '<a href="#nodescompare" class="btn btn-info" rel="tipRight" data-trigger="hover" data-placement="bottom" data-html="true" data-title="View all nodes in a side-by-side comparison grid view.">',
+    '<i class="icon-table"></i></a>'
+*/
 
 ].join("\n");
 
