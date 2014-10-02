@@ -71,6 +71,36 @@ var QueryView = Backbone.View.extend({
         $("[rel=tipRight]").tooltip();
         $('.selectpicker').selectpicker();
 
+        $('#toggleIndex').bind('click', function(e) {
+            e.preventDefault();
+            var isChecked = $(this).hasClass('checked');
+
+            if(isChecked){
+                $(this).removeClass('checked');
+                $(this).find('i').removeClass('icon-check').addClass('icon-check-empty');
+            }else{
+                $(this).addClass('checked');
+                $(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
+            }
+
+            $('#checkboxindices li label input[type="checkbox"]').prop('checked', !isChecked);
+        });
+
+        $('#toggleFields').bind('click', function(e) {
+            e.preventDefault();
+            var isChecked = $(this).hasClass('checked');
+
+            if(isChecked){
+                $(this).removeClass('checked');
+                $(this).find('i').removeClass('icon-check').addClass('icon-check-empty');
+            }else{
+                $(this).addClass('checked');
+                $(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
+            }
+
+            $('#checkboxfields li label input[type="checkbox"]').prop('checked', !isChecked);
+        });
+
         return this;
     }
 });

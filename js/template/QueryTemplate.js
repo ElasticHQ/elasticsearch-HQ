@@ -11,6 +11,9 @@ queryTemplate.sideNav = [
     '<a data-toggle="collapse" data-parent="#queryAccordion" href="#collapseIndices">',
     '<b><i class="icon-expand-alt"></i> Indices</b>',
     '</a>',
+    '<a href="#toggleIndex" id="toggleIndex" class="pull-right checked">',
+    '<b><i class="icon-check"></i> Toggle</b>',
+    '</a>',
     '<div id="collapseIndices" class="accordion-body collapse in">',
     '<div class="accordion-inner">',
 
@@ -27,6 +30,9 @@ queryTemplate.sideNav = [
 
     '<a data-toggle="collapse" data-parent="#queryAccordion" href="#collapseFields">',
     '<b><i class="icon-expand-alt"></i> Fields</b>',
+    '</a>',
+    '<a href="#toggleFields" id="toggleFields" class="pull-right checked">',
+    '<b><i class="icon-check"></i> Toggle</b>',
     '</a>',
     '<div id="collapseFields" class="accordion-body collapse in">',
     '<div class="accordion-inner">',
@@ -209,5 +215,3 @@ queryTemplate.results = [
     '</div>'
 
 ].join("\n");
-
-
