@@ -19,7 +19,7 @@
 
 var FlushAllIndex = Backbone.Model.extend({
     initialize:function (args) {
-        console.log("Inside FlushAllIndex");
+        window.console && console.log("Inside FlushAllIndex");
     },
     url:function () {
         return '/_flush';

@@ -11,7 +11,7 @@ var logger = function () {
     };
 
     pub.disableLogger = function disableLogger() {
-        oldConsoleLog = console.log;
+        oldConsoleLog = window.console && console.log;
         window['console']['log'] = function () {
         };
     };

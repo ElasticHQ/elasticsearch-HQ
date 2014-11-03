@@ -51,7 +51,7 @@ var QueryView = Backbone.View.extend({
                 }
             }
         } catch (e) {
-            console.log(e.message);
+            window.console && console.log(e.message);
         }
 
         var tpl = _.template(queryTemplate.view);

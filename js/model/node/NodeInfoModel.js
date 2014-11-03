@@ -23,7 +23,7 @@ var NodeInfoModel = Backbone.Model.extend({
         nodeId:undefined
     },
     initialize:function (args) {
-        console.log("Inside NodeInfoModel");
+        window.console && console.log("Inside NodeInfoModel");
         this.nodeId = args.nodeId;
     },
     url:function () {

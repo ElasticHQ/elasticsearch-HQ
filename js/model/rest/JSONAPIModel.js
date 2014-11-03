@@ -22,7 +22,7 @@ var JSONAPIModel = Backbone.Model.extend({
         endpoint:undefined
     },
     initialize:function (args) {
-        console.log("Inside JSONAPIModel");
+        window.console && console.log("Inside JSONAPIModel");
 
         this.action = args.action;
         this.endpoint = args.endpoint;

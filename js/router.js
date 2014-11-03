@@ -88,7 +88,7 @@ $(document).ready(
             killNode:function (nodeId) {
                 $('#killnodemodal').modal('hide');
                 stopAllPollers();
-                console.log("shutdown for nodeId: " + nodeId);
+                window.console && console.log("shutdown for nodeId: " + nodeId);
                 var nodeShutdown = new NodeShutdownModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
                 nodeShutdown.save();
                 var nodeShutdownView = new NodeShutdownView();
@@ -216,7 +216,7 @@ $(document).ready(
             /*,
              defaultRoute:function () {
              stopAllNodePollers();
-             console.log('defaultRoute');
+             window.console && console.log('defaultRoute');
              }*/
         });
 

@@ -34,7 +34,7 @@
  */
 var ClusterHealth = Backbone.Model.extend({
     initialize:function () {
-        console.log("Inside ClusterHealth");
+        window.console && console.log("Inside ClusterHealth");
     },
     url:function () {
         return '/_cluster/health';

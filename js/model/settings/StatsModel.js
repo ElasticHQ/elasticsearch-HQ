@@ -37,14 +37,14 @@ var StatsModel = Backbone.Model.extend({
         }
     },
     initialize:function () {
-        console.log("Init Stats Model");
+        window.console && console.log("Init Stats Model");
         this.buildStatsModel();
     },
     url:function () {
         return '/';
     },
     buildStatsModel:function () {
-        console.log("Assembling Stats");
+        window.console && console.log("Assembling Stats");
 
         var _this = this;
         try // assemble post data.
@@ -103,19 +103,19 @@ var StatsModel = Backbone.Model.extend({
                     },
                     error:function (XMLHttpRequest, textStatus, errorThrown) {
                         // die silently
-                        console.log('ERROR! ' + XMLHttpRequest.responseText);
+                        window.console && console.log('ERROR! ' + XMLHttpRequest.responseText);
                     }
                 });
             });//,
             /*                error:function (model, response, options) {
              // die silently
-             console.log('ERROR! ' + response.responseText);
+             window.console && console.log('ERROR! ' + response.responseText);
              }*/
             // });
         }
         catch
             (e) {
-            console.log('ERROR! ' + e.message);
+            window.console && console.log('ERROR! ' + e.message);
         }
 
     }

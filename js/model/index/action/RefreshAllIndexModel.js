@@ -19,7 +19,7 @@
 
 var RefreshAllIndex = Backbone.Model.extend({
     initialize:function (args) {
-        console.log("Inside RefreshAllIndex");
+        window.console && console.log("Inside RefreshAllIndex");
     },
     url:function () {
         return '/_refresh';

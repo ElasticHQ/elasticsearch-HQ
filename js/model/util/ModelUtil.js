@@ -44,7 +44,7 @@ Backbone.Model = Backbone.Model.extend({
             }
         }
         catch (e) {
-            console.log('Could not parse URL for auth credentials! ' + e.message);
+            window.console && console.log('Could not parse URL for auth credentials! ' + e.message);
         }
 
         return Backbone.sync(method, model, options);
@@ -78,7 +78,7 @@ Backbone.Collection = Backbone.Collection.extend({
             }
         }
         catch (e) {
-            console.log('Could not parse URL for auth credentials! ' + e.message);
+            window.console && console.log('Could not parse URL for auth credentials! ' + e.message);
         }
 
         return Backbone.sync(method, model, options);

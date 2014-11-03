@@ -18,7 +18,7 @@
 
 var OptimizeAllIndex = Backbone.Model.extend({
     initialize:function (args) {
-        console.log("Inside OptimizeAllIndex");
+        window.console && console.log("Inside OptimizeAllIndex");
     },
     url:function () {
         return '/_optimize';

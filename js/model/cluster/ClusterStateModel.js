@@ -18,7 +18,7 @@
 
 var ClusterState = Backbone.Model.extend({
     initialize:function () {
-        console.log("Inside ClusterState");
+        window.console && console.log("Inside ClusterState");
     },
     url:function () {
         return '/_cluster/state';

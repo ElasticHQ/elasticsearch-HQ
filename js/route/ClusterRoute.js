@@ -48,19 +48,19 @@ clusterRoute.cluster = function () {
                 nodeList.fetch(
                     {
                         success:function (model, response) {
-                            console.log('Node List retrieved');
+                            window.console && console.log('Node List retrieved');
                             if (existingListSize != _.size(model.models)) {
                                 var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:nodeList});
                                 nodeListView.render();
-                                console.log('Node List updated');
+                                window.console && console.log('Node List updated');
                             }
                             else {
-                                console.log('Node List eq. Nothing to update.');
+                                window.console && console.log('Node List eq. Nothing to update.');
                             }
                         },
                         error:function (model, response, options) {
                             var err = 'Unable to Read Node List! ';
-                            console.log('Error! ' + err);
+                            window.console && console.log('Error! ' + err);
                             var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                             var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                             errorMsgView.render();
@@ -70,7 +70,7 @@ clusterRoute.cluster = function () {
             });
             mainMenuPoller.on('error', function (healthModel, response) {
                 var err = 'Unable to Connect to Server! Connection broken, or server has gone away. Please reconnect.';
-                console.log('Error! ' + err);
+                window.console && console.log('Error! ' + err);
                 var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                 var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                 errorMsgView.render();
@@ -127,7 +127,7 @@ clusterRoute.cluster = function () {
                     err += " A status code of 0, could mean the host is unreacheable or nothing is listening on the given port.";
                 }
             }
-            console.log('Error! ' + err);
+            window.console && console.log('Error! ' + err);
             var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
             var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
             errorMsgView.render();

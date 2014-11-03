@@ -64,7 +64,7 @@ restRoute.json = function (command) {
         },
         error:function (model, response, options) {
             var str = JSON.stringify(response, undefined, 2);
-            var template = _.template(restTemplate.JSONView, {title:'Error!', res:str});
+            var template = _.template(restTemplate.JSONView, {title:'Error!', res:str, fetchURL: restModel.fetchURL});
             $('#workspace').html(template);
             prettyPrint();
         }

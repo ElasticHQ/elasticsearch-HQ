@@ -35,7 +35,7 @@ var IndexModel = Backbone.Model.extend({
         cmd:undefined
     },
     initialize:function (args) {
-        console.log("Creating Index " + args.indexId);
+        window.console && console.log("Creating Index " + args.indexId);
         this.indexId = args.indexId;
         if (args.cmd !== undefined) {
             this.cmd = args.cmd;
