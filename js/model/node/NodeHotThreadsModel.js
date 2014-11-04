@@ -23,7 +23,7 @@ var NodeHotThreadsModel = Backbone.Model.extend({
         nodeId:undefined
     },
     initialize:function (args) {
-        window.console && console.log("Inside NodeHotThreadsModel");
+        console.log("Inside NodeHotThreadsModel");
         this.nodeId = args.nodeId;
     },
     url:function () {

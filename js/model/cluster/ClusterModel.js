@@ -40,11 +40,11 @@ var Cluster = Backbone.Model.extend({
     initialize:function (args) {
         var _this = this;
         // test connection
-        window.console && console.log(args.connectionRootURL);
+        console.log(args.connectionRootURL);
         var ping = new Ping({connectionRootURL:args.connectionRootURL});
         ping.fetch({
             success:function (model, response) {
-                window.console && console.log('Successful connect!');
+                console.log('Successful connect!');
 
                 $.cookie("resturl", args.connectionRootURL, { expires:7, path:'/' });
 
@@ -62,7 +62,7 @@ var Cluster = Backbone.Model.extend({
                 //show_stack_bottomright({type:'success', title:'Successful Connect!', text:'Connection to cluster has been established.'});
             },
             error:function (model, response, options) {
-                window.console && console.log('Failed to Connect on Ping!');
+                console.log('Failed to Connect on Ping!');
                 show_stack_bottomright({type:'error', title:'Failed to Connect!', text:'Connection to cluster could not be established.'});
                 var err = 'Unable to Connect to Server! ';
                 if (response) {
@@ -71,7 +71,7 @@ var Cluster = Backbone.Model.extend({
                         err += " A status code of 0, could mean the host is unreacheable or nothing is listening on the given port.";
                     }
                 }
-                window.console && console.log('Error! ' + err);
+                console.log('Error! ' + err);
                 var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                 var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                 errorMsgView.render();
@@ -91,7 +91,7 @@ var Cluster = Backbone.Model.extend({
             rev:versionArr[2],
             concat:versionArr[0] + "." + versionArr[1] + "." + versionArr[2]
         };
-        //window.console && console.log(versionUtil.isNewer("1.0.0", versionNumber));
+        //console.log(versionUtil.isNewer("1.0.0", versionNumber));
     },
     supportedVersion:function (versionNumber) {
         var versionArr = versionNumber.split(".");
@@ -117,7 +117,7 @@ var Cluster = Backbone.Model.extend({
         _this.set({nodeList:nodelistmodel});
     },
     fetch:function (options) {
-        window.console && console.log('Fetching ClusterHealth');
+        console.log('Fetching ClusterHealth');
         ajaxloading.show();
         this.constructor.__super__.fetch.apply(this, arguments);
     },

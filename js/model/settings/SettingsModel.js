@@ -35,7 +35,7 @@ var SettingsModel = Backbone.Model.extend({
         }
     },
     initialize:function () {
-        window.console && console.log("Init Settings Model");
+        console.log("Init Settings Model");
         this.loadFromStorage();
     },
     url:function () {
@@ -70,7 +70,7 @@ var SettingsModel = Backbone.Model.extend({
             localStorage.setItem('hqsettings', JSON.stringify(this.getSettings()));
         }
         catch (e) {
-            window.console && console.log('Unable to save settings in local storage. ' + e.message);
+            console.log('Unable to save settings in local storage. ' + e.message);
         }
     },
     /**
@@ -93,7 +93,7 @@ var SettingsModel = Backbone.Model.extend({
             this.get('settings').poller.index = (settingsArg.poller.index !== undefined) ? settingsArg.poller.index : this.get('settings').poller.index;
         }
         catch (e) {
-            window.console && console.log('Cannot build settings object. Using defaults. ' + e.message);
+            console.log('Cannot build settings object. Using defaults. ' + e.message);
         }
     },
     validation:{

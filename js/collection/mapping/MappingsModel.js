@@ -39,7 +39,7 @@ var MappingsModel = Backbone.Collection.extend({
                 simpleMapping.indexId = indexName;
                 simpleMapping.mappingName = mapArr[j];/*
                 if (mapVArr[j] == 'mappings') { // stupid v1.0.0 change
-                    window.console && console.log(_.keys(mapVArr[j]));
+                    console.log(_.keys(mapVArr[j]));
                 }*/
                 simpleMapping.properties = mapVArr[j].properties;
                 mappings.push(simpleMapping);

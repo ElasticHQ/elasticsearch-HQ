@@ -22,7 +22,7 @@ var IndexSettingsModel = Backbone.Model.extend({
         indexId:undefined
     },
     initialize:function (args) {
-        window.console && console.log("Inside IndexSettingsModel");
+        console.log("Inside IndexSettingsModel");
         this.indexId = args.indexId;
     },
     url:function () {

@@ -22,7 +22,7 @@ var IndexHealthModel = Backbone.Model.extend({
         indexId:undefined
     },
     initialize:function (args) {
-        window.console && console.log("Inside IndexHealthModel");
+        console.log("Inside IndexHealthModel");
         this.indexId = args.indexId;
     },
     url:function () {

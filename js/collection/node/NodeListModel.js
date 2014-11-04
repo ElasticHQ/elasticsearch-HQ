@@ -29,14 +29,14 @@ var NodeListModel = Backbone.Collection.extend({
     model:NodeSimple,
     masterNode:'',
     initialize:function () {
-        window.console && console.log("Inside NodeList");
+        console.log("Inside NodeList");
     },
     url:function () {
         return '/_cluster/state?filter_nodes=false&filter_metadata=true&filter_routing_table=true&filter_blocks=true&filter_indices=true';
     },
     parse:function (data) {
         if (data.master_node) {
-            window.console && console.log('Master Node is: ' + data.master_node);
+            console.log('Master Node is: ' + data.master_node);
             this.masterNode = data.master_node;
         }
 

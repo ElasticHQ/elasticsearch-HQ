@@ -70,7 +70,7 @@ var IndexView = Backbone.View.extend(
 
             var index = $.extend({}, stats, status, health, aliases);
 
-//window.console && console.log(JSON.stringify(index));
+//console.log(JSON.stringify(index));
 
             // assemble shards
             var _shards = [];

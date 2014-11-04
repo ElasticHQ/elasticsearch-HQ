@@ -230,7 +230,7 @@ function lookupValue(obj, string) {
     var returnString = obj[string];
     if (obj[string] === undefined) {
         returnString = getValue(string, obj);
-        //window.console && console.log(obj);
+        //console.log(obj);
     }
     return returnString;
 }

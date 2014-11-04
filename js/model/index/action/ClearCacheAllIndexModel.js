@@ -19,7 +19,7 @@
 
 var ClearCacheAllIndex = Backbone.Model.extend({
     initialize:function (args) {
-        window.console && console.log("Inside ClearCacheAllIndex");
+        console.log("Inside ClearCacheAllIndex");
     },
     url:function () {
         return '/_cache/clear';

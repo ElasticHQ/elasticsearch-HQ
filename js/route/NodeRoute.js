@@ -46,11 +46,11 @@ nodeRoute.diagnoseNodes = function () {
         success:function (model, response) {
             var nodeListView = new NodeStatsListView({infoModel:nodeInfoListModel, model:nodeStatsListModel});
 
-            var polloptions = {delay:settingsModel.get('settings').poller.nodeDiagnostics};
+            var polloptions = {delay:settingsModel.get('settings').poller.nodeDiagnostics,cache:false};
             nodeDiagnosticsPoller = Backbone.Poller.get(nodeStatsListModel, polloptions);
             nodeDiagnosticsPoller.start();
             nodeDiagnosticsPoller.on('success', function (nodeInfoListModel) {
-                window.console && console.log('another successful fetch!');
+                console.log('another successful fetch!');
                 nodeListView.render();
                 ajaxloading.hide();
             });
@@ -68,7 +68,7 @@ nodeRoute.nodeView = {};
 nodeRoute.nodeInfo = function (nodeId) {
     //
 
-    window.console && console.log("route nodeId: " + nodeId);
+    console.log("route nodeId: " + nodeId);
 
     var nodeStat = new NodeStatsModelFactory().create(nodeId);//new NodeStatsModel({nodeId:nodeId, connectionRootURL:cluster.get("connectionRootURL")});
     var nodeInfo = new NodeInfoModelFactory().create(nodeId);
@@ -79,11 +79,11 @@ nodeRoute.nodeInfo = function (nodeId) {
 
                 cluster.set({nodeStats:nodeStat, nodeInfo:nodeInfo});
 
-                var polloptions = {delay:settingsModel.get('settings').poller.node};
+                var polloptions = {delay:settingsModel.get('settings').poller.node,cache:false};
                 nodePoller = Backbone.Poller.get(nodeStat, polloptions);
                 nodePoller.start();
                 nodePoller.on('success', function (nodeInfo) {
-                    window.console && console.log('another successful fetch!');
+                    console.log('another successful fetch!');
                     nodeInfoView.render();
                     nodeRoute.nodeView = nodeInfoView;
                     ajaxloading.hide();
@@ -91,12 +91,12 @@ nodeRoute.nodeInfo = function (nodeId) {
 
                 /*
                  poller.on('complete', function (nodeStat) {
-                 window.console && console.log('hurray! we are done!');
+                 console.log('hurray! we are done!');
                  });
                  */
                 nodePoller.on('error', function (nodeInfo) {
                     var err = 'Unable to Read Node Information! ';
-                    window.console && console.log('Error! ' + err);
+                    console.log('Error! ' + err);
                     var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                     var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                     errorMsgView.render();
@@ -104,7 +104,7 @@ nodeRoute.nodeInfo = function (nodeId) {
             },
             error:function (model, response, options) {
                 var err = 'Unable to Read Node Information! ';
-                window.console && console.log('Error! ' + err);
+                console.log('Error! ' + err);
                 var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                 var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                 errorMsgView.render();

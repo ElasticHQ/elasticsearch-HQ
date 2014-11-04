@@ -21,7 +21,7 @@ var IndexAliasModel = Backbone.Model.extend({
         indexId:undefined
     },
     initialize:function (args) {
-        window.console && console.log("Inside IndexAliasModel");
+        console.log("Inside IndexAliasModel");
         this.indexId = args.indexId;
     },
     url:function () {

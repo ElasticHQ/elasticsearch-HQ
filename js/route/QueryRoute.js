@@ -26,7 +26,7 @@ queryRoute.init = function () {
 
     var clusterState = cluster.get("clusterState").toJSON();
     var indicesTemp = clusterState.metadata.indices;
-    window.console && console.log(clusterState);
+    console.log(clusterState);
 
     var indices = {};
     var indexKeys = _.keys(indicesTemp);

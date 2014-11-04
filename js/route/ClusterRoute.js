@@ -33,7 +33,7 @@ clusterRoute.cluster = function () {
             activateLogging();
             // END: INIT
 
-            var polloptions = {delay:10000};
+            var polloptions = {delay:settingsModel.get('settings').poller.cluster,cache:false};
             mainMenuPoller = Backbone.Poller.get(healthModel, polloptions);
             mainMenuPoller.start();
 
@@ -48,19 +48,19 @@ clusterRoute.cluster = function () {
                 nodeList.fetch(
                     {
                         success:function (model, response) {
-                            window.console && console.log('Node List retrieved');
+                            console.log('Node List retrieved');
                             if (existingListSize != _.size(model.models)) {
                                 var nodeListView = new NodeListView({el:$("#nodeList-loc"), model:nodeList});
                                 nodeListView.render();
-                                window.console && console.log('Node List updated');
+                                console.log('Node List updated');
                             }
                             else {
-                                window.console && console.log('Node List eq. Nothing to update.');
+                                console.log('Node List eq. Nothing to update.');
                             }
                         },
                         error:function (model, response, options) {
                             var err = 'Unable to Read Node List! ';
-                            window.console && console.log('Error! ' + err);
+                            console.log('Error! ' + err);
                             var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                             var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                             errorMsgView.render();
@@ -70,7 +70,7 @@ clusterRoute.cluster = function () {
             });
             mainMenuPoller.on('error', function (healthModel, response) {
                 var err = 'Unable to Connect to Server! Connection broken, or server has gone away. Please reconnect.';
-                window.console && console.log('Error! ' + err);
+                console.log('Error! ' + err);
                 var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
                 var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
                 errorMsgView.render();
@@ -91,7 +91,7 @@ clusterRoute.cluster = function () {
             var clusterState = cluster.get("clusterState");
             clusterState.fetch({
                 success:function () {
-                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:settingsModel.get('settings').poller.cluster});
+                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:settingsModel.get('settings').poller.cluster,cache:false});
                     clusterOverviewPoller.start();
 
                     clusterOverviewPoller.on('success', function (clusterState) {
@@ -127,7 +127,7 @@ clusterRoute.cluster = function () {
                     err += " A status code of 0, could mean the host is unreacheable or nothing is listening on the given port.";
                 }
             }
-            window.console && console.log('Error! ' + err);
+            console.log('Error! ' + err);
             var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
             var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
             errorMsgView.render();

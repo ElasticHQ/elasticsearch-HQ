@@ -48,12 +48,12 @@ var checkVersion = function () {
                 },
                 error:function (XMLHttpRequest, textStatus, errorThrown) {
                     // die silently
-                    window.console && console.log('ERROR! ' + XMLHttpRequest.responseText);
+                    console.log('ERROR! ' + XMLHttpRequest.responseText);
                 }
             });
         }
     }
     catch (e) {
-        window.console && console.log('ERROR! ' + e.message);
+        console.log('ERROR! ' + e.message);
     }
 };

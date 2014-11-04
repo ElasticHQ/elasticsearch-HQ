@@ -23,7 +23,7 @@ var NodeInfoListModel = Backbone.Model.extend({
         selectedNodes:undefined
     },
     initialize:function () {
-        window.console && console.log("Inside NodeInfoListModel");
+        console.log("Inside NodeInfoListModel");
     },
     url:function () {
         var sNodes = this.get('selectedNodes');

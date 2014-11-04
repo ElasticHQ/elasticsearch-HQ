@@ -25,7 +25,7 @@ var NodeShutdownModel = Backbone.Model.extend({
         nodeId:undefined
     },
     initialize:function (args) {
-        window.console && console.log("Shutting down " +  args.nodeId);
+        console.log("Shutting down " +  args.nodeId);
         this.nodeId = args.nodeId;
     },
     url:function () {

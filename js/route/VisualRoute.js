@@ -29,7 +29,7 @@ visualRoute.init = function () {
             },
             error:function (model, response, options) {
                 var err = 'Unable to Read Cluster State! ';
-                window.console && console.log('Error! ' + err);
+                console.log('Error! ' + err);
                 show_stack_bottomright({type:'error', title:'Fetch Failed', text:err, hide:false, closer_hover:false});
             }
         });
@@ -51,7 +51,7 @@ visualRoute.doFilter= function () {
             },
             error:function (model, response, options) {
                 var err = 'Unable to Read Cluster State! ';
-                window.console && console.log('Error! ' + err);
+                console.log('Error! ' + err);
                 show_stack_bottomright({type:'error', title:'Fetch Failed', text:err, hide:false, closer_hover:false});
             }
         });

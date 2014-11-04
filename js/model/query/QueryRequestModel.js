@@ -43,7 +43,7 @@ var QueryModel = Backbone.Model.extend({
         }
     },
     initialize:function (args) {
-        window.console && console.log("Inside QueryModel");
+        console.log("Inside QueryModel");
 
         this.indexCSV = args.indexCSV;
         this.indicesArray = args.indicesArray;

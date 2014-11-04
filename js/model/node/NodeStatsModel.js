@@ -27,14 +27,14 @@ var NodeStatsModel = Backbone.Model.extend({
         nodeId:undefined
     },
     initialize:function (args) {
-        window.console && console.log("Inside NodeStatsModel");
+        console.log("Inside NodeStatsModel");
         this.nodeId = args.nodeId;
     },
     url:function () {
         return '/_cluster/nodes/' + this.nodeId + '/stats?all=true&plugin=true';
     },
     fetch:function (options) {
-        window.console && console.log('Fetching NodeStats');
+        console.log('Fetching NodeStats');
         ajaxloading.show();
         this.constructor.__super__.fetch.apply(this, arguments);
     }

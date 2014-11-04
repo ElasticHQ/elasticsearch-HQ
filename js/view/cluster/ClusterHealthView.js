@@ -105,7 +105,7 @@ var ClusterHealthView = Backbone.View.extend({
     },
     render:function () {
         var clusterHealth = this.model;
-        window.console && console.log('Drawing clusterHealth ' + clusterHealth.get('cluster_name'));
+        console.log('Drawing clusterHealth ' + clusterHealth.get('cluster_name'));
         if (clusterHealth) {
             var status = clusterHealth.get('status');
             if (status == 'yellow') {

@@ -19,7 +19,7 @@
 var IndicesStatusModel = Backbone.Collection.extend({
     model:IndexSimple,
     initialize:function (args) {
-        window.console && console.log("Inside IndicesStatusModel");
+        console.log("Inside IndicesStatusModel");
     },
     url:function () {
         return '/_status';

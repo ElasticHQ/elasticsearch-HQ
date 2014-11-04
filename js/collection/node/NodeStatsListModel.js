@@ -27,7 +27,7 @@ var NodeStatsListModel = Backbone.Model.extend({//Backbone.Collection.extend({
         selectedNodes:undefined
     },
     initialize:function () {
-        window.console && console.log("Inside NodeStatsListModel");
+        console.log("Inside NodeStatsListModel");
     },
     url:function () {
         var sNodes = this.get('selectedNodes');

@@ -46,7 +46,9 @@ var SettingsView = Backbone.View.extend(
                 this.model.get('settings').optoutStats = (data.optoutStats !== undefined) ? true : false;
                 this.model.saveToStorage();
 
-                settingsModel = settingsModel.loadFromStorage();
+                var settingsLoaded = settingsModel.loadFromStorage();
+                if (settingsLoaded != null)
+                    settingsModel = settingsLoaded;
 
                 var tpl = _.template(settingsTemplate.saved);
                 $('#savedSettings').html(tpl(
