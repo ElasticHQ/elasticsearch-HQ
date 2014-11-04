@@ -66,7 +66,6 @@ var ClusterHealthView = Backbone.View.extend({
         else {
             indices.count = 0;
         }
-        var metaIndices = this.stateModel.get('metadata').indices.twitter;
         var indexValues = _.values(this.indexModel.get('indices'));
         for (var i = 0; i < indexKeys.length; i++) {
             indexValues[i].id = indexKeys[i];

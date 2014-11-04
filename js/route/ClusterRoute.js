@@ -33,7 +33,7 @@ clusterRoute.cluster = function () {
             activateLogging();
             // END: INIT
 
-            var polloptions = {delay:10000};
+            var polloptions = {delay:settingsModel.get('settings').poller.cluster,cache:false};
             mainMenuPoller = Backbone.Poller.get(healthModel, polloptions);
             mainMenuPoller.start();
 
@@ -91,7 +91,7 @@ clusterRoute.cluster = function () {
             var clusterState = cluster.get("clusterState");
             clusterState.fetch({
                 success:function () {
-                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:settingsModel.get('settings').poller.cluster});
+                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:settingsModel.get('settings').poller.cluster,cache:false});
                     clusterOverviewPoller.start();
 
                     clusterOverviewPoller.on('success', function (clusterState) {

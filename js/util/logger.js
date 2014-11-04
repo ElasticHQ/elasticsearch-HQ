@@ -1,19 +1,25 @@
 var logger = function () {
-    var oldConsoleLog = null;
+    var oldConsole = window.console;
+    var emptyLogger = {
+            log : function(){},
+        };
+    if (oldConsole == null) {
+        // no console to start with; always replace with an empty log function
+        window['console'] = emptyLogger;
+    }
+
     var pub = {};
-
+    
     pub.enableLogger = function enableLogger() {
-        if (oldConsoleLog == null) {
-            return;
+        if (oldConsole != null) {
+            window['console'] = oldConsole;
         }
-
-        window['console']['log'] = oldConsoleLog;
     };
 
     pub.disableLogger = function disableLogger() {
-        oldConsoleLog = console.log;
-        window['console']['log'] = function () {
-        };
+        if (oldConsole != null) {
+            window['console']['log'] = emptyLogger.log;
+        }
     };
 
     return pub;

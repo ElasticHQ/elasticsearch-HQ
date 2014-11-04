@@ -30,7 +30,7 @@ indicesRoute.viewIndices = function () {
     indexStatusModel.fetch({
         success:function (model, response) {
 
-            var polloptions = {delay:settingsModel.get('settings').poller.indices};
+            var polloptions = {delay:settingsModel.get('settings').poller.indices,cache:false};
             indicesPoller = Backbone.Poller.get(indexStatusModel, polloptions);
             indicesPoller.start();
             indicesPoller.on('success', function (indexStatusModel) {

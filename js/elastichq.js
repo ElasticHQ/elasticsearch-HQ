@@ -59,7 +59,9 @@ $(document).ready(
             }
         }
 
-        router.navigate();
-
         settingsModel = new SettingsModel();
+
+        activateLogging();
+
+        router.navigate();
     });
