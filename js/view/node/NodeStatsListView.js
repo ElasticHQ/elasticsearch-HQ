@@ -134,6 +134,8 @@ var NodeStatsListView = Backbone.View.extend(
                     node.stats.mergeTime = timeUtil.convertMS(node.stats.indices.merges.total_time_in_millis);
                     node.stats.docsdeletedperc = node.stats.indices.docs.deleted / node.stats.indices.docs.count;
                     node.stats.mergerate = node.stats.indices.merges.total_size_in_bytes / node.stats.indices.merges.total_time_in_millis / 1000;
+                    node.stats.diskSpaceUsed = (node.stats.fs.total.total_in_bytes - node.stats.fs.total.free_in_bytes) / node.stats.fs.total.total_in_bytes;
+                    node.stats.diskFree = numeral(node.stats.fs.total.free_in_bytes).format('0.0b');
 
                     // actions
                     node.stats.flush = node.stats.indices.flush.total_time_in_millis / node.stats.indices.flush.total;
