@@ -149,6 +149,7 @@ function show_stack_bottomright(args) {
         icon:true,
         hide:(args.hide === undefined) ? true : args.hide,
         closer_hover:(args.closer_hover === undefined) ? true : args.closer_hover,
+		text_escape:true,
         delay:5000
     };
     switch (args.type) {
