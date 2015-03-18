@@ -25,6 +25,8 @@ clusterRoute.cluster = function () {
     healthModel.fetch({
         success:function () {
 
+            document.title = healthModel.get('cluster_name') + " | Elastic HQ";
+
             // BEGIN: INIT: we only do these things on successful connect...
             checkVersion();
 
