@@ -162,6 +162,10 @@ var DocumentListView = Backbone.View.extend({
 
             _this.calcPager();
 
+            // Adding a button for clearing results in Query search  
+            // https://github.com/royrusso/elasticsearch-HQ/issues/189
+            _this.clearResults();
+
             prettyPrint();
 
             return this;
@@ -188,5 +192,12 @@ var DocumentListView = Backbone.View.extend({
             _this.pagePrev();
             _this.render();
         });
+    },
+    clearResults:function () {
+        var _this = this;
+        $('#clearResults').click(function () {
+            $('#searchResults').empty();
+        });
     }
+
 });
