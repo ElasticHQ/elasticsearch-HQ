@@ -561,7 +561,7 @@ function memory_rules() {
             value:"stats.swap",
             formula:"stats.os.swap.used_in_bytes / 1024 / 1024",
             formulaKeys:"stats.os.swap.used_in_bytes",
-            unit:"mb",
+            unit:"MB",
             upper_limit:["1", "1"],
             comment:"Any use of swap by the JVM, no matter how small, can greatly impact the speed of the garbage collector."
         }
