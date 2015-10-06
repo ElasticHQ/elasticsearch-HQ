@@ -298,6 +298,21 @@ function fs_rules() {
             formula:"stats.process.open_file_descriptors",
             formulaKeys:"stats.process.open_file_descriptors",
             calc:false
+        },
+        {
+            label:"Disk space used:",
+            value:"stats.diskSpaceUsed",
+            formula:"(stats.fs.total.total_in_bytes - stats.fs.total.free_in_bytes) / stats.fs.total.total_in_bytes",
+            formulaKeys:"stats.fs.total.free_in_bytes@@stats.fs.total.total_in_bytes@@stats.fs.total.total_in_bytes",
+            format:"pct",
+            upper_limit:[ "0.8", "0.95" ]
+        },
+        {
+            label:"Disk space free:",
+            value:"stats.diskFree",
+            formula:"stats.fs.total.free_in_bytes",
+            formulaKeys:"stats.fs.total.free_in_bytes",
+            calc:false
         }
     ];
 }
