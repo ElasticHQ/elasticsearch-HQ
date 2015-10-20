@@ -36,7 +36,7 @@ nodeRoute.diagnoseNodes = function () {
 
     // only show the first X nodes. Large node lists can cause browser to stall, so we limit what we call the cluster for.
     var nodeList = cluster.get("nodeList");
-    if (nodeRoute.selectedDiagnoseNodeIDs.length == 0) {
+    if (nodeRoute.selectedDiagnoseNodeIDs.length === 0) {
         nodeRoute.selectDiagnoseNodes(nodeList);
     }
 

@@ -34,8 +34,9 @@ var NodeStatsListView = Backbone.View.extend(
                     node.id = nodeList.models[i].id;
                     node.name = nodeList.models[i].get('name');
                     for (var j = 0; j < selectedNodes.length; j++) {
-                        if (node.id == selectedNodes[j])
+                        if (node.id == selectedNodes[j]) {
                             node.selected = true;
+                        }
                     }
                     allNodes.push(node);
                 }

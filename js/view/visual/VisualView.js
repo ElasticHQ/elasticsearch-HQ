@@ -32,7 +32,6 @@ var VisualView = Backbone.View.extend(
             var m = [40, 200, 40, 120],
                 w = realWidth - m[1] - m[3],
                 h = realHeight - m[0] - m[2],
-                i = 0,
                 root;
 
             var jsonObj = {};
