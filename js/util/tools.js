@@ -1,16 +1,16 @@
 var ajaxloading = {
-    show:function (id) {
+    show: function (id) {
         if (id) {
-            $(id).fadeIn({duration:1000});
+            $(id).fadeIn({duration: 1000});
         } else {
-            $('#ajaxindicator').fadeIn({duration:1000});
+            $('#ajaxindicator').fadeIn({duration: 1000});
         }
     },
-    hide:function (id) {
+    hide: function (id) {
         if (id) {
-            $(id).fadeOut({duration:1000});
+            $(id).fadeOut({duration: 1000});
         } else {
-            $('#ajaxindicator').fadeOut({duration:1000});
+            $('#ajaxindicator').fadeOut({duration: 1000});
         }
     }
 };
@@ -59,7 +59,7 @@ var doFocus = function (field, button) {
 };
 
 var scrollToTop = {
-    activate:function () {
+    activate: function () {
         // scroll-to-top button show and hide
         jQuery(document).ready(function () {
             jQuery(window).scroll(function () {
@@ -73,12 +73,12 @@ var scrollToTop = {
             });
             // scroll-to-top animate
             jQuery('.scrollup').click(function () {
-                jQuery("html, body").animate({ scrollTop:0 }, 600);
+                jQuery("html, body").animate({scrollTop: 0}, 600);
                 return false;
             });
             // scroll-to-top animate
             jQuery('.scrollupLeft').click(function () {
-                jQuery("html, body").animate({ scrollTop:0 }, 600);
+                jQuery("html, body").animate({scrollTop: 0}, 600);
                 return false;
             });
         });
@@ -86,7 +86,7 @@ var scrollToTop = {
 };
 
 var timeUtil = {
-    lastUpdated:function () {
+    lastUpdated: function () {
         var dt = new Date();
         var hours = dt.getHours();
         var minutes = dt.getMinutes();
@@ -104,7 +104,7 @@ var timeUtil = {
         }
         return hours + ":" + minutes + ":" + seconds;
     },
-    convertMS:function (ms) {
+    convertMS: function (ms) {
         var d, h, m, s;
         s = Math.floor(ms / 1000);
         m = Math.floor(s / 60);
@@ -135,22 +135,24 @@ var timeUtil = {
  * Notification system. https://github.com/sciactive/pnotify
  * @type {Object}
  */
-$.pnotify.defaults.history = false;
-var stack_bottomright = {"dir1":"up", "dir2":"left", "firstpos1":25, "firstpos2":25};
+//$.pnotify.defaults.history = false;
+var stack_bottomright = {"dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25};
 
 function show_stack_bottomright(args) {
     var opts = {
-        title:args.title,
-        text:args.text,
-        addclass:"stack-bottomright",
-        stack:stack_bottomright,
-        styling:"bootstrap",
-        history:false,
-        icon:true,
-        hide:(args.hide === undefined) ? true : args.hide,
-        closer_hover:(args.closer_hover === undefined) ? true : args.closer_hover,
-		text_escape:true,
-        delay:5000
+        styling: "bootstrap2",
+        title: args.title,
+        text: args.text,
+        addclass: "stack-bottomright",
+        stack: stack_bottomright,
+        animation: "fade",
+        animate_speed: "normal",
+        shadow: true,
+        icon: true,
+        hide: (args.hide === undefined) ? true : args.hide,
+        closer_hover: (args.closer_hover === undefined) ? true : args.closer_hover,
+        //text_escape: true,
+        delay: 5000
     };
     switch (args.type) {
         case 'error':
@@ -163,7 +165,9 @@ function show_stack_bottomright(args) {
             opts.type = "success";
             break;
     }
-    $.pnotify(opts);
+    $(function () {
+        new PNotify(opts);
+    });
 }
 
 /**
@@ -174,7 +178,7 @@ function show_stack_bottomright(args) {
  * @return string
  */
 var convert = {
-    bytesToSize:function (bytes, precision) {
+    bytesToSize: function (bytes, precision) {
         var kilobyte = 1024;
         var megabyte = kilobyte * 1024;
         var gigabyte = megabyte * 1024;
