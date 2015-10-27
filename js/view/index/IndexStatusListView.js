@@ -28,12 +28,13 @@ var IndexStatusListView = Backbone.View.extend(
         render:function () {
             var indexStatus = this.model.toJSON();
 
+            var index;
             var indices = [];
 
             var clusterState = this.clusterStateModel.toJSON(); //cluster.get("clusterState").toJSON();
 
             for (var i = 0; i < indexStatus.length; i++) {
-                var index = indexStatus[i];
+                index = indexStatus[i];
                 index.cid = index.id;
                 index.name = index.id;
                 index.numshards = clusterState.metadata.indices[index.id].settings['index.number_of_shards'];
@@ -50,7 +51,7 @@ var IndexStatusListView = Backbone.View.extend(
                 var blocks = clusterState.blocks.indices;
                 var blockKeys = _.keys(blocks);
                 for (var j = 0; j < blockKeys.length; j++) {
-                    var index = {};
+                    index = {};
                     index.cid = index.id;
                     index.id = blockKeys[j];
                     index.name = blockKeys[j];

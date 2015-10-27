@@ -23,7 +23,7 @@ $(document).ready(
     function ($) {
 
 
-        var elasticHQRouter = Backbone.Router.extend({
+        var ElasticHQRouter = Backbone.Router.extend({
 
             routes:{
                 "cluster":"cluster",
@@ -221,6 +221,6 @@ $(document).ready(
         });
 
         Backbone.history.start();
-        router = new elasticHQRouter();
+        router = new ElasticHQRouter();
     })
 ;

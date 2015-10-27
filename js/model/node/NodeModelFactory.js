@@ -57,7 +57,7 @@ function NodeStatsListModelFactory() {
         if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
             model.url = function () {
                 var sNodes = this.get('selectedNodes');
-                if (sNodes == undefined || sNodes.length == 0) {
+                if (sNodes == undefined || sNodes.length === 0) {
                     return '/_nodes/stats?all=1';
                 }
                 else {
@@ -87,7 +87,7 @@ function NodeInfoListModelFactory() {
         if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
             model.url = function () {
                 var sNodes = this.get('selectedNodes');
-                if (sNodes == undefined || sNodes.length == 0) {
+                if (sNodes == undefined || sNodes.length === 0) {
                     return '/_nodes?all=1';
                 }
                 else {
