@@ -23,5 +23,5 @@ To build the distribution, simply drop to console and type: **npm install && gru
 CHANGELOG
 --------------
 
-Changelog generation is achieved through the gh-chngelog Node plugin: https://npmjs.org/package/github-changelog
+Changelog generation is achieved through the gh-changelog Node plugin: https://npmjs.org/package/github-changelog
 

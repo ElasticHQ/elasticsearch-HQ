@@ -22,9 +22,16 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     
-
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-select.min.css" rel="stylesheet" media="screen">
+    <link href="css/elastichq.css" rel="stylesheet" media="screen">
+    <link href="css/pnotify.css" rel="stylesheet" media="screen">
+    <link href="css/pnotify-icons.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="css/prettify.css" rel="stylesheet" media="screen">
     
-    <link href="css/all.min.css" rel="stylesheet" media="screen">
+
     
 
 </head>
@@ -207,36 +214,36 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/util/constants.js"></script>
 
 
+
+
 <!-- JQuery -->
 <script src="js/lib/jquery/jquery.1.9.1.min.js"></script>
-<script src="js/lib/jquery/jquery.cookie.min.js"></script>
-<script src="js/lib/jquery/jquery.tablesorter.min.js"></script>
-<script src="js/lib/jquery/jquery.metadata.min.js"></script>
-<script src="js/lib/jquery/jquery.tablesorter.pager.min.js"></script>
+<script src="js/lib/jquery/jquery.cookie.js"></script>
+<script src="js/lib/jquery/jquery.tablesorter.js"></script>
+<script src="js/lib/jquery/jquery.metadata.js"></script>
+<script src="js/lib/jquery/jquery.tablesorter.pager.js"></script>
 
 <!-- Twitter Bootstrap -->
-<script src="js/lib/bootstrap/bootstrap.min.js"></script>
-<script src="js/lib/bootstrap-select/bootstrap-select.min.js"></script>
-<script src="js/lib/prettify/prettify.min.js"></script>
+<script src="js/lib/bootstrap/bootstrap.js"></script>
+<script src="js/lib/bootstrap-select/bootstrap-select.js"></script>
+<script src="js/lib/prettify/prettify.js"></script>
 
 <!-- Backbone -->
-<script src="js/lib/underscore/underscore-min.js"></script>
-<script src="js/lib/backbone/backbone-min.js"></script>
-<script src="js/lib/backbone-poller/backbone.poller.min.js"></script>
-<script src="js/lib/backbone-validation/backbone-validation-min.js"></script>
-<script src="js/lib/backbone-validation/backbone.validation.bootstrap.min.js"></script>
+<script src="js/lib/underscore/underscore.js"></script>
+<script src="js/lib/backbone/backbone.js"></script>
+<script src="js/lib/backbone-poller/backbone.poller.js"></script>
+<script src="js/lib/backbone-validation/backbone-validation.js"></script>
+<script src="js/lib/backbone-validation/backbone.validation.bootstrap.js"></script>
 
 <!-- Notify -->
 <script src="js/lib/pnotify/jquery.pnotify.min.js"></script>
 
 <!-- Numeral -->
-<script src="js/lib/numeraljs/min/numeral.min.js"></script>
+<script src="js/lib/numeraljs/numeral.js"></script>
 
 <!-- load ace -->
 <script src="js/lib/ace/src-noconflict/ace.js"></script>
 <script src="js/lib/ace/src-noconflict/ext-language_tools.js"></script>
-
-
 
 
 <!-- Overrides/Extensions must go first! -->
@@ -247,16 +254,124 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/elastichq.js"></script>
 
 
-<script src="js/all.min.js"></script>
+
+
+<!-- Templates -->
+<script src="js/template/ClusterTemplates.js"></script>
+<script src="js/template/NodeTemplates.js"></script>
+<script src="js/template/MessageTemplate.js"></script>
+<script src="js/template/IndexTemplate.js"></script>
+<script src="js/template/IndexActionTemplate.js"></script>
+<script src="js/template/MappingTemplate.js"></script>
+<script src="js/template/RESTTemplate.js"></script>
+<script src="js/template/QueryTemplate.js"></script>
+<script src="js/template/SnapShotTemplate.js"></script>
+<script src="js/template/SettingsTemplate.js"></script>
+<script src="js/template/VisualTemplate.js"></script>
+
+<!-- Models -->
+<script src="js/model/core/Ping.js"></script>
+<script src="js/model/base/ErrorMessageModel.js"></script>
+<script src="js/model/cluster/ClusterModel.js"></script>
+<script src="js/model/cluster/ClusterHealthModel.js"></script>
+<script src="js/model/cluster/ClusterStateModel.js"></script>
+<script src="js/model/node/NodeModelFactory.js"></script>
+<script src="js/model/node/NodeSimpleModel.js"></script>
+<script src="js/model/node/NodeStatsModel.js"></script>
+<script src="js/model/node/NodeInfoModel.js"></script>
+<script src="js/model/node/NodeShutdownModel.js"></script>
+<script src="js/model/node/NodeHotThreadsModel.js"></script>
+<script src="js/model/index/IndexSimple.js"></script>
+<script src="js/model/index/IndexAliasModel.js"></script>
+<script src="js/model/index/IndexHealthModel.js"></script>
+<script src="js/model/index/IndexStatsModel.js"></script>
+<script src="js/model/index/IndexStatusModel.js"></script>
+<script src="js/model/index/IndexSettingsModel.js"></script>
+<script src="js/model/rest/JSONAPIModel.js"></script>
+<script src="js/model/mapping/MappingSimple.js"></script>
+<script src="js/model/rest/RESTModelFactory.js"></script>
+<script src="js/model/rest/RESTModel.js"></script>
+<script src="js/model/query/QueryResultsModel.js"></script>
+<script src="js/model/query/QueryRequestModel.js"></script>
+<script src="js/model/query/QueryUtil.js"></script>
+<script src="js/model/settings/SettingsModel.js"></script>
+<script src="js/model/settings/StatsModel.js"></script>
+
+<!-- Model Actions -->
+<script src="js/model/index/action/ClearCacheAllIndexModel.js"></script>
+<script src="js/model/index/action/FlushAllIndexModel.js"></script>
+<script src="js/model/index/action/OptimizeAllIndexModel.js"></script>
+<script src="js/model/index/action/RefreshAllIndexModel.js"></script>
+<script src="js/model/index/action/IndexModel.js"></script>
+
+<!-- Collections -->
+<script src="js/collection/index/IndicesStatusModel.js"></script>
+<script src="js/collection/mapping/MappingsModel.js"></script>
+<script src="js/collection/mapping/MappingsModelFactory.js"></script>
+<script src="js/collection/node/NodeListModel.js"></script>
+<script src="js/collection/node/NodeInfoListModel.js"></script>
+<script src="js/collection/node/NodeStatsListModel.js"></script>
+
+<!-- View -->
+<script src="js/view/ErrorMessageView.js"></script>
+<script src="js/view/cluster/ClusterHealthView.js"></script>
+<script src="js/view/node/NodeViewFactory.js"></script>
+<script src="js/view/node/NodeStatsView.js"></script>
+<script src="js/view/node/NodeListView.js"></script>
+<script src="js/view/node/NodeShutdownView.js"></script>
+<script src="js/view/node/NodeHotThreadView.js"></script>
+<script src="js/view/index/IndexStatusListView.js"></script>
+<script src="js/view/index/IndexView.js"></script>
+<script src="js/view/rest/EndPointMap.js"></script>
+<script src="js/view/rest/JSONEditorView.js"></script>
+<script src="js/view/rest/JSONEditorPostView.js"></script>
+<script src="js/view/mapping/MappingListView.js"></script>
+<script src="js/view/mapping/MapTypeView.js"></script>
+<script src="js/view/mapping/MapTypeViewFactory.js"></script>
+<script src="js/view/mapping/action/CreateTypeView.js"></script>
+<script src="js/view/rest/RESTView.js"></script>
+<script src="js/view/rest/RESTJSONView.js"></script>
+<script src="js/view/node/NodeStatsListView.js"></script>
+<script src="js/view/node/DiagnosticsRules.js"></script>
+<script src="js/view/alias/CreateAliasView.js"></script>
+<script src="js/view/document/QueryView.js"></script>
+<script src="js/view/document/DocumentListView.js"></script>
+<script src="js/view/snapshot/SnapShotView.js"></script>
+<script src="js/view/settings/SettingsView.js"></script>
+<script src="js/view/visual/VisualView.js"></script>
+
+<!-- View Action -->
+<script src="js/view/index/action/OptimizeAllIndexView.js"></script>
+<script src="js/view/index/action/FlushAllIndexView.js"></script>
+<script src="js/view/index/action/ClearCacheAllIndexView.js"></script>
+<script src="js/view/index/action/CreateIndexView.js"></script>
+
+<!-- Routes -->
+<script src="js/route/ClusterRoute.js"></script>
+<script src="js/route/IndexRoute.js"></script>
+<script src="js/route/IndicesRoute.js"></script>
+<script src="js/route/MappingRoute.js"></script>
+<script src="js/route/RESTRoute.js"></script>
+<script src="js/route/NodeRoute.js"></script>
+<script src="js/route/QueryRoute.js"></script>
+<script src="js/route/VisualRoute.js"></script>
+
+<!-- Util -->
+<script src="js/util/versioncheck.js"></script>
+<script src="js/util/versionutil.js"></script>
+<script src="js/util/logger.js"></script>
+<script src="js/util/tools.js"></script>
+<script src="js/util/poller.js"></script>
+<script src="js/util/parser.js"></script>
+<script src="js/util/tablesorter.js"></script>
+<script src="js/util/guid.js"></script>
 
 
 
 
 
 <!-- Charts -->
-<script language="javascript" type="text/javascript" src="js/lib/flot/jquery.flot.min.js"></script>
-
-
+<script language="javascript" type="text/javascript" src="js/lib/flot/jquery.flot.js"></script>
 
 
 <script language="javascript" type="text/javascript" src="js/lib/flot/plugin/jquery.flot.time.js"></script>
