@@ -1,0 +1,27 @@
+// miscellaneous templates...
+
+// Grids
+    '<div class="grid">',
+    '<div class="grid-title">',
+    '<div class="pull-left">',
+    '<div class="icon-title"><i class="icon-bar-chart"></i></div>',
+    '<span>Indices</span>',
+    '<div class="clearfix"></div>',
+    '</div>',
+    '<div class="pull-right">',
+    '<div class="icon-title"><a href="#"><i class="icon-refresh"></i></a></div>',
+    '<div class="icon-title"><a href="#"><i class="icon-user"></i></a></div>',
+    '<div class="icon-title"><a href="#"><i class="icon-cog"></i></a></div>',
+    '</div>',
+    '<div class="clearfix"></div>',
+    '</div>',
+    '<div class="grid-content overflow">',
+    '11111111',
+    '<div class="clear"></div>',
+    '</div>',
+    '<div class="grid-content">',
+    '<div class="clear"></div>',
+    '222222',
+    '<div class="clearfix"></div>',
+    '</div>',
+    '</div>'

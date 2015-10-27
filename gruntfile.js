@@ -5,6 +5,7 @@ module.exports = function (grunt) {
         jsDir:'js',
         cssDir:'css',
         distDir:'dist',
+        siteDir: '_site',
         tempDir:'tmp',
         meta:{
             banner:'/*! \n' +
@@ -17,6 +18,7 @@ module.exports = function (grunt) {
         },
         clean:{
             dist:['dist'],
+            site:["<%= siteDir %>"],
             cssAll:["<%= cssDir %>/all.min.css"],
             jsAll:["<%= jsDir %>/all.min.js"],
             temp:["<%= tempDir %>"]
@@ -49,6 +51,36 @@ module.exports = function (grunt) {
                 expand:true,
                 src:['***/*//*.min.css'],
                 dest:'<%= tmp %>/css'
+            },
+            site_css : {
+                cwd:'css/',
+                expand:true,
+                src:['*'],
+                dest:'<%= siteDir %>/css'
+            },
+            site_index : {
+                cwd:'',
+                expand:true,
+                src:['index.html'],
+                dest:'<%= siteDir %>'
+            },
+            site_js : {
+                cwd:'js/',
+                expand:true,
+                src:['**/*'],
+                dest:'<%= siteDir %>/js'
+            },
+            site_font : {
+                cwd:'font/',
+                expand:true,
+                src:['**/*'],
+                dest:'<%= siteDir %>/font'
+            },
+            site_images : {
+                cwd:'images/',
+                expand:true,
+                src:['**/*'],
+                dest:'<%= siteDir %>/images'
             }
         },
         uglify:{
@@ -143,7 +175,7 @@ module.exports = function (grunt) {
     // grunt.registerTask('default', [ 'clean', 'concat', 'cssmin:minify', 'uglify']);
     grunt.registerTask('default', [ 'clean', 'jshint']);
 
-    grunt.registerTask('dist', [ 'clean', 'concat:css', 'cssmin:minify', 'concat:js', 'uglify', 'targethtml:dist']);
+    grunt.registerTask('dist', [ 'clean', 'clean:site', 'concat:css', 'cssmin:minify', 'concat:js', 'uglify', 'targethtml:dist', 'copy:site_css', 'copy:site_index', 'copy:site_js', 'copy:site_font', 'copy:site_images']);
 
     grunt.registerTask('dev', [ 'clean:temp', 'targethtml:dev']);
 
