@@ -18,6 +18,7 @@ module.exports = function (grunt) {
         },
         clean:{
             dist:['dist'],
+            site:["<%= siteDir %>"],
             cssAll:["<%= cssDir %>/all.min.css"],
             jsAll:["<%= jsDir %>/all.min.js"],
             temp:["<%= tempDir %>"]
@@ -174,7 +175,7 @@ module.exports = function (grunt) {
     // grunt.registerTask('default', [ 'clean', 'concat', 'cssmin:minify', 'uglify']);
     grunt.registerTask('default', [ 'clean', 'jshint']);
 
-    grunt.registerTask('dist', [ 'clean', 'concat:css', 'cssmin:minify', 'concat:js', 'uglify', 'targethtml:dist', 'copy:site_css', 'copy:site_index', 'copy:site_js', 'copy:site_font', 'copy:site_images']);
+    grunt.registerTask('dist', [ 'clean', 'clean:site', 'concat:css', 'cssmin:minify', 'concat:js', 'uglify', 'targethtml:dist', 'copy:site_css', 'copy:site_index', 'copy:site_js', 'copy:site_font', 'copy:site_images']);
 
     grunt.registerTask('dev', [ 'clean:temp', 'targethtml:dev']);
 
