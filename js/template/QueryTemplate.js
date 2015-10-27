@@ -131,6 +131,7 @@ queryTemplate.results = [
     '<a href="#" id="loadPrev" class="btn btn-success"><i class="icon-double-angle-left"></i> Prev</a>',
     '<% } %>',
     '<% if(currentPage != maxPages) { %>',
+    '<a href="#" id="clearResults" class="btn btn-success">Clear results <i class="icon-reply"></i></a>',
     '<a href="#" id="loadNext" class="btn btn-success">Next <i class="icon-double-angle-right"></i></a>',
     '<% } %>',
     '<a href="#queryJSONRequestModal" id="queryRequest" class="btn" rel="tipRight" data-title="View JSON Request." data-toggle="modal" role="button" ><i class="icon-upload"></i></a>',
