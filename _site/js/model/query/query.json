@@ -1,0 +1,34 @@
+http://localhost:9200/comicbook/_search
+
+{    "query": {
+    "filtered" : {
+        "query" : {
+            "query_string" : {
+                "query" : "hulk"
+            }
+        }
+    }
+},
+    "sort" : { "_id" : { "order" : "asc"} }
+}
+
+// highlight
+{"query": {
+"filtered" : {
+"query" : {
+"query_string" : {
+"query" : "hulk"
+}
+}
+}
+},
+"highlight" : {
+"fields" : {
+"summary" : {}
+}
+}
+}
+
+// no query string...
+{}
+

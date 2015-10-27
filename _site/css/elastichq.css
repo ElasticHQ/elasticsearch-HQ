@@ -1,0 +1,456 @@
+body {
+    /*padding-top: 40px;*/
+    padding-bottom: 40px;
+}
+
+@media (max-width: 979px) {
+    body {
+        padding-top: 0;
+    }
+}
+
+.center-table {
+    margin: 0 auto !important;
+    float: none !important;
+}
+
+.popover {
+    max-width: 600px;
+}
+
+.chart-container {
+    box-sizing: border-box;
+    width: 100%;
+    height: 220px;
+    padding: 15px 5px 5px 5px;
+    margin: 5px auto 15px auto;
+    border: 1px solid #ddd;
+    background: #fff;
+    background: linear-gradient(#f6f6f6 0, #fff 20px);
+    background: -o-linear-gradient(#f6f6f6 0, #fff 20px);
+    background: -ms-linear-gradient(#f6f6f6 0, #fff 20px);
+    background: -moz-linear-gradient(#f6f6f6 0, #fff 20px);
+    background: -webkit-linear-gradient(#f6f6f6 0, #fff 20px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tickLabel {
+    font-size: 10px;
+}
+
+.chart-placeholder {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    line-height: 1.2em;
+}
+
+.axisLabel {
+    position: absolute;
+    text-align: center;
+    font-size: 12px;
+}
+
+.yaxisLabel {
+    top: 50%;
+    left: 2px;
+    transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+.ie7 .yaxisLabel, .ie8 .yaxisLabel {
+    top: 40%;
+    font-size: 36px;
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11 = 0.0, M12 = 0.33, M21 = -0.33, M22 = 0.0, sizingMethod = 'auto expand');
+}
+
+.modal-loading {
+    width: 350px;
+}
+
+.ui-pnotify.stack-bottomright {
+    /* These are just CSS default values to reset the pnotify CSS. */
+    right: auto;
+    top: auto;
+}
+
+/* Footer
+-------------------------------------------------- */
+
+.footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 70px;
+    border-top: 1px solid #e5e5e5;
+    background-color: #f5f5f5;
+}
+
+.footer p {
+    margin-bottom: 0;
+    color: #777;
+}
+
+.footer-links {
+    margin: 10px 0;
+}
+
+.footer-links li {
+    display: inline;
+    padding: 0 2px;
+}
+
+.footer-links li:first-child {
+    padding-left: 0;
+}
+
+.subnav {
+    background-color: #EEEEEE;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+.title-header {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+/**
+Table Sorter
+***/
+table .header {
+    cursor: pointer;
+}
+
+table .header:after {
+    content: "";
+    float: right;
+    margin-top: 7px;
+    border-width: 0 4px 4px;
+    border-style: solid;
+    border-color: #000000 transparent;
+    visibility: hidden;
+}
+
+table .headerSortUp, table .headerSortDown {
+    background-color: #f7f7f9;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+
+table .header:hover:after {
+    visibility: visible;
+}
+
+table .headerSortDown:after, table .headerSortDown:hover:after {
+    visibility: visible;
+    filter: alpha(opacity = 60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+}
+
+table .headerSortUp:after {
+    border-bottom: none;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #000000;
+    visibility: visible;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    filter: alpha(opacity = 60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+}
+
+.stat-detail {
+    font-weight: bold;
+    font-size: 24px;
+    display: block;
+    line-height: 22px;
+}
+
+.stat-box {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.nav-header {
+    font-size: 14px;
+}
+
+.nodestable td {
+    font-size: 13px !important;
+}
+
+.nodestable thead td {
+    font-size: 16px !important;
+}
+
+/* overrides for td bootstrap classes */
+.table tbody td.success {
+    background-color: #dff0d8;
+}
+
+.table tbody td.error {
+    background-color: #f2dede;
+}
+
+.table tbody td.warning {
+    background-color: #fcf8e3;
+}
+
+.table tbody td.info {
+    background-color: #d9edf7;
+}
+
+.table-hover tbody td.success:hover {
+    background-color: #d0e9c6;
+}
+
+.table-hover tbody td.error:hover {
+    background-color: #ebcccc;
+}
+
+.table-hover tbody td.warning:hover {
+    background-color: #faf2cc;
+}
+
+.table-hover tbody td.info:hover {
+    background-color: #c4e3f3;
+}
+
+/*GRIDS*/
+.grid {
+    background: #fff;
+    margin-top: 40px;
+    border: 1px solid #c9c9c9;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.grid-transparent {
+    margin-top: 40px;
+}
+
+.grid-title {
+    height: 35px;
+    background: #fafafa;
+    background: -moz-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+    background: -webkit-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+    background: -o-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+    background: -ms-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+    background: linear-gradient(to bottom, #fafafa 0%, #e9e9e9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#fafafa', endColorstr = '#e9e9e9', GradientType = 0);
+    border-bottom: 1px solid #c9c9c9;
+    overflow: hidden;
+    -webkit-border-radius: 0px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
+    -moz-border-radius: 0px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    border-radius: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.grid-title .pull-left .icon-title {
+    padding-right: 10px;
+    padding-left: 10px;
+    border-right: 1px solid #c9c9c9;
+    height: 30px;
+    margin-top: -2px;
+    margin-right: 8px;
+    padding-top: 12px;
+    float: left;
+    color: #5f5f5f;
+}
+
+.grid-title .pull-left span {
+    color: #5f5f5f;
+    font-size: 14px;
+    font-weight: bold;
+    height: 14px;
+    display: block;
+    padding-top: 8px;
+    width: 200px;
+}
+
+.grid-title .pull-right .icon-title {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 1px solid #c9c9c9;
+    height: 30px;
+    margin-top: -2px;
+    padding-top: 12px;
+    float: left;
+}
+
+.grid-title .pull-right .icon-title a {
+    color: #5f5f5f;
+}
+
+.grid-title .pull-right .icon-title a:hover {
+    color: #3c3b3b;
+}
+
+.grid-content {
+    padding: 10px;
+}
+
+.grid-content.padding-none {
+    padding: 0;
+}
+
+/**
+Tables that have a grid-like header.
+**/
+
+.grid-table thead td {
+    padding: 0px;
+}
+
+.grid-table-title {
+    height: 30px;
+    background: #fafafa;
+    background: -moz-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+    background: -webkit-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+    background: -o-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+    background: -ms-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+    background: linear-gradient(to bottom, #fafafa 0%, #e9e9e9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#fafafa', endColorstr = '#e9e9e9', GradientType = 0);
+    border-bottom: 1px solid #c9c9c9;
+    overflow: hidden;
+    -webkit-border-radius: 0px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
+    -moz-border-radius: 0px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    border-radius: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.grid-table-title .pull-left .icon-title {
+    padding-right: 10px;
+    padding-left: 10px;
+    border-right: 1px solid #c9c9c9;
+    height: 30px;
+    margin-top: -2px;
+    margin-right: 8px;
+    padding-top: 12px;
+    float: left;
+    color: #5f5f5f;
+}
+
+.grid-table-title .pull-left span {
+    color: #5f5f5f;
+    font-size: 14px;
+    font-weight: bold;
+    height: 14px;
+    display: block;
+    padding-top: 8px;
+    width: 200px;
+}
+
+.scrollup {
+    background: url("../images/icon_gototop.png") no-repeat scroll 0 0 transparent;
+    bottom: 20px;
+    display: none;
+    height: 40px;
+    position: fixed;
+    right: 20px;
+    text-indent: -9999px;
+    width: 40px;
+}
+
+.scrollupLeft {
+    background: url("../images/icon_gototop.png") no-repeat scroll 0 0 transparent;
+    bottom: 20px;
+    display: none;
+    height: 40px;
+    position: fixed;
+    left: 20px;
+    text-indent: -9999px;
+    width: 40px;
+}
+
+.modal.large {
+    width: 960px;
+    margin-left: -480px; /* - width/2 */
+}
+
+/** Cluster Diagram **/
+circle {
+    cursor: pointer;
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+text {
+    font-size: 10px;
+    font-weight: bold;
+    text-indent: 5000px;
+}
+
+path.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
+
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 2px;
+}
+
+.node text {
+    font: 12px sans-serif;
+    font-Weight: bold;
+
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+    opacity: 0.6;
+}
+
+#jsoneditor {
+    overflow: hidden;
+    /*margin: 0;*/
+    position: relative;
+    height: 600px;
+    width: 100%;
+}
+
+#jsonoutput{
+    overflow: hidden;
+    /*margin: 0;*/
+    position: relative;
+    height: 600px;
+    width: 100%;
+}
