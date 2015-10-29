@@ -17,33 +17,33 @@
  */
 
 var StatsModel = Backbone.Model.extend({
-    defaults:{
-        stats:{
-            uuid:null,
-            numnodes:null,
-            numdatanodes:null,
-            primaryshards:null,
-            replicashards:null,
-            indices:null,
-            types:null,
-            documents:null,
-            storesize:null,
-            totalmemory:null,
-            heapcommitted:null,
-            cpucores:null,
-            plugins:null,
-            javaversion:null,
-            esversion:null
+    defaults: {
+        stats: {
+            uuid: null,
+            numnodes: null,
+            numdatanodes: null,
+            primaryshards: null,
+            replicashards: null,
+            indices: null,
+            types: null,
+            documents: null,
+            storesize: null,
+            totalmemory: null,
+            heapcommitted: null,
+            cpucores: null,
+            plugins: null,
+            javaversion: null,
+            esversion: null
         }
     },
-    initialize:function () {
+    initialize: function () {
         console.log("Init Stats Model");
         this.buildStatsModel();
     },
-    url:function () {
+    url: function () {
         return '/';
     },
-    buildStatsModel:function () {
+    buildStatsModel: function () {
         console.log("Assembling Stats");
 
         var _this = this;
@@ -60,8 +60,15 @@ var StatsModel = Backbone.Model.extend({
                 _this.get('stats').primaryshards = cluster.get('clusterHealth').get('active_primary_shards');
                 _this.get('stats').replicashards = cluster.get('clusterHealth').get('active_shards') - cluster.get('clusterHealth').get('active_primary_shards');
                 _this.get('stats').indices = _.size(cluster.get('clusterState').get('metadata').indices);
-                _this.get('stats').documents = cluster.get('indexStats').get('_all').primaries.docs.count;
-                _this.get('stats').storesize = cluster.get('indexStats').get('_all').primaries.store.size_in_bytes;
+                if (_.isUndefined(_this.get('stats').documents = cluster.get('indexStats').get('_all').primaries.docs)) {
+                    _this.get('stats').documents = 0;
+                    _this.get('stats').storesize = 0;
+                }
+                else {
+                    _this.get('stats').documents = cluster.get('indexStats').get('_all').primaries.docs.count;
+                    _this.get('stats').storesize = cluster.get('indexStats').get('_all').primaries.store.size_in_bytes;
+                }
+
 
                 _.each(cluster.get('clusterState').get('metadata').indices, function (index) {
                     _.each(index.mappings, function (mapping) {
@@ -91,17 +98,17 @@ var StatsModel = Backbone.Model.extend({
 
 
                 $.ajax({
-                    type:'POST',
-                    url:REMOTE_API_PATH + '/statspost.php',
-                    processData:false,
-                    cache:false,
-                    crossDomain:true,
-                    dataType:'json',
-                    data:JSON.stringify(_this.get('stats')),
-                    success:function (data) {
+                    type: 'POST',
+                    url: REMOTE_API_PATH + '/statspost.php',
+                    processData: false,
+                    cache: false,
+                    crossDomain: true,
+                    dataType: 'json',
+                    data: JSON.stringify(_this.get('stats')),
+                    success: function (data) {
 
                     },
-                    error:function (XMLHttpRequest, textStatus, errorThrown) {
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
                         // die silently
                         console.log('ERROR! ' + XMLHttpRequest.responseText);
                     }

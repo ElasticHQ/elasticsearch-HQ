@@ -32,6 +32,22 @@ var IndexStatusListView = Backbone.View.extend(
             var indices = [];
 
             var clusterState = this.clusterStateModel.toJSON(); //cluster.get("clusterState").toJSON();
+/*
+            var indices = {};
+            var indexKeys = _.keys(indexStatus);
+            for (var $i = 0; $i < indexKeys.length; $i++) {
+                index = indexStatus[indexKeys[0]];
+                index.cid = indexKeys[0];
+                index.name = indexKeys[0];
+                index.numshards = clusterState.metadata.indices[index.id].settings['index.number_of_shards'];
+                index.numreplicas = clusterState.metadata.indices[index.id].settings['index.number_of_replicas'];
+                index.status = clusterState.metadata.indices[index.id].state;
+                if (index.docs === undefined) {
+                    index.docs = {num_docs:0};
+                }
+                indices.push(index);
+            }*/
+
 
             for (var i = 0; i < indexStatus.length; i++) {
                 index = indexStatus[i];

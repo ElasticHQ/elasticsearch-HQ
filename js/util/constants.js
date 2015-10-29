@@ -37,3 +37,5 @@ var POLLER_MAX_FREQUENCY = 3600000;
 var showedVersionCheckMessage = false;
 
 var postedStatsData = false;
+
+var es_client;
