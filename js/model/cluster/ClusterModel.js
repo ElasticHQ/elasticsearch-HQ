@@ -21,32 +21,32 @@
  * @type {*}
  */
 var Cluster = Backbone.Model.extend({
-    defaults:{
-        versionNumber:{
-            concat:undefined,
-            major:undefined,
-            minor:undefined,
-            rev:undefined
+    defaults: {
+        versionNumber: {
+            concat: undefined,
+            major: undefined,
+            minor: undefined,
+            rev: undefined
         },
-        connectionRootURL:undefined,
-        clusterHealth:undefined,
-        clusterState:undefined,
-        nodeList:undefined,
-        connected:false,
-        nodeStats:undefined, // the current node selected for a live feed.
-        nodeInfo:undefined, // the current node selected for a live feed.
-        indexStats:undefined //
+        connectionRootURL: undefined,
+        clusterHealth: undefined,
+        clusterState: undefined,
+        nodeList: undefined,
+        connected: false,
+        nodeStats: undefined, // the current node selected for a live feed.
+        nodeInfo: undefined, // the current node selected for a live feed.
+        indexStats: undefined //
     },
-    initialize:function (args) {
+    initialize: function (args) {
         var _this = this;
         // test connection
         console.log(args.connectionRootURL);
-        var ping = new Ping({connectionRootURL:args.connectionRootURL});
+        var ping = new Ping({connectionRootURL: args.connectionRootURL});
         ping.fetch({
-            success:function (model, response) {
+            success: function (model, response) {
                 console.log('Successful connect!');
 
-                $.cookie("resturl", args.connectionRootURL, { expires:7, path:'/' });
+                $.cookie("resturl", args.connectionRootURL, {expires: 7, path: '/'});
 
                 var version = ping.get("version");
                 if (!version) {
@@ -58,42 +58,57 @@ var Cluster = Backbone.Model.extend({
                     _this.setVersionNumber(version.number);
                     _this.supportedVersion(version.number);
                 }
+
+                var versionArr = version.number.split(".");
+                if (versionUtil.isNewer("2.0")) {
+                    es_client = new $.es.Client({
+                        host: args.connectionRootURL,
+                        sniffOnStart: true,
+                        sniffInterval: 60000,
+                        apiVersion: versionArr[0] + "." + versionArr[1]
+                    });
+                }
+
                 //show_stack_bottomright({type:'info', title:'Tip', text:'ElasticHQ will refresh the Node List every 10 seconds.'});
                 //show_stack_bottomright({type:'success', title:'Successful Connect!', text:'Connection to cluster has been established.'});
             },
-            error:function (model, response, options) {
+            error: function (model, response, options) {
                 console.log('Failed to Connect on Ping!');
-                show_stack_bottomright({type:'error', title:'Failed to Connect!', text:'Connection to cluster could not be established.'});
+                show_stack_bottomright({
+                    type: 'error',
+                    title: 'Failed to Connect!',
+                    text: 'Connection to cluster could not be established.'
+                });
                 var err = 'Unable to Connect to Server! ';
                 if (response) {
                     err += 'Received Status Code: ' + response.status + '.';
                     if (response.status === 0) {
-                        err += " A status code of 0, could mean the host is unreacheable or nothing is listening on the given port.";
+                        err += " A status code of 0, could mean the host is unreacheable or nothing is listening on the given port. Did you enable CORS?";
                     }
                 }
                 console.log('Error! ' + err);
-                var errModel = new ErrorMessageModel({warningTitle:'Error!', warningMessage:err});
-                var errorMsgView = new ErrorMessageView({el:$("#error-loc"), model:errModel});
+                var errModel = new ErrorMessageModel({warningTitle: 'Error!', warningMessage: err});
+                var errorMsgView = new ErrorMessageView({el: $("#error-loc"), model: errModel});
                 errorMsgView.render();
                 return;
             }
         });
         _this.initModel(args.connectionRootURL); // init cluster objects
     },
-    setVersionNumber:function (versionNumber) {
+    setVersionNumber: function (versionNumber) {
         var _this = this;
 
         //versionNumber = versionNumber.replace(/\D/g, '');
         var versionArr = versionNumber.split(".");
         _this.versionNumber = {
-            major:versionArr[0],
-            minor:versionArr[1],
-            rev:versionArr[2],
-            concat:versionArr[0] + "." + versionArr[1] + "." + versionArr[2]
+            major: versionArr[0],
+            minor: versionArr[1],
+            rev: versionArr[2],
+            concat: versionArr[0] + "." + versionArr[1] + "." + versionArr[2]
         };
         //console.log(versionUtil.isNewer("1.0.0", versionNumber));
     },
-    supportedVersion:function (versionNumber) {
+    supportedVersion: function (versionNumber) {
         var versionArr = versionNumber.split(".");
         if (versionArr[0] >= 0 && versionArr[1] >= 90) {
             //show_stack_bottomright({type:'success', title:'Version Check', text:'ES Version supported: ' + versionNumber + '.'});
@@ -102,30 +117,34 @@ var Cluster = Backbone.Model.extend({
             //show_stack_bottomright({type:'success', title:'Version Check', text:'ES Version supported: ' + versionNumber + '.'});
         }
         else {
-            show_stack_bottomright({type:'warning', title:'Version Warning!', text:'ElasticHQ may not work with version ' + versionNumber + '. Tested on 0.90.0-1.0.0.'});
+            show_stack_bottomright({
+                type: 'warning',
+                title: 'Version Warning!',
+                text: 'ElasticHQ may not work with version ' + versionNumber + '. Tested on 0.90.0-1.0.0.'
+            });
         }
     },
-    initModel:function (conn) {
+    initModel: function (conn) {
         var _this = this;
-        _this.set({connected:true});
-        _this.set({connectionRootURL:conn});
-        _this.set({clusterHealth:new ClusterHealth({connectionRootURL:conn})});
-        _this.set({clusterState:new ClusterState({connectionRootURL:conn})});
-        _this.set({indexStats:new IndexStatsModel({connectionRootURL:conn})});
+        _this.set({connected: true});
+        _this.set({connectionRootURL: conn});
+        _this.set({clusterHealth: new ClusterHealth({connectionRootURL: conn})});
+        _this.set({clusterState: new ClusterState({connectionRootURL: conn})});
+        _this.set({indexStats: new IndexStatsModel({connectionRootURL: conn})});
         var nodelistmodel = new NodeListModel();
         nodelistmodel.setConnectionRootURL(conn);
-        _this.set({nodeList:nodelistmodel});
+        _this.set({nodeList: nodelistmodel});
     },
-    fetch:function (options) {
+    fetch: function (options) {
         console.log('Fetching ClusterHealth');
         ajaxloading.show();
         this.constructor.__super__.fetch.apply(this, arguments);
     },
-    refreshClusterState:function () {
+    refreshClusterState: function () {
         var _this = this;
         _this.get("clusterState").fetch({
-            success:function (model, res) {
-                _this.set({clusterState:model});
+            success: function (model, res) {
+                _this.set({clusterState: model});
             }
         });
     }

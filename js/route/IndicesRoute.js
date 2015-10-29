@@ -25,6 +25,25 @@ indicesRoute.viewIndices = function () {
 
     var indexStatusModel = new IndicesStatusModel();
     indexStatusModel.setConnectionRootURL(cluster.get("connectionRootURL"));
+/*    var clusterStateModel = new ClusterState({connectionRootURL: cluster.get("connectionRootURL")});
+
+    es_client.indices.getSettings().then(function (body) {
+        var indices_stats = body;
+
+        $.when(clusterStateModel.fetch())
+            .done(function () {
+                //cluster.set("clusterState", clusterStateModel);
+                var indexListView = new IndexStatusListView({
+                    model: indices_stats,
+                    clusterStateModel: clusterStateModel
+                });
+                indexListView.render();
+            });
+        ajaxloading.hide();
+    }, function (error) {
+        console.trace(error.message);
+    });*/
+
     var clusterStateModel = new ClusterState({connectionRootURL:cluster.get("connectionRootURL")});
 
     indexStatusModel.fetch({
@@ -45,46 +64,45 @@ indicesRoute.viewIndices = function () {
             });
         }
     });
-
 };
 
 indicesRoute.optimizeAll = function () {
-    var optimizeAllModel = new OptimizeAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+    var optimizeAllModel = new OptimizeAllIndex({connectionRootURL: cluster.get("connectionRootURL")});
     optimizeAllModel.fetch({
-        success:function (model, response) {
+        success: function (model, response) {
             var str = JSON.stringify(response, undefined, 2); // indentation level = 2
-            var optimizeAllView = new OptimizeAllIndexView({model:str});
+            var optimizeAllView = new OptimizeAllIndexView({model: str});
             optimizeAllView.render();
         },
-        error:function () {
+        error: function () {
             // TODO
         }
     });
 };
 
 indicesRoute.flushAll = function () {
-    var flushAllModel = new FlushAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+    var flushAllModel = new FlushAllIndex({connectionRootURL: cluster.get("connectionRootURL")});
     flushAllModel.fetch({
-        success:function (model, response) {
+        success: function (model, response) {
             var str = JSON.stringify(response, undefined, 2); // indentation level = 2
-            var flushAllView = new FlushAllIndexView({model:str});
+            var flushAllView = new FlushAllIndexView({model: str});
             flushAllView.render();
         },
-        error:function () {
+        error: function () {
             // TODO
         }
     });
 };
 
 indicesRoute.clearCacheAll = function () {
-    var clearcacheAllModel = new ClearCacheAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+    var clearcacheAllModel = new ClearCacheAllIndex({connectionRootURL: cluster.get("connectionRootURL")});
     clearcacheAllModel.fetch({
-        success:function (model, response) {
+        success: function (model, response) {
             var str = JSON.stringify(response, undefined, 2); // indentation level = 2
-            var clearcacheAllView = new ClearCacheAllIndexView({model:str});
+            var clearcacheAllView = new ClearCacheAllIndexView({model: str});
             clearcacheAllView.render();
         },
-        error:function () {
+        error: function () {
             // TODO
         }
     });
@@ -92,11 +110,11 @@ indicesRoute.clearCacheAll = function () {
 
 
 indicesRoute.refreshAll = function () {
-    var refreshAllModel = new RefreshAllIndex({connectionRootURL:cluster.get("connectionRootURL")});
+    var refreshAllModel = new RefreshAllIndex({connectionRootURL: cluster.get("connectionRootURL")});
     refreshAllModel.fetch({
-        success:function (model, response) {
+        success: function (model, response) {
             var str = JSON.stringify(response, undefined, 2);
-            var template = _.template(indexActionTemplate.defaultModal, {title:'A Refreshing Change!', res:str});
+            var template = _.template(indexActionTemplate.defaultModal, {title: 'A Refreshing Change!', res: str});
             $('#infoModal-loc').html(template);
             prettyPrint();
             $('#defaultindexmodal').modal('show');
@@ -104,9 +122,9 @@ indicesRoute.refreshAll = function () {
                 router.navigate("indices", true);
             });
         },
-        error:function (model, response, options) {
+        error: function (model, response, options) {
             var str = JSON.stringify(response, undefined, 2);
-            var template = _.template(indexActionTemplate.defaultModal, {title:'Refresh Failed!', res:str});
+            var template = _.template(indexActionTemplate.defaultModal, {title: 'Refresh Failed!', res: str});
             $('#infoModal-loc').html(template);
             prettyPrint();
             $('#defaultindexmodal').modal('show');
