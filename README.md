@@ -21,6 +21,33 @@ There are several ways to use ElasticHQ. The full list and help are available he
 * **FREE Hosted Version:** http://www.elastichq.org
 * **Install as a Plugin:** http://www.elastichq.org/support_plugin.html
 * **Download/Install Web Archive:** https://github.com/royrusso/elasticsearch-HQ/zipball/master
+
+Version Compatibility
+---------------------
+
+| Elasticsearch Version | ElasticHQ Branch | Latest HQ Version |
+| --------------------- | ---------------- | ------------------|
+| <=1.7                 | 1.0              | v1.0.0            |
+| >=2.x                 | develop          | -                 |
+ 
+ElasticHQ master branch, always contains the latest releases supporting the latest Elasticsearch.
+
+Plugin Installation
+-------------------
+
+Navigating to your elasticsearch/bin directory and using the appropriate release tag:
+
+
+```
+./plugin install royrusso/elasticsearch-HQ/v1.0.0
+```
+
+Or, for the latest:
+
+```
+./plugin install royrusso/elasticsearch-HQ
+```
+
  
 Requirements
 ------------
