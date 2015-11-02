@@ -229,6 +229,12 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script src="js/lib/backbone-validation/backbone-validation-min.js"></script>
 <script src="js/lib/backbone-validation/backbone.validation.bootstrap.min.js"></script>
 
+<!-- Lodash -->
+<script src="js/lib/lodash/lodash.min.js"></script>
+<script>
+    var lodash = _.noConflict();
+</script>
+
 <!-- Notify -->
 <script src="js/lib/pnotify/pnotify.min.js"></script>
 
@@ -277,8 +283,8 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
         $("[rel=tipRight]").tooltip();
         $("[rel=popRight]").popover(
                 {
-                    'trigger':'hover',
-                    'animation':true
+                    'trigger': 'hover',
+                    'animation': true
                 }
         );
     });
