@@ -11,3 +11,4 @@ tmp
 node_modules
 dist
 npm-debug.log
+#bower_components
