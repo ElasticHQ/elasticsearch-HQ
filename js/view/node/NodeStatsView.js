@@ -23,14 +23,14 @@
 
 var NodeStatView = Backbone.View.extend(
     {
-        initialize:function (args) {
+        initialize: function (args) {
             this.infoModel = args.infoModel;
         },
-        buildJVMStats:function (nodeStat) {
+        buildJVMStats: function (nodeStat) {
             var jvmStats = nodeStat.nodes[nodeStat.nodeId].jvm;
             return jvmStats;
         },
-        buildSettings:function (nodeInfo, nodeId) {
+        buildSettings: function (nodeInfo, nodeId) {
             var settings = {};
             if (!nodeInfo.nodes[nodeId].settings) {
                 nodeInfo.nodes[nodeId].settings = [];
@@ -50,7 +50,7 @@ var NodeStatView = Backbone.View.extend(
             settings.http_address = nodeInfo.nodes[nodeId].http_address;
             return settings;
         },
-        render:function () {
+        render: function () {
             var nodeStat = this.model.toJSON();
             var nodeInfo = this.infoModel.toJSON();
             var nodeId = nodeStat.nodeId;
@@ -148,14 +148,21 @@ var NodeStatView = Backbone.View.extend(
                 threadPool.management = {};
             }
 
+            // TODO: 2_0 does not return a merge object!
+            if (jQuery.isEmptyObject(threadPool.merge)) {
+                threadPool.merge = {};
+            }
+
+            node = nodeInfo.nodes[nodeId];
+
             jvmStats.version = nodeInfo.nodes[nodeId].jvm.version;
             jvmStats.vm_name = nodeInfo.nodes[nodeId].jvm.vm_name;
             jvmStats.vm_vendor = nodeInfo.nodes[nodeId].jvm.vm_vendor;
             jvmStats.pid = nodeInfo.nodes[nodeId].jvm.pid;
 
-            osStats.cpu.vendor = nodeInfo.nodes[nodeId].os.cpu.vendor;
-            osStats.cpu.model = nodeInfo.nodes[nodeId].os.cpu.model;
-            osStats.cpu.total_cores = nodeInfo.nodes[nodeId].os.cpu.total_cores;
+            lodash.set(osStats, 'cpu.vendor', lodash.get(node, 'os.cpu.vendor', 'N/A'));
+            osStats.cpu.model = lodash.get(node, 'os.cpu.model', 'N/A');
+            osStats.cpu.total_cores = lodash.get(node, 'os.cpu.total_cores', 'N/A');
             osStats.available_processors = nodeInfo.nodes[nodeId].os.available_processors;
             osStats.max_proc_cpu = 100 * osStats.available_processors;
 
@@ -198,26 +205,30 @@ var NodeStatView = Backbone.View.extend(
             var tpl = _.template(nodeTemplate.nodeInfo);
             $('#workspace').html(tpl(
                 {
-                    jvmStats:jvmStats,
-                    nodeId:nodeId,
-                    osStats:osStats,
-                    processStats:processStats,
-                    nodeName:nodeName,
-                    address:address,
-                    hostName:hostName,
-                    threadPool:threadPool,
-                    fileSystemArr:fileSystemArr,
-                    threads:threads,
-                    indices:indices,
-                    netInfo:netInfo,
-                    netStats:netStats,
-                    polling:settingsModel.get('settings').poller.node,
-                    lastUpdateTime:timeUtil.lastUpdated()
+                    jvmStats: jvmStats,
+                    nodeId: nodeId,
+                    osStats: osStats,
+                    processStats: processStats,
+                    nodeName: nodeName,
+                    address: address,
+                    hostName: hostName,
+                    threadPool: threadPool,
+                    fileSystemArr: fileSystemArr,
+                    threads: threads,
+                    indices: indices,
+                    netInfo: netInfo,
+                    netStats: netStats,
+                    polling: settingsModel.get('settings').poller.node,
+                    lastUpdateTime: timeUtil.lastUpdated()
                 }));
 
             // show warnings for missing data
             if (!jvmVal || !osVal || !indicesVal || !httpVal) {
-                show_stack_bottomright({type:'error', title:'Missing Data', text:'Incomplete dataset from server. Some values left intentionally blank.'});
+                show_stack_bottomright({
+                    type: 'error',
+                    title: 'Missing Data',
+                    text: 'Incomplete dataset from server. Some values left intentionally blank.'
+                });
             }
 
             // flag check: poller will cause modal to close if it's currently being viewed, as it tried to draw
@@ -225,9 +236,9 @@ var NodeStatView = Backbone.View.extend(
             if (!this.renderedModal) {
                 var modalTpl = _.template(nodeTemplate.nodeInfoModal);
                 $('#infoModal-loc').html(modalTpl({
-                    version:version,
-                    host:host,
-                    settings:settings
+                    version: version,
+                    host: host,
+                    settings: settings
                 }));
                 //show_stack_bottomright({type:'info', title:'Tip', text:'Polling Node "' + nodeName + '" every 5 seconds.'});
             }
@@ -330,35 +341,35 @@ var NodeStatView = Backbone.View.extend(
 
             return this;
         },
-        renderedModal:false,
-        infoModel:undefined,
-        nodeInfo:undefined,
-        jvmheapdata:undefined,
-        jvmheapchart:undefined,
-        jvmnonheapdata:undefined,
-        jvmnonheapchart:undefined,
-        indexdata:undefined,
-        indexchart:undefined,
-        getdata:undefined,
-        getchart:undefined,
-        cpudata:undefined,
-        cpuchart:undefined,
-        memdata:undefined,
-        memchart:undefined,
-        proccpudata:undefined,
-        proccpuchart:undefined,
-        procmemdata:undefined,
-        procmemchart:undefined,
-        fsreaddata:undefined,
-        fsreadchart:undefined,
-        fswritedata:undefined,
-        fswritechart:undefined,
-        httptxdata:undefined,
-        httptxchart:undefined,
-        transportdata:undefined,
-        transportchart:undefined,
-        threadindexdata:undefined,
-        threadindexchart:undefined,
-        threadsearchdata:undefined,
-        threadsearchchart:undefined
+        renderedModal: false,
+        infoModel: undefined,
+        nodeInfo: undefined,
+        jvmheapdata: undefined,
+        jvmheapchart: undefined,
+        jvmnonheapdata: undefined,
+        jvmnonheapchart: undefined,
+        indexdata: undefined,
+        indexchart: undefined,
+        getdata: undefined,
+        getchart: undefined,
+        cpudata: undefined,
+        cpuchart: undefined,
+        memdata: undefined,
+        memchart: undefined,
+        proccpudata: undefined,
+        proccpuchart: undefined,
+        procmemdata: undefined,
+        procmemchart: undefined,
+        fsreaddata: undefined,
+        fsreadchart: undefined,
+        fswritedata: undefined,
+        fswritechart: undefined,
+        httptxdata: undefined,
+        httptxchart: undefined,
+        transportdata: undefined,
+        transportchart: undefined,
+        threadindexdata: undefined,
+        threadindexchart: undefined,
+        threadsearchdata: undefined,
+        threadsearchchart: undefined
     });

@@ -18,10 +18,10 @@
 
 var NodeStatsListView = Backbone.View.extend(
         {
-            initialize:function (args) {
+            initialize: function (args) {
                 this.infoModel = args.infoModel;
             },
-            render:function () {
+            render: function () {
 
                 var _this = this;
 
@@ -48,10 +48,10 @@ var NodeStatsListView = Backbone.View.extend(
                 var summaryArray = [];
 
                 var keysArray = [
-                    {title:'Name', key:'nodeName'},
-                    {title:'IP', key:'address' },
-                    {title:'NodeID', key:'nodeId'},
-                    {title:'JVM Uptime', key:'jvmStats.uptime'}
+                    {title: 'Name', key: 'nodeName'},
+                    {title: 'IP', key: 'address'},
+                    {title: 'NodeID', key: 'nodeId'},
+                    {title: 'JVM Uptime', key: 'jvmStats.uptime'}
                 ];
 
                 var nodeKeys = _.keys(nodeStatModel.nodes);
@@ -150,10 +150,10 @@ var NodeStatsListView = Backbone.View.extend(
                     node.stats.indexindexing = node.stats.indices.indexing.index_time_in_millis / node.stats.indices.indexing.index_total;
 
                     // cache
-                    node.stats.filterevictions = node.stats.indices.filter_cache.evictions / node.stats.indices.search.query_total;
+                    node.stats.filterevictions = lodash.get(node, 'stats.indices.filter_cache.evictions', 0) / node.stats.indices.search.query_total;
                     node.stats.fieldsize = numeral(node.stats.indices.fielddata.memory_size_in_bytes).format('0.0b');
-                    node.stats.filtercache = numeral(node.stats.indices.filter_cache.memory_size_in_bytes).format('0.0b');
-                    node.stats.idpercentage = node.stats.indices.id_cache.memory_size_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
+                    node.stats.filtercache = numeral(lodash.get(node, 'stats.indices.filter_cache.memory_size_in_bytes', 0)).format('0.0b');
+                    node.stats.idpercentage = lodash.get(node, 'stats.indices.id_cache.memory_size_in_bytes', 0) / node.stats.jvm.mem.heap_committed_in_bytes;
 
                     // memory
                     node.stats.totalmem = 0;
@@ -237,17 +237,17 @@ var NodeStatsListView = Backbone.View.extend(
                 var tpl = _.template(nodeTemplate.diagnostics);
                 $('#workspace').html(tpl(
                     {
-                        allNodes:allNodes,
-                        nodes:nodeArray,
-                        labels:keysArray,
-                        generalRules:general_rules(),
-                        fsRules:fs_rules(),
-                        actionRules:action_rules(),
-                        cacheRules:cache_rules(),
-                        memoryRules:memory_rules(),
-                        networkRules:network_rules(),
-                        polling:settingsModel.get('settings').poller.nodeDiagnostics,
-                        lastUpdateTime:timeUtil.lastUpdated()
+                        allNodes: allNodes,
+                        nodes: nodeArray,
+                        labels: keysArray,
+                        generalRules: general_rules(),
+                        fsRules: fs_rules(),
+                        actionRules: action_rules(),
+                        cacheRules: cache_rules(),
+                        memoryRules: memory_rules(),
+                        networkRules: network_rules(),
+                        polling: settingsModel.get('settings').poller.nodeDiagnostics,
+                        lastUpdateTime: timeUtil.lastUpdated()
                     }));
 
                 $("[rel=tipRight]").tooltip();
@@ -272,15 +272,15 @@ var NodeStatsListView = Backbone.View.extend(
                 });
                 return this;
             },
-            refreshSelectedNodes:function () {
+            refreshSelectedNodes: function () {
                 var selectedNodes = $('#selectedNodes').val();
                 if (selectedNodes != undefined && selectedNodes.length != 0) {
                     nodeRoute.selectedDiagnoseNodeIDs = $('#selectedNodes').val();
                 }
                 nodeRoute.diagnoseNodes();
             },
-            renderedModal:false,
-            infoModel:undefined,
-            nodeInfo:undefined
+            renderedModal: false,
+            infoModel: undefined,
+            nodeInfo: undefined
         })
     ;

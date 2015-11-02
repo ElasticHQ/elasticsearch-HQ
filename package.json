@@ -22,7 +22,8 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-rev": "~0.1.0",
     "grunt-usemin": "~2.0.2",
-    "grunt-targethtml": "~0.2.4"
+    "grunt-targethtml": "~0.2.4",
+    "lodash" : ""
   },
   "license": "Apache License",
   "dependencies": {
