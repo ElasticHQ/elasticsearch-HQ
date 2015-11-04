@@ -21,32 +21,32 @@
  */
 var IndexStatusListView = Backbone.View.extend(
     {
-        clusterStateModel:undefined,
-        initialize:function (args) {
+        clusterStateModel: undefined,
+        initialize: function (args) {
             this.clusterStateModel = args.clusterStateModel;
         },
-        render:function () {
+        render: function () {
             var indexStatus = this.model.toJSON();
 
             var index;
             var indices = [];
 
             var clusterState = this.clusterStateModel.toJSON(); //cluster.get("clusterState").toJSON();
-/*
-            var indices = {};
-            var indexKeys = _.keys(indexStatus);
-            for (var $i = 0; $i < indexKeys.length; $i++) {
-                index = indexStatus[indexKeys[0]];
-                index.cid = indexKeys[0];
-                index.name = indexKeys[0];
-                index.numshards = clusterState.metadata.indices[index.id].settings['index.number_of_shards'];
-                index.numreplicas = clusterState.metadata.indices[index.id].settings['index.number_of_replicas'];
-                index.status = clusterState.metadata.indices[index.id].state;
-                if (index.docs === undefined) {
-                    index.docs = {num_docs:0};
-                }
-                indices.push(index);
-            }*/
+            /*
+             var indices = {};
+             var indexKeys = _.keys(indexStatus);
+             for (var $i = 0; $i < indexKeys.length; $i++) {
+             index = indexStatus[indexKeys[0]];
+             index.cid = indexKeys[0];
+             index.name = indexKeys[0];
+             index.numshards = clusterState.metadata.indices[index.id].settings['index.number_of_shards'];
+             index.numreplicas = clusterState.metadata.indices[index.id].settings['index.number_of_replicas'];
+             index.status = clusterState.metadata.indices[index.id].state;
+             if (index.docs === undefined) {
+             index.docs = {num_docs:0};
+             }
+             indices.push(index);
+             }*/
 
 
             for (var i = 0; i < indexStatus.length; i++) {
@@ -57,8 +57,15 @@ var IndexStatusListView = Backbone.View.extend(
                 index.numreplicas = clusterState.metadata.indices[index.id].settings['index.number_of_replicas'];
                 index.status = clusterState.metadata.indices[index.id].state;
                 if (index.docs === undefined) {
-                    index.docs = {num_docs:0};
+                    index.docs = {num_docs: 0};
                 }
+
+                if (versionUtil.isNewer('1.7', cluster.versionNumber.concat)) {
+                    index.docs.num_docs = index.primaries.docs.count;
+                    index.index = {}
+                    index.index.primary_size_in_bytes = index.primaries.store.size_in_bytes;
+                }
+
                 indices.push(index);
             }
 
@@ -71,8 +78,8 @@ var IndexStatusListView = Backbone.View.extend(
                     index.cid = index.id;
                     index.id = blockKeys[j];
                     index.name = blockKeys[j];
-                    index.docs = {num_docs:0};
-                    index.index = {primary_size:0};
+                    index.docs = {num_docs: 0};
+                    index.index = {primary_size: 0};
                     index.status = 'closed';
                     indices.push(index);
                 }
@@ -83,9 +90,9 @@ var IndexStatusListView = Backbone.View.extend(
             var tpl = _.template(indexTemplate.indexList);
             $('#workspace').html(tpl(
                 {
-                    indices:indices,
-                    polling:settingsModel.get('settings').poller.indices,
-                    lastUpdateTime:timeUtil.lastUpdated()
+                    indices: indices,
+                    polling: settingsModel.get('settings').poller.indices,
+                    lastUpdateTime: timeUtil.lastUpdated()
                 }));
 
             $("[rel=popRight]").popover();
@@ -93,8 +100,8 @@ var IndexStatusListView = Backbone.View.extend(
 
             if (!jQuery.isEmptyObject(indices)) {
                 $("#indicesTable").tablesorter({
-                    headers:{ 2:{ sorter:'datasize' }},
-                    widgets:['sortPersist']
+                    headers: {2: {sorter: 'datasize'}},
+                    widgets: ['sortPersist']
                     /*                    sortList:[
                      [1, 1]
                      ]*/

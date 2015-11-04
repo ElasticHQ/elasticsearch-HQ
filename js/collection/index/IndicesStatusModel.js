@@ -22,7 +22,7 @@ var IndicesStatusModel = Backbone.Collection.extend({
         console.log("Inside IndicesStatusModel");
     },
     url:function () {
-        return '/_status';
+        return '/_stats';
     },
     parse:function (data) {
 
