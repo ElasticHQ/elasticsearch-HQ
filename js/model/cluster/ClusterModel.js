@@ -60,7 +60,7 @@ var Cluster = Backbone.Model.extend({
                 }
 
                 var versionArr = version.number.split(".");
-                if (versionUtil.isNewer("2.0")) {
+                if (versionUtil.isNewer("1.7", cluster.versionNumber.concat)) {
                     es_client = new $.es.Client({
                         host: args.connectionRootURL,
                         sniffOnStart: true,

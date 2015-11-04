@@ -235,10 +235,10 @@ indexTemplate.indexView = [
     '</td></tr>',
     '</thead>',
 
-    '<tr><td class="span3">Refresh Total:</td><td><%- numeral(index.refresh.total).format("0,0") %></td></tr>',
-    '<tr><td class="span3">Refresh Time:</td><td><%- timeUtil.convertMS(index.refresh.total_time_in_millis) %></td></tr>',
-    '<tr><td>Flush Total:</td><td><%- numeral(index.flush.total).format("0,0") %></td></tr>',
-    '<tr><td>Flush Time:</td><td><%- timeUtil.convertMS(index.flush.total_time_in_millis) %></td></tr>',
+    //'<tr><td class="span3">Refresh Total:</td><td><%- numeral(index.refresh.total).format("0,0") %></td></tr>',
+    //'<tr><td class="span3">Refresh Time:</td><td><%- timeUtil.convertMS(index.refresh.total_time_in_millis) %></td></tr>',
+    //'<tr><td>Flush Total:</td><td><%- numeral(index.flush.total).format("0,0") %></td></tr>',
+    //'<tr><td>Flush Time:</td><td><%- timeUtil.convertMS(index.flush.total_time_in_millis) %></td></tr>',
     '</table>',
     '</div>',
 
@@ -254,10 +254,10 @@ indexTemplate.indexView = [
     '</td></tr>',
     '</thead>',
 
-    '<tr><td class="span3">Merge Total:</td><td><%- numeral(index.merges.total).format("0,0") %></td></tr>',
-    '<tr><td>Merge Total Time:</td><td><%- timeUtil.convertMS(index.merges.total_time_in_millis) %></td></tr>',
-    '<tr><td>Merge Total Docs:</td><td><%- numeral(index.merges.total_docs).format("0,0") %></td></tr>',
-    '<tr><td>Merge Total Size:</td><td><%- numeral(index.merges.total_size_in_bytes).format("0.0b") %></td></tr>',
+    //'<tr><td class="span3">Merge Total:</td><td><%- numeral(index.merges.total).format("0,0") %></td></tr>',
+    //'<tr><td>Merge Total Time:</td><td><%- timeUtil.convertMS(index.merges.total_time_in_millis) %></td></tr>',
+    //'<tr><td>Merge Total Docs:</td><td><%- numeral(index.merges.total_docs).format("0,0") %></td></tr>',
+    //'<tr><td>Merge Total Size:</td><td><%- numeral(index.merges.total_size_in_bytes).format("0.0b") %></td></tr>',
     '</table>',
     '</div>',
 

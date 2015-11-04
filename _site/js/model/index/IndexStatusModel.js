@@ -29,6 +29,6 @@ var IndexStatusModel = Backbone.Model.extend({
         this.indexId = args.indexId;
     },
     url:function () {
-        return '/' + this.indexId + '/_status';
+        return '/' + this.indexId + '/_stats';
     }
 });

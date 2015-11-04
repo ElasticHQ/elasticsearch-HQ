@@ -28,9 +28,10 @@ Version Compatibility
 | Elasticsearch Version | ElasticHQ Branch | Latest HQ Version |
 | --------------------- | ---------------- | ------------------|
 | <=1.7                 | 1.0              | v1.0.0            |
-| >=2.x                 | develop          | -                 |
+| >=2.x                 | 2.0              | v2.0.2            |
  
-ElasticHQ master branch, always contains the latest releases supporting the latest Elasticsearch.
+ElasticHQ master branch, always contains the latest releases supporting the latest Elasticsearch. In this case, Master supports 
+Elasticsearch 2.x+.
 
 Plugin Installation
 -------------------
