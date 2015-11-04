@@ -70,9 +70,24 @@ var IndexView = Backbone.View.extend(
 
             var index = $.extend({}, stats, status, health, aliases);
 
+            if (versionUtil.isNewer("1.7",  cluster.versionNumber.concat)) {
+                index.docs = {}
+                index.docs.num_docs = index.primaries.docs.count;
+                index.docs.num_docs = index.total.docs.count;
+                index.index = {}
+                index.index.primary_size_in_bytes = index.primaries.store.size_in_bytes;
+                index.index.size_in_bytes = index.total.store.size_in_bytes;
+            }
+
 //console.log(JSON.stringify(index));
 
             // assemble shards
+            var indices_stats = {};
+            shards = es_client.indices.shardStores().then(function (body) {
+                indices_stats = body;
+                console.log('aaa');
+            });
+
             var _shards = [];
             if (indexStatus.indices[this.model.indexId] != undefined) // happens on closed indices
             {
