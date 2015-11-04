@@ -60,6 +60,7 @@ var Cluster = Backbone.Model.extend({
                 }
 
                 var versionArr = version.number.split(".");
+/*
                 if (versionUtil.isNewer("1.7", cluster.versionNumber.concat)) {
                     es_client = new $.es.Client({
                         host: args.connectionRootURL,
@@ -68,6 +69,7 @@ var Cluster = Backbone.Model.extend({
                         apiVersion: versionArr[0] + "." + versionArr[1]
                     });
                 }
+*/
 
                 //show_stack_bottomright({type:'info', title:'Tip', text:'ElasticHQ will refresh the Node List every 10 seconds.'});
                 //show_stack_bottomright({type:'success', title:'Successful Connect!', text:'Connection to cluster has been established.'});
