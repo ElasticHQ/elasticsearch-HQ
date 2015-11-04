@@ -82,6 +82,12 @@ var IndexView = Backbone.View.extend(
 //console.log(JSON.stringify(index));
 
             // assemble shards
+            var indices_stats = {};
+            shards = es_client.indices.shardStores().then(function (body) {
+                indices_stats = body;
+                console.log('aaa');
+            });
+
             var _shards = [];
             if (indexStatus.indices[this.model.indexId] != undefined) // happens on closed indices
             {

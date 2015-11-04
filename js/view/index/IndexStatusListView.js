@@ -53,8 +53,8 @@ var IndexStatusListView = Backbone.View.extend(
                 index = indexStatus[i];
                 index.cid = index.id;
                 index.name = index.id;
-                index.numshards = clusterState.metadata.indices[index.id].settings['index.number_of_shards'];
-                index.numreplicas = clusterState.metadata.indices[index.id].settings['index.number_of_replicas'];
+                index.numshards = clusterState.metadata.indices[index.id].settings.index.number_of_shards;
+                index.numreplicas = clusterState.metadata.indices[index.id].settings.index.number_of_replicas;
                 index.status = clusterState.metadata.indices[index.id].state;
                 if (index.docs === undefined) {
                     index.docs = {num_docs: 0};
