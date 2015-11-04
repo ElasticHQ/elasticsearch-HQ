@@ -43,7 +43,7 @@ Navigating to your elasticsearch/bin directory and using the appropriate release
 ./plugin install royrusso/elasticsearch-HQ
 ```
 
-Or for a specificbrnahc:
+Or for a specific branch:
 
 ```
 ./plugin install royrusso/elasticsearch-HQ/v1.0.0
