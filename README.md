@@ -28,7 +28,7 @@ Version Compatibility
 | Elasticsearch Version | ElasticHQ Branch | Latest HQ Version |
 | --------------------- | ---------------- | ------------------|
 | <=1.7                 | 1.0              | v1.0.0            |
-| >=2.x                 | 2.0              | v2.0.2            |
+| >=2.x                 | 2.0              | v2.0.3            |
  
 ElasticHQ master branch, always contains the latest releases supporting the latest Elasticsearch. In this case, Master supports 
 Elasticsearch 2.x+.
@@ -36,19 +36,18 @@ Elasticsearch 2.x+.
 Plugin Installation
 -------------------
 
-Navigating to your elasticsearch/bin directory and using the appropriate release tag:
+Navigating to your elasticsearch/bin directory and using the appropriate release tag or the master branch for ES 2.x users:
 
-
-```
-./plugin install royrusso/elasticsearch-HQ/v1.0.0
-```
-
-Or, for the latest:
 
 ```
 ./plugin install royrusso/elasticsearch-HQ
 ```
 
+Or for a specificbrnahc:
+
+```
+./plugin install royrusso/elasticsearch-HQ/v1.0.0
+```
  
 Requirements
 ------------
