@@ -92,6 +92,7 @@ var IndexStatusListView = Backbone.View.extend(
                 {
                     indices: indices,
                     polling: settingsModel.get('settings').poller.indices,
+                    pollingEnabled:  settingsModel.get('settings').pollingEnabled,
                     lastUpdateTime: timeUtil.lastUpdated()
                 }));
 
