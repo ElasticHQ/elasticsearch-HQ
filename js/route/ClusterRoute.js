@@ -30,12 +30,11 @@ clusterRoute.cluster = function () {
             // BEGIN: INIT: we only do these things on successful connect...
             checkVersion();
 
-//            $("#settings").css("visibility", "visible");
-
             activateLogging();
             // END: INIT
-
-            var polloptions = {delay:10000};
+            
+            var pollingEnabled = settingsModel.get('settings').pollingEnabled;     
+            var polloptions = {delay:10000, condition: function(model) { return pollingEnabled; }};
             mainMenuPoller = Backbone.Poller.get(healthModel, polloptions);
             mainMenuPoller.start();
 
@@ -93,7 +92,11 @@ clusterRoute.cluster = function () {
             var clusterState = cluster.get("clusterState");
             clusterState.fetch({
                 success:function () {
-                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {delay:settingsModel.get('settings').poller.cluster});
+                    clusterOverviewPoller = Backbone.Poller.get(clusterState, {
+                        delay:settingsModel.get('settings').poller.cluster,
+                        condition: function(model){ return pollingEnabled; }
+                    });
+                    
                     clusterOverviewPoller.start();
 
                     clusterOverviewPoller.on('success', function (clusterState) {
@@ -119,7 +122,6 @@ clusterRoute.cluster = function () {
                     });
                 }
             });
-            //show_stack_bottomright({type:'info', title:'Tip', text:'Cluster Overview refreshes every 5 seconds.'});
         },
         error:function (model, response) {
             var err = 'Unable to Connect to Server! ';

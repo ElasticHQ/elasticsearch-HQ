@@ -4,7 +4,13 @@ var indexTemplate = {};
 indexTemplate.indexList = [
 
     '<div class="well">',
-    '<div class="span2 pull-left"><a href="#refreshindices" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
+    '<div class="span2 pull-left">',
+    '<% if (pollingEnabled) { %>',
+    '<a href="#refreshindices" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a>',
+    '<% } else { %>',
+    '<a href="#refreshindices" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a>',
+    '<% } %>',
+    '</div>',
     '<div class="text-center span8"><span style="font-size: 28px;">Indices Overview</span></div>',
 /*
     '<div class="pull-right">',
@@ -82,7 +88,13 @@ indexTemplate.indexView = [
     '</div>',
     '</div>',
 
-    '<div class="pull-left"><a href="#refreshindexpoller/<%- indexId %>" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a></div>',
+    '<div class="pull-left">',
+    '<% if (pollingEnabled) { %>',
+    '<a href="#refreshindexpoller/<%- indexId %>" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Refreshing every <%- polling/1000 %> seconds.<br/>Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a>',
+    '<% } else { %>',
+    '<a href="#refreshindexpoller/<%- indexId %>" class="btn btn-mini"  rel="tipRight" data-placement="bottom" data-html="true" data-title="Click to Force Refresh."><i class="icon-refresh"></i> <%- lastUpdateTime %></a>',
+    '<% } %>',
+    '</div>',
 
     '<div class="text-center"><h2><%- indexName %></h2>',
     '<div class="span12 center-table">',

@@ -41,9 +41,7 @@ var IndexView = Backbone.View.extend(
                     isOpenState = false;
                 }
             }
-            catch (e) {
-//
-            }
+            catch (e) {}
 
             var indexStats = this.model.toJSON();
             var totalShards = indexStats._shards;
@@ -79,17 +77,6 @@ var IndexView = Backbone.View.extend(
                 index.index.size_in_bytes = index.total.store.size_in_bytes;
             }
 
-//console.log(JSON.stringify(index));
-
-            // assemble shards
-/*
-            var indices_stats = {};
-            shards = es_client.indices.shardStores().then(function (body) {
-                indices_stats = body;
-                console.log('aaa');
-            });
-*/
-
             var _shards = [];
             if (indexStatus.indices[this.model.indexId] != undefined) // happens on closed indices
             {
@@ -124,14 +111,13 @@ var IndexView = Backbone.View.extend(
                     isOpenState:isOpenState,
                     shards:shards,
                     polling:settingsModel.get('settings').poller.index,
+                    pollingEnabled: settingsModel.get('settings').pollingEnabled,
                     lastUpdateTime:timeUtil.lastUpdated()
                 }));
 
             $("#shardTable").tablesorter({
                 headers:{ 3:{ sorter:'datasize' }},
                 widgets:['sortPersist']
-                //,
-                //sortList:[ [0, 0] ]
             });
 
             // because of polling, we must set the current selected tab to show.

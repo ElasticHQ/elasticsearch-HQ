@@ -29,6 +29,7 @@ var SettingsModel = Backbone.Model.extend({
                 indices:15000,
                 index:10000
             },
+            pollingEnabled: false, // polling disabled by default
             nodeDiagnosticsMax:10,
             debugMode:0,
             optoutStats:false
@@ -91,6 +92,7 @@ var SettingsModel = Backbone.Model.extend({
             this.get('settings').poller.node = (settingsArg.poller.node !== undefined) ? settingsArg.poller.node : this.get('settings').poller.node;
             this.get('settings').poller.indices = (settingsArg.poller.indices !== undefined) ? settingsArg.poller.indices : this.get('settings').poller.indices;
             this.get('settings').poller.index = (settingsArg.poller.index !== undefined) ? settingsArg.poller.index : this.get('settings').poller.index;
+            this.get('settings').pollingEnabled = (settingsArg.pollingEnabled !== undefined) ? settingsArg.pollingEnabled : this.get('settings').pollingEnabled;
         }
         catch (e) {
             console.log('Cannot build settings object. Using defaults. ' + e.message);

@@ -219,6 +219,7 @@ var NodeStatView = Backbone.View.extend(
                     netInfo: netInfo,
                     netStats: netStats,
                     polling: settingsModel.get('settings').poller.node,
+                    pollingEnabled: settingsModel.get('settings').pollingEnabled,
                     lastUpdateTime: timeUtil.lastUpdated()
                 }));
 

@@ -96,6 +96,7 @@ var ClusterHealthView = Backbone.View.extend({
             state:this.stateModel,
             indices:indices,
             polling:settingsModel.get('settings').poller.cluster,
+            pollingEnabled: settingsModel.get('settings').pollingEnabled,
             lastUpdateTime:timeUtil.lastUpdated()
         });
         $('#workspace').html(template);
