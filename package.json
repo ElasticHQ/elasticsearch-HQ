@@ -25,7 +25,11 @@
     "grunt-targethtml": "~0.2.4",
     "lodash" : ""
   },
-  "license": "Apache License",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/royrusso/elasticsearch-HQ.git"
+  },
   "dependencies": {
     "moment": "~2.5.0"
   }
