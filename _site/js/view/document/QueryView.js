@@ -25,40 +25,169 @@ var QueryView = Backbone.View.extend({
     },
     render:function () {
 
+        var model = this.model;
         var indices = _.keys(this.model);
-        var fields = [];
+        var extraSortFields = ["_score", "_type", "_uid"];
+        var tpl = _.template(queryTemplate.view);
 
-        var types = ["_score", "_type", "_uid"];
-        try {
-            for (var $i = 0; $i < indices.length; $i++) {
-                var mappingTypeKeys = _.keys(_.values(this.model)[$i].mappings);
-                var mappingTypeVals = _.values(_.values(this.model)[$i].mappings);
-                if (mappingTypeKeys !== undefined) {
-                    for (var $j = 0; $j < mappingTypeKeys.length; $j++) {
-                        if (mappingTypeVals[$j] !== undefined) {
-                            var prop = mappingTypeVals[$j].properties;
-                            if (prop !== undefined) {
-                                var tempTypes = _.keys(prop);
-                                for (var $k = 0; $k < tempTypes.length; $k++) {
-                                    if (!_.contains(types, tempTypes[$k])) {
-                                        types.push(tempTypes[$k]);
-                                        fields.push(tempTypes[$k]);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        /**
+         * Retrieves the types for a list of indices.
+         */
+        function getIndexTypes(indices)
+        {
+          var allTypes = [];
+
+          if(indices == null)
+          {
+            return [];
+          }
+
+          for(var $i = 0; $i < indices.length; $i++) {
+            var indexTypes = _.keys(model[indices[$i]].mappings);
+            for(var $j = 0; $j < indexTypes.length; $j++) {
+              if (!_.contains(allTypes, indexTypes[$j])) {
+                allTypes.push(indexTypes[$j]);
+              }
             }
-        } catch (e) {
-            console.log(e.message);
+          }
+
+          return allTypes;
         }
 
-        var tpl = _.template(queryTemplate.view);
+        /**
+         * Retrieves the fields for a list of indices/types.
+         */
+         function getFields(indices, types)
+         {
+           var fields = [];
+
+           if(indices == null || types == null)
+           {
+             return [];
+           }
+
+           for (var $i = 0; $i < indices.length; $i++) {
+             var index = indices[$i];
+             for (var $j = 0; $j < types.length; $j++) {
+               var type = types[$j];
+               var typeFields = getIndexTypeFields(index, type);
+
+               for (var $k = 0; $k < typeFields.length; $k++) {
+                 if (!_.contains(fields, typeFields[$k])) {
+                   fields.push(typeFields[$k]);
+                 }
+               }
+             }
+           }
+
+           return fields;
+         }
+
+        /**
+         * Retrieves the fields for a list of indices/types.
+         */
+        function getIndexTypeFields(index, type)
+        {
+          if(type == "") {
+            var fields = [];
+
+            var types = _.keys(model[index].mappings);
+            for (var $i = 0; $i < types.length; $i++) {
+              var typeFields = _.keys(model[index].mappings[types[$i]].properties);
+              for (var $j = 0; $j < typeFields.length; $j++) {
+                if (!_.contains(fields, typeFields[$j])) {
+                  fields.push(typeFields[$j]);
+                }
+              }
+            }
+
+            return fields;
+          } else {
+            if(_.contains(_.keys(model[index].mappings), type)) {
+              return _.keys(model[index].mappings[type].properties);
+            } else {
+              return [];
+            }
+          }
+        }
+
+        /**
+         * Refreshes the list of displayed fields
+         */
+        function refreshTypes()
+        {
+          //cleanup
+          $("#typelist").empty();
+          $("#fields").empty();
+
+          var indices = $("#indices").val();
+          var types = getIndexTypes(indices);
+          _.each(types, function (type) {
+            $("#typelist").append(
+              '<li>' +
+                '<label>' +
+                  '<input type="checkbox" class="type" name="type[]" value="' + type + '" style="margin: 0px;" checked> ' +
+                    '<span>' + type + '</span>' +
+                '</label>' +
+              '</li>'
+            );
+          });
+        }
+
+        /**
+         * Refreshes the list of displayed fields
+         */
+        function refreshFields()
+        {
+          //cleanup
+          $("#fields").empty();
+          $("#sortBy").empty();
+
+          var indices = $("#indices").val();
+          var types = [];
+          $('#typelist input:checked').each(function() {
+              types.push($(this).val());
+          });
+
+          var fields = getFields(indices, types);
+
+          //field list
+          _.each(fields, function (field) {
+            $("#fields").append(
+              '<li>' +
+                '<label>' +
+                  '<input type="checkbox" class="field" name="fields[]" value="' + field + '" style="margin: 0px;" checked="true"> ' +
+                    '<span>' + field + '</span>' +
+                '</label>' +
+              '</li>'
+            );
+          });
+
+          //sortby list
+          refreshSortBy();
+        }
+
+        function refreshSortBy()
+        {
+          $("#sortBy").empty();
+
+          var fields = [];
+          $('#fields input:checked').each(function () {
+              fields.push($(this).val());
+          });
+
+          _.each(extraSortFields, function (field) {
+            $("#sortBy").append("<option value='" + field + "'>" + field + "</option>");
+          });
+          _.each(fields, function (field) {
+            $("#sortBy").append("<option value='" + field + "'>" + field + "</option>");
+          });
+
+          $("#sortBy").selectpicker("refresh");
+        }
+
         $('#workspace').html(tpl({
-            indices:indices,
-            fields: fields,
-            types:types
+            indices:indices
         }));
 
         $('#queryString').bind('focus', doFocus('#queryString', '#querySubmit'), false);
@@ -71,7 +200,20 @@ var QueryView = Backbone.View.extend({
         $("[rel=tipRight]").tooltip();
         $('.selectpicker').selectpicker();
 
-        $('#toggleIndex').bind('click', function(e) {
+        $('#indices').bind('change', function(e) {
+          // populate types
+          refreshTypes();
+
+          // populate fields
+          refreshFields();
+        });
+
+        $('#typelist').on("change", ".type", function() {
+          // populate fields
+          refreshFields();
+        });
+
+        $('#toggleTypes').bind('click', function(e) {
             e.preventDefault();
             var isChecked = $(this).hasClass('checked');
 
@@ -83,7 +225,9 @@ var QueryView = Backbone.View.extend({
                 $(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
             }
 
-            $('#checkboxindices li label input[type="checkbox"]').prop('checked', !isChecked);
+            $('#typelist li label input[type="checkbox"]').prop('checked', !isChecked);
+
+            refreshFields();
         });
 
         $('#toggleFields').bind('click', function(e) {
@@ -98,7 +242,14 @@ var QueryView = Backbone.View.extend({
                 $(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
             }
 
-            $('#checkboxfields li label input[type="checkbox"]').prop('checked', !isChecked);
+            $('#fields li label input[type="checkbox"]').prop('checked', !isChecked);
+
+            //refresh sort
+            refreshSortBy();
+        });
+
+        $('#fields').on("change", ".field", function(e) {
+          refreshSortBy();
         });
 
         return this;

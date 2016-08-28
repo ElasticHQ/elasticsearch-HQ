@@ -86,7 +86,7 @@ var QueryView = Backbone.View.extend({
         /**
          * Retrieves the fields for a list of indices/types.
          */
-        function getIndexTypeFields(index, type = "")
+        function getIndexTypeFields(index, type)
         {
           if(type == "") {
             var fields = [];
@@ -175,7 +175,7 @@ var QueryView = Backbone.View.extend({
           $('#fields input:checked').each(function () {
               fields.push($(this).val());
           });
-          
+
           _.each(extraSortFields, function (field) {
             $("#sortBy").append("<option value='" + field + "'>" + field + "</option>");
           });
