@@ -832,7 +832,10 @@ var ClusterHealth = Backbone.Model.extend({
         initialize: function(a) {
             console.log("Inside NodeInfoModel"), this.nodeId = a.nodeId
         },
-        url: function() {
+        url: function () {
+            if (versionUtil.isNewerOrEqual("5.0.0", cluster.versionNumber.concat)) {
+                return this.nodeId ? "/_cluster/nodes/" + this.nodeId + "/_all" : "/_cluster/nodes/_all"
+            }
             return this.nodeId ? "/_cluster/nodes/" + this.nodeId + "?all=true" : "/_cluster/nodes?all=true"
         }
     }),
@@ -855,7 +858,11 @@ var ClusterHealth = Backbone.Model.extend({
         initialize: function(a) {
             console.log("Inside NodeStatsModel"), this.nodeId = a.nodeId
         },
-        url: function() {
+        url: function () {
+            // TODO plugin?
+            if (versionUtil.isNewerOrEqual("5.0.0", cluster.versionNumber.concat)) {
+                return "/_cluster/nodes/" + this.nodeId + "/stats/_all"
+            }
             return "/_cluster/nodes/" + this.nodeId + "/stats?all=true&plugin=true"
         },
         fetch: function() {
@@ -1169,7 +1176,12 @@ var ClusterHealth = Backbone.Model.extend({
         },
         url: function() {
             var a = this.get("selectedNodes");
-            if (void 0 == a || 0 === a.length) return "/_cluster/nodes?all=1";
+            if (void 0 == a || 0 === a.length) {
+                if (versionUtil.isNewerOrEqual("5.0.0", cluster.versionNumber.concat)) {
+                    return "/_cluster/nodes/_all"
+                }
+                return "/_cluster/nodes?all=1"
+            }
             for (var b = "", c = 0; c < a.length; c++) b += a[c], a.length - 1 > c && (b += ",");
             return "/_cluster/nodes/" + b
         }
@@ -1180,7 +1192,11 @@ var ClusterHealth = Backbone.Model.extend({
         initialize: function() {
             console.log("Inside NodeList")
         },
-        url: function() {
+        url: function () {
+            // TODO &filter_indices=true
+            if (versionUtil.isNewerOrEqual("5.0.0", cluster.versionNumber.concat)) {
+                return "/_cluster/state/master_node,nodes,metadata,routing_table,blocks"
+            }
             return "/_cluster/state?filter_nodes=false&filter_metadata=true&filter_routing_table=true&filter_blocks=true&filter_indices=true"
         },
         parse: function(a) {
@@ -1204,8 +1220,16 @@ var ClusterHealth = Backbone.Model.extend({
         },
         url: function() {
             var a = this.get("selectedNodes");
-            if (void 0 == a || 0 === a.length) return "/_cluster/nodes/stats?all=1";
+            if (void 0 == a || 0 === a.length) {
+                if (versionUtil.isNewerOrEqual("5.0.0", cluster.versionNumber.concat)) {
+                    return "/_cluster/nodes/stats/_all"
+                }
+                return "/_cluster/nodes/stats?all=1"
+            }
             for (var b = "", c = 0; c < a.length; c++) b += a[c], a.length - 1 > c && (b += ",");
+            if (versionUtil.isNewerOrEqual("5.0.0", cluster.versionNumber.concat)) {
+                return "/_cluster/nodes/" + b + "/stats/_all"
+            }
             return "/_cluster/nodes/" + b + "/stats?all=1"
         },
         fetch: function() {
