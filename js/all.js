@@ -8,38 +8,42 @@
  */
 
 function NodeInfoModelFactory() {
-    this.create = function(a) {
+    this.create = function (a) {
+        var b = new NodeInfoModel({
+            nodeId: a,
+            connectionRootURL: cluster.get("connectionRootURL")
+        });
+        if (versionUtil.isNewer("5.0.0", cluster.versionNumber.concat)) {            
+            return b.url = function () {
+                return a ? "/_nodes/" + a + "/_all" : "/_nodes/_all"
+            }, b
+        }
         if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
-            var b = new NodeInfoModel({
-                nodeId: a,
-                connectionRootURL: cluster.get("connectionRootURL")
-            });
             return b.url = function() {
                 return a ? "/_nodes/" + a + "?all=true" : "/_nodes?all=true"
             }, b
         }
-        return new NodeInfoModel({
-            nodeId: a,
-            connectionRootURL: cluster.get("connectionRootURL")
-        })
+        return b
     }
 }
 
 function NodeStatsModelFactory() {
     this.create = function(a) {
+        var b = new NodeStatsModel({
+            nodeId: a,
+            connectionRootURL: cluster.get("connectionRootURL")
+        });
+        if (versionUtil.isNewer("5.0.0", cluster.versionNumber.concat)) {
+            return b.url = function () {
+                return "/_nodes/" + this.nodeId + "/stats/_all"
+            }, b
+        }
         if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
-            var b = new NodeStatsModel({
-                nodeId: a,
-                connectionRootURL: cluster.get("connectionRootURL")
-            });
             return b.url = function() {
                 return "/_nodes/" + this.nodeId + "/stats?all=1"
             }, b
         }
-        return new NodeStatsModel({
-            nodeId: a,
-            connectionRootURL: cluster.get("connectionRootURL")
-        })
+        return b
     }
 }
 
@@ -49,12 +53,23 @@ function NodeStatsListModelFactory() {
             connectionRootURL: cluster.get("connectionRootURL"),
             selectedNodes: a
         });
-        return versionUtil.isNewer("0.99.0", cluster.versionNumber.concat) ? (b.url = function() {
-            var a = this.get("selectedNodes");
-            if (void 0 == a || 0 === a.length) return "/_nodes/stats?all=1";
-            for (var b = "", c = 0; c < a.length; c++) b += a[c], a.length - 1 > c && (b += ",");
-            return "/_nodes/" + b + "/stats?all=1"
-        }, b) : b
+        if (versionUtil.isNewer("5.0.0", cluster.versionNumber.concat)) {
+            return b.url = function () {
+                var a = this.get("selectedNodes");
+                if (void 0 == a || 0 === a.length) return "/_nodes/stats/_all";
+                for (var b = "", c = 0; c < a.length; c++) b += a[c], a.length - 1 > c && (b += ",");
+                return "/_nodes/" + b + "/stats/_all"
+            }, b
+        }
+        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+            return b.url = function() {
+                var a = this.get("selectedNodes");
+                if (void 0 == a || 0 === a.length) return "/_nodes/stats?all=1";
+                for (var b = "", c = 0; c < a.length; c++) b += a[c], a.length - 1 > c && (b += ",");
+                return "/_nodes/" + b + "/stats?all=1"
+            }, b
+        }
+        return b
     }
 }
 
@@ -64,12 +79,23 @@ function NodeInfoListModelFactory() {
             connectionRootURL: cluster.get("connectionRootURL"),
             selectedNodes: a
         });
-        return versionUtil.isNewer("0.99.0", cluster.versionNumber.concat) ? (b.url = function() {
-            var a = this.get("selectedNodes");
-            if (void 0 == a || 0 === a.length) return "/_nodes?all=1";
-            for (var b = "", c = 0; c < a.length; c++) b += a[c], a.length - 1 > c && (b += ",");
-            return "/_nodes/" + b + "?all=1"
-        }, b) : b
+        if (versionUtil.isNewer("5.0.0", cluster.versionNumber.concat)) {
+            return b.url = function () {
+                var a = this.get("selectedNodes");
+                if (void 0 == a || 0 === a.length) return "/_nodes/_all";
+                for (var b = "", c = 0; c < a.length; c++) b += a[c], a.length - 1 > c && (b += ",");
+                return "/_nodes/" + b + "/_all"
+            }, b
+        }
+        if (versionUtil.isNewer("0.99.0", cluster.versionNumber.concat)) {
+            return b.url = function() {
+                var a = this.get("selectedNodes");
+                if (void 0 == a || 0 === a.length) return "/_nodes?all=1";
+                for (var b = "", c = 0; c < a.length; c++) b += a[c], a.length - 1 > c && (b += ",");
+                return "/_nodes/" + b + "?all=1"
+            }, b
+        }
+        return b
     }
 }
 
@@ -79,9 +105,17 @@ function RESTModelFactory() {
             connectionRootURL: cluster.get("connectionRootURL"),
             cmd: a
         });
-        return versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat) ? (b.url = function() {
-            return this.fetchURL = "health" == this.cmd ? "/_cluster/health" : "state" == this.cmd ? "/_cluster/state" : "cluster_settings" == this.cmd ? "/_cluster/settings" : "ping" == this.cmd ? "/" : "nodeinfo" == this.cmd ? "/_nodes?all=true" : "nodestats" == this.cmd ? "/_nodes/stats?all=1" : "indexaliases" == this.cmd ? "/_aliases" : "indexsettings" == this.cmd ? "/_settings" : "indexstats" == this.cmd ? "/_stats?all=true" : "indexstatus" == this.cmd ? "/_status" : "indexsegments" == this.cmd ? "/_segments" : "indexmappings" == this.cmd ? "/_mapping" : "indexrefresh" == this.cmd ? "/_refresh" : "indexflush" == this.cmd ? "/_flush" : "indexoptimize" == this.cmd ? "/_optimize" : "indexclearcache" == this.cmd ? "/_cache/clear" : "/", this.fetchURL
-        }, b) : b
+        if (versionUtil.isNewer("5.0.0", cluster.get("versionNumber").concat)) {
+            return b.url = function () {
+                return this.fetchURL = "health" == this.cmd ? "/_cluster/health" : "state" == this.cmd ? "/_cluster/state" : "cluster_settings" == this.cmd ? "/_cluster/settings" : "ping" == this.cmd ? "/" : "nodeinfo" == this.cmd ? "/_nodes/_all" : "nodestats" == this.cmd ? "/_nodes/stats/_all" : "indexaliases" == this.cmd ? "/_aliases" : "indexsettings" == this.cmd ? "/_settings" : "indexstats" == this.cmd ? "/_stats/_all" : "indexstatus" == this.cmd ? "/_status" : "indexsegments" == this.cmd ? "/_segments" : "indexmappings" == this.cmd ? "/_mapping" : "indexrefresh" == this.cmd ? "/_refresh" : "indexflush" == this.cmd ? "/_flush" : "indexoptimize" == this.cmd ? "/_optimize" : "indexclearcache" == this.cmd ? "/_cache/clear" : "/", this.fetchURL
+            }, b
+        }
+        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
+            return b.url = function() {
+                return this.fetchURL = "health" == this.cmd ? "/_cluster/health" : "state" == this.cmd ? "/_cluster/state" : "cluster_settings" == this.cmd ? "/_cluster/settings" : "ping" == this.cmd ? "/" : "nodeinfo" == this.cmd ? "/_nodes?all=true" : "nodestats" == this.cmd ? "/_nodes/stats?all=1" : "indexaliases" == this.cmd ? "/_aliases" : "indexsettings" == this.cmd ? "/_settings" : "indexstats" == this.cmd ? "/_stats?all=true" : "indexstatus" == this.cmd ? "/_status" : "indexsegments" == this.cmd ? "/_segments" : "indexmappings" == this.cmd ? "/_mapping" : "indexrefresh" == this.cmd ? "/_refresh" : "indexflush" == this.cmd ? "/_flush" : "indexoptimize" == this.cmd ? "/_optimize" : "indexclearcache" == this.cmd ? "/_cache/clear" : "/", this.fetchURL
+            }, b
+        }
+        return b
     }
 }
 
