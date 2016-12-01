@@ -1,3 +1,8 @@
+This project is no longer maintained
+====================================
+
+If you would like to take over the project or become a committer, please post in the group forums: https://groups.google.com/d/forum/elastichq
+
 ElasticHQ
 =========
 
