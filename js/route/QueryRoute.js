@@ -46,17 +46,20 @@ queryRoute.init = function () {
 queryRoute.doQuery = function () {
 
     // get checked checkboxes and query string
-    var indices = [];
-    $('#checkboxindices input:checked').each(function () {
-        indices.push($(this).attr('name'));
+    var indices = $("#indices").val() == null ? [] : $("#indices").val();
+
+    //get types
+    var types = [];
+    $('#typelist input:checked').each(function() {
+        types.push($(this).val());
     });
 
     // get fields
     var fields = [];
-    $('#checkboxfields input:checked').each(function () {
-        fields.push($(this).attr('name'));
+    $('#fields input:checked').each(function () {
+        fields.push($(this).val());
     });
-
+    
     var indexCSV = "";
     if (indices.length > 0) {
         indexCSV = indices.join(",");
