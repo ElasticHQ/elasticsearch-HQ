@@ -1,7 +1,13 @@
-This project is no longer maintained
-====================================
+Contributing
+============
 
-If you would like to take over the project or become a committer, please post in the group forums: https://groups.google.com/d/forum/elastichq
+If you would like to contribute to this project, please start working on tasks and creating pull requests.
+
+
+Elasticsearch 5.0
+=================
+
+Currently work is being done to make ElasticHQ compatible with ES 5.0.
 
 ElasticHQ
 =========
