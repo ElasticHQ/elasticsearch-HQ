@@ -31,13 +31,18 @@ indexRoute.indexView = function (indexId) {
 
     indexStatusModel.fetch({
         success:function (model, response) {
-
-            var polloptions = {delay:settingsModel.get('settings').poller.index};
+            var pollingEnabled = settingsModel.get('settings').pollingEnabled;
+            var polloptions = {
+                delay:settingsModel.get('settings').poller.index, 
+                condition: function(model){ return pollingEnabled; }
+            };
+                    
             indexPoller = Backbone.Poller.get(indexStatusModel, polloptions);
+            
             indexPoller.start();
             indexPoller.on('success', function (indexStatusModel) {
-                ajaxloading.show();
-                $.when(indexStatsModel.fetch(), indexHealthModel.fetch(), indexAliasModel.fetch())
+            ajaxloading.show();
+            $.when(indexStatsModel.fetch(), indexHealthModel.fetch(), indexAliasModel.fetch())
                     .done(function () {
                         var indexView = new IndexView({indexId:indexId, model:indexStatsModel, statusModel:indexStatusModel, healthModel:indexHealthModel, aliasModel:indexAliasModel});
                         indexView.render();

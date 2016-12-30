@@ -20,7 +20,8 @@ var SettingsView = Backbone.View.extend(
     {
         el:$('#workspace'), // must be explicitly set for event binding to work!
         events:{
-            'click #editSettingsSubmit':'saveToModel'
+            'click #editSettingsSubmit':'saveToModel',
+            'change #chkPollingEnabled':'togglePolling'
         },
         saveToModel:function (e) {
             e.preventDefault();
@@ -36,14 +37,16 @@ var SettingsView = Backbone.View.extend(
 
             if (this.model.isValid()) {
                 this.model = settingsModel;
-                this.model.get('settings').poller.cluster = data.clusterPoller;
-                this.model.get('settings').poller.nodeDiagnostics = data.ndPoller;
-                this.model.get('settings').poller.node = data.nPoller;
-                this.model.get('settings').poller.indices = data.indicesPoller;
-                this.model.get('settings').poller.index = data.indexPoller;
+                this.model.get('settings').poller.cluster = (data.clusterPoller !== undefined) ? data.clusterPoller : this.model.get('settings').poller.cluster;
+                this.model.get('settings').poller.nodeDiagnostics = (data.ndPoller !== undefined) ? data.ndPoller : this.model.get('settings').poller.nodeDiagnostics;
+                this.model.get('settings').poller.node = (data.nPoller !== undefined) ? data.nPoller : this.model.get('settings').poller.node;
+                this.model.get('settings').poller.indices = (data.indicesPoller !== undefined) ? data.indicesPoller : this.model.get('settings').poller.indices;
+                this.model.get('settings').poller.index = (data.indexPoller !== undefined) ? data.indexPoller : this.model.get('settings').poller.index;
                 this.model.get('settings').nodeDiagnosticsMax = data.nodeDiagnosticsMax;
                 this.model.get('settings').debugMode = (data.debugMode !== undefined) ? 1 : 0;
                 this.model.get('settings').optoutStats = (data.optoutStats !== undefined) ? true : false;
+                this.model.get('settings').pollingEnabled = (data.pollingEnabled !== undefined) ? true : false;                    
+                
                 this.model.saveToStorage();
 
                 settingsModel = settingsModel.loadFromStorage();
@@ -56,9 +59,27 @@ var SettingsView = Backbone.View.extend(
             this.unbind();
             this.model.unbind("#editSettingsSubmit", this.render);
 
-
             return false;
         },
+        
+        togglePolling: function(e){
+            var enabled = $(e.target).is(':checked');
+            
+            if(enabled){
+                $('#clusterPoller').removeAttr('disabled');
+                $('#ndPoller').removeAttr('disabled');
+                $('#nPoller').removeAttr('disabled');
+                $('#indicesPoller').removeAttr('disabled');
+                $('#indexPoller').removeAttr('disabled');
+            }else{
+                $('#clusterPoller').attr('disabled', true);
+                $('#ndPoller').attr('disabled', true);
+                $('#nPoller').attr('disabled', true);
+                $('#indicesPoller').attr('disabled', true);
+                $('#indexPoller').attr('disabled', true);
+            }
+        },
+        
         render:function () {
             var _this = this;
 

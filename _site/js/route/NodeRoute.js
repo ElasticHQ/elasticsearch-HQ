@@ -45,8 +45,12 @@ nodeRoute.diagnoseNodes = function () {
     nodeInfoListModel.fetch({
         success:function (model, response) {
             var nodeListView = new NodeStatsListView({infoModel:nodeInfoListModel, model:nodeStatsListModel});
-
-            var polloptions = {delay:settingsModel.get('settings').poller.nodeDiagnostics};
+            var pollingEnabled = settingsModel.get('settings').pollingEnabled;
+            var polloptions = {
+                delay:settingsModel.get('settings').poller.nodeDiagnostics,
+                condition: function(m){ return pollingEnabled; }
+            };
+            
             nodeDiagnosticsPoller = Backbone.Poller.get(nodeStatsListModel, polloptions);
             nodeDiagnosticsPoller.start();
             nodeDiagnosticsPoller.on('success', function (nodeInfoListModel) {
@@ -78,8 +82,13 @@ nodeRoute.nodeInfo = function (nodeId) {
                 var nodeInfoView = new NodeStatsViewFactory().create(nodeStat, nodeInfo);
 
                 cluster.set({nodeStats:nodeStat, nodeInfo:nodeInfo});
-
-                var polloptions = {delay:settingsModel.get('settings').poller.node};
+                
+                var pollingEnabled = settingsModel.get('settings').pollingEnabled;
+                var polloptions = {
+                        delay:settingsModel.get('settings').poller.node,
+                        condition: function(m){ return pollingEnabled; }
+                };
+                
                 nodePoller = Backbone.Poller.get(nodeStat, polloptions);
                 nodePoller.start();
                 nodePoller.on('success', function (nodeInfo) {
