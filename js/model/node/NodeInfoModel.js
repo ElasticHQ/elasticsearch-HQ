@@ -27,13 +27,11 @@ var NodeInfoModel = Backbone.Model.extend({
         this.nodeId = args.nodeId;
     },
     url:function () {
-        if (this.nodeId) {
-            return '/_cluster/nodes/' + this.nodeId + '?all=true';
-            // 100rc1 return '/_nodes/' + this.nodeId + '?all=true';
+        if (versionUtil.isNewerOrEqual("5.0.0", cluster.versionNumber.concat)) {
+            return '/_cluster/nodes' + (this.nodeId ? '/' + this.nodeId : '') + '/_all';
         }
         else {
-            return '/_cluster/nodes?all=true';
-            //100rc1 return '/_nodes?all=true';
+            return '/_cluster/nodes' + (this.nodeId ? '/' + this.nodeId : '') + '?all=true';
         }
     }
 
