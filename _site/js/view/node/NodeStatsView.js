@@ -56,6 +56,7 @@ var NodeStatView = Backbone.View.extend(
             var nodeId = nodeStat.nodeId;
             var jvmStats = this.buildJVMStats(nodeStat);
             var osStats = nodeStat.nodes[nodeId].os;
+            console.error("Got: ", osStats);
             var processStats = nodeStat.nodes[nodeId].process;
             var nodeName = nodeStat.nodes[nodeId].name;
             var address = nodeStat.nodes[nodeId].transport_address;

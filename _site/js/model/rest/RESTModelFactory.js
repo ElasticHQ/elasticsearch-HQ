@@ -18,8 +18,64 @@
 
 function RESTModelFactory() {
     this.create = function (command) {
-        var model = new RESTModel({connectionRootURL:cluster.get("connectionRootURL"), cmd:command}); //{
-        if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
+        var model = new RESTModel({connectionRootURL:cluster.get("connectionRootURL"), cmd:command});
+        if (versionUtil.isNewerOrEqual("5.0.0", cluster.get("versionNumber").concat)) {
+            model.url = function () {
+                if (this.cmd == 'health') {
+                    this.fetchURL = '/_cluster/health';
+                }
+                else if (this.cmd == 'state') {
+                    this.fetchURL = '/_cluster/state';
+                }
+                else if (this.cmd == 'cluster_settings') {
+                    this.fetchURL = '/_cluster/settings';
+                }
+                else if (this.cmd == 'ping') {
+                    this.fetchURL = '/';
+                }
+                else if (this.cmd == 'nodeinfo') {
+                    this.fetchURL = '/_nodes/_all';
+                }
+                else if (this.cmd == 'nodestats') {
+                    this.fetchURL = '/_nodes/stats/_all';
+                }
+                else if (this.cmd == 'indexaliases') {
+                    this.fetchURL = '/_aliases';
+                }
+                else if (this.cmd == 'indexsettings') {
+                    this.fetchURL = '/_settings';
+                }
+                else if (this.cmd == 'indexstats') {
+                    this.fetchURL = '/_stats/_all';
+                }
+                else if (this.cmd == 'indexstatus') {
+                    this.fetchURL = '/_status';
+                }
+                else if (this.cmd == 'indexsegments') {
+                    this.fetchURL = '/_segments';
+                }
+                else if (this.cmd == 'indexmappings') {
+                    this.fetchURL = '/_mapping';
+                }
+                else if (this.cmd == 'indexrefresh') {
+                    this.fetchURL = '/_refresh';
+                }
+                else if (this.cmd == 'indexflush') {
+                    this.fetchURL = '/_flush';
+                }
+                else if (this.cmd == 'indexoptimize') {
+                    this.fetchURL = '/_optimize';
+                }
+                else if (this.cmd == 'indexclearcache') {
+                    this.fetchURL = '/_cache/clear';
+                }
+                else {
+                    this.fetchURL = '/';
+                }
+                return this.fetchURL;
+            };
+        }
+        else if (versionUtil.isNewer("0.99.0", cluster.get("versionNumber").concat)) {
             model.url = function () {
                 if (this.cmd == 'health') {
                     this.fetchURL = '/_cluster/health';
@@ -72,11 +128,9 @@ function RESTModelFactory() {
                 else {
                     this.fetchURL = '/';
                 }
-                return this.fetchURL;            };
-            return model;
+                return this.fetchURL;
+            };
         }
-        else {
-            return  model;
-        }
+        return model;
     }
 }

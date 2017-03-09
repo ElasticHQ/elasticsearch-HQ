@@ -89,6 +89,7 @@ var StatsModel = Backbone.Model.extend({
                     if (theNode.os.cpu !== undefined) {
                         _this.get('stats').cpucores = theNode.os.cpu.total_cores;
                     }
+                    console.error(theNode.os);
                     if (theNode.os.mem !== undefined) {
                         _this.get('stats').totalmemory = theNode.os.mem.total_in_bytes;
                     }
