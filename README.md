@@ -7,7 +7,7 @@ If you would like to contribute to this project, please start working on tasks a
 Elasticsearch 5.0
 =================
 
-Currently work is being done to make ElasticHQ compatible with ES 5.0.
+Site plugins are [not supported](https://www.elastic.co/blog/running-site-plugins-with-elasticsearch-5-0) in Elasticsearch 5.0 and you have to host ElasticHQ by your self ([nginx example](example/nginx_es_5.conf)).
 
 ElasticHQ
 =========
