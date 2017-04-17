@@ -28,6 +28,8 @@ var IndexView = Backbone.View.extend(
             this.statusModel = args.statusModel;
             this.healthModel = args.healthModel;
             this.aliasModel = args.aliasModel;
+            this.shardModel = args.shardModel;
+            this.routingTableModel = args.routingTableModel;
         },
         render:function () {
             var _this = this;
@@ -79,40 +81,46 @@ var IndexView = Backbone.View.extend(
                 index.index.size_in_bytes = index.total.store.size_in_bytes;
             }
 
-//console.log(JSON.stringify(index));
-
-            // assemble shards
-/*
-            var indices_stats = {};
-            shards = es_client.indices.shardStores().then(function (body) {
-                indices_stats = body;
-                console.log('aaa');
+            var nodeMap = {};
+            
+            $.each(cluster.get('nodeList').models, function(_, node) {
+              nodeMap[node.id] = node;
             });
-*/
 
-            var _shards = [];
-            if (indexStatus.indices[this.model.indexId] != undefined) // happens on closed indices
-            {
-                _shards = _.values(indexStatus.indices[this.model.indexId].shards);
-            }
+            var routingTable = this.routingTableModel.toJSON().routing_table.indices[this.model.indexId].shards;
+            var shardsStats = this.shardModel.toJSON().indices[this.model.indexId].shards;
+            var unassignedIdx = 0;
 
-            var nodeList = cluster.get('nodeList');
-            var shards = [];
-            for (var $i = 0; $i < _shards.length; $i++) {
-                // shards may have one or many replicas
-                var shardArr = _shards[$i];
-                for (var $j = 0; $j < shardArr.length; $j++) {
-                    var nodeid = shardArr[$j].routing.node;
-                    if (nodeList.models != undefined) {
-                        for (var $k = 0; $k < nodeList.models.length; $k++) {
-                            if (nodeid == nodeList.models[$k].id) {
-                                shardArr[$j].node = nodeList.models[$k].attributes.name;
-                            }
-                        }
-                    }
-                    shards.push(shardArr[$j]);
+            var shards = {}
+
+            $.each(routingTable, function(shardNum, shardCopies) {
+              $.each(shardCopies, function(_, shard) {
+                var key = shard.shard + ':';
+                
+                if (shard.node) {
+                  key += shard.node;
+                } else {
+                  key += 'UNASSIGNED:' + unassignedIdx;
+                  ++unassignedIdx;
                 }
-            }
+                
+                shard.num_docs = 0;
+                shard.size_in_bytes = 0;
+                shards[key] = shard;
+              });
+            });
+
+            $.each(shardsStats, function(shardNum, shardCopies) {
+              $.each(shardCopies, function(_, shard) {
+                var key = shardNum + ':' + shard.routing.node;
+                var s = shards[key];
+
+                s.num_docs = shard.docs.count;
+                s.size_in_bytes = shard.store.size_in_bytes;
+
+                s.node = nodeMap[s.node].attributes.name;
+              });
+            });
 
             var tpl = _.template(indexTemplate.indexView);
             $('#workspace').html(tpl(

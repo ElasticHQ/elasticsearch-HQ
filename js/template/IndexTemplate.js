@@ -279,7 +279,7 @@ indexTemplate.indexView = [
     '</thead>',
     '<tbody>',
     '<% _.each(shards, function(shard) { %>',
-    '<tr><td><%- shard.routing.shard %></td><td><%- shard.state %></td><td><%- numeral(shard.docs.num_docs).format("0,0") %></td><td><%- numeral(shard.index.size_in_bytes).format("0.0b") %></td><td><%- shard.routing.primary %></td><td><%- shard.node %></td></tr>',
+    '<tr><td><%- shard.shard %></td><td><%- shard.state %></td><td><%- numeral(shard.num_docs).format("0,0") %></td><td><%- numeral(shard.size_in_bytes).format("0.0b") %></td><td><%- shard.primary %></td><td><%- shard.node %></td></tr>',
     '<% }) %>',
     '</tbody>',
     '</table>',
