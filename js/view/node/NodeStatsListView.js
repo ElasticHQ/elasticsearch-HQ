@@ -97,10 +97,6 @@ var NodeStatsListView = Backbone.View.extend(
                         node.stats.jvm.mem = {};
                         node.stats.jvm.gc = {};
                         node.stats.jvm.gc.collectors = {};
-                        node.stats.jvm.gc.collectors.ConcurrentMarkSweep = {};
-                        node.stats.jvm.gc.collectors.ParNew = {};
-                        node.stats.jvm.gc.collectors['G1 Young Generation'] = {};
-                        node.stats.jvm.gc.collectors['G1 Old Generation'] = {};
                     }
                     if (!node.stats.os) {
                         osVal = false;
@@ -119,8 +115,7 @@ var NodeStatsListView = Backbone.View.extend(
                         node.stats.indices.search = {};
                         node.stats.indices.indexing = {};
                         node.stats.indices.merges = {};
-                        node.stats.indices.filter_cache = {};
-                        node.stats.indices.id_cache = {};
+                        node.stats.indices.query_cache = {};
                         node.stats.indices.store = {};
                     }
 
@@ -150,78 +145,52 @@ var NodeStatsListView = Backbone.View.extend(
                     node.stats.indexindexing = node.stats.indices.indexing.index_time_in_millis / node.stats.indices.indexing.index_total;
 
                     // cache
-                    node.stats.filterevictions = lodash.get(node, 'stats.indices.filter_cache.evictions', 0) / node.stats.indices.search.query_total;
+                    node.stats.querycacheevictions = lodash.get(node, 'stats.indices.query_cache.evictions', 0) / node.stats.indices.search.query_total;
                     node.stats.fieldsize = numeral(node.stats.indices.fielddata.memory_size_in_bytes).format('0.0b');
-                    node.stats.filtercache = numeral(lodash.get(node, 'stats.indices.filter_cache.memory_size_in_bytes', 0)).format('0.0b');
-                    node.stats.idpercentage = lodash.get(node, 'stats.indices.id_cache.memory_size_in_bytes', 0) / node.stats.jvm.mem.heap_committed_in_bytes;
+                    node.stats.querycache = numeral(lodash.get(node, 'stats.indices.query_cache.memory_size_in_bytes', 0)).format('0.0b');
+                    node.stats.querycachetotalcount = node.stats.indices.query_cache.total_count
+                    node.stats.querycachehitratio = node.stats.indices.query_cache.hit_count / node.stats.querycachetotalcount
 
                     // memory
                     node.stats.totalmem = 0;
                     node.stats.heappercram = 0;
                     if (!jQuery.isEmptyObject(node.stats.os.mem)) {
-                        node.stats.totalmem = ( node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes ) / 1024 / 1024 / 1024;
-                        node.stats.heappercram = node.stats.jvm.mem.heap_committed_in_bytes / (node.stats.os.mem.actual_used_in_bytes + node.stats.os.mem.actual_free_in_bytes);
+                        node.stats.totalmem = node.stats.os.mem.total_in_bytes / 1024 / 1024 / 1024;
+                        node.stats.heappercram = node.stats.jvm.mem.heap_committed_in_bytes / node.stats.os.mem.total_in_bytes;
                     }
                     node.stats.heapsize = node.stats.jvm.mem.heap_committed_in_bytes / 1024 / 1024 / 1024;
 
                     node.stats.heapused = node.stats.jvm.mem.heap_used_in_bytes / node.stats.jvm.mem.heap_committed_in_bytes;
 
-                    node.stats.gcfreq = 0;
-                    node.stats.g1gcfreq = 0;
-                    node.stats.gcduration = 0;
-                    node.stats.g1gcduration = 0;
-                    try {
-                        if (node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count === 0) {
-                            node.stats.gcfreq = 0;
-                        } else {
-                            node.stats.gcfreq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count / 1000;
-                        }
-                    }
-                    catch (e) {
-                        // default to 0;
-                    }
-                    try {
-                        if (node.stats.jvm.gc.collectors['G1 Young Generation'].collection_count === 0) {
-                            node.stats.g1gcfreq = 0;
-                        } else {
-                            node.stats.g1gcfreq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors['G1 Young Generation'].collection_count / 1000;
-                        }
-                    }
-                    catch (e) {
-                        // default to 0;
+                    node.stats.gc = {
+                      young: {
+                        freq: 0,
+                        duration: 0
+                      },
+                      old: {
+                        freq: 0,
+                        duration: 0
+                      }
+                    };
+
+                    if (node.stats.jvm.gc.collectors.young.collection_count > 0) {
+                      node.stats.gc.young.freq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.young.collection_count / 1000;
                     }
 
-                    try {
-                        node.stats.gcduration = node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_time_in_millis / node.stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count;
-                    }
-                    catch (e) {
-                        // default to 0
-                    }
-                    try {
-                        node.stats.g1gcduration = node.stats.jvm.gc.collectors['G1 Young Generation'].collection_time_in_millis / node.stats.jvm.gc.collectors['G1 Young Generation'].collection_count;
-                    }
-                    catch (e) {
-                        // default to 0
+                    if (node.stats.jvm.gc.collectors.young.collection_time_in_millis > 0) {
+                      node.stats.gc.young.duration = node.stats.jvm.gc.collectors.young.collection_time_in_millis / node.stats.jvm.gc.collectors.young.collection_count;
                     }
 
-                    if (node.stats.jvm.gc.collectors.ParNew) {
-                        node.stats.gcparnew = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count / 1000;
-                        node.stats.gcparnewduration = node.stats.jvm.gc.collectors.ParNew.collection_time_in_millis / node.stats.jvm.gc.collectors.ParNew.collection_count;
+                    if (node.stats.jvm.gc.collectors.old.collection_count > 0) {
+                      node.stats.gc.old.freq = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors.old.collection_count / 1000;
                     }
-                    else {
-                        node.stats.gcparnew = 0;
-                        node.stats.gcparnewduration = 0;
-                    }
-                    if (node.stats.jvm.gc.collectors['G1 Old Generation'] && node.stats.jvm.gc.collectors['G1 Old Generation'].collection_count !== 0) {
-                        node.stats.g1gcold = node.stats.jvm.uptime_in_millis / node.stats.jvm.gc.collectors['G1 Old Generation'].collection_count / 1000;
-                        node.stats.g1gcoldduration = node.stats.jvm.gc.collectors['G1 Old Generation'].collection_time_in_millis / node.stats.jvm.gc.collectors['G1 Old Generation'].collection_count;
-                    }
-                    else {
-                        node.stats.g1gcold = 0;
-                        node.stats.g1gcoldduration = 0;
+
+                    if (node.stats.jvm.gc.collectors.old.collection_time_in_millis > 0) {
+                      node.stats.gc.old.duration = node.stats.jvm.gc.collectors.old.collection_time_in_millis / node.stats.jvm.gc.collectors.old.collection_count;
                     }
 
                     node.stats.swap = 0;
+
                     if (!jQuery.isEmptyObject(node.stats.os.swap)) {
                         node.stats.swap = numeral(node.stats.os.swap.used_in_bytes / 1024 / 1024).format('0,0.0000');
                     }
