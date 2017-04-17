@@ -40,12 +40,6 @@ nodeTemplate.nodeList = [
 
 ].join("\n");
 
-nodeTemplate.nodeShutdown = [
-    '<div class="lead text-center" style="padding-top: 20px;">Shutdown Command has been sent to Node.<br/>Click button below to refresh node list.<br/>',
-    '<br/><br/><a href="#cluster" class="btn btn-large btn-primary">Click to Continue <i class="icon-chevron-right"></i></a>',
-    '</div>'
-].join("\n");
-
 nodeTemplate.nodeHotThreads = [
     '<div class="modal hide fade" id="threadModal">',
     '<div class="modal-header">',
@@ -292,20 +286,6 @@ nodeTemplate.jvminfotable = [
 
 nodeTemplate.nodeInfo = [
 
-    '<div class="modal hide fade" id="killnodemodal">',
-    '<div class="modal-header">',
-    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>',
-    '<h3>WARNING!</h3>',
-    '</div>',
-    '<div class="modal-body">',
-    '<p>Are you sure you want to Shutdown this Node?<br/><br/>You will have to re-start the node manually after this action!</p>',
-    '</div>',
-    '<div class="modal-footer">',
-    '<a href="#" class="btn" data-dismiss="modal">Close</a>',
-    '<a href="#shutdownNode/<%- nodeId %>" class="btn btn-danger">Shutdown!</a>',
-    '</div>',
-    '</div>',
-
     '<div class="row-fluid"">',
 
 
@@ -317,9 +297,6 @@ nodeTemplate.nodeInfo = [
     '<div class="btn-group">',
     '<a href="#nodeInfoModal" role="button" data-toggle="modal" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Just the Facts, Ma\'am"',
     '><i class="icon-info-sign"></i></a>',
-    '<a href="#killnodemodal" data-toggle="modal" role="button" class="btn btn-info" rel="tipRight" data-placement="bottom" data-title="Shutdown Node"><i',
-    ' class="icon-off"></i>',
-    '</a>',
     '</div> <!-- btn group -->',
     '</div> <!-- toolbar --> ',
 
@@ -408,16 +385,12 @@ nodeTemplate.nodeInfo = [
     '<div class="span4"> ',
     '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
-    '<tr><td>Uptime:</td><td><%- timeUtil.convertMS(osStats.uptime_in_millis) %></td></tr>',
     '<tr><td>Total Memory:</td><td><%- osStats.mem.total %></td></tr>',
     '<tr><td>Total Swap:</td><td><%- osStats.swap.total %></td></tr>',
     '<tr><td>Memory (Used/Free):</td><td><%- osStats.mem.used %> / <%- osStats.mem.free %></td></tr>',
     '<tr><td>Swap (Used/Free):</td><td><%- osStats.swap.used %> / <%- osStats.swap.free %></td></tr>',
-    '<tr><td>CPU User/Sys:</td><td><%- osStats.cpu.user %>% / <%- osStats.cpu.sys %>%</td></tr>',
-    '<tr><td>CPU Idle:</td><td><%- osStats.cpu.idle %>%</td></tr>',
-    '<tr><td>CPU Vendor:</td><td><%- osStats.cpu.vendor %></td></tr>',
-    '<tr><td>CPU Model:</td><td><%- osStats.cpu.model %></td></tr>',
-    '<tr><td>Total Cores:</td><td><%- osStats.cpu.total_cores %></td></tr>',
+    '<tr><td>CPU Used:</td><td><%- osStats.cpu.percent %>%</td></tr>',
+    '<tr><td>Load Avg:</td><td><%- osStats.cpu.load[0] %>&nbsp;&nbsp;<%- osStats.cpu.load[1] %>&nbsp&nbsp;<%- osStats.cpu.load[2] %></td></tr>',
     '</table>',
     '</div>',
 
@@ -453,12 +426,8 @@ nodeTemplate.nodeInfo = [
     '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
     '<tr><td>Open File Descriptors:</td><td><%- processStats.open_file_descriptors %></td></tr>',
-    '<tr><td>CPU Usage:</td><td><%- processStats.cpu.percent %>% of <%- osStats.max_proc_cpu %>%</td></tr>',
-    '<tr><td>CPU System:</td><td><%- timeUtil.convertMS(processStats.cpu.sys_in_millis) %></td></tr>',
-    '<tr><td>CPU User:</td><td><%- timeUtil.convertMS(processStats.cpu.user_in_millis) %></td></tr>',
+    '<tr><td>CPU Usage:</td><td><%- processStats.cpu.percent %>%</td></tr>',
     '<tr><td>CPU Total:</td><td><%- timeUtil.convertMS(processStats.cpu.total_in_millis) %></td></tr>',
-    '<tr><td>Resident Memory:</td><td><%- numeral(processStats.mem.resident_in_bytes).format("0.0b") %></td></tr>',
-    '<tr><td>Shared Memory:</td><td><%- numeral(processStats.mem.share_in_bytes).format("0.0b") %></td></tr>',
     '<tr><td>Total Virtual Memory:</td><td><%- numeral(processStats.mem.total_virtual_in_bytes).format("0.0b") %></td></tr>',
     '</table>',
     '</div>',
@@ -493,14 +462,16 @@ nodeTemplate.nodeInfo = [
     '<div class="span4"> ',
     '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
-    '<tr><td>Index (Queue/Peak/Active):</td><td><%- threadPool.index.queue %>/<%- threadPool.index.largest %>/<%- threadPool.index.active%></td></tr>',
-    '<tr><td>Get (Queue/Peak/Active):</td><td><%- threadPool.get.queue %>/<%- threadPool.get.largest %>/<%- threadPool.get.active%></td></tr>',
-    '<tr><td>Search (Queue/Peak/Active):</td><td><%- threadPool.search.queue %>/<%- threadPool.search.largest %>/<%- threadPool.search.active%></td></tr>',
-    '<tr><td>Bulk (Queue/Peak/Active):</td><td><%- threadPool.bulk.queue %>/<%- threadPool.bulk.largest %>/<%- threadPool.bulk.active%></td></tr>',
-    '<tr><td>Refresh (Queue/Peak/Active):</td><td><%- threadPool.refresh.queue %>/<%- threadPool.refresh.largest %>/<%- threadPool.refresh.active%></td></tr>',
-    '<tr><td>Flush (Queue/Peak/Active):</td><td><%- threadPool.flush.queue %>/<%- threadPool.flush.largest %>/<%- threadPool.flush.active%></td></tr>',
-    '<tr><td>Merge (Queue/Peak/Active):</td><td><%- threadPool.merge.queue %>/<%- threadPool.merge.largest %>/<%- threadPool.merge.active%></td></tr>',
-    '<tr><td>Management (Queue/Peak/Active):</td><td><%- threadPool.management.queue %>/<%- threadPool.management.largest %>/<%- threadPool.management.active%></td></tr>',
+    '<thead><tr><th>Type</th><th>Queue / Peak / Active</th></tr></thead>',
+    '<tr><td>Index:</td><td><%- threadPool.index.queue %> / <%- threadPool.index.largest %> / <%- threadPool.index.active%></td></tr>',
+    '<tr><td>Get:</td><td><%- threadPool.get.queue %> / <%- threadPool.get.largest %> / <%- threadPool.get.active%></td></tr>',
+    '<tr><td>Search:</td><td><%- threadPool.search.queue %> / <%- threadPool.search.largest %> / <%- threadPool.search.active%></td></tr>',
+    '<tr><td>Bulk:</td><td><%- threadPool.bulk.queue %> / <%- threadPool.bulk.largest %> / <%- threadPool.bulk.active%></td></tr>',
+    '<tr><td>Refresh:</td><td><%- threadPool.refresh.queue %> / <%- threadPool.refresh.largest %> / <%- threadPool.refresh.active%></td></tr>',
+    '<tr><td>Flush:</td><td><%- threadPool.flush.queue %> / <%- threadPool.flush.largest %> / <%- threadPool.flush.active%></td></tr>',
+    '<tr><td>Force Merge:</td><td><%- threadPool.force_merge.queue %> / <%- threadPool.force_merge.largest %> / <%- threadPool.force_merge.active%></td></tr>',
+    '<tr><td>Management:</td><td><%- threadPool.management.queue %> / <%- threadPool.management.largest %> / <%- threadPool.management.active%></td></tr>',
+    '<tr><td>Snapshot:</td><td><%- threadPool.snapshot.queue %> / <%- threadPool.snapshot.largest %> / <%- threadPool.snapshot.active%></td></tr>',
     '</table>',
     '</div>',
 
@@ -534,7 +505,6 @@ nodeTemplate.nodeInfo = [
     '<div class="span4"> ',
     '<div class="text-center">&nbsp;</div>',
     '<table class="table table-condensed table-striped table-bordered">',
-    '<tr><td>HTTP Address:</td><td><%- netInfo.http.address %></td></tr>',
     '<tr><td>HTTP Bound Address:</td><td><%- netInfo.http.bound_address %></td></tr>',
     '<tr><td>HTTP Publish Address:</td><td><%- netInfo.http.publish_address %></td></tr>',
     '<tr><td>Transport Address:</td><td><%- netInfo.transport.address %></td></tr>',
@@ -568,6 +538,41 @@ nodeTemplate.nodeInfo = [
 
     /* FS */
     '<div class="lead text-left"><i class="icon-th-large"></i> File System</div>',
+    
+    '<div class="row-fluid">',
+    '<div class="span4"> ',
+    '<h4>Totals</h4>',
+    '<table class="table table-condensed table-striped table-bordered">',
+    '<tr><td>Total Space:</td><td><%- numeral(fsTotal.total_in_bytes).format("0.0b") %></td></tr>',
+    '<tr><td>Free Space:</td><td><%- numeral(fsTotal.free_in_bytes).format("0.0b") %></td></tr>',
+    '<tr><td>Disk Operations:</td><td><%- numeral(fsTotal.operations).format("0,0") %></td></tr>',
+    '<tr><td>Read Operations:</td><td><%- numeral(fsTotal.disk_reads).format("0,0") %></td></tr>',
+    '<tr><td>Write Operations:</td><td><%- numeral(fsTotal.disk_writes).format("0,0") %></td></tr>',
+    '</table>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong># Disk Reads</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-fstotalreads" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+
+    '<div class="span4">',
+    '<div class="text-center"><strong># Disk Writes</strong></div>',
+    '<div class="chart-container text-center">',
+    '<div id="chart-fstotalwrites" class="chart-placeholder"></div>',
+    '<div id="legend"></div>',
+    '</div>',
+    '</div>',
+    '</div>',
+
+    '</div> <!-- end row -->',
+    '<ul class="nav nav-list">',
+    '<li class="divider"></li>',
+    '</ul>',
+
 
     '<% if (_.size(fileSystemArr) > 0) { %>',
     '<% _.each(fileSystemArr, function(fileSystem, count) { %>',

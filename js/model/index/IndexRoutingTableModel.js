@@ -14,25 +14,21 @@
  limitations under the License.
 
  Latest Builds: https://github.com/royrusso/elasticsearch-HQ
-
- http://localhost:9200/_cluster/nodes
  */
 
-var NodeInfoModel = Backbone.Model.extend({
-    defaults:{
-        nodeId:undefined
+/**
+ * /_stats for indices and specific index.
+ * @type {*}
+ */
+var IndexRoutingTableModel = Backbone.Model.extend({
+    defaults: {
+        indexId: undefined
     },
-    initialize:function (args) {
-        console.log("Inside NodeInfoModel");
-        this.nodeId = args.nodeId;
+    initialize: function (args) {
+        console.log("Inside IndexRoutingTableModel");
+        this.indexId = args.indexId;
     },
-    url:function () {
-        if (versionUtil.isNewerOrEqual("5.0.0", cluster.versionNumber.concat)) {
-            return '/_cluster/nodes' + (this.nodeId ? '/' + this.nodeId : '') + '/_all';
-        }
-        else {
-            return '/_cluster/nodes' + (this.nodeId ? '/' + this.nodeId : '') + '?all=true';
-        }
+    url: function () {
+        return '/_cluster/state/routing_table/' + this.indexId;
     }
-
 });

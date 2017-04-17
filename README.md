@@ -7,7 +7,7 @@ If you would like to contribute to this project, please start working on tasks a
 Elasticsearch 5.0
 =================
 
-Currently work is being done to make ElasticHQ compatible with ES 5.0.
+Site plugins are [not supported](https://www.elastic.co/blog/running-site-plugins-with-elasticsearch-5-0) in Elasticsearch 5.0 and you have to host ElasticHQ by your self ([nginx example](example/nginx_es_5.conf)).
 
 ElasticHQ
 =========
@@ -39,10 +39,11 @@ Version Compatibility
 | Elasticsearch Version | ElasticHQ Branch | Latest HQ Version |
 | --------------------- | ---------------- | ------------------|
 | <=1.7                 | 1.0              | v1.0.0            |
-| >=2.x                 | 2.0              | v2.0.3            |
+| =2.x                  | 2.0              | v2.0.3            |
+| =5.x                  | 5.0              | v5.0.0            |
  
 ElasticHQ master branch, always contains the latest releases supporting the latest Elasticsearch. In this case, Master supports 
-Elasticsearch 2.x+.
+Elasticsearch 5.x.
 
 Plugin Installation
 -------------------

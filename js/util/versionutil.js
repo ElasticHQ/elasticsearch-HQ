@@ -42,3 +42,27 @@ versionUtil.isNewer = function (a, b) {
     }
     return false;
 };
+
+/**
+ * @param a base to compare
+ * @param b arg to compare
+ * @return {Boolean} true if b >= a
+ */
+versionUtil.isNewerOrEqual = function (a, b) {
+    try {
+        var partsA = a.split('.');
+        var partsB = b.split('.');
+        var numParts = partsA.length > partsB.length ? partsA.length : partsB.length;
+        var i;
+
+        for (i = 0; i < numParts; i++) {
+            if ((parseInt(partsB[i], 10) || 0) !== (parseInt(partsA[i], 10) || 0)) {
+                return ((parseInt(partsB[i], 10) || 0) >= (parseInt(partsA[i], 10) || 0));
+            }
+        }
+        return false;
+    } catch (e) {
+
+    }
+    return false;
+};
