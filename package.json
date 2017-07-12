@@ -20,6 +20,7 @@
     "grunt-contrib-compress": "~0.5.2",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-connect": "~1.0.2",
     "grunt-rev": "~0.1.0",
     "grunt-usemin": "~2.0.2",
     "grunt-targethtml": "~0.2.4",

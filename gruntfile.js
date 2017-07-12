@@ -122,6 +122,16 @@ module.exports = function (grunt) {
                 jshintrc:'.jshintrc',
                 ignores:['<%= jsDir %>/lib/**', '<%= jsDir %>/all.min.js']
             }
+        },
+         connect: {
+                server: {
+                        options: {
+                                port: 9150,
+                                base: '.',
+            hostname: "0.0.0.0",
+                                keepalive: true
+                        }
+                }
         }
         /*,
          watch:{
@@ -137,6 +147,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-targethtml');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.initConfig(config);
 
@@ -146,6 +157,8 @@ module.exports = function (grunt) {
     grunt.registerTask('dist', [ 'clean', 'concat:css', 'cssmin:minify', 'concat:js', 'uglify', 'targethtml:dist']);
 
     grunt.registerTask('dev', [ 'clean:temp', 'targethtml:dev']);
+    grunt.registerTask('server', ['connect:server']);
+
 
     // Concat and Minify the src directory into dist
     /*    grunt.registerTask('build-dev',

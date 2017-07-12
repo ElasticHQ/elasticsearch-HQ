@@ -1,7 +1,7 @@
 /*! 
 * ElasticHQ
 * Version: 5.0.0
-* Build Date: 04-16-2017
+* Build Date: 07-12-2017
 * Home: http://www.elastichq.org
 * Copyright: (c) 2017, Roy Russo
 * License: Apache License 
