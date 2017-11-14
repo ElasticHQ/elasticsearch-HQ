@@ -23,7 +23,7 @@ http://localhost:9200/comicbook/_search
 }
 },
 "highlight" : {
-"fields" : {
+"stored_fields" : {
 "summary" : {}
 }
 }
