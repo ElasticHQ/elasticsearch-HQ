@@ -1,4 +1,4 @@
-ElasticHQ
+ElasticHQ - Version 3.0 - Experimental
 =========
 
 Monitoring, Management, and Querying Web Interface for ElasticSearch instances and clusters.
