@@ -3,6 +3,8 @@ ElasticHQ
 
 Monitoring, Management, and Querying Web Interface for ElasticSearch instances and clusters.
 
+:loudspeaker: [Important Announcement regarding ElasticHQ v3!](https://groups.google.com/forum/#!topic/elastichq/rZOBFNePRKg)
+
 Benefits:
 * Active real-time monitoring of ElasticSearch clusters and nodes.
 * Manage Indices, Mappings, Shards, Aliases, and Nodes.
