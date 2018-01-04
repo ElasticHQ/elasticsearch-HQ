@@ -1,14 +1,9 @@
-Elasticsearch 5.0
-=================
-
-Site plugins are [not supported](https://www.elastic.co/blog/running-site-plugins-with-elasticsearch-5-0) in Elasticsearch 5.0 and you have to host ElasticHQ by your self ([nginx example](example/nginx_es_5.conf)).
-
 ElasticHQ
 =========
 
 Monitoring, Management, and Querying Web Interface for ElasticSearch instances and clusters.
 
-:loudspeaker: [Important Announcement regarding ElasticHQ v3!](https://groups.google.com/forum/#!topic/elastichq/rZOBFNePRKg)
+:loudspeaker:  [Important Announcement regarding ElasticHQ v3!](https://groups.google.com/forum/#!topic/elastichq/rZOBFNePRKg)
 
 Benefits:
 * Active real-time monitoring of ElasticSearch clusters and nodes.
@@ -61,6 +56,11 @@ Requirements
 ------------
 * A Web Browser.
 * A running instance of ElasticSearch with reachable REST endpoint.
+
+Elasticsearch 5.0
+=================
+
+Site plugins are [not supported](https://www.elastic.co/blog/running-site-plugins-with-elasticsearch-5-0) in Elasticsearch 5.0 and you have to host ElasticHQ by your self ([nginx example](example/nginx_es_5.conf)).
 
 Contributing
 ------------
