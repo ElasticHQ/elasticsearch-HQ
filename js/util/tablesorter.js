@@ -26,7 +26,8 @@ $.tablesorter.addParser({
     },
     format:function (s) {
         if (s !== 0) {
-            var suf = s.match(new RegExp(/(B|K|KB|G|GB|M|MB|T|TB)/i))[1];
+            var suf = s.match(new RegExp(/(B|K|KB|G|GB|M|MB|T|TB)/i));
+            suf = (suf === null) ? 'b' : suf[1];
             var num = parseFloat(s.match(new RegExp(/^[0-9]+(\.[0-9]+)?/))[0]);
             switch (suf.toLowerCase()) {
                 case 'b':

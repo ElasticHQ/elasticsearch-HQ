@@ -47,7 +47,6 @@ var NodeStatView = Backbone.View.extend(
             settings.logPrefix = nodeInfo.nodes[nodeId].settings['logger.prefix'];
             settings.clusterName = nodeInfo.nodes[nodeId].settings['cluster.name'];
             settings.logPath = nodeInfo.nodes[nodeId].settings['path.logs'];
-            settings.http_address = nodeInfo.nodes[nodeId].http_address;
             return settings;
         },
         render: function () {
@@ -62,7 +61,7 @@ var NodeStatView = Backbone.View.extend(
             var hostName = nodeStat.nodes[nodeId].hostname;
             var threadPool = nodeStat.nodes[nodeId].thread_pool;
 
-            var fileSystem = {};
+            /*var fileSystem = {};
             var fileSystemArr = [];
             if (!nodeStat.nodes[nodeId].fs) {
                 fileSystem = nodeStat.nodes[nodeId].fs = {};
@@ -72,7 +71,41 @@ var NodeStatView = Backbone.View.extend(
                 //fileSystem = nodeStat.nodes[nodeId].fs.data[0];
                 // moved out of else
             }
-            fileSystemArr = nodeStat.nodes[nodeId].fs.data;
+            fileSystemArr = nodeStat.nodes[nodeId].fs.data;*/
+
+            var fsTotal = {}
+            var fileSystemArr = [];
+
+            if (nodeStat.nodes[nodeId].fs) {
+              var ioStats = nodeStat.nodes[nodeId].fs.io_stats;
+
+              fsTotal.total_in_bytes = nodeStat.nodes[nodeId].fs.total.total_in_bytes;
+              fsTotal.free_in_bytes = nodeStat.nodes[nodeId].fs.total.free_in_bytes;
+              fsTotal.operations = ioStats.total.operations;
+              fsTotal.disk_reads = ioStats.total.read_operations;
+              fsTotal.disk_writes = ioStats.total.write_operations;
+              fsTotal.disk_read_size_in_bytes = ioStats.total.read_kilobytes * 1024;
+              fsTotal.disk_write_size_in_bytes = ioStats.total.write_kilobytes * 1024;
+
+              $(nodeStat.nodes[nodeId].fs.data).each(function(k, v) {
+                  var tmp = {}, dev = {};
+                  tmp.path = v.path;
+                  tmp.mount = v.mount;
+                  tmp.total_in_bytes = v.total_in_bytes;
+                  tmp.free_in_bytes = v.free_in_bytes;
+                  
+                  dev = ioStats.devices[k];
+
+                  tmp.dev = dev.device_name;
+                  tmp.operations = dev.operations;
+                  tmp.disk_reads = dev.read_operations;
+                  tmp.disk_writes = dev.write_operations;
+                  tmp.disk_read_size_in_bytes = dev.read_kilobytes * 1024;
+                  tmp.disk_write_size_in_bytes = dev.write_kilobytes * 1024;
+
+                  fileSystemArr.push(tmp);
+              });
+            }
 
             var threads = nodeStat.nodes[nodeId].threads;
             var indices = nodeStat.nodes[nodeId].indices;
@@ -127,8 +160,7 @@ var NodeStatView = Backbone.View.extend(
                 indices.search = {};
                 indices.indexing = {};
                 indices.merges = {};
-                indices.filter_cache = {};
-                indices.id_cache = {};
+                indices.query_cache = {};
             }
             if (jQuery.isEmptyObject(httpStats)) {
                 httpStats = {};
@@ -138,19 +170,20 @@ var NodeStatView = Backbone.View.extend(
             }
             if (jQuery.isEmptyObject(threadPool)) {
                 threadPool = {};
-                threadPool.index = {};
-                threadPool.search = {};
-                threadPool.get = {};
                 threadPool.bulk = {};
-                threadPool.refresh = {};
+                threadPool.fetch_shard_started = {};
+                threadPool.fetch_shard_store = {};
                 threadPool.flush = {};
-                threadPool.merge = {};
+                threadPool.force_merge = {};
+                threadPool.generic = {};
+                threadPool.get = {};
+                threadPool.index = {};
+                threadPool.listener = {};
                 threadPool.management = {};
-            }
-
-            // TODO: 2_0 does not return a merge object!
-            if (jQuery.isEmptyObject(threadPool.merge)) {
-                threadPool.merge = {};
+                threadPool.refresh = {};
+                threadPool.search = {};
+                threadPool.snapshot = {};
+                threadPool.warmer = {};
             }
 
             node = nodeInfo.nodes[nodeId];
@@ -160,22 +193,26 @@ var NodeStatView = Backbone.View.extend(
             jvmStats.vm_vendor = nodeInfo.nodes[nodeId].jvm.vm_vendor;
             jvmStats.pid = nodeInfo.nodes[nodeId].jvm.pid;
 
-            lodash.set(osStats, 'cpu.vendor', lodash.get(node, 'os.cpu.vendor', 'N/A'));
-            osStats.cpu.model = lodash.get(node, 'os.cpu.model', 'N/A');
-            osStats.cpu.total_cores = lodash.get(node, 'os.cpu.total_cores', 'N/A');
-            osStats.available_processors = nodeInfo.nodes[nodeId].os.available_processors;
-            osStats.max_proc_cpu = 100 * osStats.available_processors;
-
             netInfo.transport = nodeInfo.nodes[nodeId].transport;
-            if (!netInfo.transport) {
+            
+            if (netInfo.transport) {
+              if (netInfo.transport.bound_address && netInfo.transport.bound_address instanceof Array) {
+                netInfo.transport.bound_address = netInfo.transport.bound_address.join(', ');
+              }
+            } else {
                 netInfo.transport = {};
             }
+          
             netInfo.transport.address = nodeInfo.nodes[nodeId].transport_address;
             netInfo.http = nodeInfo.nodes[nodeId].http;
-            if (!netInfo.http) {
+
+            if (netInfo.http) {
+              if (netInfo.http.bound_address && netInfo.http.bound_address instanceof Array) {
+                netInfo.http.bound_address = netInfo.http.bound_address.join(', ');
+              }
+            } else {
                 netInfo.http = {};
             }
-            netInfo.http.address = nodeInfo.nodes[nodeId].http_address;
 
             // for modal
             var settings = this.buildSettings(nodeInfo, nodeId);
@@ -187,20 +224,17 @@ var NodeStatView = Backbone.View.extend(
             if (jvmStats.uptime) {
                 jvmStats.uptime = jvmStats.uptime.split('and')[0];
             }
-            osStats.mem.total = convert.bytesToSize(osStats.mem.free_in_bytes + osStats.mem.used_in_bytes, 2);
-            osStats.swap.total = convert.bytesToSize(osStats.swap.used_in_bytes + osStats.swap.free_in_bytes, 2);
+            osStats.mem.total = convert.bytesToSize(osStats.mem.total_in_bytes, 2);
+            osStats.swap.total = convert.bytesToSize(osStats.swap.total_in_bytes, 2);
             osStats.mem.used = convert.bytesToSize(osStats.mem.used_in_bytes, 2);
             osStats.mem.free = convert.bytesToSize(osStats.mem.free_in_bytes, 2);
             osStats.swap.used = convert.bytesToSize(osStats.swap.used_in_bytes, 2);
             osStats.swap.free = convert.bytesToSize(osStats.swap.free_in_bytes, 2);
-
-            try {
-                processStats.cpu.sys = processStats.cpu.sys.split('and')[0];
-                processStats.cpu.user = processStats.cpu.user.split('and')[0];
-                processStats.cpu.total = processStats.cpu.total.split('and')[0];
-            }
-            catch (e) {
-            }
+            osStats.cpu.load = [
+              osStats.cpu.load_average['1m'].toFixed(2),
+              osStats.cpu.load_average['5m'].toFixed(2),
+              osStats.cpu.load_average['15m'].toFixed(2)
+            ];
 
             var tpl = _.template(nodeTemplate.nodeInfo);
             $('#workspace').html(tpl(
@@ -213,6 +247,7 @@ var NodeStatView = Backbone.View.extend(
                     address: address,
                     hostName: hostName,
                     threadPool: threadPool,
+                    fsTotal: fsTotal,
                     fileSystemArr: fileSystemArr,
                     threads: threads,
                     indices: indices,
@@ -243,7 +278,6 @@ var NodeStatView = Backbone.View.extend(
                 //show_stack_bottomright({type:'info', title:'Tip', text:'Polling Node "' + nodeName + '" every 5 seconds.'});
             }
             this.renderedModal = true;
-
 
             $("#refreshNodeInfo").click(function () {
                 // stopAllNodePollers();
@@ -276,7 +310,7 @@ var NodeStatView = Backbone.View.extend(
             this.getchart.setData([this.getdata]);
 
             //os
-            var usedCPU = osStats.cpu.user + osStats.cpu.sys;
+            var usedCPU = osStats.cpu.percent;
             this.cpudata = chart.addData(this.cpudata, [new Date().getTime() + 1, usedCPU]);
             this.cpudata.push([now, usedCPU]);
             this.cpuchart = chart.draw("#chart-cpu", this.cpudata, chart.cpu.options());
@@ -291,15 +325,24 @@ var NodeStatView = Backbone.View.extend(
             // process
             this.proccpudata = chart.addData(this.proccpudata, [new Date().getTime() + 1, processStats.cpu.percent]);
             this.proccpudata.push([now, processStats.cpu.percent]);
-            this.proccpuchart = chart.draw("#chart-procpu", this.proccpudata, chart.procscpu.options(100 * osStats.available_processors));
+            this.proccpuchart = chart.draw("#chart-procpu", this.proccpudata, chart.procscpu.options(100));
             this.proccpuchart.setData([this.proccpudata]);
 
             var totalprocmemgb = (processStats.mem.total_virtual_in_bytes) / (1024 * 1024 * 1024);
-            var residentprocmemgb = (processStats.mem.resident_in_bytes) / (1024 * 1024 * 1024);
-            this.procmemdata = chart.addData(this.procmemdata, [new Date().getTime() + 1, residentprocmemgb]);
-            this.procmemdata.push([now, residentprocmemgb]);
-            this.procmemchart = chart.draw("#chart-procmem", this.procmemdata, chart.procmem.options(totalprocmemgb));
+            this.procmemdata = chart.addData(this.procmemdata, [new Date().getTime() + 1, totalprocmemgb]);
+            this.procmemdata.push([now, totalprocmemgb]);
+            this.procmemchart = chart.draw("#chart-procmem", this.procmemdata, chart.procmem.options());
             this.procmemchart.setData([this.procmemdata]);
+
+            this.fstotalreaddata = chart.addData(this.fstotalreaddata, [new Date().getTime() + 1, fsTotal.disk_reads]);
+            this.fstotalreaddata.push([now, fsTotal.disk_reads]);
+            this.fstotalreadchart = chart.draw("#chart-fstotalreads", this.fstotalreaddata, chart.fsreads.options());
+            this.fstotalreadchart.setData([this.fstotalreaddata]);
+
+            this.fstotalwritedata = chart.addData(this.fstotalwritedata, [new Date().getTime() + 1, fsTotal.disk_writes]);
+            this.fstotalwritedata.push([now, fsTotal.disk_writes]);
+            this.fstotalwritechart = chart.draw("#chart-fstotalwrites", this.fstotalwritedata, chart.fswrites.options());
+            this.fstotalwritechart.setData([this.fstotalwritedata]);
 
             // fs
             for (var i = 0; i < fileSystemArr.length; i++) {
@@ -360,6 +403,8 @@ var NodeStatView = Backbone.View.extend(
         proccpuchart: undefined,
         procmemdata: undefined,
         procmemchart: undefined,
+        fstotalreaddata: undefined,
+        fstotalwritedata: undefined,
         fsreaddata: undefined,
         fsreadchart: undefined,
         fswritedata: undefined,

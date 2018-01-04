@@ -29,6 +29,8 @@ var CreateIndexView = Backbone.View.extend(
             var data = this.$('#createIndexForm').serializeObject();
             this.model.set(data);
             this.model.indexId = data.indexId.toLowerCase();
+            // TODO: hack to force use of PUT instead of POST
+            this.model.isNew = function() { return false; }
 
             // this triggers a RESTFul POST (or PUT) request to the URL specified in the model
             this.model.save(

@@ -426,38 +426,27 @@ function cache_rules() {
 
         },
         {
-            label:"Filter Cache Size:",
-            value:"stats.filtercache",
-            formula:"stats.indices.filter_cache.memory_size_in_bytes",
-            formulaKeys:"stats.indices.filter_cache.memory_size_in_bytes",
+            label:"Query Cache Size:",
+            value:"stats.querycache",
+            formula:"stats.indices.query_cache.memory_size_in_bytes",
+            formulaKeys:"stats.indices.query_cache.memory_size_in_bytes",
             calc:false
         },
         {
-            label:"Filter Evictions:",
+            label:"Query Cache Evictions:",
             unit:"per query",
-            comment:"High values indicate insufficient RAM for current queries, or frequent use of one-off values in filters.",
             format:"float",
-            value:"stats.filterevictions",
-            formula:"stats.indices.filter_cache.evictions / stats.indices.search.query_total",
-            formulaKeys:"stats.indices.filter_cache.evictions@@stats.indices.search.query_total",
+            value:"stats.querycacheevictions",
+            formula:"stats.indices.query_cache.evictions / stats.indices.search.query_total",
+            formulaKeys:"stats.indices.query_cache.evictions@@stats.indices.search.query_total",
             upper_limit:[ "0.1", "0.2" ]
-
         },
         {
-            label:"ID Cache Size:",
-            value:"stats.indices.id_cache.memory_size",
-            calc:false
-
-        },
-        {
-            label:"% ID Cache:",
-            value:"stats.idpercentage",
-            formula:"stats.indices.id_cache.memory_size_in_bytes / stats.jvm.mem.heap_committed_in_bytes",
-            formulaKeys:"stats.indices.id_cache.memory_size_in_bytes@@stats.jvm.mem.heap_committed_in_bytes",
+            label:"Query Cache Hit Ratio:",
             format:"pct",
-            upper_limit:["0.2", "0.4"],
-            comment:"Large parent/child ID caches reduce the amount of memory available on the heap."
-
+            value:"stats.querycachehitratio",
+            formula:"stats.indices.query_cache.hit_count / stats.indices.query_cache.total_count",
+            //formulaKeys:"stats.indices.query_cache.hit_count@@whatever",
         }
     ];
 }
@@ -499,76 +488,41 @@ function memory_rules() {
             formulaKeys:"stats.jvm.mem.heap_used_in_bytes@@stats.jvm.mem.heap_committed_in_bytes"
         },
         {
-            label:"GC MarkSweep Frequency:",
+            label:"GC Young Generation Freq:",
             unit:"s",
             comment:"Too frequent GC indicates memory pressure and need for more heap space.",
             format:"comma",
-            value:"stats.gcfreq",
-            formula:"stats.jvm.uptime_in_millis / stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count / 1000",
-            formulaKeys:"stats.jvm.uptime_in_millis@@stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count",
+            value:"stats.gc.young.freq",
+            formula:"stats.jvm.uptime_in_millis / stats.jvm.gc.collectors.young.collection_count / 1000",
+            formulaKeys:"stats.jvm.uptime_in_millis@@stats.jvm.gc.collectors.young.collection_count",
             lower_limit:[ "30", "15", "0" ]
         },
         {
-            label:"GC MarkSweep Duration:",
+            label:"GC Young Generation Duration:",
             comment:"Long durations may indicate that swapping is slowing down GC, or need for more heap space.",
             format:"ms",
-            value:"stats.gcduration",
-            formula:"stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_time_in_millis / stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count",
-            formulaKeys:"stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_time_in_millis@@stats.jvm.gc.collectors.ConcurrentMarkSweep.collection_count",
+            value:"stats.gc.young.duration",
+            formula:"stats.jvm.gc.collectors.young.collection_time_in_millis / stats.jvm.gc.collectors.young.collection_count",
+            formulaKeys:"stats.jvm.gc.collectors.young.collection_time_in_millis@@stats.jvm.gc.collectors.yooung.collection_count",
             upper_limit:[ "150", "400" ]
         },
         {
-            label:"GC ParNew Frequency:",
-            unit:"s",
-            format:"comma",
-            value:"stats.gcparnew",
-            formula:"stats.jvm.uptime_in_millis / stats.jvm.gc.collectors.ParNew.collection_count / 1000",
-            formulaKeys:"stats.jvm.uptime_in_millis@@stats.jvm.gc.collectors.ParNew.collection_count"
-        },
-        {
-            label:"GC ParNew Duration:",
-            format:"ms",
-            value:"stats.gcparnewduration",
-            formula:"stats.jvm.gc.collectors.ParNew.collection_time_in_millis / stats.jvm.gc.collectors.ParNew.collection_count",
-            formulaKeys:"stats.jvm.gc.collectors.ParNew.collection_time_in_millis@@stats.jvm.gc.collectors.ParNew.collection_count",
-            upper_limit:[ "100", "200" ]
-        },
-        {
-            label:"G1 GC Young Generation Freq:",
+            label:"GC Old Generation Freq:",
             unit:"s",
             comment:"Too frequent GC indicates memory pressure and need for more heap space.",
             format:"comma",
-            value:"stats.g1gcfreq",
-            formula:"stats.jvm.uptime_in_millis / stats.jvm.gc.collectors['G1 Young Generation'].collection_count / 1000",
-            formulaKeys:"stats.jvm.uptime_in_millis@@stats.jvm.gc.collectors['G1 Young Generation'].collection_count",
+            value:"stats.gc.old.freq",
+            formula:"stats.jvm.uptime_in_millis / stats.jvm.gc.collectors.old.collection_count / 1000",
+            formulaKeys:"stats.jvm.uptime_in_millis@@stats.jvm.gc.collectors.old.collection_count",
             lower_limit:[ "30", "15", "0" ]
         },
         {
-            label:"G1 GC Young Generation Duration:",
+            label:"GC Old Generation Duration:",
             comment:"Long durations may indicate that swapping is slowing down GC, or need for more heap space.",
             format:"ms",
-            value:"stats.g1gcduration",
-            formula:"stats.jvm.gc.collectors['G1 Young Generation'].collection_time_in_millis / stats.jvm.gc.collectors['G1 Young Generation'].collection_count",
-            formulaKeys:"stats.jvm.gc.collectors['G1 Young Generation'].collection_time_in_millis@@stats.jvm.gc.collectors['G1 Young Generation'].collection_count",
-            upper_limit:[ "150", "400" ]
-        },
-        {
-            label:"G1 GC Old Generation Freq:",
-            unit:"s",
-            comment:"Too frequent GC indicates memory pressure and need for more heap space.",
-            format:"comma",
-            value:"stats.g1gcold",
-            formula:"stats.jvm.uptime_in_millis / stats.jvm.gc.collectors['G1 Old Generation'].collection_count / 1000",
-            formulaKeys:"stats.jvm.uptime_in_millis@@stats.jvm.gc.collectors['G1 Old Generation'].collection_count",
-            lower_limit:[ "30", "15", "0" ]
-        },
-        {
-            label:"G1 GC Old Generation Duration:",
-            comment:"Long durations may indicate that swapping is slowing down GC, or need for more heap space.",
-            format:"ms",
-            value:"stats.g1gcoldduration",
-            formula:"stats.jvm.gc.collectors['G1 Old Generation'].collection_time_in_millis / stats.jvm.gc.collectors['G1 Old Generation'].collection_count",
-            formulaKeys:"stats.jvm.gc.collectors['G1 Old Generation'].collection_time_in_millis@@stats.jvm.gc.collectors['G1 Old Generation'].collection_count",
+            value:"stats.gc.old.duration",
+            formula:"stats.jvm.gc.collectors.old.collection_time_in_millis / stats.jvm.gc.collectors.old.collection_count",
+            formulaKeys:"stats.jvm.gc.collectors.old.collection_time_in_millis@@stats.jvm.gc.collectors.old.collection_count",
             upper_limit:[ "150", "400" ]
         },
         {

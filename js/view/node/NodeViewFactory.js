@@ -45,7 +45,6 @@ function NodeStatsViewFactory() {
                 //settings.logPrefix = nodeInfo.nodes[nodeId].settings['logger.prefix'];
                 settings.clusterName = nodeInfo.nodes[nodeId].settings['cluster'].name;
                 settings.logPath = nodeInfo.nodes[nodeId].settings['path'].logs;
-                settings.http_address = nodeInfo.nodes[nodeId].http_address;
                 settings.host = nodeInfo.nodes[nodeId].host;
                 return settings;
             }
