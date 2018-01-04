@@ -58,9 +58,20 @@ Requirements
 * A running instance of ElasticSearch with reachable REST endpoint.
 
 Elasticsearch 5.0
-=================
+-----------------
 
 Site plugins are [not supported](https://www.elastic.co/blog/running-site-plugins-with-elasticsearch-5-0) in Elasticsearch 5.0 and you have to host ElasticHQ by your self ([nginx example](example/nginx_es_5.conf)).
+
+Enabling CORS
+-------------
+You most likely need to enable CORS on your Elasticsearch yml configs for this plugin to work if using it from outside of the cluster. 
+
+```
+http.cors.enabled : true
+http.cors.allow-origin : "*"
+http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
+```
 
 Contributing
 ------------
