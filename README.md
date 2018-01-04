@@ -1,9 +1,3 @@
-Contributing
-============
-
-If you would like to contribute to this project, please start working on tasks and creating pull requests.
-
-
 Elasticsearch 5.0
 =================
 
