@@ -1,0 +1,12 @@
+jmespath==0.9.3
+
+# Cache
+dogpile.cache == 0.6.3
+
+# Flask
+Flask==0.12.2
+Flask-restful==0.3.6
+
+elasticsearch2
+elasticsearch5
+elasticsearch
