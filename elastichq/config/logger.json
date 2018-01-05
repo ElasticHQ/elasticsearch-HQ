@@ -75,7 +75,7 @@
   "root": {
     "level": "DEBUG",
     "handlers": [
-      "console", "standard_handler"
+      "console"
     ]
   }
 }
