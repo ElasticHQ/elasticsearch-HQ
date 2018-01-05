@@ -5,6 +5,11 @@ This version is considered experimental until a formal v3.0GA release. Until the
 
 For the formal announcement of this version, [see here](https://groups.google.com/forum/#!topic/elastichq/rZOBFNePRKg).
 
+Requirements
+------------
+
+* Python 3.4+
+
 Notes + Support
 ------------
 * Google Group can be found here: https://groups.google.com/d/forum/elastichq

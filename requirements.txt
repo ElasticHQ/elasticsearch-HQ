@@ -7,6 +7,7 @@ dogpile.cache == 0.6.3
 Flask==0.12.2
 Flask-restful==0.3.6
 
-elasticsearch2
-elasticsearch5
-elasticsearch
+urllib3<1.23,>=1.21.1
+requests>=2.0.0, <3.0.0
+
+six==1.8.0
