@@ -3,7 +3,7 @@ __author__ = 'royrusso'
 from flask import Flask
 
 from .api import api_blueprint
-from .constants import init_log
+from .globals import init_log
 
 # WARNING: Pycharm will remove this line when reformatting.
 from .api import endpoints

@@ -3,7 +3,8 @@ from functools import wraps
 from flask import jsonify
 
 from ..common.status_codes import HTTP_Status
-from ..constants import LOG
+from ..globals import LOG
+from ..vendor.elasticsearch.connections import ConnectionNotFoundException
 
 
 def request_wrapper(functor, message="Oops! Something bad happened."):
@@ -22,6 +23,9 @@ def request_wrapper(functor, message="Oops! Something bad happened."):
             return functor(*args, **kwargs)
         except ApiException as ex:
             return ex.to_response()
+        except ConnectionNotFoundException as ex:
+            LOG.exception(ex.message)
+            return ApiException(message=ex.message, status_code=HTTP_Status.NOT_FOUND).to_response()
         except Exception as e:
             exception_message = message or 'Error performing request'
             LOG.exception(exception_message)
@@ -37,7 +41,7 @@ class ApiException(Exception):
         self.status_code = status_code
 
     def to_response(self):
-        response = jsonify({"message": self.message})
+        response = jsonify({"message": self.message, "status_code" : self.status_code})
         response.status_code = self.status_code
         response.headers.add('Status', self.status_code)
 

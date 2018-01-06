@@ -1,13 +1,15 @@
-
 from six import string_types
+
 from . import serializer
 from . import Elasticsearch
+
 
 class Connections(object):
     """
     Class responsible for holding connections to different clusters. Used as a
     singleton in this module.
     """
+
     def __init__(self):
         self._kwargs = {}
         self._conns = {}
@@ -86,7 +88,19 @@ class Connections(object):
             return self.create_connection(alias, **self._kwargs[alias])
         except KeyError:
             # no connection and no kwargs to set one up
-            raise KeyError('There is no connection with alias %r.' % alias)
+            raise ConnectionNotFoundException('There is no connection with alias %r.' % alias)
+            # raise KeyError('There is no connection with alias %r.' % alias)
+
+
+class ConnectionNotFoundException(Exception):
+    """
+    Added to handle not finding a connection in the pool. This will occur if the application loses state, and the pool is wiped. Subsequent calls will result in this exception being thrown.
+    """
+
+    def __init__(self, message, status_code=404):
+        super().__init__(message, status_code)
+        self.message = message
+
 
 connections = Connections()
 configure = connections.configure

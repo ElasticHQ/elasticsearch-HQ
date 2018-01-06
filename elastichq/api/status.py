@@ -7,7 +7,7 @@ from flask_restful import Resource
 from ..common.status_codes import HTTP_Status
 from . import api
 from ..common.api_response import APIResponse
-from ..constants import LOG
+from ..globals import LOG
 
 
 class Status(Resource):

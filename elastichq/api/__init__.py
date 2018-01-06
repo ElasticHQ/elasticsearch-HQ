@@ -3,7 +3,7 @@ __author__ = 'royrusso'
 from flask import Blueprint
 from flask_restful import Api
 
-api_blueprint = Blueprint("api", __name__, url_prefix='')
+api_blueprint = Blueprint("api", __name__, url_prefix='/api')
 api = Api(api_blueprint, catch_all_404s=True)
 
 

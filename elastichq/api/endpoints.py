@@ -1,5 +1,6 @@
 __author__ = 'royrusso'
 
-from . import cluster
-from . import hq
+from . import clusters
+from . import indices
+from . import nodes
 from . import status

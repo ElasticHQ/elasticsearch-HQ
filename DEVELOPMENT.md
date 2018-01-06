@@ -1,9 +1,9 @@
 Development Instructions
 =========
 
-This application uses NodeJS and Grunt for building its development environment, distribution copy, and (some) dependency management.
+This application uses Python 3.4+
 
-Follow the steps below to build the appropriate structure for either local testing or distro. We assume you have Grunt and NodeJS installed.
+Follow the steps below to build the appropriate structure for either local testing or distro. We assume you have Python 3.4+ installed.
 
 DEVELOPMENT
 ---------------
