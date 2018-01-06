@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flask - Templates</title>
+</head>
+<body>
+<div>
+  <h1>in /templates</h1>
+  
+
+  
+  <img src="{{url_for('static', filename='img/foo.gif')}}"/>
+
+  URL: {{url_for('static', filename='img/foo.gif')}}
+
+</div>
+</body>
+</html>

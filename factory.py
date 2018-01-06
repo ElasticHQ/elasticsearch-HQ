@@ -2,11 +2,11 @@ __author__ = 'royrusso'
 
 from flask import Flask
 
-from .api import api_blueprint
-from .globals import init_log
+from elastichq.api import api_blueprint, public_blueprint
+from elastichq.globals import init_log
 
 # WARNING: Pycharm will remove this line when reformatting.
-from .api import endpoints
+from elastichq.api import endpoints
 
 def create_app():
     app = Flask(__name__)
@@ -14,6 +14,10 @@ def create_app():
     app.config.from_object('elastichq.config.settings')
 
     app.register_blueprint(api_blueprint)
+    app.register_blueprint(public_blueprint)
+
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
 
     init_log()
 

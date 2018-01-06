@@ -10,7 +10,7 @@ class TestFixture:
 
     def __init__(self, config):
         try:
-            from elastichq import factory
+            import factory
 
             self._app = factory.create_app()
             self.app = self._app.test_client()
