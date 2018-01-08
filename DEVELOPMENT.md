@@ -1,26 +1,39 @@
-Development Instructions
-=========
+# Development Instructions
 
 See README for this version until a GA release.
 
 
-DEVELOPMENT
----------------
+## DEVELOPMENT
+
+1. Use Python 3.4+
+2. We advise that you create a virtual environment for this project.
+
+## TESTING
+
+1. ``/tests/scripts`` contains ``start_clusters.sh`` which will start up 3 ES clusters on ports 9200, 8200, 7200. These are versions 2.x, 5.x, and 6.x respectively.
+2. Edit ``start_clusters.sh`` to point to your local ES binaries.
+3. Source the virtual environment:
+```sh
+source ../environments/elastichq/bin/activate
+```
+4. To run tests:
+```sh
+elastichq/run_tests
+```
+
+### Notes
+
+* Coverage report will be appear under ``/tests/cover``.
+* All tests will fail without those 3 clusters running. They are the 3 major versions that HQ currently supports. 
+* The scripts under ``/tests/scripts`` allow for starting, stopping, and listing all clusters. You will need to edit those for the tests to run.
+
+
+## DISTRIBUTION
+
 
 ...
 
-TESTING
-------------
-
-
-
-DISTRIBUTION
----------------
-
-...
-
-CHANGELOG
---------------
+## CHANGELOG
 
 ...
 
