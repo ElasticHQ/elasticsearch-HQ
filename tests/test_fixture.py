@@ -26,3 +26,21 @@ class TestFixture:
 
     def get_response_data(self, response):
         return json.loads(response.data.decode('utf-8'))
+
+    def add_all_clusters(self, clear_first=True):
+        """
+        Adds all clusters to the connection pool. 
+        :param clear_first: whether we should delete all existing clusters from the pool
+        :return:
+        """
+
+        if clear_first is True:
+            self.clear_all_clusters()
+
+        self.app.post('/api/clusters/_connect', data=self.config.ES_V2_CLUSTER, content_type='application/json')
+        self.app.post('/api/clusters/_connect', data=self.config.ES_V5_CLUSTER, content_type='application/json')
+        self.app.post('/api/clusters/_connect', data=self.config.ES_V6_CLUSTER, content_type='application/json')
+
+    def clear_all_clusters(self):
+        response = self.app.delete('/api/clusters/_all/_connect')
+        assert 200 == response.status_code

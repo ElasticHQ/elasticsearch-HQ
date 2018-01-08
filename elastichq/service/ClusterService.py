@@ -80,5 +80,12 @@ class ClusterService:
         return res
 
     def delete_connection(self, cluster_name):
-        CONNECTIONS.remove_connection(cluster_name)
+        cluster_names = []
+        if cluster_name == '_all':
+            for connection in CONNECTIONS._conns:
+                cluster_names.append(connection)
+            for cluster in cluster_names:
+                CONNECTIONS.remove_connection(cluster)
+        else:
+            CONNECTIONS.remove_connection(cluster_name)
         return

@@ -5,7 +5,12 @@ from .status_codes import HTTP_Status
 
 
 def APIResponse(data, status_code=HTTP_Status.OK, headers=None, message=None):
-    response = api.make_response(data, status_code)
+    if not isinstance(data, (list)):
+        data = [data]
+
+    formatted_response = {'data': data, 'status_code': status_code, 'message': message}
+
+    response = api.make_response(formatted_response, status_code)
 
     response.headers.add('Status', status_code)
 
