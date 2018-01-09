@@ -1,8 +1,8 @@
 __author__ = 'royrusso'
 
 
-class TestCluster:
-    def test_get_clusters(cls, fixture):
+class TestConnections:
+    def test_get_clusters(self, fixture):
         fixture.clear_all_clusters()
 
         response = fixture.app.get('/api/clusters')
@@ -11,7 +11,7 @@ class TestCluster:
         res = fixture.get_response_data(response)
         assert res['data'] == []
 
-    def test_connect_to_clusters(cls, fixture):
+    def test_connect_to_clusters(self, fixture):
         fixture.clear_all_clusters()
 
         response = fixture.app.post('/api/clusters/_connect', data=fixture.config.ES_V2_CLUSTER, content_type='application/json')
@@ -47,7 +47,7 @@ class TestCluster:
         res = fixture.get_response_data(response)
         assert len(res['data']) == 3
 
-    def test_delete_connection(cls, fixture):
+    def test_delete_connection(self, fixture):
         fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/clusters')
@@ -81,7 +81,7 @@ class TestCluster:
         res = fixture.get_response_data(response)
         assert len(res['data']) == 3
 
-    def test_delete_all_connections(cls, fixture):
+    def test_delete_all_connections(self, fixture):
         fixture.clear_all_clusters()
 
         fixture.app.post('/api/clusters/_connect', data=fixture.config.ES_V2_CLUSTER, content_type='application/json')

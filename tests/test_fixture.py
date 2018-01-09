@@ -8,6 +8,10 @@ class TestFixture:
     app = None  # Flask test client
     headers = None  # In case we need to pass custom headers
 
+    cluster_v2_name = None
+    cluster_v5_name = None
+    cluster_v6_name = None
+
     def __init__(self, config):
         try:
             import factory
@@ -37,10 +41,29 @@ class TestFixture:
         if clear_first is True:
             self.clear_all_clusters()
 
-        self.app.post('/api/clusters/_connect', data=self.config.ES_V2_CLUSTER, content_type='application/json')
-        self.app.post('/api/clusters/_connect', data=self.config.ES_V5_CLUSTER, content_type='application/json')
-        self.app.post('/api/clusters/_connect', data=self.config.ES_V6_CLUSTER, content_type='application/json')
+        response = self.app.post('/api/clusters/_connect', data=self.config.ES_V2_CLUSTER, content_type='application/json')
+        self.cluster_v2_name = self.get_response_data(response)['data'][0]['cluster_name']
+
+        response = self.app.post('/api/clusters/_connect', data=self.config.ES_V5_CLUSTER, content_type='application/json')
+        self.cluster_v5_name = self.get_response_data(response)['data'][0]['cluster_name']
+
+        response = self.app.post('/api/clusters/_connect', data=self.config.ES_V6_CLUSTER, content_type='application/json')
+        self.cluster_v6_name = self.get_response_data(response)['data'][0]['cluster_name']
 
     def clear_all_clusters(self):
         response = self.app.delete('/api/clusters/_all/_connect')
         assert 200 == response.status_code
+
+    def has_all_keys(self, primaries, data_dict, excludes=[]):
+        """
+        Checks whether the returned json doc contains all keys required. This is used to insure that the endpoints are returning uniform data so the UI doesn't error out, regardless of ES version. 
+        
+        :param primaries: list of keys to check against
+        :param data_dict: dict from DB to check for keys
+        :param exclude: exclude checking for this specific key. Some versions will not have the same keys
+        :return:
+        """
+        for key in primaries:
+            if key not in data_dict and key not in excludes:
+                return False
+        return True

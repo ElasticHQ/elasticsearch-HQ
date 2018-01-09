@@ -60,6 +60,10 @@ class ClusterService:
         connection = CONNECTIONS.get_connection(cluster_name)
         return connection.cluster.get_settings(include_defaults=True, request_timeout=REQUEST_TIMEOUT)
 
+    def put_cluster_settings(self, settings, cluster_name):
+        connection = CONNECTIONS.get_connection(cluster_name)
+        return connection.cluster.put_settings(body=settings, request_timeout=REQUEST_TIMEOUT)
+
     def get_clusters(self):
         """
         Returns a list of clusters from the connection pool

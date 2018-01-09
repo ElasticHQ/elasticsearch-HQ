@@ -93,7 +93,8 @@ class ClusterSettings(Resource):
 
     @request_wrapper
     def put(self, cluster_name):
-        response = ClusterService().get_cluster_settings(cluster_name)
+        json_data = request.get_json(force=True)
+        response = ClusterService().put_cluster_settings(json_data, cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
 
