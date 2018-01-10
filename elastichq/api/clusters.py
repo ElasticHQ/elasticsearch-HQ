@@ -6,7 +6,7 @@ from flask import request
 from ..common.status_codes import HTTP_Status
 from . import api
 from ..common.api_response import APIResponse
-from ..service import ClusterService
+from ..service import ConnectionService, ClusterService
 from ..common.exceptions import request_wrapper, BadRequest
 
 
@@ -31,7 +31,7 @@ class ClusterConnection(Resource):
         if params.get('use_ssl', None) is True:
             scheme = 'https'
 
-        response = ClusterService().create_connection(ip=params['ip'], port=params.get('port', "9200"), scheme=scheme)
+        response = ConnectionService().create_connection(ip=params['ip'], port=params.get('port', "9200"), scheme=scheme)
         return APIResponse(response, HTTP_Status.CREATED, None)
 
     @request_wrapper
@@ -40,7 +40,7 @@ class ClusterConnection(Resource):
         Deletes a connection from the connection pool, given a cluster name
         :return:
         """
-        response = ClusterService().delete_connection(cluster_name)
+        response = ConnectionService().delete_connection(cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
 

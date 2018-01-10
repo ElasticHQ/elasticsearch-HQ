@@ -5,41 +5,10 @@ import json
 from requests import Timeout
 import requests
 
-from ..globals import CONNECTIONS, REQUEST_TIMEOUT
-from ..vendor.elasticsearch import Elasticsearch
+from elastichq.globals import CONNECTIONS, REQUEST_TIMEOUT
 
 
 class ClusterService:
-    """
-    Many of the these service calls mirror Cluster API <https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster.html>. In addition, this service also handles our 
-    connection poos to all configured clusters.
-    """
-
-    def create_connection(self, ip, port, scheme='http'):
-        """
-        Creates a connection with a cluster and place the connection inside of a connection pool, using the cluster_name as an alias.
-        
-        :param ip: 
-        :param port: 
-        :param scheme: 
-        :return:
-        """
-        # determine version first
-        response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
-        content = json.loads(response.content.decode('utf-8'))
-
-        # TODO: is supported version?
-
-        # assuming supported, create connection pool with alias.
-        # TODO: configure timeout
-        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5, version=content.get('version').get('number'))
-        CONNECTIONS.add_connection(alias=content.get('cluster_name'), conn=conn)
-
-        content['connection_created'] = True
-        content['host'] = conn.transport.seed_connections[0].host
-
-        return content
-
     def get_cluster_health(self, cluster_name):
         connection = CONNECTIONS.get_connection(cluster_name)
         return connection.cluster.health(request_timeout=REQUEST_TIMEOUT)
@@ -82,14 +51,3 @@ class ClusterService:
 
             res.append(content)
         return res
-
-    def delete_connection(self, cluster_name):
-        cluster_names = []
-        if cluster_name == '_all':
-            for connection in CONNECTIONS._conns:
-                cluster_names.append(connection)
-            for cluster in cluster_names:
-                CONNECTIONS.remove_connection(cluster)
-        else:
-            CONNECTIONS.remove_connection(cluster_name)
-        return

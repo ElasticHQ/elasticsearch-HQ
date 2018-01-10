@@ -12,7 +12,7 @@ node_modules
 dist
 npm-debug.log
 bower_components
-
+application.log
 
 ### Python template
 # Byte-compiled / optimized / DLL files

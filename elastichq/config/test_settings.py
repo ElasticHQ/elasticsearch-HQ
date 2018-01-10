@@ -1,6 +1,12 @@
 __author__ = 'royrusso'
 
 # These settings are only used by the unittests
+import os
+
+BASEPATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEPATH, 'test_elastichq.db')
+SQLALCHEMY_TRACK_MODIFICATIONS = False  # deprecation warning
+# SQLALCHEMY_MIGRATE_REPO = os.path.join(BASEPATH, 'db_repository')
 
 HQ_SITE_URL = 'http://elastichq.org'
 HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
@@ -34,5 +40,3 @@ KEYS_NODE_STATS = ['process', 'indices', 'jvm', 'transport', 'thread_pool', 'tim
 
 KEYS_NODE_INFO = ['process', 'plugins', 'build', 'ip', 'modules', 'http_address', 'thread_pool', 'jvm', 'name', 'host', 'settings', 'os', 'transport', 'http', 'transport_address',
                   'version']
-dict_keys(['os', 'process', 'modules', 'thread_pool', 'http', 'total_indexing_buffer', 'transport', 'ip', 'settings', 'jvm', 'version', 'build_hash', 'host', 'transport_address', 
-           'ingest', 'roles', 'plugins', 'name'])
