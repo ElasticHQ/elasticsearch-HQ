@@ -24,11 +24,14 @@ def init_log():
 
 def init_database(app):
     db.init_app(app)
-    
+
 
     # noinspection PyUnresolvedReferences
     import elastichq.model
 
+    # for dev
+    # db.drop_all(app=app)
+    
     db.create_all(app=app)
 
 
