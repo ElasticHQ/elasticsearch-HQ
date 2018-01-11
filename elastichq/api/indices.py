@@ -10,6 +10,12 @@ from ..service import IndicesService
 from ..common.exceptions import request_wrapper
 
 
+class IndexSummary(Resource):
+    @request_wrapper
+    def get(self, cluster_name, index_names=None):
+        response = IndicesService().get_indices_summary(cluster_name, index_names)
+        return APIResponse(response, HTTP_Status.OK, None)
+
 class IndexStats(Resource):
     @request_wrapper
     def get(self, cluster_name, index_names=None):
@@ -99,6 +105,8 @@ class IndexMapping(Resource):
 api.add_resource(IndexAction, '/indices/<string:cluster_name>/<string:index_name>/action/<string:action>', endpoint='index_command', methods=['GET'])
 api.add_resource(Index, '/indices/<string:cluster_name>/<string:index_name>', endpoint='index', methods=['GET', 'DELETE', 'POST'])
 api.add_resource(IndexStats, '/indices/<string:cluster_name>/<string:index_names>/_stats', '/indices/<string:cluster_name>/_stats', endpoint='indices_stats', methods=['GET'])
+api.add_resource(IndexSummary, '/indices/<string:cluster_name>/<string:index_names>/_summary', '/indices/<string:cluster_name>/_summary', endpoint='indices_summary',
+                 methods=['GET'])
 api.add_resource(IndexList, '/indices/<string:cluster_name>/<string:index_name>', '/indices/<string:cluster_name>', endpoint='indices', methods=['GET'])
 api.add_resource(IndexAlias, '/indices/<string:cluster_name>/<string:index_name>/_alias/<string:alias_name>', endpoint='index_alias', methods=['GET', 'DELETE', 'POST'])
 api.add_resource(IndexMapping, '/indices/<string:cluster_name>/<string:index_name>/_mapping/<string:mapping_name>', endpoint='index_mapping', methods=['GET'])

@@ -1,7 +1,10 @@
 __author__ = 'royrusso'
 
-from ..globals import CONNECTIONS, REQUEST_TIMEOUT
+import jmespath
+
+from ..globals import REQUEST_TIMEOUT
 from elastichq.service import ConnectionService
+
 
 class IndicesService:
     def get_indices_stats(self, cluster_name, indices_names=None):
@@ -60,3 +63,18 @@ class IndicesService:
         # TODO: add options here, per: https://www.elastic.co/guide/en/elasticsearch/reference/6.x/indices-get-mapping.html#indices-get-mapping
         connection = ConnectionService().get_connection(cluster_name)
         return connection.indices.get_mapping(index=index_name, doc_type=mapping_name, request_timeout=REQUEST_TIMEOUT)
+
+    def get_indices_summary(self, cluster_name, indices_names=None):
+        connection = ConnectionService().get_connection(cluster_name)
+        indices_stats = connection.indices.stats(index=indices_names, request_timeout=REQUEST_TIMEOUT)
+        indices = []
+        the_indices = indices_stats.get("indices", None)
+        index_keys = list(the_indices.keys())
+        for key in index_keys:
+            one_index = the_indices.get(key)
+            index = {"index_name": key}
+            index['docs'] = jmespath.search("primaries.docs.count", one_index)
+            index['size_in_bytes'] = jmespath.search("primaries.store.size_in_bytes", one_index)
+            index['fielddata'] = {'memory_size_in_bytes': jmespath.search("total.fielddata.memory_size_in_bytes", one_index)}
+            indices.append(index)
+        return indices
