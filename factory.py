@@ -3,7 +3,7 @@ __author__ = 'royrusso'
 from flask import Flask
 
 from elastichq.api import api_blueprint, public_blueprint
-from elastichq.globals import init_log, init_database
+from elastichq.globals import init_log, init_database, init_marshmallow
 
 
 
@@ -11,10 +11,13 @@ from elastichq.globals import init_log, init_database
 from elastichq.api import endpoints
 
 
-def create_app():
+def create_app(test=False):
     app = Flask(__name__)
 
-    app.config.from_object('elastichq.config.settings')
+    if test is True:
+        app.config.from_object('elastichq.config.test_settings')
+    else:
+        app.config.from_object('elastichq.config.settings')
 
     init_log()
 
@@ -24,6 +27,8 @@ def create_app():
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-    init_database(app)
+    init_database(app, tests=test)
 
+    init_marshmallow(app)
+    
     return app

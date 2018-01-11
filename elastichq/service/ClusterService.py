@@ -1,53 +1,69 @@
 __author__ = 'royrusso'
+import jmespath
 
-import json
-
-from requests import Timeout
-import requests
-
-from elastichq.globals import CONNECTIONS, REQUEST_TIMEOUT
-
+from elastichq.globals import REQUEST_TIMEOUT
+from .ConnectionService import ConnectionService
+from .NodeService import NodeService
 
 class ClusterService:
     def get_cluster_health(self, cluster_name):
-        connection = CONNECTIONS.get_connection(cluster_name)
+        connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.health(request_timeout=REQUEST_TIMEOUT)
 
     def get_cluster_state(self, cluster_name):
-        connection = CONNECTIONS.get_connection(cluster_name)
+        connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.state(request_timeout=REQUEST_TIMEOUT)
 
     def get_cluster_stats(self, cluster_name):
-        connection = CONNECTIONS.get_connection(cluster_name)
+        connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.stats(request_timeout=REQUEST_TIMEOUT)
 
     def get_cluster_pending_tasks(self, cluster_name):
-        connection = CONNECTIONS.get_connection(cluster_name)
+        connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.pending_tasks(request_timeout=REQUEST_TIMEOUT)
 
     def get_cluster_settings(self, cluster_name):
-        connection = CONNECTIONS.get_connection(cluster_name)
+        connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.get_settings(include_defaults=True, request_timeout=REQUEST_TIMEOUT)
 
     def put_cluster_settings(self, settings, cluster_name):
-        connection = CONNECTIONS.get_connection(cluster_name)
+        connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.put_settings(body=settings, request_timeout=REQUEST_TIMEOUT)
 
     def get_clusters(self):
+        clusters = ConnectionService().get_connections()
+        for cluster in clusters:
+            if cluster.cluster_connected is True:
+                cluster.cluster_health = self.get_cluster_health(cluster_name=cluster.cluster_name)
+        return clusters
+
+    def get_cluster_summary(self, cluster_name):
         """
-        Returns a list of clusters from the connection pool
+        Returns a high-level view of the cluster using several existing endpoints from ES.
+        :param cluster_name: 
         :return:
         """
-        res = []
-        for connection in CONNECTIONS._conns:
-            conn = CONNECTIONS.get_connection(connection)
-            try:
-                response = requests.get(conn.transport.seed_connections[0].host, timeout=REQUEST_TIMEOUT)
-                content = json.loads(response.content.decode('utf-8'))
-                content['timed_out'] = False
-            except Timeout as toe:
-                content = {"cluster_name": connection, "timed_out": True, "version": {"number": conn.version}}
-            content['host'] = conn.transport.seed_connections[0].host
+        connection = ConnectionService().get_connection(cluster_name)
+        summary = connection.cluster.health(request_timeout=REQUEST_TIMEOUT)
+        summary['version'] = connection.version
 
-            res.append(content)
-        return res
+        stats = connection.cluster.stats(request_timeout=REQUEST_TIMEOUT)
+        summary['indices_size_in_bytes'] = jmespath.search("indices.store.size_in_bytes", stats)
+        summary['indices_count'] = jmespath.search("indices.count", stats)
+        summary['number_of_documents'] = jmespath.search("indices.docs.count", stats)
+
+        if connection.version.startswith("2"):
+            nodes = NodeService().get_node_info(cluster_name)
+            state = connection.cluster.state(request_timeout=REQUEST_TIMEOUT)
+            the_nodes = jmespath.search("nodes", state)
+            nodes_keys = list(the_nodes.keys())
+            nodes = []
+            for key in nodes_keys:
+                node = the_nodes.get(key)
+                node['node_id'] = key
+                nodes.append(node)
+            summary['nodes'] = nodes
+        else:
+            pass
+
+        return summary

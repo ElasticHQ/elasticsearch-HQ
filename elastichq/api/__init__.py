@@ -1,5 +1,7 @@
 __author__ = 'royrusso'
-from flask import Blueprint, render_template
+import time
+
+from flask import Blueprint, render_template, g
 from flask_restful import Api
 
 api_blueprint = Blueprint("api", __name__, url_prefix='/api')
@@ -29,3 +31,17 @@ def add_cors(resp):
         resp.headers['Access-Control-Max-Age'] = '3600'
 
     return resp
+
+
+@api_blueprint.before_request
+def time_elapsed_request():
+    g.start_request_timestamp = time.time()
+
+
+@api_blueprint.after_request
+def time_elapsed_response(response):
+    diff = int((time.time() - g.start_request_timestamp) * 1000) 
+    if response:
+        response.headers.add('X-HQ-Response-Time', diff)
+
+    return response

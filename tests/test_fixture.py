@@ -16,7 +16,7 @@ class TestFixture:
         try:
             import factory
 
-            self._app = factory.create_app()
+            self._app = factory.create_app(test=True)
             self.app = self._app.test_client()
             self.config = config
         except Exception as e:

@@ -11,7 +11,7 @@ class ClusterDBService:
 
     def get_by_id(self, cluster_name):
         """
-        
+        Fetches a cluster object from the DB
         :param cluster_id: cluster name 
         :return:
         """
@@ -26,3 +26,6 @@ class ClusterDBService:
         cluster = self.get_by_id(cluster_name)
         db.session.delete(cluster)
         db.session.commit()
+
+    def get_all(self):
+        return ClusterModel.query.all()

@@ -3,7 +3,9 @@ import json
 
 import jmespath
 
+import pytest
 
+@pytest.mark.skip()
 class TestCluster_v6:
     def test_get_cluster_health(self, fixture):
         fixture.add_all_clusters(clear_first=True)

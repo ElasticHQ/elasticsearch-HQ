@@ -3,6 +3,13 @@ jmespath==0.9.3
 # Flask
 Flask==0.12.2
 Flask-restful==0.3.6
+Flask-Script==2.0.6
+
+# JSON serializer
+flask-marshmallow==0.8.0
+marshmallow-sqlalchemy==0.13.2
+marshmallow==3.0.0b5
+
 
 urllib3<1.23,>=1.21.1
 requests>=2.0.0, <3.0.0
