@@ -126,5 +126,5 @@ api.add_resource(ClusterStats, '/clusters/<string:cluster_name>/_stats', endpoin
 api.add_resource(ClusterHealth, '/clusters/<string:cluster_name>/_health', endpoint='clusters_health', methods=['GET'])
 api.add_resource(ClusterSummary, '/clusters/<string:cluster_name>/_summary', endpoint='clusters_summary', methods=['GET'])
 api.add_resource(ClusterState, '/clusters/<string:cluster_name>/_state', endpoint='clusters_state', methods=['GET'])
-# api.add_resource(ClusterPendingTasks, '/clusters/<string:cluster_name>/_pending_tasks', endpoint='clusters_pending_tasks', methods=['GET'])
-# api.add_resource(ClusterSettings, '/clusters/<string:cluster_name>/_settings', endpoint='clusters_settings', methods=['GET', 'PUT'])
+api.add_resource(ClusterPendingTasks, '/clusters/<string:cluster_name>/_pending_tasks', endpoint='clusters_pending_tasks', methods=['GET'])
+api.add_resource(ClusterSettings, '/clusters/<string:cluster_name>/_settings', endpoint='clusters_settings', methods=['GET', 'PUT'])

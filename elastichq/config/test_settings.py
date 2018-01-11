@@ -32,6 +32,10 @@ KEYS_CLUSTER_STATE = ['nodes', 'metadata', 'blocks', 'master_node', 'version', '
 
 KEYS_CLUSTER_STATS = ['nodes', 'cluster_name', 'timestamp', 'status', 'indices']
 
+KEYS_CLUSTER_SUMMARY = ['number_of_in_flight_fetch', 'status', 'timed_out', 'number_of_documents', 'cluster_name', 'active_primary_shards', 'delayed_unassigned_shards',
+                        'relocating_shards', 'number_of_data_nodes', 'active_shards', 'initializing_shards', 'active_shards_percent_as_number', 'number_of_nodes',
+                        'task_max_waiting_in_queue_millis', 'version', 'nodes', 'unassigned_shards', 'indices_size_in_bytes', 'indices_count', 'number_of_pending_tasks']
+
 KEYS_CLUSTER_PENDING_TASKS = ['tasks']
 
 KEYS_CLUSTER_SETTINGS = ['persistent', 'transient']
