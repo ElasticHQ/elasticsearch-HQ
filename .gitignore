@@ -123,3 +123,4 @@ venv.bak/
 # UI stuff
 node_modules/
 dist/
+cover/

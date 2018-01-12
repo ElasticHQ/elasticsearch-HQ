@@ -18,6 +18,19 @@ public_blueprint = Blueprint("public", __name__)
 def catch_all(path):
     return render_template("index.html")
 
+@public_blueprint.after_request
+def add_cors_pub(resp):
+    """ Ensure all responses have the CORS headers. This ensures any failures are also accessible
+        by the client. """
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Credentials'] = 'true'
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
+    resp.headers['Allow'] = 'POST, GET, PUT, DELETE, OPTIONS, HEAD'
+    if resp.headers.get('Access-Control-Max-Age') != '0':
+        resp.headers['Access-Control-Max-Age'] = '3600'
+
+    return resp
+
 
 @api_blueprint.after_request
 def add_cors(resp):
@@ -26,7 +39,7 @@ def add_cors(resp):
     resp.headers['Access-Control-Allow-Origin'] = '*'
     resp.headers['Access-Control-Allow-Credentials'] = 'true'
     resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
-    resp.headers['Allow'] = 'POST, GET, PUT, DELETE'
+    resp.headers['Allow'] = 'POST, GET, PUT, DELETE, OPTIONS, HEAD'
     if resp.headers.get('Access-Control-Max-Age') != '0':
         resp.headers['Access-Control-Max-Age'] = '3600'
 
