@@ -1,15 +1,9 @@
-FROM ubuntu:17.10
+FROM python:3.6-alpine3.7
 
-# get a nice python
-RUN apt-get update
-RUN apt-get -y install build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip python3.6-dev python2.7-dev
-
-RUN curl https://bootstrap.pypa.io/get-pip.py | python3.6
-RUN curl https://bootstrap.pypa.io/get-pip.py | python2.7
-
-# add some extra packages
-RUN pip3 install gunicorn
-RUN pip2 install supervisor supervisor_stdout
+RUN apk update
+RUN apk add supervisor
+RUN apk add --update py2-pip
+RUN pip install gunicorn
 
 # reqs layer
 ADD requirements.txt .
@@ -30,4 +24,4 @@ COPY ./deployment/supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./deployment/gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
 
 # Start processes
-CMD ["/usr/local/bin/supervisord"]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]

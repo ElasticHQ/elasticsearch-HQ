@@ -14,9 +14,9 @@ class TestFixture:
 
     def __init__(self, config):
         try:
-            import factory
+            from elastichq import factory
 
-            self._app = factory.create_app(test=True)
+            self._app = factory.create_app(env='test')
             self.app = self._app.test_client()
             self.config = config
         except Exception as e:

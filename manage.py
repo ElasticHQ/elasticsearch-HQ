@@ -1,13 +1,13 @@
-__author__ = 'royrusso'
-
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+__author__ = 'royrusso'
+
 import os
 
 from flask_script import Manager, Command
 
-from factory import create_app
-
+from elastichq.factory import create_app
 from elastichq.globals import db
 
 app = create_app()

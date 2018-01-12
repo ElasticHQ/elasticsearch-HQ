@@ -20,8 +20,20 @@ Installation
 4. Access HQ with: `` http://localhost:5000 ``
 5. All API endpoints are available through `` http://localhost:5000/api ``. Accessing `` http://localhost:5000/api/status `` with a browser (or GET request) will print current version information and general status of HQ. 
 
+During development, the UI has not been built in to the distribution, so you have to start the UI separately:
+
+1. ``npm install``
+2. ``npm start``
+3. Point your browser to ``http://localhost:8080``
+
+Configuration
+-------------
+
+ElasticHQ ships with sensible defaults, but there are some configuration options which can be set in an `elastichq.json`
+file. The valid locations for this file are in the elastichq working directory or at `~/`.
+
 Notes + Support
-------------
+---------------
 * Google Group can be found here: https://groups.google.com/d/forum/elastichq
 * If you need sample index + documents, see here: https://github.com/royrusso/elasticsearch-sample-index
 * If you find a bug, **please** create an issue and report it, or fix it and let me know. ;-)
