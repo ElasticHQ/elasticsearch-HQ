@@ -1,42 +1,25 @@
 import './top-nav.style.scss'
 
 class topNavController {
-    constructor(ClusterConnection) {
+    constructor($state, $transitions, $location) {
         'ngInject';
 
-        this.service = ClusterConnection;
+        // Get URL to determin if ROOT or not
+        this.$location = $location;
 
-        this.connection = 'http://10.0.0.182:9200'
+        this.seeIfNotRoot();
 
-        console.log('---- I am in the top nav.....')
+        // Function call to 
+        $transitions.onSuccess({}, (trans) => {
+            this.seeIfNotRoot();
+        });
     }
 
-    inputChanged(){
-        console.log('---- this.masterShared', this.masterShared)
+    seeIfNotRoot(){
+        this.isNotRoot = this.$location.$$path !== '/';
     }
 
-    connect() {
-        console.log('---- see request to connect', this.connection)
-        let data = this.parseURI();
-        console.log('----- parse?', data)
-        this.service.connectCluster(data).then((resp) => {
-                console.log('----- got something???', resp)
-        }, (err) => {
-
-        })
-    }
-
-    parseURI() {
-        let uri = new URL(this.connection);
-        console.log('---- uri: ', uri)
-        let tmp = {
-            ip: uri.hostname,
-            port: uri.port,
-            use_ssl: (uri.protocol === 'https:')
-        }
-        return tmp
-    }
-
+    
 }
 
 export default topNavController;

@@ -1,0 +1,24 @@
+<div class="cluster-details">
+    <div class="row">
+        <div ng-if="!!clusterDetailsCtrl.fetchingSummary" class="col-md-12">
+            <div class="summary-loader">
+                    <div>
+                        Loading Summary <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+            </div>
+        </div>
+        <div ng-if="!!clusterDetailsCtrl.fetchingIndicies" class="col-md-12">
+                <div class="summary-loader">
+                        <div>
+                            Loading Indicies <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+        <eshq-indicie-card ng-repeat="(k,v) in clusterDetailsCtrl.data"
+            index-info="v"></eshq-indicie-card>
+    </div>
+</div>
