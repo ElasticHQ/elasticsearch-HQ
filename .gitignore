@@ -118,3 +118,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# UI stuff
+node_modules/
+dist/
