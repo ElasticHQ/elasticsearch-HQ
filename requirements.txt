@@ -1,17 +1,23 @@
 jmespath==0.9.3
 
-# Cache
-dogpile.cache == 0.6.3
-
 # Flask
 Flask==0.12.2
 Flask-restful==0.3.6
+Flask-Script==2.0.6
+
+# JSON serializer
+flask-marshmallow==0.8.0
+marshmallow-sqlalchemy==0.13.2
+marshmallow==3.0.0b5
+
 
 urllib3<1.23,>=1.21.1
 requests>=2.0.0, <3.0.0
-
 six==1.8.0
 
+# Database
+SQLAlchemy==1.2.0
+Flask-SQLAlchemy==2.3.2
 
 # Testing
 coverage == 3.7.1
@@ -20,3 +26,8 @@ Flask-Testing
 pytest==3.0.2
 pytest-cov==2.3.1
 pytest-ordering==0.5
+
+
+# Scheduler
+apscheduler==3.5.0
+Flask-APScheduler== 1.7.1

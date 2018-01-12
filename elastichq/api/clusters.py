@@ -6,8 +6,9 @@ from flask import request
 from ..common.status_codes import HTTP_Status
 from . import api
 from ..common.api_response import APIResponse
-from ..service import ClusterService
+from ..service import ConnectionService, ClusterService
 from ..common.exceptions import request_wrapper, BadRequest
+from elastichq.model import ClusterDTO
 
 
 class ClusterConnection(Resource):
@@ -28,11 +29,14 @@ class ClusterConnection(Resource):
             raise BadRequest(message='Missing required parameters.')
 
         scheme = 'http'
-        if params.get('use_ssl', None) is True:
+        if params.get('use_ssl', False) is True:
             scheme = 'https'
 
-        response = ClusterService().create_connection(ip=params['ip'], port=params.get('port', "9200"), scheme=scheme)
-        return APIResponse(response, HTTP_Status.CREATED, None)
+        response = ConnectionService().create_connection(ip=params['ip'], port=params.get('port', "9200"), scheme=scheme)
+
+        schema = ClusterDTO(many=False)
+        result = schema.dump(response)
+        return APIResponse(result.data, HTTP_Status.CREATED, None)
 
     @request_wrapper
     def delete(self, cluster_name):
@@ -40,15 +44,22 @@ class ClusterConnection(Resource):
         Deletes a connection from the connection pool, given a cluster name
         :return:
         """
-        response = ClusterService().delete_connection(cluster_name)
+        response = ConnectionService().delete_connection(cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
 
 class ClusterList(Resource):
+    """
+    Retrieves a list of all active and inactive cluster connections.
+    """
+
     @request_wrapper
     def get(self):
         response = ClusterService().get_clusters()
-        return APIResponse(response, HTTP_Status.OK, None)
+
+        schema = ClusterDTO(many=True)
+        result = schema.dump(response)
+        return APIResponse(result.data, HTTP_Status.OK, None)
 
 
 class ClusterHealth(Resource):
@@ -68,6 +79,17 @@ class ClusterState(Resource):
     @request_wrapper
     def get(self, cluster_name):
         response = ClusterService().get_cluster_state(cluster_name)
+        return APIResponse(response, HTTP_Status.OK, None)
+
+
+class ClusterSummary(Resource):
+    """
+    Brief summary for a given cluster name
+    """
+
+    @request_wrapper
+    def get(self, cluster_name):
+        response = ClusterService().get_cluster_summary(cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
 
@@ -100,8 +122,9 @@ class ClusterSettings(Resource):
 
 api.add_resource(ClusterConnection, '/clusters/_connect', '/clusters/<string:cluster_name>/_connect', endpoint='clusters', methods=['POST', 'DELETE'])
 api.add_resource(ClusterList, '/clusters', endpoint='clusters_list', methods=['GET'])
-api.add_resource(ClusterHealth, '/clusters/<string:cluster_name>/_health', endpoint='clusters_health', methods=['GET'])
-api.add_resource(ClusterState, '/clusters/<string:cluster_name>/_state', endpoint='clusters_state', methods=['GET'])
 api.add_resource(ClusterStats, '/clusters/<string:cluster_name>/_stats', endpoint='clusters_stats', methods=['GET'])
+api.add_resource(ClusterHealth, '/clusters/<string:cluster_name>/_health', endpoint='clusters_health', methods=['GET'])
+api.add_resource(ClusterSummary, '/clusters/<string:cluster_name>/_summary', endpoint='clusters_summary', methods=['GET'])
+api.add_resource(ClusterState, '/clusters/<string:cluster_name>/_state', endpoint='clusters_state', methods=['GET'])
 api.add_resource(ClusterPendingTasks, '/clusters/<string:cluster_name>/_pending_tasks', endpoint='clusters_pending_tasks', methods=['GET'])
 api.add_resource(ClusterSettings, '/clusters/<string:cluster_name>/_settings', endpoint='clusters_settings', methods=['GET', 'PUT'])

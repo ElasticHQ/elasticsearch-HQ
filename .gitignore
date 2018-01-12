@@ -12,8 +12,8 @@ node_modules
 dist
 npm-debug.log
 bower_components
-
-
+application.log
+*.db
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/

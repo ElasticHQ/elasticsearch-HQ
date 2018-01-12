@@ -16,9 +16,9 @@ Installation
 
 1. Download or clone the repository. 
 2. Open terminal and point to root of repository. Type: ``pip install -r requirements.txt``
-3. Run server with: `` python application.py ``
+3. Run server with: `` python application.py ``. Alternatively: ``./manage.py runserver``
 4. Access HQ with: `` http://localhost:5000 ``
-5. All API endpoints are available through `` http://localhost:500/api ``. Accessing `` http://localhost:5000/api/status `` with a browser (or GET request) will print current version information and general status of HQ. 
+5. All API endpoints are available through `` http://localhost:5000/api ``. Accessing `` http://localhost:5000/api/status `` with a browser (or GET request) will print current version information and general status of HQ. 
 
 Notes + Support
 ------------

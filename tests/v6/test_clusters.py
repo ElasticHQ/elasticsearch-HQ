@@ -5,6 +5,15 @@ import jmespath
 
 
 class TestCluster_v6:
+    def test_get_cluster_summary(self, fixture):
+        fixture.add_all_clusters(clear_first=True)
+
+        response = fixture.app.get('/api/clusters/%s/_summary' % fixture.cluster_v6_name)
+
+        assert 200 == response.status_code
+        res = fixture.get_response_data(response)
+        assert fixture.has_all_keys(fixture.config.KEYS_CLUSTER_SUMMARY, res['data'][0].keys()) is True
+
     def test_get_cluster_health(self, fixture):
         fixture.add_all_clusters(clear_first=True)
 
