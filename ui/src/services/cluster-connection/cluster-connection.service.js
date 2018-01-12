@@ -25,7 +25,7 @@ class ClusterConnectionService {
 
   summary(cluster_name) {
     return this.$http({
-      url: ('/api/indices/' + cluster_name + '/_summary'),
+      url: ('/api/clusters/' + cluster_name + '/_summary'),
       method: 'GET'
     });
   }

@@ -9,7 +9,7 @@ class ClusterIndicesService {
 
   clusterInidicies(cluster_name) {
     return this.$http({
-      url: '/api/indices/' + cluster_name,
+      url: '/api/indices/' + cluster_name + '/_summary',
       method: 'GET'
     })
   }
