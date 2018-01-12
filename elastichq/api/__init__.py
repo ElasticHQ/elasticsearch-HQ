@@ -25,7 +25,7 @@ def add_cors_pub(resp):
     resp.headers['Access-Control-Allow-Origin'] = '*'
     resp.headers['Access-Control-Allow-Credentials'] = 'true'
     resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
-    resp.headers['Allow'] = 'POST, GET, PUT, DELETE, OPTIONS, HEAD'
+    resp.headers['Allow'] = 'POST, GET, PUT, DELETE'
     if resp.headers.get('Access-Control-Max-Age') != '0':
         resp.headers['Access-Control-Max-Age'] = '3600'
 
@@ -39,7 +39,7 @@ def add_cors(resp):
     resp.headers['Access-Control-Allow-Origin'] = '*'
     resp.headers['Access-Control-Allow-Credentials'] = 'true'
     resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
-    resp.headers['Allow'] = 'POST, GET, PUT, DELETE, OPTIONS, HEAD'
+    resp.headers['Allow'] = 'POST, GET, PUT, DELETE'
     if resp.headers.get('Access-Control-Max-Age') != '0':
         resp.headers['Access-Control-Max-Age'] = '3600'
 
