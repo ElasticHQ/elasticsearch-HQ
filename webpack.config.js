@@ -33,13 +33,19 @@ module.exports = {
     devServer: {
         contentBase: './ui',
         stats: 'minimal',
+        proxy: {
+            '/api/*': {
+                target: 'http://localhost:5000',
+                secure: false
+            }
+        },
         headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-            'Access-Control-Allow-Credentials': 'true',
-          }
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+        'Access-Control-Allow-Credentials': 'true'
+        }
     },
-    devtool: 'cheap-module-eval-source-map',   //
+    devtool: 'cheap-module-eval-source-map',
     module: {
         rules: [
             {

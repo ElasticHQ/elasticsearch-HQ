@@ -6,7 +6,7 @@ class topNavController {
 
         this.service = ClusterConnection;
 
-        this.connection = 'htts://10.0.0.182:9200'
+        this.connection = 'https://10.0.0.182:9200'
 
         console.log('---- I am in the top nav.....')
     }
