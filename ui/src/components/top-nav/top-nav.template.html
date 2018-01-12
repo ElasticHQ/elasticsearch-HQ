@@ -1,5 +1,5 @@
 <div class="top-nav ">
-    <nav class="navbar navbar-inverse">
+    <nav ng-if="topNavCtrl.isNotRoot" class="navbar navbar-inverse">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -14,15 +14,6 @@
         
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="form-inline" ng-submit="topNavCtrl.connect()" name="topNavCtrl.form">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-sitemap" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" ng-model="topNavCtrl.connection">
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn">Connect</button>
-                        </span>
-                    </div>
-            </form>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>

@@ -1,0 +1,22 @@
+<div class="col-md-4">
+    <div class="indicie-card">
+        <pre>{{indicieCardCtrl.indexInfo}}</pre>
+        <div class="flex-container">
+            <div class="index-name">{{indicieCardCtrl.indexInfo.summary.index_name}}</div>
+            <div class="base-info">
+                <div>Docs: <span class="base-info-data">{{indicieCardCtrl.docs()}}</span></div>
+                <div>Size: <span class="base-info-data">{{indicieCardCtrl.bytes()}}</span></div>
+            </div>
+            <div class="base-info">
+                    <div>Replicas: <span class="base-info-data">{{indicieCardCtrl.replicas()}}</span></div>
+                    <div>Shards: <span class="base-info-data">{{indicieCardCtrl.shards()}}</span></div>
+                </div>
+            <div class="bottom-section">
+                <div class="bottom-item">test</div>
+                <div class="bottom-item">test</div>
+                <div class="bottom-item">test</div>
+            </div>
+        </div>
+    </div>
+</div>
+

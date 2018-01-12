@@ -1,8 +1,9 @@
 
 import topNav from './top-nav/top-nav';
+import indicieCard from './indicie-card/indicie-card';
 
-console.log('------ topNav: ', topNav)
 const CommonComponents = angular.module('components', [
+  indicieCard,
   topNav,
 ]).name;
 
