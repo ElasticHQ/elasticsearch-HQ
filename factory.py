@@ -1,10 +1,11 @@
 __author__ = 'royrusso'
 
+import os
+
 from flask import Flask
 
 from elastichq.api import api_blueprint, public_blueprint
-from elastichq.globals import init_log, init_database, init_marshmallow
-
+from elastichq.globals import init_log, init_database, init_marshmallow, init_scheduler
 
 
 # noinspection PyUnresolvedReferences
@@ -27,8 +28,14 @@ def create_app(test=False):
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-    init_database(app, tests=test)
+    # Stop the app from initializing twice in debug mode.
+    if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+        # The app is not in debug mode or we are in the reloaded process
 
-    init_marshmallow(app)
-    
+        init_database(app, tests=test)
+
+        init_marshmallow(app)
+
+        init_scheduler(app)
+
     return app

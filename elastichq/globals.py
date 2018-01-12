@@ -3,17 +3,24 @@ import logging.config
 import logging
 import json
 import os
+
 from flask_marshmallow import Marshmallow
+
 from flask_sqlalchemy import SQLAlchemy
+
+from flask_apscheduler import APScheduler
 
 from .vendor.elasticsearch.connections import Connections
 from .config import settings
 
 db = SQLAlchemy()
 ma = Marshmallow()
+scheduler = APScheduler()
+
 
 def init_marshmallow(app):
     ma.init_app(app)
+
 
 def init_log():
     """
@@ -35,6 +42,18 @@ def init_database(app, tests=False):
     import elastichq.model
 
     db.create_all(app=app)
+
+
+from datetime import datetime
+
+
+def tick():
+    print('Tick! The time is: %s' % datetime.now())
+
+
+def init_scheduler(app):
+    scheduler.init_app(app)
+    scheduler.start()
 
 
 LOG = logging.getLogger('elastichq')

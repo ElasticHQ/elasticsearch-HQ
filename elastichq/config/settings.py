@@ -1,5 +1,6 @@
 __author__ = 'royrusso'
 
+from apscheduler.jobstores.memory import MemoryJobStore
 import os
 
 HQ_SITE_URL = 'http://elastichq.org'
@@ -12,3 +13,9 @@ BASEPATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEPATH, 'elastichq.db')
 SQLALCHEMY_TRACK_MODIFICATIONS = False  # deprecation warning
 # SQLALCHEMY_MIGRATE_REPO = os.path.join(BASEPATH, 'db_repository')
+
+SCHEDULER_JOBSTORES = {
+    'default': MemoryJobStore()
+}
+
+SCHEDULER_API_ENABLED = True

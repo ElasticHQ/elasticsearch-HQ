@@ -3,7 +3,7 @@ __author__ = 'royrusso'
 import jmespath
 
 from ..globals import REQUEST_TIMEOUT
-from elastichq.service import ConnectionService
+from elastichq.service import ConnectionService, ClusterService
 
 
 class IndicesService:
@@ -67,6 +67,11 @@ class IndicesService:
     def get_indices_summary(self, cluster_name, indices_names=None):
         connection = ConnectionService().get_connection(cluster_name)
         indices_stats = connection.indices.stats(index=indices_names, request_timeout=REQUEST_TIMEOUT)
+
+        # get shard info
+        cluster_state = ClusterService().get_cluster_state(cluster_name, metric="metadata", indices=indices_names)
+        state_indices = jmespath.search("metadata.indices", cluster_state)
+        
         indices = []
         the_indices = indices_stats.get("indices", None)
         index_keys = list(the_indices.keys())
@@ -76,5 +81,10 @@ class IndicesService:
             index['docs'] = jmespath.search("primaries.docs.count", one_index)
             index['size_in_bytes'] = jmespath.search("primaries.store.size_in_bytes", one_index)
             index['fielddata'] = {'memory_size_in_bytes': jmespath.search("total.fielddata.memory_size_in_bytes", one_index)}
+
+            index_state = state_indices.get(key)
+            index['settings'] = {'number_of_shards': jmespath.search("settings.index.number_of_shards", index_state),
+                                 "number_of_replicas": jmespath.search("settings.index.number_of_replicas", index_state)}
+            index['state'] = index_state.get("state", None)
             indices.append(index)
         return indices
