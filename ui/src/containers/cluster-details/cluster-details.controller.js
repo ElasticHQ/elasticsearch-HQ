@@ -1,4 +1,6 @@
-import './cluster-details.style.scss'
+import './cluster-details.style.scss';
+
+import _ from 'lodash';
 
 class clusterDetailsController {
 
@@ -11,13 +13,34 @@ class clusterDetailsController {
     this.Cservice = ClusterConnection;
     this.ClusterIndices = ClusterIndices;
 
-    this.data = {};
+    this.sortOptions = [
+      {
+        label: 'Docs DESC',
+        key: 'docs',
+        order: 'desc'
+      },
+      {
+        label: 'Docs ASC',
+        key: 'docs',
+        order: 'asc'
+      },
+      {
+        label: 'Size DESC',
+        key: 'size_in_bytes',
+        order: 'desc'
+      },
+      {
+        label: 'Size ASC',
+        key: 'size_in_bytes',
+        order: 'asc'
+      },
+    ]
+
 
     this.fetchingSummary = true;
     this.Cservice.summary(this.clusterName).then((resp) => {
       console.log('---- resp: ', resp.data)
-      this._summaryData = resp.data.data;
-      this.buildData();
+      this.summary = resp.data.data[0];
     }, (err) => {
       console.log('----- err: ', err)
     })
@@ -28,8 +51,8 @@ class clusterDetailsController {
     this.fetchingIndicies = true;
     this.ClusterIndices.clusterInidicies(this.clusterName).then((resp) => {
       console.log('------ inidicies: ', resp.data)
-      this._indicieData = resp.data.data[0];
-      this.buildData();
+      this._data = resp.data.data;
+      this.data = [].concat(this._data);
     }, (err) => {
 
     })
@@ -46,21 +69,13 @@ class clusterDetailsController {
     */
   }
 
-  buildData() {
-    console.log('----- buildData', this._summaryData, this._indicieData)
-    if (!this._summaryData || !this._indicieData) return this.data = {};
-    console.log('------ should build now')
-    this._summaryData.forEach((s) => {
-      this.data[s.index_name] = {summary: s}
-    });
-
-    Object.keys(this._indicieData).map((key) => {
-      this.data[key] = Object.assign(this.data[key], this._indicieData[key])
-    });
-
-    console.log('---- data: ', this.data)
+  sortBy(sorter) {
+    if (!sorter) return this.data = [].concat(this._data);
+    let list = [].concat(this._data);
+    this.data = _.orderBy(list, (e) => { 
+                      return e[sorter.key]
+                    }, [sorter.order]);
   }
-
   
 
 }

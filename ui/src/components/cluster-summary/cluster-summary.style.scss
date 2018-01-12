@@ -1,0 +1,8 @@
+.cluster-summary {
+  .alert {
+      text-align: center;
+      padding: 10px 15px;
+      .number { font-size: 1.8em; }
+      .summary-label { font-size: 0.85em; }
+  }
+}

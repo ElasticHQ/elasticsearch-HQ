@@ -17,8 +17,32 @@
                 </div>
             </div>
     </div>
-    <div class="row">
-        <eshq-indicie-card ng-repeat="(k,v) in clusterDetailsCtrl.data"
-            index-info="v"></eshq-indicie-card>
+    <eshq-cluster-summary ng-if="clusterDetailsCtrl.summary" summary="clusterDetailsCtrl.summary"></eshq-cluster-summary>
+    <div ng-if="clusterDetailsCtrl.data.length">
+        <div class="row">
+            <div class="col-md-9">
+                <input ng-model="clusterDetailsCtrl.filtered.search"
+                    class="form-control search-input"
+                    placeholder="Filter on any information you would like">
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group sorter-group" uib-dropdown>
+                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                        Sort By <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                        <li role="menuitem" 
+                            ng-repeat="sorter in clusterDetailsCtrl.sortOptions"
+                            ng-click="clusterDetailsCtrl.sortBy(sorter)">
+                            <a>{{sorter.label}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <eshq-indicie-card ng-repeat="v in clusterDetailsCtrl.data | filter:clusterDetailsCtrl.filtered.search:strict"
+                index-info="v"></eshq-indicie-card>
+        </div>
     </div>
+   
 </div>

@@ -1,0 +1,11 @@
+<div class="cluster-summary ">
+    <h4>Cluster Summary <span ng-if="clusterSummaryCtrl.summary" class="label" ng-class="clusterSummaryCtrl.statusColor()">Status</span></h4>
+    <div class="row">
+        <div class="col-md-2" ng-repeat="item in clusterSummaryCtrl.firstRow">
+                <div class="alert alert-info">
+                    <div class="number">{{item.value}}</div>
+                    <div class="summary-label">{{item.label}}</div>
+                </div>
+        </div>
+    </div>
+</div>

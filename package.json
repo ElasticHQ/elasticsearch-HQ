@@ -29,6 +29,7 @@
     "angular-ui-bootstrap": "^2.5.6",
     "babel-polyfill": "^6.26.0",
     "font-awesome": "^4.7.0",
+    "lodash": "^4.17.4",
     "ng-animate": "^0.3.1",
     "numeraljs": "^1.5.6"
   },

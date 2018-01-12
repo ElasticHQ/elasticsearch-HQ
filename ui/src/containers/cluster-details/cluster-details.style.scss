@@ -7,4 +7,12 @@
     margin-bottom: 1em;
     background: rgb(224, 224, 224);
   }
+  .search-input {
+      margin-bottom: 20px;
+  }
+  .sorter-group,
+  .sorter-group > .btn,
+  .sorter-group > .dropdown-menu{
+      width: 100%;
+  }
 }
