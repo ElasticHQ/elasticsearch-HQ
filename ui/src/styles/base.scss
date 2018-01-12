@@ -1,0 +1,11 @@
+
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$fa-font-path: "~font-awesome/fonts";
+
+$border-radius-base:        0px !default;
+$border-radius-large:       0px !default;
+$border-radius-small:       0px !default;
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import '~font-awesome/scss/font-awesome.scss';
+

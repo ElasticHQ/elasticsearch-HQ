@@ -1,0 +1,56 @@
+{
+  "name": "elasticsearch-hq",
+  "version": "1.0.0",
+  "description": "ElasticHQ - Version 3.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test karma start",
+    "start": "./node_modules/.bin/webpack-dev-server --hot --inline  --progress",
+    "make:component": "./node_modules/.bin/babel-node ui/build_scripts/make_component",
+    "make:container": "./node_modules/.bin/babel-node ui/build_scripts/make_container",
+    "make:service": "./node_modules/.bin/babel-node ui/build_scripts/make_service"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElasticHQ/elasticsearch-HQ.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElasticHQ/elasticsearch-HQ/issues"
+  },
+  "homepage": "https://github.com/ElasticHQ/elasticsearch-HQ#readme",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.12",
+    "angular": "^1.6.8",
+    "angular-ui-bootstrap": "^2.5.6",
+    "babel-polyfill": "^6.26.0",
+    "font-awesome": "^4.7.0",
+    "ng-animate": "^0.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "bootstrap-sass": "^3.3.7",
+    "css-loader": "^0.28.8",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "html-webpack-plugin": "^2.30.1",
+    "jslint": "^0.11.0",
+    "ng-annotate-loader": "^0.6.1",
+    "ng-cache-loader": "0.0.26",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0",
+    "webpack-clean-obsolete-chunks": "^0.3.0",
+    "webpack-dev-server": "^2.10.0"
+  }
+}
