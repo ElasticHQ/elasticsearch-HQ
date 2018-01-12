@@ -99,7 +99,6 @@ class ClusterStats(Resource):
         response = ClusterService().get_cluster_stats(cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
-
 class ClusterPendingTasks(Resource):
     @request_wrapper
     def get(self, cluster_name):

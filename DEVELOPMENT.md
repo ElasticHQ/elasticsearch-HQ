@@ -27,6 +27,9 @@ elastichq/run_tests
 * All tests will fail without those 3 clusters running. They are the 3 major versions that HQ currently supports. 
 * The scripts under ``/tests/scripts`` allow for starting, stopping, and listing all clusters. You will need to edit those for the tests to run.
 
+## Building Documentation
+
+``./sphinx-build -b html /path/to/docs/source /path/to/docs``
 
 ## DISTRIBUTION
 
