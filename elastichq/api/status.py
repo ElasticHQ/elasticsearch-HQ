@@ -7,6 +7,7 @@ from flask_restful import Resource
 
 from flask import current_app, url_for
 
+from ..service import ClusterService
 from ..common.status_codes import HTTP_Status
 from . import api
 from ..common.api_response import APIResponse
@@ -15,10 +16,12 @@ from ..globals import LOG
 
 class Status(Resource):
     def get(self):
+        clusters = ClusterService().get_clusters()
         status = {
             "name": "ElasticHQ",
             "version": "3.0",
-            "tagline": "You know, for Elasticsearch"
+            "tagline": "You know, for Elasticsearch",
+            "clusters": clusters
         }
         LOG.debug(json.dumps(status))
         return APIResponse(status, HTTP_Status.OK, None)
