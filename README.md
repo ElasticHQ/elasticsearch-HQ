@@ -20,6 +20,12 @@ Installation
 4. Access HQ with: `` http://localhost:5000 ``
 5. All API endpoints are available through `` http://localhost:5000/api ``. Accessing `` http://localhost:5000/api/status `` with a browser (or GET request) will print current version information and general status of HQ. 
 
+During development, the UI has not been built in to the distribution, so you have to start the UI separately:
+
+1. ``npm install``
+2. ``npm start``
+3. Point your browser to ``http://localhost:8080``
+
 Notes + Support
 ------------
 * Google Group can be found here: https://groups.google.com/d/forum/elastichq
