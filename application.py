@@ -1,4 +1,4 @@
-import factory
+from elastichq import factory
 
 application = factory.create_app()
 

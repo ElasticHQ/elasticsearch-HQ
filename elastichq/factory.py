@@ -1,15 +1,12 @@
-__author__ = 'royrusso'
-
 import os
-
 from flask import Flask
-
 from elastichq.api import api_blueprint, public_blueprint
 from elastichq.globals import init_log, init_database, init_marshmallow, init_scheduler
 
-
 # noinspection PyUnresolvedReferences
 from elastichq.api import endpoints
+
+__author__ = 'royrusso'
 
 
 def create_app(test=False):
