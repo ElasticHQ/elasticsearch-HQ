@@ -10,7 +10,7 @@ class ClusterConnectionService {
   // Example request
   connectCluster(data) {
     return this.$http({
-              url: ('/api/cluster_connect'),
+              url: ('/api/clusters/_connect'),
               method: 'POST',
               data: data
             });
