@@ -73,20 +73,21 @@ class IndicesService:
         state_indices = jmespath.search("metadata.indices", cluster_state)
         cat = connection.cat.indices()
         indices = []
-        the_indices = indices_stats.get("indices", None)
-        index_keys = list(the_indices.keys())
-        for key in index_keys:
-            one_index = the_indices.get(key)
-            index = {"index_name": key}
-            index['health'] = [x['health'] for x in cat if x['index'] == key][0]
-            index['docs'] = jmespath.search("primaries.docs.count", one_index)
-            index['docs_deleted'] = jmespath.search("primaries.docs.deleted", one_index)
-            index['size_in_bytes'] = jmespath.search("primaries.store.size_in_bytes", one_index)
-            index['fielddata'] = {'memory_size_in_bytes': jmespath.search("total.fielddata.memory_size_in_bytes", one_index)}
+        if state_indices:
+            the_indices = indices_stats.get("indices", None)
+            index_keys = list(the_indices.keys())
+            for key in index_keys:
+                one_index = the_indices.get(key)
+                index = {"index_name": key}
+                index['health'] = [x['health'] for x in cat if x['index'] == key][0]
+                index['docs'] = jmespath.search("primaries.docs.count", one_index)
+                index['docs_deleted'] = jmespath.search("primaries.docs.deleted", one_index)
+                index['size_in_bytes'] = jmespath.search("primaries.store.size_in_bytes", one_index)
+                index['fielddata'] = {'memory_size_in_bytes': jmespath.search("total.fielddata.memory_size_in_bytes", one_index)}
 
-            index_state = state_indices.get(key)
-            index['settings'] = {'number_of_shards': jmespath.search("settings.index.number_of_shards", index_state),
-                                 "number_of_replicas": jmespath.search("settings.index.number_of_replicas", index_state)}
-            index['state'] = index_state.get("state", None)
-            indices.append(index)
+                index_state = state_indices.get(key)
+                index['settings'] = {'number_of_shards': jmespath.search("settings.index.number_of_shards", index_state),
+                                     "number_of_replicas": jmespath.search("settings.index.number_of_replicas", index_state)}
+                index['state'] = index_state.get("state", None)
+                indices.append(index)
         return indices
