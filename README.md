@@ -1,7 +1,7 @@
 ElasticHQ - Version 3.0 - In Development
 =========
 
-This version is considered experimental until a formal v3.0GA release. Until then, please see instructions on the [master branch](https://github.com/ElasticHQ/elasticsearch-HQ/tree/master) of this repository.
+This version is considered experimental until a formal v3.0GA release. Until then, please use the [master branch](https://github.com/ElasticHQ/elasticsearch-HQ/tree/master) of this repository for production systems.
 
 For the formal announcement of this version, [see here](https://groups.google.com/forum/#!topic/elastichq/rZOBFNePRKg).
 
@@ -29,8 +29,7 @@ During development, the UI has not been built in to the distribution, so you hav
 Configuration
 -------------
 
-ElasticHQ ships with sensible defaults, but there are some configuration options which can be set in an `elastichq.json`
-file. The valid locations for this file are in the elastichq working directory or at `~/`.
+TODO
 
 Notes + Support
 ---------------
