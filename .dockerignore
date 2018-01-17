@@ -1,0 +1,27 @@
+.dockerignore
+.git
+.gitignore
+0compose/
+venv/
+.venv/
+.idea/
+.vscode/
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+*.iws
+.DS_Store
+log/
+target/
+tmp
+node_modules
+dist
+npm-debug.log
+bower_components
+*.swp
+
+# Don't need the files
+tpl/
+js/lib/ace/src-min-noconflict/
