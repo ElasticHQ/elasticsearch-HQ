@@ -4,8 +4,8 @@ $ic-border-color: rgba($color: #000000, $alpha: 0.2);
 .indicie-card {
   border: 1px solid rgb(211, 205, 205);
   margin-bottom: 1em;
-  background: $ic-background-color;
-  color:  rgba(255,255,255, 0.7);
+//   background: $ic-background-color;
+  color:  rgba(0,0,0, 0.6);
   .flex-container {
       display: flex;
       flex-direction: column;
@@ -16,7 +16,7 @@ $ic-border-color: rgba($color: #000000, $alpha: 0.2);
           font-size: 1.4em;
           font-weight: 300;
           padding: 4px 8px;
-          color: #fff;
+          color: rgb(32, 32, 32);
           border-bottom: 1px solid $ic-border-color;
       }
       .base-info {
@@ -28,7 +28,7 @@ $ic-border-color: rgba($color: #000000, $alpha: 0.2);
             flex: 1;
             .base-info-data {
                 font-size: 1.4em;
-                color: #fff;
+                color: rgb(32, 32, 32);
             }
           }
       }
@@ -38,11 +38,11 @@ $ic-border-color: rgba($color: #000000, $alpha: 0.2);
         justify-content: space-evenly;
         .bottom-item {
             flex: 1;
-            border: 1px solid $ic-border-color;
+            // border: 1px solid $ic-border-color;
             padding: 4px 8px;
             text-align: center;
             &:hover {
-                background: darken($ic-background-color, 15%);
+                // background: darken($ic-background-color, 15%);
                 cursor: pointer;
             }
         }

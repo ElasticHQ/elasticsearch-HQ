@@ -23,6 +23,12 @@ class indicieCardController {
     shards() {
         return numeraljs(this.indexInfo.settings.number_of_shards).format('0[.][0][0]a')
     }
+
+    setCardColor(health) {
+        if (health === 'green') return 'alert-success';
+        if (health === 'yellow') return 'alert-warning';
+        if (health === 'red') return 'alert-danger';
+    }
 }
 
 export default indicieCardController;
