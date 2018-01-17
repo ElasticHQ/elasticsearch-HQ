@@ -53,6 +53,6 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-clean-obsolete-chunks": "^0.3.0",
-    "webpack-dev-server": "^2.10.0"
+    "webpack-dev-server": "^2.11.0"
   }
 }
