@@ -102,9 +102,17 @@ class IndexMapping(Resource):
         return APIResponse(response, HTTP_Status.OK, None)
 
 
+class IndexShards(Resource):
+    @request_wrapper
+    def get(self, cluster_name, index_names=None):
+        response = IndicesService().get_shards(cluster_name, index_names)
+        return APIResponse(response, HTTP_Status.OK, None)
+
+
 api.add_resource(IndexAction, '/indices/<string:cluster_name>/<string:index_name>/action/<string:action>', endpoint='index_command', methods=['GET'])
 api.add_resource(Index, '/indices/<string:cluster_name>/<string:index_name>', endpoint='index', methods=['GET', 'DELETE', 'POST'])
 api.add_resource(IndexStats, '/indices/<string:cluster_name>/<string:index_names>/_stats', '/indices/<string:cluster_name>/_stats', endpoint='indices_stats', methods=['GET'])
+api.add_resource(IndexShards, '/indices/<string:cluster_name>/<string:index_names>/_shards', '/indices/<string:cluster_name>/_shards', endpoint='indices_shards', methods=['GET'])
 api.add_resource(IndexSummary, '/indices/<string:cluster_name>/<string:index_names>/_summary', '/indices/<string:cluster_name>/_summary', endpoint='indices_summary',
                  methods=['GET'])
 api.add_resource(IndexList, '/indices/<string:cluster_name>/<string:index_name>', '/indices/<string:cluster_name>', endpoint='indices', methods=['GET'])

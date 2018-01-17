@@ -91,3 +91,8 @@ class IndicesService:
                 index['state'] = index_state.get("state", None)
                 indices.append(index)
         return indices
+
+    def get_shards(self, cluster_name, index_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        shards = connection.cat.shards(index=index_name)
+        return shards
