@@ -1,5 +1,6 @@
 <div class="cluster-summary ">
     <h4>Cluster Summary <span ng-if="clusterSummaryCtrl.summary" class="label" ng-class="clusterSummaryCtrl.statusColor()">Status</span></h4>
+    <div class="row pt-12"></div>
     <div class="row">
         <div class="col-md-2" ng-repeat="item in clusterSummaryCtrl.firstRow">
                 <div class="alert alert-info">
@@ -8,4 +9,53 @@
                 </div>
         </div>
     </div>
+</div>
+
+
+<h2>Panels with Contextual Classes</h2>
+<div class="row">
+  <div class="col-md-6 col-lg-4">
+    <div class="panel panel-default contextual-example-panel bootstrap-panel">
+      <div class="panel-heading">Panel with panel-default class</div>
+      <div class="panel-body">To color the panel, use contextual classes. This is sample <code>.panel-default</code>
+        panel
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="panel panel-primary contextual-example-panel bootstrap-panel">
+      <div class="panel-heading">Panel with panel-primary class</div>
+      <div class="panel-body">Sample <code>.panel-primary</code> panel</div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="panel panel-success contextual-example-panel bootstrap-panel">
+      <div class="panel-heading">Panel with panel-success class</div>
+      <div class="panel-body">Sample <code>.panel-success</code> panel</div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="panel panel-info contextual-example-panel bootstrap-panel">
+      <div class="panel-heading">Panel with panel-info class</div>
+      <div class="panel-body">Sample <code>.panel-info</code> panel</div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="panel panel-warning contextual-example-panel bootstrap-panel">
+      <div class="panel-heading">Panel with panel-warning class</div>
+      <div class="panel-body">Sample <code>.panel-warning</code> panel</div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <div class="panel panel-danger contextual-example-panel bootstrap-panel">
+      <div class="panel-heading">Panel with panel-danger class</div>
+      <div class="panel-body">Sample <code>.panel-danger</code> panel</div>
+    </div>
+  </div>
+
 </div>
