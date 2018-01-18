@@ -50,7 +50,7 @@ class indicesTableController {
                 formatter: formatByt
             },
             {
-                label: 'Memory',
+                label: 'Cache Size',
                 key: 'fielddata.memory_size_in_bytes',
                 formatter: formatByt
             },

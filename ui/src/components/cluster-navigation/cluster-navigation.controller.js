@@ -29,9 +29,9 @@ class clusterNavigationController {
 
     statusColor() {
         if (!this.summary) return;
-        if (this.summary.status === 'green') return 'label-success';
-        if (this.summary.status === 'yellow') return 'label-warning';
-        if (this.summary.status === 'red') return 'label-danger';
+        if (this.summary.status === 'green') return 'status_color_green';
+        if (this.summary.status === 'yellow') return 'status_color_yellow';
+        if (this.summary.status === 'red') return 'status_color_red';
     }
 }
 
