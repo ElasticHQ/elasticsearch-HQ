@@ -11,23 +11,18 @@
         <tbody>
             <tr>
                 <td>Exists</td>
-                <td>{{iMDocsCtrl.stats.primaries.get.exists_total | numeral: '0[,][0]'}}</td>
-                <td>{{iMDocsCtrl.stats.total.get.exists_total | numeral: '0[,][0]'}}</td>
+                <td>{{indexMetricGetCtrl.stats.primaries.get.exists_total | numeral: '0[,][0]'}}</td>
+                <td>{{indexMetricGetCtrl.stats.total.get.exists_total | numeral: '0[,][0]'}}</td>
             </tr>
             <tr>
-                <td>Documents</td>
-                <td>{{iMDocsCtrl.stats.primaries.docs.count| numeral: '0[,][0]'}}</td>
-                <td>{{iMDocsCtrl.stats.total.docs.count}}</td>
+                <td>Missing</td>
+                <td>{{indexMetricGetCtrl.stats.primaries.get.missing_total | numeral: '0[,][0]'}}</td>
+                <td>{{indexMetricGetCtrl.stats.total.get.missing_total | numeral: '0[,][0]'}}</td>
             </tr>
             <tr>
-                <td>Deleted</td>
-                <td>{{iMDocsCtrl.stats.primaries.docs.deleted| numeral: '0[,][0]'}}</td>
-                <td>{{iMDocsCtrl.stats.total.docs.deleted| numeral: '0[,][0]'}}</td>
-            </tr>
-            <tr>
-                <td>Field Data Cache</td>
-                <td>{{iMDocsCtrl.stats.primaries.fielddata.memory_size_in_bytes | numeral: '0[.][0] b'}}</td>
-                <td>{{iMDocsCtrl.stats.total.fielddata.memory_size_in_bytes | numeral: '0[.][0] b'}}</td>
+                <td>Gets</td>
+                <td>{{indexMetricGetCtrl.stats.primaries.get.total | numeral: '0[,][0]'}}</td>
+                <td>{{indexMetricGetCtrl.stats.total.get.total | numeral: '0[,][0]'}}</td>
             </tr>
         </tbody>
     </table>

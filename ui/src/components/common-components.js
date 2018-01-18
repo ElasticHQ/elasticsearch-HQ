@@ -10,6 +10,7 @@ import indexMetricDocs from './index-metric-docs/index-metric-docs';
 import indexMetricHealth from './index-metric-health/index-metric-health';
 import indexShardsTabContent from './index-shards-tab-content/index-shards-tab-content'
 import indexMetricGet from './index-metric-get/index-metric-get'
+import indexMetricSearch from './index-metric-get/index-metric-search'
 
 const CommonComponents = angular.module('components', [
   clusterSummary,
@@ -20,6 +21,7 @@ const CommonComponents = angular.module('components', [
   indexMetricDocs,
   indexMetricHealth,
   indexMetricGet,
+  indexMetricSearch,
   topNav,
 ]).name;
 
