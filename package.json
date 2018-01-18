@@ -11,7 +11,8 @@
     "start": "./node_modules/.bin/webpack-dev-server --hot --inline  --progress",
     "make:component": "./node_modules/.bin/babel-node ui/build_scripts/make_component",
     "make:container": "./node_modules/.bin/babel-node ui/build_scripts/make_container",
-    "make:service": "./node_modules/.bin/babel-node ui/build_scripts/make_service"
+    "make:service": "./node_modules/.bin/babel-node ui/build_scripts/make_service",
+    "make:filter": "./node_modules/.bin/babel-node ui/build_scripts/make_filter"
   },
   "repository": {
     "type": "git",
