@@ -3,11 +3,12 @@ import controller from './index-metric-health.controller';
 
 const indexMetricHealthComponent = {
   bindings: {
-    stats: '<'
+    stats: '<',
+    summary: '<'
   },
   template,
   controller,
-  controllerAs: 'indexMetricHealthCtrl'
+  controllerAs: 'iMHealthCtrl'
 };
 
 export default indexMetricHealthComponent;

@@ -26,7 +26,17 @@ $border-radius-small:       0px !default;
   .number { font-size: 1.8em; }
   .summary-label { font-size: 1.0em; }
 }
-
+.icon-label {
+  &.green {
+    color: $brand-success;
+  }
+  &.yellow {
+    color: $brand-warning;
+  }
+  &.red {
+    color: $brand-danger;
+  }
+}
 .status-label {
   &.green {
     background: $brand-success;

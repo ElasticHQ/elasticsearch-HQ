@@ -3,11 +3,12 @@ import controller from './index-metric-docs.controller';
 
 const indexMetricDocsComponent = {
   bindings: {
-    stats: '<'
+    stats: '<',
+    summary: '<'
   },
   template,
   controller,
-  controllerAs: 'indexMetricDocsCtrl'
+  controllerAs: 'iMDocsCtrl'
 };
 
 export default indexMetricDocsComponent;
