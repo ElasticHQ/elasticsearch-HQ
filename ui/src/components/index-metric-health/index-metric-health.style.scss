@@ -1,3 +1,12 @@
+
+@import '../../styles/yeti-variables';
+
 .index-metric-health {
-  
+    .table {
+        tbody {
+            td {
+              font-size: $font-size-medium;
+            }
+        }
+    }
 }
