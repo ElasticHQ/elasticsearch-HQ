@@ -1,17 +1,12 @@
 <div class="cluster-details">
     <div class="row">
-        <div ng-if="!!clusterDetailsCtrl.fetchingSummary" class="col-md-12">
-            <div class="summary-loader">
-                    <div>
-                        Loading Summary <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-                        <span class="sr-only">Loading...</span>
-                    </div>
-            </div>
+        <div class="col-md-12">
+            <eshq-cluster-navigation summary="clusterDetailsCtrl.summary"></eshq-cluster-navigation>
         </div>
-        <div ng-if="!!clusterDetailsCtrl.fetchingIndicies" class="col-md-12">
+        <div ng-if="!!clusterDetailsCtrl.fetchingIndices" class="col-md-12">
                 <div class="summary-loader">
                         <div>
-                            Loading Indicies <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                            Loading Indices <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                             <span class="sr-only">Loading...</span>
                         </div>
                 </div>
@@ -20,31 +15,15 @@
     
     
     <eshq-cluster-summary ng-if="clusterDetailsCtrl.summary" summary="clusterDetailsCtrl.summary"></eshq-cluster-summary>
-    <div ng-if="clusterDetailsCtrl.data.length">
-        <div class="row">
-            <div class="col-md-9">
-                <input ng-model="clusterDetailsCtrl.filtered.search"
-                    class="form-control search-input"
-                    placeholder="Filter on any information you would like">
-            </div>
-            <div class="col-md-3">
-                <div class="btn-group sorter-group" uib-dropdown>
-                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
-                        Sort By <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem" 
-                            ng-repeat="sorter in clusterDetailsCtrl.sortOptions"
-                            ng-click="clusterDetailsCtrl.sortBy(sorter)">
-                            <a>{{sorter.label}}</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <eshq-indicie-card ng-repeat="v in clusterDetailsCtrl.data | filter:clusterDetailsCtrl.filtered.search:strict"
-                index-info="v"></eshq-indicie-card>
+
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+                <eshq-indices-table ng-if="clusterDetailsCtrl.indices.length" 
+                                    indices="clusterDetailsCtrl.indices"></eshq-indices-table>
         </div>
     </div>
+    
+
    
 </div>

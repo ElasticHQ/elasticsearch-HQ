@@ -7,6 +7,12 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider) => {
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
+        .state('clusterIndices', {
+            url: '/clusters/:clusterName/indices',
+            template: require('./containers/cluster-indices/cluster-indices.view.html'),
+            controller: 'clusterIndicesController',
+            controllerAs: 'clusterIndicesCtrl'
+        })
         .state('clusterDetails', {
             url: '/clusters/:clusterName',
             template: require('./containers/cluster-details/cluster-details.view.html'),

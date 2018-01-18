@@ -11,3 +11,11 @@ $fa-font-path: "~font-awesome/fonts";
 @import './yeti-bootswatch';
 @import '~font-awesome/scss/font-awesome.scss';
 
+.summary-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    margin-bottom: 1em;
+    background: rgb(224, 224, 224);
+  }

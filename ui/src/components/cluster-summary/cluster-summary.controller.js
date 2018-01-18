@@ -49,12 +49,7 @@ class clusterSummaryController {
         ]
     }
 
-    statusColor() {
-        if (!this.summary) return;
-        if (this.summary.status === 'green') return 'label-success';
-        if (this.summary.status === 'yellow') return 'label-warning';
-        if (this.summary.status === 'red') return 'label-danger';
-    }
+    
 }
 
 export default clusterSummaryController;

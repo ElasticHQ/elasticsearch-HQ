@@ -1,0 +1,23 @@
+<div class="cluster-navigation ">
+    <div class="summary-loader" ng-if="clusterNavCtrl.fetching">
+        <div>
+            Loading Cluster information <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div ng-if="clusterNavCtrl.fetched" class="summary-container">
+        <div class="row">
+            <div class="col-md-6">
+                    <h4>Cluster <a ui-sref="clusterDetails({clusterName: clusterNavCtrl.clusterName})">{{clusterNavCtrl.clusterName}}</a> <span class="label" ng-class="clusterNavCtrl.statusColor()">Status</span></h4>
+            </div>
+            <div class="col-md-6">
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-success" ui-sref-active="active"  ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })">Indices</a>
+                        <a class="btn btn-success" ui-sref="">Query</a>
+                        <a class="btn btn-success" ui-sref="">Mappings</a>
+                        <a class="btn btn-success" ui-sref="">&lt;/&gt; REST</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

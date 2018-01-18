@@ -1,0 +1,27 @@
+@import '../../styles/yeti-variables';
+
+.indices-table {
+    .table {
+        thead {
+            th > a.sorter{
+                width: 100%;
+                cursor: pointer;
+            }
+        }
+        tbody {
+            td.health {
+              padding: 8px 0px;
+              width: 6px;
+              &.green {
+                    background: $brand-success;
+                }
+              &.yellow {
+                  background: $brand-warning;
+              }
+              &.red {
+                  background: $brand-danger;
+              }
+            }
+        }
+    }
+}
