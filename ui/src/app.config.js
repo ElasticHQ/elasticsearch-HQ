@@ -19,6 +19,12 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider) => {
             controller: 'clusterIndiceDetailsController',
             controllerAs: 'cIndDetailsCtrl'
         })
+        .state('clusterNodeDetails', {
+            url: '/clusters/:clusterName/nodes/:nodeId',
+            template: require('./containers/cluster-node-details/cluster-node-details.view.html'),
+            controller: 'clusterNodeDetailsController',
+            controllerAs: 'cNodeDetailsCtrl'
+        })
         .state('clusterDetails', {
             url: '/clusters/:clusterName',
             template: require('./containers/cluster-details/cluster-details.view.html'),

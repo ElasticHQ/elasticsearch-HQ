@@ -1,0 +1,23 @@
+import './cluster-node-details.style.scss'
+
+class clusterNodeDetailsController {
+
+  // Imports go here
+  constructor($stateParams, ClusterNodes) {
+    'ngInject';
+    
+    this.clusterName = $stateParams.clusterName;
+    this.nodeId = $stateParams.nodeId;
+    this.service = ClusterNodes;
+
+    this.service.getNodeInfo(this.clusterName, this.nodeId).then((resp) => {
+      console.log('--- node info: ', resp.data.data)
+    })
+
+    this.service.getNodeStats(this.clusterName, this.nodeId).then((resp) => {
+      console.log('--- node stats: ', resp.data.data)
+    })
+  }
+}
+
+export default clusterNodeDetailsController;
