@@ -37,7 +37,6 @@ class clusterIndiceDetailsController {
     // Reset info
     this.summary = this.stats = undefined;
     this.ClusterIndices.clusterIndiceSummary(this.clusterName, this.indexName).then((resp) => {
-      console.log('----- clusterIndiceSummary: ', resp.data.data)
       this.summary = resp.data.data[0];
       this.setRows();
       
