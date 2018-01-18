@@ -1,5 +1,5 @@
-<div class="index-metric-docs ">
-    <h4>Documents</h4>
+<div class="index-metric-get ">
+    <h4>Get Totals</h4>
     <table class="table">
         <thead>
             <tr>
@@ -10,9 +10,9 @@
         </thead>
         <tbody>
             <tr>
-                <td>Size</td>
-                <td>{{iMDocsCtrl.stats.primaries.store.size_in_bytes | numeral: '0[.][0] b'}}</td>
-                <td>{{iMDocsCtrl.stats.total.store.size_in_bytes | numeral: '0[.][0] b'}}</td>
+                <td>Exists</td>
+                <td>{{iMDocsCtrl.stats.primaries.get.exists_total | numeral: '0[,][0]'}}</td>
+                <td>{{iMDocsCtrl.stats.total.get.exists_total | numeral: '0[,][0]'}}</td>
             </tr>
             <tr>
                 <td>Documents</td>

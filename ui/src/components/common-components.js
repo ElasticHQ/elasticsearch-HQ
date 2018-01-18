@@ -8,6 +8,7 @@ import indicesTable from './indices-table/indices-table';
 import indexMetricsTabContent from './index-metrics-tab-content/index-metrics-tab-content';
 import indexMetricDocs from './index-metric-docs/index-metric-docs';
 import indexMetricHealth from './index-metric-health/index-metric-health';
+import indexMetricGet from './index-metric-get/index-metric-get';
 
 const CommonComponents = angular.module('components', [
   clusterSummary,
@@ -15,6 +16,7 @@ const CommonComponents = angular.module('components', [
   indicesTable,
   indexMetricsTabContent,
   indexMetricDocs,
+  indexMetricGet,
   indexMetricHealth,
   topNav,
 ]).name;
