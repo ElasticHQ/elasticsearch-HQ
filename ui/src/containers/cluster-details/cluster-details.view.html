@@ -19,24 +19,25 @@
     <div class="row">
         <div class="col-md-6">
             <h3>Nodes</h3>
-            <table class="table">
+            <table class="table" ng-if="clusterDetailsCtrl.nodes.length" >
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>Master</th>
                         <th>Data</th>
                         <th>HTTP Addr</th>
-                        <th>Heap Used/Free</th>
-                        <th>FS Used/Free</th>
+                        <th>Heap Used %</th>
+                        <th>FS Used %</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="node in clusterDetailsCtrl.summary.nodes">
-                        <td><a >{{node['name']}}</a></td>
-                        <td>{{node['master']}}</td>
-                        <td>{{node['data']}}</td>
-                        <td>{{node['http_address']}}</td>
-                        <td>{{node['node_id']}}</td>
+                    <tr ng-repeat="node in clusterDetailsCtrl.nodes">
+                        <td><a ui-sref="clusterNodeDetails({clusterName: clusterDetailsCtrl.clusterName, nodeId: node.node_id})">{{node['name']}}</a></td>
+                        <td>{{node.is_master_node}}</td>
+                        <td>{{node.is_data_node}}</td>
+                        <td>{{node.host}}</td>
+                        <td>{{node.jvm.used_percent | numeral: '0[.][0]%' }}</td>
+                        <td>{{node.fs.used_in_percent | numeral: '0[.][0]%' }}</td>
                     </tr>
                 </tbody>
             </table>

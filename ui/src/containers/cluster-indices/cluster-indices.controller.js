@@ -1,7 +1,7 @@
 import './cluster-indices.style.scss';
 
 import _ from 'lodash';
-import numeraljs from 'numeraljs';
+import numeral from 'numeral';
 
 class clusterIndicesController {
 

@@ -2,7 +2,7 @@ import './cluster-navigation.style.scss'
 
 class clusterNavigationController {
 
-    constructor($stateParams, ClusterSummaryFactory){
+    constructor($stateParams, ClusterSummaryFactory, $timeout){
         'ngInject';
 
         this.clusterName = $stateParams.clusterName

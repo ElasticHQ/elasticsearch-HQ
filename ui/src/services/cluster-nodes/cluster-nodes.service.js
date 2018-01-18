@@ -7,7 +7,15 @@ class ClusterNodesService {
     this.$http = $http;
   }
 
-  // Example request
+  getNodesSummary(clusterName, nodeId) {
+    // /api/nodes/predikto-prod-us-east/_summary
+    return this.$http({
+              url: ('/api/nodes/' + clusterName + '/_summary'),
+              method: 'GET',
+            });
+  }
+
+
   getNodeInfo(clusterName, nodeId) {
     return this.$http({
               url: ('/api/nodes/' + clusterName + '/' + nodeId + '/_info'),

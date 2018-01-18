@@ -12,10 +12,29 @@ $border-radius-small:       0px !default;
 @import '~font-awesome/scss/font-awesome.scss';
 
 .summary-loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
-    margin-bottom: 1em;
-    background: rgb(224, 224, 224);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  margin-bottom: 1em;
+  background: rgb(224, 224, 224);
+}
+
+.alert.summary-panel {
+  text-align: center;
+  padding: 10px 15px;
+  .number { font-size: 1.8em; }
+  .summary-label { font-size: 1.0em; }
+}
+
+.status-label {
+  &.green {
+    background: $brand-success;
   }
+  &.yellow {
+    background: $brand-warning;
+  }
+  &.red {
+    background: $brand-danger;
+  }
+}

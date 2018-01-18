@@ -11,6 +11,7 @@ import config from './app.config.js';
 import CommonComponents from './components/common-components';
 import CommonContainers from './containers/common-containers';
 import CommonFactories from './factories/common-factories';
+import CommonFilters from './filters/common-filters';
 import CommonServices from './services/common-services';
 
 // Main Layout
@@ -23,6 +24,7 @@ angular.module('eshq',[
     CommonComponents,
     CommonContainers,
     CommonFactories,
+    CommonFilters,
     CommonServices
 ])
 .config(config)

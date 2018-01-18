@@ -32,7 +32,7 @@
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
     "ng-animate": "^0.3.1",
-    "numeraljs": "^1.5.6"
+    "numeral": "^2.0.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

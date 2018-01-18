@@ -3,7 +3,7 @@ import controller from './cluster-navigation.controller';
 
 const clusterNavigationComponent = {
   bindings: {
-    summary: '='
+    summary: '=?'
   },
   template,
   controller,

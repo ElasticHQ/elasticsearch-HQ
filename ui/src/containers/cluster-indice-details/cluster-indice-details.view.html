@@ -1,7 +1,40 @@
 <div class="cluster-indice-details"> 
     <div class="row">
         <div class="col-md-12">
-            <eshq-cluster-navigation summary="cIndDetailsCtrl.summary"></eshq-cluster-navigation>
+            <eshq-cluster-navigation ></eshq-cluster-navigation>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="summary-loader" ng-if="cIndDetailsCtrl.fetching">
+                    <div>
+                        Loading Index information <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            <h4>Indice {{cIndDetailsCtrl.indexName}} <span ng-if="cIndDetailsCtrl.summary" class="label status-label {{cIndDetailsCtrl.summary.health}}">Status</span></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" ng-repeat="item in cIndDetailsCtrl.firstRow">
+                <div class="alert alert-info summary-panel">
+                    <div class="number">{{item.value}}</div>
+                    <div class="summary-label">{{item.label}}</div>
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <uib-tabset active="activePill" type="pills">
+                <uib-tab index="0" heading="Metrics">
+                    <eshq-index-metrics-tab-content summary="cIndDetailsCtrl.summary"
+                    stats="cIndDetailsCtrl.stats"></eshq-index-metrics-tab-content>
+                </uib-tab>
+                <uib-tab index="1" heading="Shards">Shards</uib-tab>
+                <uib-tab index="2" heading="Aliases">Aliases</uib-tab>
+                <uib-tab index="3" heading="Administration">Administration</uib-tab>
+              </uib-tabset>
         </div>
     </div>
 </div>

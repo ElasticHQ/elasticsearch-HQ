@@ -1,5 +1,5 @@
 import './cluster-summary.style.scss';
-import numeraljs from 'numeraljs';
+import numeral from 'numeral';
 
 class clusterSummaryController {
     constructor() {
@@ -24,27 +24,27 @@ class clusterSummaryController {
         this.firstRow = [
             {
                 label: 'Nodes',
-                value: numeraljs(this.summary.number_of_nodes).format(formatNum)
+                value: numeral(this.summary.number_of_nodes).format(formatNum)
             },
             {
                 label: 'Total Shards',
-                value: numeraljs(this.summary.active_shards).format(formatNum)
+                value: numeral(this.summary.active_shards).format(formatNum)
             },
             {
                 label: 'Successful Shards',
-                value: numeraljs(this.summary.active_primary_shards).format(formatNum)
+                value: numeral(this.summary.active_primary_shards).format(formatNum)
             },
             {
                 label: 'Indicies',
-                value: numeraljs(this.summary.indices_count).format(formatNum)
+                value: numeral(this.summary.indices_count).format(formatNum)
             },
             {
                 label: 'Documents',
-                value: numeraljs(this.summary.number_of_documents).format(formatByt)
+                value: numeral(this.summary.number_of_documents).format(formatByt)
             },
             {
                 label: 'Size',
-                value: numeraljs(this.summary.indices_size_in_bytes).format(formatByt)
+                value: numeral(this.summary.indices_size_in_bytes).format(formatByt)
             }
         ]
     }

@@ -1,7 +1,7 @@
 import './indices-table.style.scss';
 
 import _ from 'lodash';
-import numeraljs from 'numeraljs';
+import numeral from 'numeral';
 
 class indicesTableController {
     constructor($stateParams, $state, $sce, $filter) {
@@ -72,7 +72,7 @@ class indicesTableController {
             return this.$sce.trustAsHtml(str);
         }
         if (!col.formatter) return this.$sce.trustAsHtml(val);
-        return this.$sce.trustAsHtml(numeraljs(val).format(col.formatter));
+        return this.$sce.trustAsHtml(numeral(val).format(col.formatter));
       }
     
       sortBy(col){
