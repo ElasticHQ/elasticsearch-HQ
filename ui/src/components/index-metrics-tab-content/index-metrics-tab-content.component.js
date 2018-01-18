@@ -3,12 +3,12 @@ import controller from './index-metrics-tab-content.controller';
 
 const indexMetricsTabContentComponent = {
   bindings: {
-    primaries: '<',
+    summary: '<',
     stats: '<'
   },
   template,
   controller,
-  controllerAs: 'indexMetricsTabContentCtrl'
+  controllerAs: 'iMTabContentCtrl'
 };
 
 export default indexMetricsTabContentComponent;

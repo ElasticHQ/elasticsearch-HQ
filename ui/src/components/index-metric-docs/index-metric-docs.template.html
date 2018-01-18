@@ -1,1 +1,24 @@
-<div class="index-metric-docs "> index-metric-docs </div>
+<div class="index-metric-docs ">
+    <h5>Documents</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Primaries</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Documents</td>
+                <td>{{iMDocsCtrl.stats.primaries.docs.count}}</td>
+                <td>{{iMDocsCtrl.stats.total.docs.count}}</td>
+            </tr>
+            <tr>
+                <td>Size</td>
+                <td>{{iMDocsCtrl.stats.primaries.store.size_in_bytes | numeral: '0[.][0] b'}}</td>
+                <td>{{iMDocsCtrl.stats.total.store.size_in_bytes | numeral: '0[.][0] b'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

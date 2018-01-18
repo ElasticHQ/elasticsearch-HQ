@@ -20,7 +20,7 @@ class indicesTableController {
         this.itemsPerPage = 10;
 
         const formatNum = '0[.][0][0]a';
-        const formatByt = '0[.][0][0]b'; 
+        const formatByt = '0[.][0][0] b'; 
 
         this.search = {text: ''}
 
