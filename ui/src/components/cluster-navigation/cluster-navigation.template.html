@@ -19,5 +19,16 @@
                     </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6 nodes">
+                <a ng-disabled="true" class="btn btn-primary">Node Diagnostics</a>
+                <a ng-repeat="node in clusterNavCtrl.summary.nodes"
+                    class="btn"
+                    ng-class="node.master === 'true' ? 'btn-primary' : 'btn-info'"
+                    ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
+                    ui-sref-active="active">
+                        {{node.name}}</a>
+            </div>
+        </div>
     </div>
 </div>

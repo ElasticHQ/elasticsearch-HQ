@@ -2,12 +2,12 @@ import './cluster-navigation.style.scss'
 
 class clusterNavigationController {
 
-    constructor($stateParams, ClusterConnection){
+    constructor($stateParams, ClusterSummaryFactory){
         'ngInject';
 
         this.clusterName = $stateParams.clusterName
 
-        this.Cservice = ClusterConnection;
+        this.factory = ClusterSummaryFactory;
 
         if (this.clusterName) this.fetchClusterInfo();
 
@@ -16,11 +16,10 @@ class clusterNavigationController {
     fetchClusterInfo(){
         this.fetched = false;
         this.fetching = true;
-        this.Cservice.summary(this.clusterName).then((resp) => {
-        console.log('---- resp: ', resp.data)
-        this.summary = resp.data.data[0];
+        this.factory.getSummary(this.clusterName).then((resp) => {
+            this.summary = resp;
         }, (err) => {
-        console.log('----- err: ', err)
+            console.log('----- err: ', err)
         })
         .finally(() => {
             this.fetching = false;

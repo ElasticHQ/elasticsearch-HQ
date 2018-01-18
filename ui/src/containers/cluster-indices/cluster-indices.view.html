@@ -14,5 +14,18 @@
                 </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-primary">Create Index</a>
+        </div>
+        <div class="col-md-6">
+                <div class="btn-group pull-right">
+                    <a class="btn btn-default">Refresh</a>
+                    <a class="btn btn-default">Optimize</a>
+                    <a class="btn btn-default">Flush</a>
+                    <a class="btn btn-default">Clear Cache</a>
+                </div>
+        </div>
+    </div>
    <eshq-indices-table  ng-if="!clusterIndicesCtrl.fetchingIndices" indices="clusterIndicesCtrl.indices"></eshq-indices-table>
 </div>

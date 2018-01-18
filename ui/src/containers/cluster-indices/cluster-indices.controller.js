@@ -13,7 +13,7 @@ class clusterIndicesController {
     
     // Fetch the data
     this.fetchingIndices = true;
-    ClusterIndices.clusterInidicies($stateParams.clusterName).then((resp) => {
+    ClusterIndices.clusterInidices($stateParams.clusterName).then((resp) => {
       console.log('------ inidicies: ', resp.data)
       this.indices = resp.data.data.map((item) => {
         if (item.settings){

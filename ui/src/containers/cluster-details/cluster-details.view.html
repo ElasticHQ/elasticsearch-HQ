@@ -17,7 +17,28 @@
     <eshq-cluster-summary ng-if="clusterDetailsCtrl.summary" summary="clusterDetailsCtrl.summary"></eshq-cluster-summary>
 
     <div class="row">
-        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Master</th>
+                        <th>Data</th>
+                        <th>HTTP Addr</th>
+                        <th>Node ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="node in clusterDetailsCtrl.summary.nodes">
+                        <td><a >{{node['name']}}</a></td>
+                        <td>{{node['master']}}</td>
+                        <td>{{node['data']}}</td>
+                        <td>{{node['http_address']}}</td>
+                        <td>{{node['node_id']}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="col-md-6">
                 <h3>Indices</h3>
                 <eshq-indices-table ng-if="clusterDetailsCtrl.indices.length" 

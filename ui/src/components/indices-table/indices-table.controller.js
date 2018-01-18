@@ -4,11 +4,14 @@ import _ from 'lodash';
 import numeraljs from 'numeraljs';
 
 class indicesTableController {
-    constructor($sce, $filter) {
+    constructor($stateParams, $state, $sce, $filter) {
         'ngInject';
 
         this.$sce = $sce;
         this.$filter = $filter;
+
+        this.clusterName = $stateParams.clusterName;
+        this.$state = $state;
 
         // Pagination stuff
         this.totalItems = 1;
@@ -56,7 +59,6 @@ class indicesTableController {
 
     $doCheck() {
         if(!angular.equals(this._data, this.indices)){
-            console.log('--- saw change in indices', this.indices)
             this._data = this.indices;
             this.filterData();
         }
@@ -64,6 +66,11 @@ class indicesTableController {
 
     renderCell(obj, col){
         let val = _.get(obj, col.key);
+        if (col.key === 'index_name') {
+            let url = this.$state.href("clusterIndiceDetails", {clusterName: this.clusterName, indexName: val})
+            let str = '<a href="' + url + '">' + val + '</a>';
+            return this.$sce.trustAsHtml(str);
+        }
         if (!col.formatter) return this.$sce.trustAsHtml(val);
         return this.$sce.trustAsHtml(numeraljs(val).format(col.formatter));
       }
@@ -87,7 +94,6 @@ class indicesTableController {
       }
     
       filterData(){
-        console.log('--- filterData')
         let _data = [].concat(this._data || []);
         if (this.search.text.length) _data = this.$filter('filter')(_data, this.search.text)
         if (this._sorter){
