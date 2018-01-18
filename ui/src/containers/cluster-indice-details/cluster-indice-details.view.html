@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="summary-loader" ng-if="cIndDetailsCtrl.fetching">
                     <div>
-                        Loading Index information <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                        Loading {{cIndDetailsCtrl.fetchingTitle}} <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
@@ -26,12 +26,15 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <uib-tabset active="activePill" type="pills">
-                <uib-tab index="0" heading="Metrics">
+            <uib-tabset type="pills">
+                <uib-tab index="0" heading="Metrics" ng-click="cIndDetailsCtrl.fetchMetrics()">
                     <eshq-index-metrics-tab-content summary="cIndDetailsCtrl.summary"
-                    stats="cIndDetailsCtrl.stats"></eshq-index-metrics-tab-content>
+                                                    stats="cIndDetailsCtrl.stats"></eshq-index-metrics-tab-content>
                 </uib-tab>
-                <uib-tab index="1" heading="Shards">Shards</uib-tab>
+                <uib-tab index="1" heading="Shards" ng-click="cIndDetailsCtrl.fetchShards()">
+                    <eshq-index-shards-tab-content shards="cIndDetailsCtrl.shards"
+                                                ></eshq-index-shards-tab-content>
+                </uib-tab>
                 <uib-tab index="2" heading="Aliases">Aliases</uib-tab>
                 <uib-tab index="3" heading="Administration">Administration</uib-tab>
               </uib-tabset>
