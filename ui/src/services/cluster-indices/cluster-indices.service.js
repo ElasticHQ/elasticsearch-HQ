@@ -7,21 +7,37 @@ class ClusterIndicesService {
     this.$http = $http;
   }
 
-  clusterInidicies(cluster_name) {
+  clusterInidices(cluster_name) {
     return this.$http({
       url: '/api/indices/' + cluster_name + '/_summary',
       method: 'GET'
-    })
+    });
   }
 
-  // Example request
-  // getExample(params) {
-  //   return this.$http({
-  //             url: ('/example'),
-  //             method: 'GET',
-  //             params: params
-  //           });
-  // }
+  clusterIndice(cluster_name, index_name) {
+    // /api/indices/[cluster_name]/[index_name]
+    return this.$http({
+      url: '/api/indices/' + cluster_name + '/' + index_name,
+      method: 'GET'
+    });
+  }
+
+  clusterIndiceSummary(cluster_name, index_name) {
+    // /api/indices/[cluster_name]/[index_name]
+    return this.$http({
+      url: '/api/indices/' + cluster_name + '/' + index_name + '/_summary',
+      method: 'GET'
+    });
+  }
+
+  clusterIndiceStats(cluster_name, index_name) {
+    // /api/indices/[cluster_name]/[index_name]
+    return this.$http({
+      url: '/api/indices/' + cluster_name + '/' + index_name + '/_stats',
+      method: 'GET'
+    });
+  }
+
 }
 
 export default ClusterIndicesService;
