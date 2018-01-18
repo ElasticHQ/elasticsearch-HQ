@@ -12,6 +12,8 @@ import indexMetricHealth from './index-metric-health/index-metric-health';
 import indexMetricGet from './index-metric-get/index-metric-get'
 import indexMetricSearch from './index-metric-search/index-metric-search'
 import indexMetricIndex from './index-metric-index/index-metric-index'
+import indexMetricQCache from './index-metric-querycache/index-metric-querycache'
+import indexMetricOps from './index-metric-ops/index-metric-ops'
 import indexShardsTabContent from './index-shards-tab-content/index-shards-tab-content';
 
 const CommonComponents = angular.module('components', [
@@ -25,6 +27,8 @@ const CommonComponents = angular.module('components', [
   indexMetricHealth,
   indexMetricGet,
   indexMetricIndex,
+  indexMetricQCache,
+  indexMetricOps,
   indexMetricSearch,
   topNav,
 ]).name;

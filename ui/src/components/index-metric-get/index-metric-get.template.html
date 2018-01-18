@@ -4,20 +4,21 @@
         <thead>
             <tr>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody> 
             <tr>
                 <td>Exists</td>
-                <td>{{indexMetricGetCtrl.stats.total.get.exists_total | numeral: '0[,][0]'}}</td>
+                <td>{{indexMetricGetCtrl.stats.primaries.get.exists_total | numeral: '0[,][0]'}}</td>
             </tr>
             <tr>
                 <td>Missing</td>
-                <td>{{indexMetricGetCtrl.stats.total.get.missing_total | numeral: '0[,][0]'}}</td>
+                <td>{{indexMetricGetCtrl.stats.primaries.get.missing_total | numeral: '0[,][0]'}}</td>
             </tr>
             <tr>
                 <td>Gets</td>
-                <td>{{indexMetricGetCtrl.stats.total.get.total | numeral: '0[,][0]'}}</td>
+                <td>{{indexMetricGetCtrl.stats.primaries.get.total | numeral: '0[,][0]'}}</td>
             </tr>
         </tbody>
     </table>
