@@ -4,25 +4,28 @@
         <thead>
             <tr>
                 <th></th>
-                <th>Primaries</th>
-                <th>Total</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>Query Total</td>
-                <td>{{indexMetricGetCtrl.stats.primaries.search.query_total | numeral: '0[,][0]'}}</td>
-                <td>{{indexMetricGetCtrl.stats.total.search.query_total | numeral: '0[,][0]'}}</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.query_total | numeral: '0[,][0]'}}</td>
             </tr>
             <tr>
-                <td>Missing</td>
-                <td>{{indexMetricGetCtrl.stats.primaries.search.missing_total | numeral: '0[,][0]'}}</td>
-                <td>{{indexMetricGetCtrl.stats.total.search.missing_total | numeral: '0[,][0]'}}</td>
+                <td>Fetch Total</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.fetch_total | numeral: '0[,][0]'}}</td>
             </tr>
             <tr>
-                <td>Gets</td>
-                <td>{{indexMetricGetCtrl.stats.primaries.search.total | numeral: '0[,][0]'}}</td>
-                <td>{{indexMetricGetCtrl.stats.total.search.total | numeral: '0[,][0]'}}</td>
+                <td>Scroll Total</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.scroll_total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Fetch Current Count</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.fetch_current | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Scroll Current Count</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.scroll_current | numeral: '0[,][0]'}}</td>
             </tr>
         </tbody>
     </table>

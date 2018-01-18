@@ -9,11 +9,10 @@ import indexAdministrationTabContent from './index-administration-tab-content/in
 import indexMetricsTabContent from './index-metrics-tab-content/index-metrics-tab-content';
 import indexMetricDocs from './index-metric-docs/index-metric-docs';
 import indexMetricHealth from './index-metric-health/index-metric-health';
-import indexShardsTabContent from './index-shards-tab-content/index-shards-tab-content'
 import indexMetricGet from './index-metric-get/index-metric-get'
-import indexMetricSearch from './index-metric-get/index-metric-search'
+import indexMetricSearch from './index-metric-search/index-metric-search'
+import indexMetricIndex from './index-metric-index/index-metric-index'
 import indexShardsTabContent from './index-shards-tab-content/index-shards-tab-content';
-import indexMetricGet from './index-metric-get/index-metric-get';
 
 const CommonComponents = angular.module('components', [
   clusterSummary,
@@ -25,6 +24,7 @@ const CommonComponents = angular.module('components', [
   indexMetricDocs,
   indexMetricHealth,
   indexMetricGet,
+  indexMetricIndex,
   indexMetricSearch,
   topNav,
 ]).name;
