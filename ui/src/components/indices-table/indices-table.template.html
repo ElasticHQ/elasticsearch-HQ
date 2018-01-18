@@ -23,7 +23,7 @@
         <tbody>
             <tr ng-repeat="data in indicesTableCtrl.data[indicesTableCtrl.currentPage - 1]">
                 <td ng-class="data.health" class="health"></td>
-                <td ng-repeat="c in indicesTableCtrl.columns" ng-bind-html="indicesTableCtrl.renderCell(data, c)"></td>
+                <td ng-repeat="c in indicesTableCtrl.columns" ng-bind-html="indicesTableCtrl.renderCell(data, c)" class="index_info"></td>
             </tr>
         </tbody>
         <tfoot>

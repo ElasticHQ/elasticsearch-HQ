@@ -3,7 +3,7 @@
 import pytest
 
 from tests.test_fixture import TestFixture
-from elastichq.config import test_settings
+from elastichq.config.settings import TestSettings
 
 
 def pytest_sessionstart(session):
@@ -16,5 +16,5 @@ def pytest_sessionfinish(session, exitstatus):
 
 @pytest.yield_fixture(scope='session')
 def fixture(request):
-    with TestFixture(test_settings) as fix:
+    with TestFixture(TestSettings) as fix:
         yield fix
