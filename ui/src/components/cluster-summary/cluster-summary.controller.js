@@ -18,8 +18,8 @@ class clusterSummaryController {
     buildView() {
         if (!this.summary) return;
         let masterArr = [];
-        const formatNum = '0[.][0][0]a';
-        const formatByt = '0[.][0][0]b';
+        const formatNum = '0[.][0][0] a';
+        const formatByt = '0[.][0][0] b';
         console.log('---- summary: ', this)
         this.firstRow = [
             {
