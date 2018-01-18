@@ -8,7 +8,6 @@ class ClusterNodesService {
   }
 
   getNodesSummary(clusterName, nodeId) {
-    // /api/nodes/predikto-prod-us-east/_summary
     return this.$http({
               url: ('/api/nodes/' + clusterName + '/_summary'),
               method: 'GET',

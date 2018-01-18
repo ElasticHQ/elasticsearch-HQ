@@ -38,6 +38,14 @@ class ClusterIndicesService {
     });
   }
 
+  clusterIndiceShards(cluster_name, index_name) {
+    // /api/indices/[cluster_name]/[index_name]
+    return this.$http({
+      url: '/api/indices/' + cluster_name + '/' + index_name + '/_shards',
+      method: 'GET'
+    });
+  }
+
 }
 
 export default ClusterIndicesService;

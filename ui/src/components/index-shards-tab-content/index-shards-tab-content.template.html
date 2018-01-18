@@ -1,0 +1,24 @@
+<div class="index-shards-tab-content ">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Shard</th>
+                <th>State</th>
+                <th># Docs</th>
+                <th>Size</th>
+                <th>Primary</th>
+                <th>Node</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="shard in iSTabContentCtrl.shards">
+                <td>{{shard.shard}}</td>
+                <td>{{shard.state}}</td>
+                <td>{{shard.docs | numeral: '0[.][0] a'}}</td>
+                <td>{{shard.store}}</td>
+                <td>{{shard.prirep === 'p'}}</td>
+                <td>{{shard.node}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
