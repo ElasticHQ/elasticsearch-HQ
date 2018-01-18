@@ -8,7 +8,7 @@
     <div ng-if="!!clusterNavCtrl.fetched" class="summary-container" ng-cloak>
         <div class="row">
             <div class="col-md-6">
-                    <h2><i class="fa fa-heartbeat" ng-class="clusterNavCtrl.statusColor()"></i> <a ui-sref="clusterDetails({clusterName: clusterNavCtrl.clusterName})">{{clusterNavCtrl.clusterName}}</a></h2>
+                    <div class="cluster-name"><i class="fa fa-heartbeat" ng-class="clusterNavCtrl.statusColor()"></i> <a ui-sref="clusterDetails({clusterName: clusterNavCtrl.clusterName})">{{clusterNavCtrl.clusterName}}</a></div>
             </div>
             <div class="col-md-6">
                     <div class="btn-group pull-right">
