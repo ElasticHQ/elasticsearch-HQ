@@ -70,7 +70,7 @@ class clusterIndiceDetailsController {
 
     row.push({ label: 'Documents', value: numaral(primaries.docs.count).format(formatNum) });
     row.push({ label: 'Primary Size', value: numaral(primaries.store.size_in_bytes).format(formatByt) });
-    row.push({ label: 'Total Size', value: numaral(total.store.size_in_bytes).format(formatNum) });
+    row.push({ label: 'Total Size', value: numaral(total.store.size_in_bytes).format(formatByt) });
     row.push({ label: 'Shards', value: numaral(this.summary.settings.number_of_shards).format(formatNum) + " : " +  numaral(this.summary.settings.number_of_replicas).format(formatNum) });
     this.firstRow = row
   }
