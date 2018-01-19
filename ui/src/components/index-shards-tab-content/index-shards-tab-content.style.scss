@@ -1,3 +1,11 @@
+@import '../../styles/yeti-variables';
+
 .index-shards-tab-content {
-  
+    .table {
+        tbody {
+            td {
+              font-size: $font-size-medium;
+            }
+        }
+    }
 }
