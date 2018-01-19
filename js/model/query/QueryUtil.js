@@ -30,10 +30,10 @@ var QueryUtil =
                 "from":from,
                 "size":queryModel.get('queryObj').size,
                 "sort":queryModel.get('queryObj').sort,
-                "fields":queryModel.get('queryObj').fields,
+                "stored_fields":queryModel.get('queryObj').fields,
                 "explain":true
             };
-            //, "sort":[ {"_id":{"order":"asc" }}], "version":true, "fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}} };
+            //, "sort":[ {"_id":{"order":"asc" }}], "version":true, "stored_fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}} };
         }
         else {
             queryModel.get('queryObj').query.filtered.query.query_string.query = queryModel.queryString;
