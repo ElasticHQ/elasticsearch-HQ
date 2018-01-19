@@ -1,5 +1,6 @@
 ElasticHQ
 =========
+[![Known Vulnerabilities](https://snyk.io/test/github/royrusso/elasticsearch-HQ/badge.svg)](https://snyk.io/test/github/royrusso/elasticsearch-HQ)
 
 Monitoring, Management, and Querying Web Interface for ElasticSearch instances and clusters.
 
