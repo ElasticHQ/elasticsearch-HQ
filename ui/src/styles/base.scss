@@ -11,6 +11,12 @@ $fa-font-path: "~font-awesome/fonts";
 @import './yeti-bootswatch';
 @import '~font-awesome/scss/font-awesome.scss';
 
+// Removes horizontal scrollbar that's sometimes caused by the "divider-#" classes below.
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .summary-loader {
   display: flex;
   justify-content: center;
