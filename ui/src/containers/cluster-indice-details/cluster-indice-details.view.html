@@ -16,6 +16,7 @@
             <h4><i class="fa fa-database  icon-label {{cIndDetailsCtrl.summary.health}}"></i> {{cIndDetailsCtrl.indexName}}</h4>
         </div>
     </div>
+    <div class="divider-3"></div>
     <div class="row">
         <div class="col-md-3" ng-repeat="item in cIndDetailsCtrl.firstRow">
                 <div class="alert alert-info summary-panel">
@@ -24,19 +25,21 @@
                 </div>
         </div>
     </div>
+    <div class="divider-3"></div>
     <div class="row">
         <div class="col-md-12">
             <uib-tabset type="pills">
                 <uib-tab index="0" heading="Metrics" ng-click="cIndDetailsCtrl.fetchMetrics()">
+                    <div class="divider-3"></div>
                     <eshq-index-metrics-tab-content summary="cIndDetailsCtrl.summary"
                                                     stats="cIndDetailsCtrl.stats"></eshq-index-metrics-tab-content>
                 </uib-tab>
-                <uib-tab index="1" heading="Shards" ng-click="cIndDetailsCtrl.fetchShards()">
+                <uib-tab index="1" heading="Shards" ng-click="cIndDetailsCtrl.fetchShards()"><div class="divider-3"></div>
                     <eshq-index-shards-tab-content shards="cIndDetailsCtrl.shards"
                                                 ></eshq-index-shards-tab-content>
                 </uib-tab>
-                <uib-tab index="2" heading="Aliases">Aliases</uib-tab>
-                <uib-tab index="3" heading="Administration">
+                <uib-tab index="2" heading="Aliases"><div class="divider-3"></div>Aliases</uib-tab>
+                <uib-tab index="3" heading="Administration"><div class="divider-3"></div>
                     <table class="table administration">
                         <tbody>
                             <tr>

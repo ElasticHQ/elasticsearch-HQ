@@ -48,3 +48,28 @@ $fa-font-path: "~font-awesome/fonts";
     background: $brand-danger;
   }
 }
+
+.divider-3 {
+  width: 100%;
+  min-height: 1px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  display: inline-block;
+  position: relative;
+}
+.divider-5 {
+  width: 100%;
+  min-height: 1px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+  position: relative;
+}
+.divider-10 {
+  width: 100%;
+  min-height: 1px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+  position: relative;
+}
