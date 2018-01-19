@@ -35,6 +35,6 @@ def create_app(env='PROD'):
 
         init_marshmallow(app)
 
-        init_scheduler(app)
+        #init_scheduler(app)
 
     return app
