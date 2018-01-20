@@ -44,8 +44,8 @@ class IndicesService:
         return connection.indices.clear_cache(index=index_name, request_timeout=REQUEST_TIMEOUT)
 
     def get_alias(self, cluster_name, index_name):
-        # TODO
-        pass
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.indices.get_alias(index=index_name, request_timeout=REQUEST_TIMEOUT)
 
     def remove_alias(self, cluster_name, index_name, alias_name):
         # TODO

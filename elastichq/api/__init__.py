@@ -14,7 +14,7 @@ public_blueprint = Blueprint("public", __name__)
 
 
 @public_blueprint.route('/', defaults={'path': 'index.html'})
-@public_blueprint.route('/<path:path>')
+@public_blueprint.route('/ui/<path:path>')
 def catch_all(path):
     return render_template("index.html")
 

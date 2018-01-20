@@ -29,12 +29,12 @@ def create_app(env='PROD'):
     app.config['TEMPLATES_AUTO_RELOAD'] = True
 
     # Stop the app from initializing twice in debug mode.
-    if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
-        # The app is not in debug mode or we are in the reloaded process
-        init_database(app, tests=env.lower() == 'test')
+#    if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    # The app is not in debug mode or we are in the reloaded process
+    init_database(app, tests=env.lower() == 'test')
 
-        init_marshmallow(app)
+    init_marshmallow(app)
 
-        #init_scheduler(app)
+    #init_scheduler(app)
 
     return app

@@ -1,0 +1,26 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 5,
+      "number_of_replicas": 1
+    }
+  },
+  "mappings": {
+    "data": {
+      "properties": {
+        "make_id": {
+          "type": "string"
+        },
+        "make_display": {
+          "type": "string"
+        },
+        "make_is_common": {
+          "type": "integer"
+        },
+        "make_country": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

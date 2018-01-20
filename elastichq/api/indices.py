@@ -16,11 +16,13 @@ class IndexSummary(Resource):
         response = IndicesService().get_indices_summary(cluster_name, index_names)
         return APIResponse(response, HTTP_Status.OK, None)
 
+
 class IndexStats(Resource):
     @request_wrapper
     def get(self, cluster_name, index_names=None):
         response = IndicesService().get_indices_stats(cluster_name, index_names)
         return APIResponse(response, HTTP_Status.OK, None)
+
 
 class Index(Resource):
     @request_wrapper
@@ -66,7 +68,7 @@ class IndexAction(Resource):
 
 class IndexAlias(Resource):
     @request_wrapper
-    def get(self, cluster_name, index_name, alias_name=None):
+    def get(self, cluster_name, index_name=None):
         """
         Get all aliases for this index
         :param cluster_name: 
@@ -78,11 +80,25 @@ class IndexAlias(Resource):
 
     @request_wrapper
     def delete(self, cluster_name, index_name, alias_name):
+        """
+        Deletes an alias.
+        :param cluster_name: 
+        :param index_name: 
+        :param alias_name: 
+        :return:
+        """
         response = IndicesService().remove_alias(cluster_name, index_name, alias_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
     @request_wrapper
     def post(self, cluster_name, index_name, alias_name):
+        """
+        Creates a new alias.
+        :param cluster_name: 
+        :param index_name: 
+        :param alias_name: 
+        :return:
+        """
         response = IndicesService().create_alias(cluster_name, index_name, alias_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
@@ -108,5 +124,5 @@ api.add_resource(IndexShards, '/indices/<string:cluster_name>/<string:index_name
 api.add_resource(IndexSummary, '/indices/<string:cluster_name>/<string:index_names>/_summary', '/indices/<string:cluster_name>/_summary', endpoint='indices_summary',
                  methods=['GET'])
 
-api.add_resource(IndexAlias, '/indices/<string:cluster_name>/<string:index_name>/_alias/<string:alias_name>', endpoint='index_alias', methods=['GET', 'DELETE', 'POST'])
+api.add_resource(IndexAlias, '/indices/<string:cluster_name>/<string:index_name>/_alias', endpoint='index_alias', methods=['GET', 'DELETE', 'POST'])
 api.add_resource(IndexMapping, '/indices/<string:cluster_name>/<string:index_name>/_mapping/<string:mapping_name>', endpoint='index_mapping', methods=['GET'])
