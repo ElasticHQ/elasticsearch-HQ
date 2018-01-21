@@ -18,6 +18,10 @@ import indexShardsTabContent from './index-shards-tab-content/index-shards-tab-c
 import indexAliasesTabContent from './index-aliases-tab-content/index-aliases-tab-content';
 import indexMappingsTabContent from './index-mappings-tab-content/index-mappings-tab-content';
 
+// Nodes components
+import nodeFsInfoTable from './node-fs-info-table/node-fs-info-table';
+import nodeProcessTable from './node-process-table/node-process-table';
+
 const CommonComponents = angular.module('components', [
   clusterSummary,
   clusterNavigation,
@@ -34,6 +38,8 @@ const CommonComponents = angular.module('components', [
   indexMetricQCache,
   indexMetricOps,
   indexMetricSearch,
+  nodeFsInfoTable,
+  nodeProcessTable,
   topNav,
 ]).name;
 

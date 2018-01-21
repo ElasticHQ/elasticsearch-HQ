@@ -4,4 +4,17 @@
             <eshq-cluster-navigation ></eshq-cluster-navigation>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>{{ cNodeDetailsCtrl.nodeId }} <span class="sub-info">Version: {{cNodeDetailsCtrl.info.version}} | Master: {{cNodeDetailsCtrl.info.attributes.master}}</span> </h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <eshq-node-process-table process="cNodeDetailsCtrl.stats.process"></eshq-node-process-table>
+        </div>
+        <div class="col-md-6">
+            <eshq-node-fs-info-table fs="cNodeDetailsCtrl.stats.fs"></eshq-node-fs-info-table>
+        </div>
+    </div>
 </div>
