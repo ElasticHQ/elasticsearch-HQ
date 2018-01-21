@@ -84,6 +84,16 @@ class clusterIndiceDetailsController {
     this.firstRow = row
   }
 
+  fetchMapping() {
+    this.fetching = true;
+    this.fetchingTitle = 'Mappings';
+    this.mappings= undefined;
+
+    this.ClusterIndices.clusterIndiceMappings(this.clusterName, this.indexName).then((resp) => {
+      this.mappings = resp.data.data[0];
+    }).finally(() => this.fetching = false)
+  }
+
   
   
 }

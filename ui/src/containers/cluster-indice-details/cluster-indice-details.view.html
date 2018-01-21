@@ -44,7 +44,12 @@
           <eshq-index-aliases-tab-content aliases="cIndDetailsCtrl.aliases"
               ></eshq-index-aliases-tab-content>
         </uib-tab>
-        <uib-tab index="3" heading="Administration">
+        <uib-tab index="3" heading="Mappings" ng-click="cIndDetailsCtrl.fetchMapping()">
+          <div class="divider-3"></div>
+          <eshq-index-mappings-tab-content mappings="cIndDetailsCtrl.mappings">
+          </eshq-index-mappings-tab-content>
+        </uib-tab>
+        <uib-tab index="4" heading="Administration">
           <div class="divider-3"></div>
           <table class="table administration">
             <tbody>

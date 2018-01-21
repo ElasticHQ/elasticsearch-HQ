@@ -38,6 +38,14 @@ class ClusterIndicesService {
     });
   }
 
+  clusterIndiceMappings(cluster_name, index_name) {
+    // /api/indices/[cluster_name]/[index_name]
+    return this.$http({
+      url: '/api/indices/' + cluster_name + '/' + index_name + '/_mapping',
+      method: 'GET'
+    });
+  }
+
   clusterIndiceShards(cluster_name, index_name) {
     // /api/indices/[cluster_name]/[index_name]
     return this.$http({

@@ -16,6 +16,7 @@ import indexMetricQCache from './index-metric-querycache/index-metric-querycache
 import indexMetricOps from './index-metric-ops/index-metric-ops'
 import indexShardsTabContent from './index-shards-tab-content/index-shards-tab-content';
 import indexAliasesTabContent from './index-aliases-tab-content/index-aliases-tab-content';
+import indexMappingsTabContent from './index-mappings-tab-content/index-mappings-tab-content';
 
 const CommonComponents = angular.module('components', [
   clusterSummary,
@@ -25,6 +26,7 @@ const CommonComponents = angular.module('components', [
   indexMetricsTabContent,
   indexShardsTabContent,
   indexAliasesTabContent,
+  indexMappingsTabContent,
   indexMetricDocs,
   indexMetricHealth,
   indexMetricGet,

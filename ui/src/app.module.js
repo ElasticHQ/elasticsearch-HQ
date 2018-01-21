@@ -5,6 +5,7 @@ import 'babel-polyfill';
 import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
 import uiBootstrap from 'angular-ui-bootstrap';
+import hljs from 'angular-highlightjs';
 
 // Routes
 import config from './app.config.js';
@@ -25,6 +26,7 @@ angular.module('eshq',[
     CommonContainers,
     CommonFactories,
     CommonFilters,
-    CommonServices
+    CommonServices,
+    hljs
 ])
 .config(config)
