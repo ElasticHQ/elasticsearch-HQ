@@ -7,7 +7,7 @@ const indexAliasesTabContentComponent = {
   },  
   template,
   controller,
-  controllerAs: 'indexAliasesTabContentCtrl'
+  controllerAs: 'iSTabContentCtrl'
 };
 
 export default indexAliasesTabContentComponent;
