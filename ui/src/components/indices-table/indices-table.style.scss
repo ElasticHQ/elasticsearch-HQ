@@ -11,8 +11,7 @@
         }
         tbody {
             td.health {
-              padding: 8px 0px;
-              width: 6px;
+              padding: 8px 3px;
               &.green {
                     background: $brand-success;
                 }
