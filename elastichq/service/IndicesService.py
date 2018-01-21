@@ -44,8 +44,23 @@ class IndicesService:
         return connection.indices.clear_cache(index=index_name, request_timeout=REQUEST_TIMEOUT)
 
     def get_alias(self, cluster_name, index_name):
+        """
+        Fetches alias definitions for an index, if passed in. For now, we ignore nested data inside of the alias payload, like filter terms. 
+        TODO: https://www.elastic.co/guide/en/elasticsearch/reference/2.0/indices-aliases.html#_examples_2
+        :param cluster_name: 
+        :param index_name: 
+        :return:
+        """
+    
         connection = ConnectionService().get_connection(cluster_name)
-        return connection.indices.get_alias(index=index_name, request_timeout=REQUEST_TIMEOUT)
+        alias_defs = connection.indices.get_alias(index=index_name, request_timeout=REQUEST_TIMEOUT)
+        aliases = []
+        for index_name in alias_defs:
+            row = {'index_name': index_name}
+            aliases_as_dicts = alias_defs[index_name].get('aliases', None)
+            row.update({'aliases': list(aliases_as_dicts.keys())})
+            aliases.append(row)
+        return aliases
 
     def remove_alias(self, cluster_name, index_name, alias_name):
         # TODO

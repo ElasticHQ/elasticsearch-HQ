@@ -45,6 +45,13 @@ class ClusterIndicesService {
       method: 'GET'
     });
   }
+  clusterIndiceAliases(cluster_name, index_name) {
+    // /api/indices/[cluster_name]/[index_name]
+    return this.$http({
+      url: '/api/indices/' + cluster_name + '/' + index_name + '/_aliases',
+      method: 'GET'
+    });
+  }
 
 }
 

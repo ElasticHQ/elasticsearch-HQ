@@ -57,6 +57,15 @@ class clusterIndiceDetailsController {
       this.shards = _.orderBy(resp.data.data, 'shard');
     }).finally(() => this.fetching = false)
   }
+  
+  fetchAliases() {
+    this.fetching = true;
+    this.fetchingTitle = 'Aliases';
+    this.aliases= undefined;
+    this.ClusterIndices.clusterIndiceAliases(this.clusterName, this.indexName).then((resp) => {
+      this.aliases = _.orderBy(resp.data.data, 'alias');
+    }).finally(() => this.fetching = false)
+  }
 
   setRows() {
     if (!this.summary || !this.stats) return;

@@ -38,7 +38,8 @@
                     <eshq-index-shards-tab-content shards="cIndDetailsCtrl.shards"
                                                 ></eshq-index-shards-tab-content>
                 </uib-tab>
-                <uib-tab index="2" heading="Aliases"><div class="divider-3"></div>Aliases</uib-tab>
+                <uib-tab index="2" heading="Aliases" ng-click="cIndDetailsCtrl.fetchAliases()"><div class="divider-3"></div><eshq-index-aliases-tab-content shards="cIndDetailsCtrl.aliases"
+                                                ></eshq-index-aliases-tab-content></uib-tab>
                 <uib-tab index="3" heading="Administration"><div class="divider-3"></div>
                     <table class="table administration">
                         <tbody>

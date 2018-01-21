@@ -124,5 +124,5 @@ api.add_resource(IndexShards, '/indices/<string:cluster_name>/<string:index_name
 api.add_resource(IndexSummary, '/indices/<string:cluster_name>/<string:index_names>/_summary', '/indices/<string:cluster_name>/_summary', endpoint='indices_summary',
                  methods=['GET'])
 
-api.add_resource(IndexAlias, '/indices/<string:cluster_name>/<string:index_name>/_alias', endpoint='index_alias', methods=['GET', 'DELETE', 'POST'])
+api.add_resource(IndexAlias, '/indices/<string:cluster_name>/<string:index_name>/_aliases','/indices/<string:cluster_name>/_aliases',  endpoint='index_alias', methods=['GET', 'DELETE', 'POST'])
 api.add_resource(IndexMapping, '/indices/<string:cluster_name>/<string:index_name>/_mapping/<string:mapping_name>', endpoint='index_mapping', methods=['GET'])
