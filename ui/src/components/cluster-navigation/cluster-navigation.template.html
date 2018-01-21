@@ -14,15 +14,15 @@
                     <div class="btn-group pull-right">
                         <a class="btn btn-success" ui-sref-active="active"  ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"><i class="fa fa-list"></i> Indices</a>
                         <a class="btn btn-success" ui-sref=""><i class="fa fa-share-alt"></i> Aliases</a>
-                        <a class="btn btn-success" ui-sref=""><i class="fa fa-map"></i> Mappings</a>
-                        <a class="btn btn-success" ui-sref=""><i class="fa fa-code"></i> REST</a>
+                        <a class="btn btn-success" ui-sref=""><i class="fa fa-ambulance"></i> Diagnostics</a>
+                        <!--<a class="btn btn-success" ui-sref=""><i class="fa fa-code"></i> REST</a>-->
                     </div>
             </div>
         </div>
         <div class="divider-3"></div>
         <div class="row">
             <div class="col-md-6 nodes">
-                <a ng-disabled="true" class="btn btn-primary">Node Diagnostics</a>
+                <!--<a ng-disabled="true" class="btn btn-primary">Node Diagnostics</a>-->
                 <a ng-repeat="node in clusterNavCtrl.summary.nodes"
                     class="btn"
                     ng-class="node.master === 'true' ? 'btn-primary' : 'btn-info'"
