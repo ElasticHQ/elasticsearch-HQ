@@ -15,28 +15,31 @@
     
     
     <eshq-cluster-summary ng-if="clusterDetailsCtrl.summary" summary="clusterDetailsCtrl.summary"></eshq-cluster-summary>
-
+ 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 node-details">
             <h3>Nodes</h3>
-            <table class="table" ng-if="clusterDetailsCtrl.nodes.length" >
+            <table class="table table-hover table-striped" ng-if="clusterDetailsCtrl.nodes.length" >
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>Master</th>
                         <th>Data</th>
                         <th>HTTP Addr</th>
-                        <th>Heap Used %</th>
+                        <th>JVM Heap</th>
                         <th>FS Used %</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="node in clusterDetailsCtrl.nodes">
                         <td><a ui-sref="clusterNodeDetails({clusterName: clusterDetailsCtrl.clusterName, nodeId: node.node_id})">{{node['name']}}</a></td>
-                        <td>{{node.is_master_node}}</td>
-                        <td>{{node.is_data_node}}</td>
+                        <!--<td>{{node.is_master_node}}</td>-->
+                        <!--<td>{{node.is_data_node}}</td>-->
+                        <td><i class="fa" ng-class="{{node.is_master_node}} ? 'fa-check-square' : ''"></i></td>
+                        <td><i class="fa" ng-class="{{node.is_data_node}} ? 'fa-check-square' : ''"></i></td>
+
                         <td>{{node.host}}</td>
-                        <td>{{node.jvm.used_percent | numeral: '0[.][0]%' }}</td>
+                        <td>{{node.jvm.heap_used_in_bytes | numeral: '0[.][0] b' }} / {{node.jvm.heap_max_in_bytes | numeral: '0[.][0] b' }}</td>
                         <td>{{node.fs.used_in_percent | numeral: '0[.][0]%' }}</td>
                     </tr>
                 </tbody>
