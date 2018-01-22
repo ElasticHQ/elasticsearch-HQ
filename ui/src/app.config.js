@@ -13,6 +13,12 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider) => {
             controller: 'clusterIndicesController',
             controllerAs: 'clusterIndicesCtrl'
         })
+        .state('clusterAliases', {
+            url: '/clusters/:clusterName/aliases',
+            template: require('./containers/cluster-aliases/cluster-aliases.view.html'),
+            controller: 'clusterAliasesController',
+            controllerAs: 'clusterAliasesCtrl'
+        })
         .state('clusterIndiceDetails', {
             url: '/clusters/:clusterName/indices/:indexName',
             template: require('./containers/cluster-indice-details/cluster-indice-details.view.html'),

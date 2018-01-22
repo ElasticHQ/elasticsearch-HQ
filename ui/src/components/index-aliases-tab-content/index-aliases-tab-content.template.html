@@ -3,13 +3,13 @@
     <thead>
     <tr>
       <th>Index</th>
-      <th>Aliases</th>
+      <th>Alias</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="alias in iSTabContentCtrl.aliases">
       <td>{{alias.index_name}}</td>
-      <td>{{alias.aliases && alias.aliases.length ? alias.aliases.join(',') : '' }}</td>
+      <td>{{alias.alias}}</td>
     </tr>
     </tbody>
   </table>

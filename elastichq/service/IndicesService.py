@@ -51,15 +51,17 @@ class IndicesService:
         :param index_name: 
         :return:
         """
-    
+
         connection = ConnectionService().get_connection(cluster_name)
         alias_defs = connection.indices.get_alias(index=index_name, request_timeout=REQUEST_TIMEOUT)
         aliases = []
         for index_name in alias_defs:
-            row = {'index_name': index_name}
             aliases_as_dicts = alias_defs[index_name].get('aliases', None)
-            row.update({'aliases': list(aliases_as_dicts.keys())})
-            aliases.append(row)
+            alias_keys = list(aliases_as_dicts)
+            if alias_keys:
+                for key in alias_keys:
+                    row = {'index_name': index_name, 'alias': key}
+                    aliases.append(row)
         return aliases
 
     def remove_alias(self, cluster_name, index_name, alias_name):
@@ -98,11 +100,13 @@ class IndicesService:
                 index['docs'] = jmespath.search("primaries.docs.count", one_index)
                 index['docs_deleted'] = jmespath.search("primaries.docs.deleted", one_index)
                 index['size_in_bytes'] = jmespath.search("primaries.store.size_in_bytes", one_index)
-                index['fielddata'] = {'memory_size_in_bytes': jmespath.search("total.fielddata.memory_size_in_bytes", one_index)}
+                index['fielddata'] = {
+                    'memory_size_in_bytes': jmespath.search("total.fielddata.memory_size_in_bytes", one_index)}
 
                 index_state = state_indices.get(key)
-                index['settings'] = {'number_of_shards': jmespath.search("settings.index.number_of_shards", index_state),
-                                     "number_of_replicas": jmespath.search("settings.index.number_of_replicas", index_state)}
+                index['settings'] = {
+                    'number_of_shards': jmespath.search("settings.index.number_of_shards", index_state),
+                    "number_of_replicas": jmespath.search("settings.index.number_of_replicas", index_state)}
                 index['state'] = index_state.get("state", None)
                 indices.append(index)
         return indices
