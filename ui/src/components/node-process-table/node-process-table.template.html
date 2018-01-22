@@ -1,6 +1,6 @@
 <div class="node-process-table ">
     <h4>Process</h4>
-    <table class="table">
+    <table class="table table-condensed table-hover table-striped">
         <thead>
             <tr>
                 <th></th>
@@ -26,11 +26,15 @@
             </tr>
             
             <tr>
+                <td>MLockAll</td>
+                <td>{{nPTableCtrl.info.mlockall}}</td>
+            </tr>            
+            <tr>
                 <td>Virtual Memory</td>
                 <td>{{nPTableCtrl.process.mem.total_virtual_in_bytes | numeral: '0[.][0][0] b'}}</td>
             </tr>
             <tr>
-                <td>Timestamp</td>
+                <td>Current Time</td>
                 <td>{{nPTableCtrl.process.timestamp | moment }}</td>
             </tr>
         </tbody>

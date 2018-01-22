@@ -19,8 +19,11 @@ import indexAliasesTabContent from './index-aliases-tab-content/index-aliases-ta
 import indexMappingsTabContent from './index-mappings-tab-content/index-mappings-tab-content';
 
 // Nodes components
+import nodeSummaryInfoTable from './node-summary-info-table/node-summary-info-table';
 import nodeFsInfoTable from './node-fs-info-table/node-fs-info-table';
 import nodeProcessTable from './node-process-table/node-process-table';
+import nodeOsInfoTable from './node-os-info-table/node-os-info-table';
+import nodeJVMStatsTable from './node-jvm-stats-table/node-jvm-stats-table';
 
 const CommonComponents = angular.module('components', [
   clusterSummary,
@@ -38,8 +41,11 @@ const CommonComponents = angular.module('components', [
   indexMetricQCache,
   indexMetricOps,
   indexMetricSearch,
+  nodeSummaryInfoTable,
   nodeFsInfoTable,
   nodeProcessTable,
+  nodeOsInfoTable,
+  nodeJVMStatsTable,
   topNav,
 ]).name;
 

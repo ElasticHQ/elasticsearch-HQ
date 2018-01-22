@@ -3,7 +3,8 @@ import controller from './node-process-table.controller';
 
 const nodeProcessTableComponent = {
   bindings: {
-    process: '<'
+    process: '<',
+    info: '<'
   },
   template,
   controller,

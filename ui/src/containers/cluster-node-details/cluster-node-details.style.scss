@@ -1,6 +1,18 @@
+@import '../../styles/yeti-variables';
+
 .cluster-node-details {
-    h4 > .sub-info {
-        font-size: 0.75em;
-        font-weight: 400;
+  h4 > .sub-info {
+    font-size: 0.75em;
+    font-weight: 400;
+  }
+
+  table.table {
+    tbody {
+      tr {
+        td {
+          font-size: $font-size-medium;
+        }
+      }
     }
+  }
 }

@@ -15,7 +15,7 @@ class NodeService:
     def get_node_info(self, cluster_name, nodes_list=None):
         connection = ConnectionService().get_connection(cluster_name)
 
-        return connection.nodes.info(node_id=nodes_list, request_timeout=REQUEST_TIMEOUT)
+        return connection.nodes.info(node_id=nodes_list, metric="_all", request_timeout=REQUEST_TIMEOUT)
 
     def get_node_summary(self, cluster_name, node_ids=None):
         connection = ConnectionService().get_connection(cluster_name)
