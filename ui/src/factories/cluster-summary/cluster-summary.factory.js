@@ -41,6 +41,7 @@ class ClusterSummaryFactory {
       this.cancelPrevieousReqeusts([].concat(this.queue));
       this._currentCluster = clusterName;
       this.queue = [];
+      this.data.summary = undefined;
     };
     let deferred = this.$q.defer();
     if (this.data.summary) {

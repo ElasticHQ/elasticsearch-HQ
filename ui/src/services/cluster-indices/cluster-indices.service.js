@@ -60,6 +60,13 @@ class ClusterIndicesService {
       method: 'GET'
     });
   }
+  clusterIndicesClearCache(cluster_name) {
+    // /api/indices/[cluster_name]/[index_name]
+    return this.$http({
+      url: '/api/indices/' + cluster_name + '/action/_cache',
+      method: 'GET'
+    });
+  }
 
 }
 

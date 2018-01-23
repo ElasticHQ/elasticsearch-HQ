@@ -14,7 +14,6 @@ class clusterNavigationController {
     }
 
     fetchClusterInfo(){
-        console.log('----- aaaa: ');
         this.summary = undefined;
         this.fetched = false;
         this.fetching = true;
