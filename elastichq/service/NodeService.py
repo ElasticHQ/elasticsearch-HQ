@@ -2,8 +2,8 @@ __author__ = 'royrusso'
 
 import jmespath
 
-from ..globals import REQUEST_TIMEOUT
 from .ConnectionService import ConnectionService
+from ..globals import REQUEST_TIMEOUT
 
 
 class NodeService:
@@ -18,8 +18,15 @@ class NodeService:
         return connection.nodes.info(node_id=nodes_list, metric="_all", request_timeout=REQUEST_TIMEOUT)
 
     def get_node_summary(self, cluster_name, node_ids=None):
+        """
+        Given a node(s), consolidates data from several Node APIs in a human-readable format.
+        :param cluster_name:
+        :param node_ids:
+        :return: List of nodesummary
+        """
         connection = ConnectionService().get_connection(cluster_name)
-        nodes_stats = connection.nodes.stats(node_id=node_ids, metric="fs,jvm,os,process", request_timeout=REQUEST_TIMEOUT)
+        nodes_stats = connection.nodes.stats(node_id=node_ids, metric="fs,jvm,os,process",
+                                             request_timeout=REQUEST_TIMEOUT)
         node_ids = list(nodes_stats['nodes'].keys())
 
         nodes = []
@@ -32,13 +39,13 @@ class NodeService:
                     "host": jmespath.search("host", node_dict)
                     }
             if connection.version.startswith("2"):
-                node.update({"is_master_node": jmespath.search("attributes.master", node_dict)})
+                node.update({"is_master_node": bool(jmespath.search("attributes.master", node_dict))})
 
                 node_info = self.get_node_info(cluster_name, node_id)
                 if node_info:
                     node_settings = jmespath.search("nodes.*.settings", node_info)[0].get("node", None)
                     if node_settings is not None:
-                        node.update({"is_data_node": node_settings.get("data", False)})
+                        node.update({"is_data_node": bool(node_settings.get("data", False))})
 
             else:
                 node_roles = jmespath.search("roles", node_dict)

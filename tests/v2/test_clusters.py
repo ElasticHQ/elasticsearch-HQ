@@ -7,7 +7,6 @@ import jmespath
 
 class TestCluster_v2:
     def test_get_cluster_summary(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/clusters/%s/_summary' % fixture.cluster_v2_name)
 
@@ -16,7 +15,6 @@ class TestCluster_v2:
         assert fixture.has_all_keys(fixture.config.KEYS_CLUSTER_SUMMARY, res['data'][0].keys()) is True
 
     def test_get_cluster_health(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/clusters/%s/_health' % fixture.cluster_v2_name)
 
@@ -25,7 +23,6 @@ class TestCluster_v2:
         assert fixture.has_all_keys(fixture.config.KEYS_CLUSTER_HEALTH, res['data'][0].keys()) is True
 
     def test_get_cluster_state(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/clusters/%s/_state' % fixture.cluster_v2_name)
 
@@ -34,7 +31,6 @@ class TestCluster_v2:
         assert fixture.has_all_keys(fixture.config.KEYS_CLUSTER_STATE, res['data'][0].keys()) is True
 
     def test_get_cluster_stats(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/clusters/%s/_stats' % fixture.cluster_v2_name)
 
@@ -43,7 +39,6 @@ class TestCluster_v2:
         assert fixture.has_all_keys(fixture.config.KEYS_CLUSTER_STATS, res['data'][0].keys()) is True
 
     def test_get_cluster_pending_tasks(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/clusters/%s/_pending_tasks' % fixture.cluster_v2_name)
 
@@ -52,7 +47,6 @@ class TestCluster_v2:
         assert fixture.has_all_keys(fixture.config.KEYS_CLUSTER_PENDING_TASKS, res['data'][0].keys()) is True
 
     def test_get_cluster_settings(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/clusters/%s/_settings' % fixture.cluster_v2_name)
 
@@ -61,7 +55,6 @@ class TestCluster_v2:
         assert fixture.has_all_keys(fixture.config.KEYS_CLUSTER_SETTINGS, res['data'][0].keys()) is True
 
     def test_put_cluster_settings(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         body = {
             "transient": {

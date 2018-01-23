@@ -5,7 +5,6 @@ import jmespath
 
 class TestNodes_v2:
     def test_get_node_stats(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/nodes/%s/_stats' % fixture.cluster_v2_name)
 
@@ -15,7 +14,6 @@ class TestNodes_v2:
         assert fixture.has_all_keys(fixture.config.KEYS_NODE_STATS, jmespath.search('*', res['data'][0]['nodes'])[0]) is True
 
     def test_get_one_node_stats(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/nodes/%s/_stats' % fixture.cluster_v2_name)
 
@@ -31,7 +29,6 @@ class TestNodes_v2:
         assert fixture.has_all_keys(fixture.config.KEYS_NODE_STATS, res['data'][0]['nodes'][node_id].keys()) is True
 
     def test_get_node_info(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/nodes/%s/_info' % fixture.cluster_v2_name)
 
@@ -40,7 +37,6 @@ class TestNodes_v2:
         assert fixture.has_all_keys(fixture.config.KEYS_NODE_INFO, jmespath.search('*', res['data'][0]['nodes'])[0]) is True
 
     def test_get_one_node_info(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
 
         response = fixture.app.get('/api/nodes/%s/_info' % fixture.cluster_v2_name)
 

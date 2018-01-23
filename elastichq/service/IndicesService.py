@@ -82,13 +82,19 @@ class IndicesService:
         return connection.indices.get_mapping(index=index_name, doc_type=mapping_name, request_timeout=REQUEST_TIMEOUT)
 
     def get_indices_summary(self, cluster_name, indices_names=None):
+        """
+        Returns a formatted representation of one/many indices.
+        :param cluster_name:
+        :param indices_names:
+        :return:
+        """
         connection = ConnectionService().get_connection(cluster_name)
         indices_stats = connection.indices.stats(index=indices_names, request_timeout=REQUEST_TIMEOUT)
 
         # get shard info
         cluster_state = ClusterService().get_cluster_state(cluster_name, metric="metadata", indices=indices_names)
         state_indices = jmespath.search("metadata.indices", cluster_state)
-        cat = connection.cat.indices()
+        cat = connection.cat.indices(format='json')
         indices = []
         if state_indices:
             the_indices = indices_stats.get("indices", None)
@@ -105,13 +111,13 @@ class IndicesService:
 
                 index_state = state_indices.get(key)
                 index['settings'] = {
-                    'number_of_shards': jmespath.search("settings.index.number_of_shards", index_state),
-                    "number_of_replicas": jmespath.search("settings.index.number_of_replicas", index_state)}
+                    'number_of_shards': int(jmespath.search("settings.index.number_of_shards", index_state)),
+                    "number_of_replicas": int(jmespath.search("settings.index.number_of_replicas", index_state))}
                 index['state'] = index_state.get("state", None)
                 indices.append(index)
         return indices
 
     def get_shards(self, cluster_name, index_name):
         connection = ConnectionService().get_connection(cluster_name)
-        shards = connection.cat.shards(index=index_name)
+        shards = connection.cat.shards(index=index_name, format='json')
         return shards

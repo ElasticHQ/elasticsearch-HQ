@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="cluster-name"><i class="fa fa-heartbeat icon-label {{clusterNavCtrl.summary.status}}"></i>
-                    <a ui-sref="clusterDetails({clusterName: clusterNavCtrl.clusterName})">{{clusterNavCtrl.clusterName}}</a>
+                    <a ui-sref="clusterDetails({clusterName: clusterNavCtrl.clusterName})">{{clusterNavCtrl.clusterName}}</a> <small>{{clusterNavCtrl.summary.version}}</small>
                 </div>
             </div>
             <div class="col-md-6">

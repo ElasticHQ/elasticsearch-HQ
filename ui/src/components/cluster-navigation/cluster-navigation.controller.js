@@ -14,12 +14,14 @@ class clusterNavigationController {
     }
 
     fetchClusterInfo(){
+        console.log('----- aaaa: ');
+        this.summary = undefined;
         this.fetched = false;
         this.fetching = true;
         this.factory.getSummary(this.clusterName).then((resp) => {
             this.summary = resp;
         }, (err) => {
-            console.log('----- err: ', err)
+            console.log('----- err: ', err);
         })
         .finally(() => {
             this.fetching = false;

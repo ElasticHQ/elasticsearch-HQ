@@ -1,10 +1,10 @@
 import json
-from functools import lru_cache
-from apscheduler.jobstores.memory import MemoryJobStore
 import os
+from functools import lru_cache
+
+from apscheduler.jobstores.memory import MemoryJobStore
 
 __author__ = 'wmcginnis'
-
 
 _search_paths = [
     './elastichq.json',
@@ -63,9 +63,18 @@ class TestSettings(BaseSettings):
     ES_V5_PORT = '8200'
     ES_V6_HOST = '127.0.0.1'
     ES_V6_PORT = '7200'
-    ES_V2_CLUSTER = '{"ip": "%s", "port": "%s"}' % (ES_V2_HOST, ES_V2_PORT)
-    ES_V5_CLUSTER = '{"ip": "%s", "port": "%s"}' % (ES_V5_HOST, ES_V5_PORT)
-    ES_V6_CLUSTER = '{"ip": "%s", "port": "%s"}' % (ES_V6_HOST, ES_V6_PORT)
+
+    # Cluster URL is used in the text fixture, for easy connections using lib requests.
+    ES_V2_CLUSTER_URL = 'http://%s:%s' % (ES_V2_HOST, ES_V2_PORT)
+    ES_V5_CLUSTER_URL = 'http://%s:%s' % (ES_V5_HOST, ES_V5_PORT)
+    ES_V6_CLUSTER_URL = 'http://%s:%s' % (ES_V6_HOST, ES_V6_PORT)
+
+    # Cluster connect strings are passed to /_connect endpoint to initiate pools
+    ES_V2_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s"}' % (ES_V2_HOST, ES_V2_PORT)
+    ES_V5_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s"}' % (ES_V5_HOST, ES_V5_PORT)
+    ES_V6_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s"}' % (ES_V6_HOST, ES_V6_PORT)
+
+    # Key matching: For tests, we enforce that all responses, regardless of ES version contain the same keys.
     KEYS_CLUSTER_HEALTH = ['active_primary_shards', 'number_of_in_flight_fetch', 'number_of_data_nodes',
                            'number_of_nodes', 'delayed_unassigned_shards', 'unassigned_shards',
                            'number_of_pending_tasks', 'initializing_shards', 'cluster_name',
@@ -87,6 +96,9 @@ class TestSettings(BaseSettings):
     KEYS_NODE_INFO = ['process', 'plugins', 'build', 'ip', 'modules', 'http_address', 'thread_pool', 'jvm', 'name',
                       'host', 'settings', 'os', 'transport', 'http', 'transport_address',
                       'version']
+    KEYS_NODE_SUMMARY_FS = ['mount', 'path', 'type', 'free_in_bytes', 'available_in_bytes', 'total_in_bytes']
+    KEYS_NODE_SUMMARY_JVM = ['heap_used_in_bytes', 'non_heap_committed_in_bytes', 'non_heap_used_in_bytes',
+                             'heap_committed_in_bytes', 'heap_max_in_bytes', 'pools', 'heap_used_percent']
 
 
 class ProdSettings(BaseSettings):

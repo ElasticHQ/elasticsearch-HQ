@@ -1,3 +1,5 @@
+@import '../../styles/yeti-variables';
+
 .cluster-navigation {
   margin-left: -15px;
   margin-right: -15px;
@@ -5,6 +7,11 @@
   padding: 10px;
   .cluster-name {
       font-size: 1.6em;
+
+      small {
+        font-size: .5em;
+        color: $gray-light;
+      }
   }
   .nodes > a.btn {
     margin-right: 0.5em;
