@@ -9,8 +9,10 @@ class homeController {
         this.service = ClusterConnection;
         this.$state = $state;
 
-        this.connection = 'http://10.0.0.182:9200'
+        this.connection = 'http://10.0.0.182:9200';
     }
+
+    
 
     connect() {
         console.log('---- see request to connect', this.connection)

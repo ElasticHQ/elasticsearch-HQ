@@ -20,12 +20,16 @@
             .title-description {
                 font-size: 1.4em;
                 font-weight: 300;
+                margin-bottom: 0.75em;
             }
             .form-inline {
                 > .input-group {
-                    width: 100%;
+                    // width: 100%;
+                    display: flex;
+                    margin-bottom: 0.8em;
                 }
             }
+            
         }
    }
 }
