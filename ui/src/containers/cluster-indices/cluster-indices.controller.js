@@ -6,6 +6,8 @@ class clusterIndicesController {
     constructor($stateParams, ClusterIndices) {
         'ngInject';
 
+        this.ClusterIndices = ClusterIndices;
+        this.clusterName = $stateParams.clusterName;
 
         // Fetch the data
         this.fetchingIndices = true;
@@ -31,9 +33,26 @@ class clusterIndicesController {
     }
 
     clearCache() {
-        console.log('in clear cache');
         this.fetching = true;
         this.ClusterIndices.clusterIndicesClearCache(this.clusterName).then((resp) => {
+            console.log('------ response: ', resp.data)
+        }).finally(() => this.fetching = false)
+    }
+    flushCache() {
+        this.fetching = true;
+        this.ClusterIndices.clusterIndicesFlush(this.clusterName).then((resp) => {
+            console.log('------ response: ', resp.data)
+        }).finally(() => this.fetching = false)
+    }
+    refreshIndex() {
+        this.fetching = true;
+        this.ClusterIndices.clusterIndicesRefresh(this.clusterName).then((resp) => {
+            console.log('------ response: ', resp.data)
+        }).finally(() => this.fetching = false)
+    }
+    forceMergeIndex() {
+        this.fetching = true;
+        this.ClusterIndices.clusterIndicesForceMerge(this.clusterName).then((resp) => {
             console.log('------ response: ', resp.data)
         }).finally(() => this.fetching = false)
     }

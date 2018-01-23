@@ -1,13 +1,13 @@
 __author__ = 'royrusso'
 
-from flask_restful import Resource
 from flask import request
+from flask_restful import Resource
 
-from ..common.status_codes import HTTP_Status
 from . import api
 from ..common.api_response import APIResponse
-from ..service import IndicesService
 from ..common.exceptions import request_wrapper
+from ..common.status_codes import HTTP_Status
+from ..service import IndicesService
 
 
 class IndexSummary(Resource):
@@ -47,7 +47,7 @@ class Index(Resource):
 
 class IndexAction(Resource):
     @request_wrapper
-    def put(self, cluster_name, index_name, action):
+    def put(self, cluster_name, action, index_name=None):
         response = {}
 
         if action == '_open':
@@ -60,8 +60,10 @@ class IndexAction(Resource):
             response = IndicesService().refresh_index(cluster_name, index_name)
         elif action == '_cache':
             response = IndicesService().clear_cache(cluster_name, index_name)
-        elif action == '_forcemerge':
+        elif action == '_force_merge':
             response = IndicesService().force_merge(cluster_name, index_name)
+        else:
+            return APIResponse(response, HTTP_Status.NOT_FOUND, None)
 
         return APIResponse(response, HTTP_Status.OK, None)
 
@@ -117,14 +119,21 @@ class IndexShards(Resource):
         return APIResponse(response, HTTP_Status.OK, None)
 
 
-api.add_resource(IndexAction, '/indices/<string:cluster_name>/<string:index_name>/action/<string:action>', endpoint='index_command', methods=['GET'])
-api.add_resource(Index, '/indices/<string:cluster_name>/<string:index_name>', '/indices/<string:cluster_name>', endpoint='indices', methods=['GET', 'DELETE', 'POST'])
-api.add_resource(IndexStats, '/indices/<string:cluster_name>/<string:index_names>/_stats', '/indices/<string:cluster_name>/_stats', endpoint='indices_stats', methods=['GET'])
-api.add_resource(IndexShards, '/indices/<string:cluster_name>/<string:index_names>/_shards', '/indices/<string:cluster_name>/_shards', endpoint='indices_shards', methods=['GET'])
-api.add_resource(IndexSummary, '/indices/<string:cluster_name>/<string:index_names>/_summary', '/indices/<string:cluster_name>/_summary', endpoint='indices_summary',
+api.add_resource(IndexAction, '/indices/<string:cluster_name>/<string:index_name>/action/<string:action>',
+                 '/indices/<string:cluster_name>/action/<string:action>', endpoint='index_command', methods=['PUT'])
+api.add_resource(Index, '/indices/<string:cluster_name>/<string:index_name>', '/indices/<string:cluster_name>',
+                 endpoint='indices', methods=['GET', 'DELETE', 'POST'])
+api.add_resource(IndexStats, '/indices/<string:cluster_name>/<string:index_names>/_stats',
+                 '/indices/<string:cluster_name>/_stats', endpoint='indices_stats', methods=['GET'])
+api.add_resource(IndexShards, '/indices/<string:cluster_name>/<string:index_names>/_shards',
+                 '/indices/<string:cluster_name>/_shards', endpoint='indices_shards', methods=['GET'])
+api.add_resource(IndexSummary, '/indices/<string:cluster_name>/<string:index_names>/_summary',
+                 '/indices/<string:cluster_name>/_summary', endpoint='indices_summary',
                  methods=['GET'])
 
-api.add_resource(IndexAlias, '/indices/<string:cluster_name>/<string:index_name>/_aliases', '/indices/<string:cluster_name>/_aliases', endpoint='index_alias',
+api.add_resource(IndexAlias, '/indices/<string:cluster_name>/<string:index_name>/_aliases',
+                 '/indices/<string:cluster_name>/_aliases', endpoint='index_alias',
                  methods=['GET', 'DELETE', 'POST'])
-api.add_resource(IndexMapping, '/indices/<string:cluster_name>/<string:index_name>/_mapping', '/indices/<string:cluster_name>/<string:index_name>/_mapping/<string:mapping_name>',
+api.add_resource(IndexMapping, '/indices/<string:cluster_name>/<string:index_name>/_mapping',
+                 '/indices/<string:cluster_name>/<string:index_name>/_mapping/<string:mapping_name>',
                  endpoint='index_mapping', methods=['GET'])
