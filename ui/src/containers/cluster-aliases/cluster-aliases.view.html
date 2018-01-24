@@ -31,7 +31,8 @@
 
         <tbody>
         <tr ng-repeat="alias in clusterAliasesCtrl.aliases"  ts-repeat  ts-hide-no-data>
-            <td>{{alias.index_name}}</td>
+            <!--<td>{{alias.index_name}}</td>-->
+            <td ng-bind-html="clusterAliasesCtrl.renderCell(alias, alias.index_name)" class="index_info"></td>
             <td>{{alias.alias}}</td>
         </tr>
         </tbody>

@@ -8,9 +8,9 @@
   .table {
     thead {
       th {
-        width: 100%;
+        //width: 100%;
         cursor: pointer;
-        font-size: 1.2em;
+        font-size: $font-size-medium;
         white-space: nowrap;
       }
     }
