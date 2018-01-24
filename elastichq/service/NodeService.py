@@ -4,7 +4,7 @@ import jmespath
 
 from .ConnectionService import ConnectionService
 from ..globals import REQUEST_TIMEOUT
-
+from elastichq.common.utils import string_to_bool
 
 class NodeService:
     def get_node_stats(self, cluster_name, nodes_list=None):
@@ -39,7 +39,7 @@ class NodeService:
                     "host": jmespath.search("host", node_dict)
                     }
             if connection.version.startswith("2"):
-                node.update({"is_master_node": bool(jmespath.search("attributes.master", node_dict))})
+                node.update({"is_master_node": string_to_bool(jmespath.search("attributes.master", node_dict))})
 
                 node_info = self.get_node_info(cluster_name, node_id)
                 if node_info:

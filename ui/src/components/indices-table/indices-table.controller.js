@@ -30,17 +30,17 @@ class indicesTableController {
                 key: 'index_name'
             },
             {
-                label: '# Docs',
+                label: 'Docs',
                 key: 'docs',
                 formatter: formatNum
             },
             {
-                label: 'Primary Shards',
+                label: 'Shards',
                 key: 'settings.number_of_shards',
                 formatter: formatNum
             },
             {
-                label: '# Replicas',
+                label: 'Replicas',
                 key: 'settings.number_of_replicas',
                 formatter: formatNum
             },

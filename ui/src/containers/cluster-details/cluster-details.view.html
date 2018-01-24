@@ -4,54 +4,59 @@
             <eshq-cluster-navigation summary="clusterDetailsCtrl.summary"></eshq-cluster-navigation>
         </div>
         <div ng-if="!!clusterDetailsCtrl.fetchingIndices" class="col-md-12">
-                <div class="summary-loader">
-                        <div>
-                            Loading Indices <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-                            <span class="sr-only">Loading...</span>
-                        </div>
+            <div class="summary-loader">
+                <div>
+                    Loading Indices <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
+        </div>
     </div>
-    
-    
-    <eshq-cluster-summary ng-if="clusterDetailsCtrl.summary" summary="clusterDetailsCtrl.summary"></eshq-cluster-summary>
- 
+
+
+    <eshq-cluster-summary ng-if="clusterDetailsCtrl.summary"
+                          summary="clusterDetailsCtrl.summary"></eshq-cluster-summary>
+
     <div class="row">
         <div class="col-md-6 node-details">
             <h3>Nodes</h3>
-            <table class="table table-hover table-striped" ng-if="clusterDetailsCtrl.nodes.length" >
+            <table ts-wrapper class="table table-striped table-hover" ts-per-page-default="10"
+                   ng-if="clusterDetailsCtrl.nodes.length">
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Master</th>
-                        <th>Data</th>
-                        <th>HTTP Addr</th>
-                        <th>JVM Heap</th>
-                        <th>FS Used %</th>
-                    </tr>
+                <tr>
+                    <th ts-criteria="name">Name</th>
+                    <th ts-criteria="is_master_node">Master</th>
+                    <th ts-criteria="is_data_node">Data</th>
+                    <th ts-criteria="host">HTTP Addr</th>
+                    <th ts-criteria="jvm.heap_used_in_bytes">JVM Heap</th>
+                    <th ts-criteria="fs.used_in_percent">FS Used %</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="node in clusterDetailsCtrl.nodes">
-                        <td><a ui-sref="clusterNodeDetails({clusterName: clusterDetailsCtrl.clusterName, nodeId: node.node_id})">{{node['name']}}</a></td>
-                        <!--<td>{{node.is_master_node}}</td>-->
-                        <!--<td>{{node.is_data_node}}</td>-->
-                        <td><i class="fa" ng-class="{{node.is_master_node}} ? 'fa-check-square' : ''"></i></td>
-                        <td><i class="fa" ng-class="{{node.is_data_node}} ? 'fa-check-square' : ''"></i></td>
+                <tr ng-repeat="node in clusterDetailsCtrl.nodes" ts-repeat ts-hide-no-data>
+                    <td>
+                        <a ui-sref="clusterNodeDetails({clusterName: clusterDetailsCtrl.clusterName, nodeId: node.node_id})">{{node['name']}}</a>
+                    </td>
+                    <!--<td>{{node.is_master_node}}</td>-->
+                    <!--<td>{{node.is_data_node}}</td>-->
+                    <td><i class="fa" ng-class="{{node.is_master_node}} ? 'fa-check-square' : ''"></i></td>
+                    <td><i class="fa" ng-class="{{node.is_data_node}} ? 'fa-check-square' : ''"></i></td>
 
-                        <td>{{node.host}}</td>
-                        <td>{{node.jvm.heap_used_in_bytes | numeral: '0[.][0] b' }} / {{node.jvm.heap_max_in_bytes | numeral: '0[.][0] b' }}</td>
-                        <td>{{node.fs.used_in_percent | numeral: '0[.][0]%' }}</td>
-                    </tr>
+                    <td>{{node.host}}</td>
+                    <td>{{node.jvm.heap_used_in_bytes | numeral: '0[.][0] b' }} / {{node.jvm.heap_max_in_bytes |
+                        numeral: '0[.][0] b' }}
+                    </td>
+                    <td>{{node.fs.used_in_percent | numeral: '0[.][0]%' }}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-md-6">
-                <h3>Indices</h3>
-                <eshq-indices-table ng-if="clusterDetailsCtrl.indices.length" 
-                                    indices="clusterDetailsCtrl.indices"></eshq-indices-table>
+            <h3>Indices</h3>
+            <eshq-indices-table ng-if="clusterDetailsCtrl.indices.length"
+                                indices="clusterDetailsCtrl.indices"></eshq-indices-table>
         </div>
     </div>
-    
 
-   
+
 </div>
