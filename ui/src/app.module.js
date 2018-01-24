@@ -6,6 +6,7 @@ import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
 import uiBootstrap from 'angular-ui-bootstrap';
 import hljs from 'angular-highlightjs';
+import tableSort from 'angular-tablesort';
 
 // Routes
 import config from './app.config.js';
@@ -27,6 +28,7 @@ angular.module('eshq',[
     CommonFactories,
     CommonFilters,
     CommonServices,
-    hljs
+    hljs,
+    tableSort
 ])
 .config(config)

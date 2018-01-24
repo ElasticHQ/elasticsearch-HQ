@@ -28,6 +28,7 @@
     "@uirouter/angularjs": "^1.0.12",
     "angular": "^1.6.8",
     "angular-highlightjs": "^0.7.1",
+    "angular-tablesort": "^1.6.0",
     "angular-ui-bootstrap": "^2.5.6",
     "babel-polyfill": "^6.26.0",
     "font-awesome": "^4.7.0",

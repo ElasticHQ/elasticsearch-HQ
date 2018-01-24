@@ -1,4 +1,4 @@
-<div class="index-aliases-tab-content ">
+<div class="index-aliases-tab-content" ts-wrapper  ts-per-page-default="10">
   <table class="table table-condensed table-hover ">
     <thead>
     <tr>
@@ -7,7 +7,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="alias in iSTabContentCtrl.aliases">
+    <tr ng-repeat="alias in iSTabContentCtrl.aliases"  ts-repeat  ts-hide-no-data>
       <td>{{alias.index_name}}</td>
       <td>{{alias.alias}}</td>
     </tr>

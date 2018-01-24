@@ -10,17 +10,13 @@
         </div>
     </div>
 
-    <table class="table table-condensed table-hover ">
+    <table class="table table-condensed table-hover "  ts-wrapper  ts-per-page-default="10">
         <thead>
         <tr>
-            <th ng-repeat="c in clusterAliasesCtrl.columns" colspan="{{($index == 0) ? 1 : 0}}">
-                <a ng-click="clusterAliasesCtrl.sortBy(c)" class="sorter">
-                    {{c.label}}
-                    <span ng-if="clusterAliasesCtrl._sorter === c.key">
-                            <i class="fa"
-                               ng-class="clusterAliasesCtrl.sortReverse ? 'fa-caret-up': 'fa-caret-down'"></i>
-                        </span>
-                </a>
+            <th ng-repeat="c in clusterAliasesCtrl.columns" 
+                colspan="{{($index == 0) ? 1 : 0}}"
+                ts-criteria="{{c.key}}">
+                {{c.label}}
             </th>
         </tr>
         <tr>
@@ -34,7 +30,7 @@
         </thead>
 
         <tbody>
-        <tr ng-repeat="alias in clusterAliasesCtrl.aliases">
+        <tr ng-repeat="alias in clusterAliasesCtrl.aliases"  ts-repeat  ts-hide-no-data>
             <td>{{alias.index_name}}</td>
             <td>{{alias.alias}}</td>
         </tr>

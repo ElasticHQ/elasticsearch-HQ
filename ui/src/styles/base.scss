@@ -11,6 +11,8 @@ $fa-font-path: "~font-awesome/fonts";
 @import './yeti-bootswatch';
 @import '~font-awesome/scss/font-awesome.scss';
 
+@import '~angular-tablesort/tablesort.css';
+
 // Removes horizontal scrollbar that's sometimes caused by the "divider-#" classes below.
 html, body {
     max-width: 100%;
@@ -52,6 +54,33 @@ html, body {
   }
   &.red {
     background: $brand-danger;
+  }
+}
+
+table .tablesort-sortable,table .tablesort-sortable{
+  color: $link-color;
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+table .tablesort-asc,table .tablesort-desc{
+  background-color:rgba(141, 192, 219, 0.25);
+}
+
+.custom-pagination-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  .pagination-desc {
+    align-self: center;
+  }
+  ul {
+    margin: 0 10px;
+  }
+  .form-group {
+    margin-bottom: 0;
   }
 }
 

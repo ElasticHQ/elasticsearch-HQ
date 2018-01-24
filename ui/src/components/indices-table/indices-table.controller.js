@@ -65,6 +65,7 @@ class indicesTableController {
     }
 
     renderCell(obj, col){
+        // console.log('---- obj, col', obj, col)
         let val = _.get(obj, col.key);
         if (col.key === 'index_name') {
             let url = this.$state.href("clusterIndiceDetails", {clusterName: this.clusterName, indexName: val})
@@ -104,7 +105,7 @@ class indicesTableController {
         }
     
         this.totalItems = _data.length;
-        _data = _.chunk(_data, this.itemsPerPage);
+        // _data = _.chunk(_data, this.itemsPerPage);
         this.currentPage = 1;
         
         this.data = _data;

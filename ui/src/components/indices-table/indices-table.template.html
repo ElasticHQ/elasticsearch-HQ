@@ -1,5 +1,23 @@
 <div class="indices-table ">
-    <table class="table table-striped table-hover">
+        <table ts-wrapper class="table table-striped table-hover"  ts-per-page-default="10">
+            <thead>
+                  <tr>
+                    <th ng-repeat="c in indicesTableCtrl.columns" 
+                        colspan="{{($index == 0) ? 2 : 1}}"
+                        ts-criteria="{{c.key}}">
+                        {{c.label}}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in indicesTableCtrl.data track by data.index_name" ts-repeat  ts-hide-no-data>
+                            <td ng-class="data.health" class="health"></td>
+                            <td ng-repeat="c in indicesTableCtrl.columns" ng-bind-html="indicesTableCtrl.renderCell(data, c)" class="index_info"></td>
+                        </tr>
+
+                </tbody>
+              </table>
+    <!-- <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th ng-repeat="c in indicesTableCtrl.columns" colspan="{{($index == 0) ? 2 : 1}}">
@@ -45,5 +63,5 @@
                 </td>
             </tr>
         </tfoot>
-    </table>
+    </table> -->
 </div>
