@@ -231,9 +231,6 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 
 <!-- Lodash -->
 <script src="js/lib/lodash/lodash.min.js"></script>
-<script>
-    var lodash = _.noConflict();
-</script>
 
 <!-- Notify -->
 <script src="js/lib/pnotify/pnotify.min.js"></script>
@@ -274,22 +271,7 @@ Latest Builds: https://github.com/royrusso/elasticsearch-HQ
 <script language="javascript" type="text/javascript" src="js/charts.js"></script>
 <script language="javascript" type="text/javascript" src="js/lib/d3/d3.v3.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $('#connectionURL').focus();
-        ajaxloading.hide();
-        scrollToTop.activate();
-
-        $("[rel=tipRight]").tooltip();
-        $("[rel=popRight]").popover(
-                {
-                    'trigger': 'hover',
-                    'animation': true
-                }
-        );
-    });
-</script>
-
+<script language="javascript" type="text/javascript" src="js/globals.js"></script>
 
 <div class="modal hide fade" id="legalModal">
     <div class="modal-header">
