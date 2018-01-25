@@ -1,14 +1,14 @@
 class ClusterIndicesService {
 
     // Imports go here
-    constructor($http) {
+    constructor(QueuedFactory) {
         'ngInject';
 
-        this.$http = $http;
+        this.que = QueuedFactory;
     }
 
     clusterInidices(cluster_name) {
-        return this.$http({
+        return this.que.add({
             url: '/api/indices/' + cluster_name + '/_summary',
             method: 'GET'
         });
@@ -16,7 +16,7 @@ class ClusterIndicesService {
 
     clusterIndice(cluster_name, index_name) {
         // /api/indices/[cluster_name]/[index_name]
-        return this.$http({
+        return this.que.add({
             url: '/api/indices/' + cluster_name + '/' + index_name,
             method: 'GET'
         });
@@ -24,7 +24,7 @@ class ClusterIndicesService {
 
     clusterIndiceSummary(cluster_name, index_name) {
         // /api/indices/[cluster_name]/[index_name]
-        return this.$http({
+        return this.que.add({
             url: '/api/indices/' + cluster_name + '/' + index_name + '/_summary',
             method: 'GET'
         });
@@ -32,7 +32,7 @@ class ClusterIndicesService {
 
     clusterIndiceStats(cluster_name, index_name) {
         // /api/indices/[cluster_name]/[index_name]
-        return this.$http({
+        return this.que.add({
             url: '/api/indices/' + cluster_name + '/' + index_name + '/_stats',
             method: 'GET'
         });
@@ -40,7 +40,7 @@ class ClusterIndicesService {
 
     clusterIndiceMappings(cluster_name, index_name) {
         // /api/indices/[cluster_name]/[index_name]
-        return this.$http({
+        return this.que.add({
             url: '/api/indices/' + cluster_name + '/' + index_name + '/_mapping',
             method: 'GET'
         });
@@ -48,7 +48,7 @@ class ClusterIndicesService {
 
     clusterIndiceShards(cluster_name, index_name) {
         // /api/indices/[cluster_name]/[index_name]
-        return this.$http({
+        return this.que.add({
             url: '/api/indices/' + cluster_name + '/' + index_name + '/_shards',
             method: 'GET'
         });
@@ -56,7 +56,7 @@ class ClusterIndicesService {
 
     clusterIndiceAliases(cluster_name, index_name) {
         // /api/indices/[cluster_name]/[index_name]
-        return this.$http({
+        return this.que.add({
             url: '/api/indices/' + cluster_name + '/' + index_name + '/_aliases',
             method: 'GET'
         });
@@ -64,13 +64,13 @@ class ClusterIndicesService {
 
     clusterIndicesClearCache(cluster_name, index_name) {
         if (index_name === undefined) {
-            return this.$http({
+            return this.que.add({
                 url: '/api/indices/' + cluster_name + '/action/_cache',
                 method: 'PUT'
             });
         }
         else {
-            return this.$http({
+            return this.que.add({
                 url: '/api/indices/' + cluster_name + '/' + index_name + '/action/_cache',
                 method: 'PUT'
             });
@@ -79,13 +79,13 @@ class ClusterIndicesService {
 
     clusterIndicesRefresh(cluster_name, index_name) {
         if (index_name === undefined) {
-            return this.$http({
+            return this.que.add({
                 url: '/api/indices/' + cluster_name + '/action/_refresh',
                 method: 'PUT'
             });
         }
         else {
-            return this.$http({
+            return this.que.add({
                 url: '/api/indices/' + cluster_name + '/' + index_name + '/action/_refresh',
                 method: 'PUT'
             });
@@ -94,13 +94,13 @@ class ClusterIndicesService {
 
     clusterIndicesFlush(cluster_name, index_name) {
         if (index_name === undefined) {
-            return this.$http({
+            return this.que.add({
                 url: '/api/indices/' + cluster_name + '/action/_flush',
                 method: 'PUT'
             });
         }
         else {
-            return this.$http({
+            return this.que.add({
                 url: '/api/indices/' + cluster_name + '/' + index_name + '/action/_flush',
                 method: 'PUT'
             });
@@ -109,13 +109,13 @@ class ClusterIndicesService {
 
     clusterIndicesForceMerge(cluster_name, index_name) {
         if (index_name === undefined) {
-            return this.$http({
+            return this.que.add({
                 url: '/api/indices/' + cluster_name + '/action/_force_merge',
                 method: 'PUT'
             });
         }
         else {
-            return this.$http({
+            return this.que.add({
                 url: '/api/indices/' + cluster_name + '/' + index_name + '/action/_force_merge',
                 method: 'PUT'
             });

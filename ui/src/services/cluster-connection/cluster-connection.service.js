@@ -1,15 +1,15 @@
 class ClusterConnectionService {
 
   // Imports go here
-  constructor($http) {
+  constructor(QueuedFactory) {
     'ngInject';
     
-    this.$http = $http;
+    this.que = QueuedFactory;
   }
 
   // Example request
   connectCluster(data) {
-    return this.$http({
+    return this.que.add({
               url: ('/api/clusters/_connect'),
               method: 'POST',
               data: data
@@ -17,14 +17,14 @@ class ClusterConnectionService {
   }
 
   getClusters() {
-    return this.$http({
+    return this.que.add({
               url: ('/api/clusters'),
               method: 'GET'
             });
   }
 
   summary(cluster_name) {
-    return this.$http({
+    return this.que.add({
       url: ('/api/clusters/' + cluster_name + '/_summary'),
       method: 'GET'
     });

@@ -1,13 +1,14 @@
 class ClusterAliasesService {
 
     // Imports go here
-    constructor($http) {
+    constructor(QueuedFactory) {
         'ngInject';
-        this.$http = $http;
+
+        this.que = QueuedFactory;
     }
 
     clusterAliases(cluster_name) {
-        return this.$http({
+        return this.que.add({
             url: '/api/indices/' + cluster_name + '/_aliases',
             method: 'GET'
         });

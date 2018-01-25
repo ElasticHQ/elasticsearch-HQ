@@ -22,8 +22,9 @@ class clusterDetailsController {
       console.log('------ inidicies: ', resp.data.data)
       this.indices = resp.data.data;
 
-    }, (err) => {
-
+    })
+    .catch((err) => {
+      console.log('---- err: ', err)
     })
     .finally(() => {
       this.fetchingIndices = false;

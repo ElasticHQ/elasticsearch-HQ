@@ -1,14 +1,14 @@
 class ClusterNodesService {
 
   // Imports go here
-  constructor($http) {
+  constructor(QueuedFactory) {
     'ngInject';
     
-    this.$http = $http;
+    this.que = QueuedFactory;
   }
 
   getNodesSummary(clusterName, nodeId) {
-    return this.$http({
+    return this.que.add({
               url: ('/api/nodes/' + clusterName + '/_summary'),
               method: 'GET',
             });
@@ -16,14 +16,14 @@ class ClusterNodesService {
 
 
   getNodeInfo(clusterName, nodeId) {
-    return this.$http({
+    return this.que.add({
               url: ('/api/nodes/' + clusterName + '/' + nodeId + '/_info'),
               method: 'GET',
             });
   }
 
   getNodeStats(clusterName, nodeId) {
-    return this.$http({
+    return this.que.add({
               url: ('/api/nodes/' + clusterName + '/' + nodeId + '/_stats'),
               method: 'GET',
             });

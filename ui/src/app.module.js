@@ -34,3 +34,12 @@ angular.module('eshq',[
     tableSort
 ])
 .config(config)
+.run(($transitions, Notification, QueuedFactory) => {
+    'use strict';
+    'ngInject';
+
+    $transitions.onBefore({ to: '**' }, function(transtion) {
+        Notification.clearAll();
+        // QueuedFactory.cancelAll();
+    })
+})

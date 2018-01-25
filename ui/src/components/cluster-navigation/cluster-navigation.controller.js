@@ -19,7 +19,8 @@ class clusterNavigationController {
         this.fetching = true;
         this.factory.getSummary(this.clusterName).then((resp) => {
             this.summary = resp;
-        }, (err) => {
+        })
+        .catch((err) => {
             console.log('----- err: ', err);
         })
         .finally(() => {
