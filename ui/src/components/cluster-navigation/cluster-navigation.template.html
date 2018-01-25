@@ -15,12 +15,18 @@
             <div class="col-md-6">
                 <div class="btn-group pull-right">
                     <a class="btn btn-success" ui-sref-active="active"
-                       ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"><i class="fa fa-list"></i>
+                       ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="top" 
+                       uib-tooltip="List of indices" ><i class="fa fa-list"></i>
                         Indices</a>
                     <a class="btn btn-success" ui-sref-active="active"
-                       ui-sref="clusterAliases({ clusterName: clusterNavCtrl.clusterName })"><i
+                       ui-sref="clusterAliases({ clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="top" 
+                       uib-tooltip="List of aliases" ><i
                             class="fa fa-share-alt"></i> Aliases</a>
-                    <a class="btn btn-success" ui-sref=""><i class="fa fa-ambulance"></i> Diagnostics</a>
+                    <a class="btn btn-success" ui-sref=""
+                        tooltip-placement="top" 
+                        uib-tooltip="Diagnostics information" ><i class="fa fa-ambulance"></i> Diagnostics</a>
                     <!--<a class="btn btn-success" ui-sref=""><i class="fa fa-code"></i> REST</a>-->
                 </div>
             </div>
@@ -33,7 +39,11 @@
                    class="btn"
                    ng-class="node.master === 'true' ? 'btn-primary' : 'btn-info'"
                    ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
-                   ui-sref-active="active">
+                   ui-sref-active="active"
+                   popover-title="{{node.name}}" 
+                   popover-placement="top-left" 
+                   uib-popover="Address: {{node.http_address}}" 
+                   popover-trigger="'mouseenter'" >
                     {{node.name}}</a>
             </div>
         </div>

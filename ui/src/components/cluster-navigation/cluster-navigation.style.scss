@@ -13,8 +13,13 @@
         color: $gray-light;
       }
   }
-  .nodes > a.btn {
-    margin-right: 0.5em;
+  .nodes {
+    .popover {
+        color: #000;
+    }
+    > a.btn {
+        margin-right: 0.5em;
+    }
   }
   border-bottom: solid rgba(91, 141, 176, 0.15) thin;
   border-top: solid rgba(91, 141, 176, 0.15) thin;
