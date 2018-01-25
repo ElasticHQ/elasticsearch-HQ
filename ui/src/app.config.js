@@ -1,4 +1,5 @@
-export default ($urlRouterProvider, $stateProvider, $locationProvider, tableSortConfigProvider) => {
+export default ($urlRouterProvider, $stateProvider, $locationProvider, 
+                tableSortConfigProvider, NotificationProvider) => {
     'use strict';
     'ngInject';
 
@@ -16,6 +17,16 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider, tableSort
         pagerString +=      "</div>";
         pagerString +=    "</div>";
         tableSortConfigProvider.paginationTemplate = pagerString;
+
+    NotificationProvider.setOptions({
+            delay: 10000,
+            startTop: 60,
+            startRight: 10,
+            verticalSpacing: 20,
+            horizontalSpacing: 20,
+            positionX: 'right',
+            positionY: 'top'
+        });
 
     $urlRouterProvider.otherwise('/');
 

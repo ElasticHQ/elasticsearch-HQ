@@ -1,11 +1,12 @@
 import './clusters-button.style.scss'
 
 class clustersButtonController {
-    constructor(ClusterConnection, $state) {
+    constructor(ClusterConnection, $state, Notification) {
         'ngInject';
 
         this.service = ClusterConnection;
         this.$state = $state;
+        this.Notification = Notification;
         this.getClusters();
 
         console.log('----- in clusters button constructor')
@@ -14,8 +15,10 @@ class clustersButtonController {
     getClusters() {
         this.service.getClusters().then((resp) => {
             this.clusters = resp.data.data;
+            this.Notification.success({message: `Found ${this.clusters.length} clusters`, delay: 3000});
             console.log("---- clusters: ", this.clusters)
         }, (err) => {
+            this.Notification.error({message: 'Error getting clusters'});
             console.log('---- get clusters error: ', err)
         })
     }
@@ -28,14 +31,12 @@ class clustersButtonController {
             use_ssl: (cluster_scheme === 'https:')
         }
         this.service.connectCluster(params).then((resp) => {
-            console.log('----- got something???', resp)
             let cluster = resp.data.data[0];
-            console.log('----- cluster: ', cluster)
             this.$state.transitionTo('clusterDetails', {clusterName: cluster.cluster_name}, {reload: true})
             // this.$state.go('configuration.users.detail', {user_id: user.id}, {reload: true});
-            console.log('----- state: ', this.$state)
         }, (err) => {
-
+            let msg = (err.data && err.data.message) ? err.data.message : 'Error connecting to cluster'
+            this.Notification.error({message: msg});
         })
     }
 

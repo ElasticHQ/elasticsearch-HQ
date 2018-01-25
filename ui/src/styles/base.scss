@@ -11,6 +11,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import './yeti-bootswatch';
 @import '~font-awesome/scss/font-awesome.scss';
 
+@import '~angular-ui-notification/dist/angular-ui-notification.css';
 @import '~angular-tablesort/tablesort.css';
 
 // Removes horizontal scrollbar that's sometimes caused by the "divider-#" classes below.
