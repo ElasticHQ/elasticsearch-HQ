@@ -9,7 +9,7 @@ $fa-font-path: "~font-awesome/fonts";
 $navbar-default-bg: #1C2B36 !default;
 $navbar-default-border: darken($navbar-default-bg, 6.5%) !default;
 
-//=== Shared nav styles
+// //=== Shared nav styles
 $nav-link-hover-bg: lighten($navbar-default-bg, 7%) !default;
 
 @import './yeti-variables';
@@ -30,6 +30,14 @@ html, body {
   .nav > li > a:hover, 
   .nav > li > a:focus {
     color: #eee;
+  }
+}
+
+.nav-pills > li, 
+.nav-pills > li {
+  > a:hover,
+  > a:focus {
+    background: #eee;
   }
 }
 
