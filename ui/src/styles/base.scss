@@ -6,6 +6,12 @@ $fa-font-path: "~font-awesome/fonts";
 //$border-radius-large:       0px !default;
 //$border-radius-small:       0px !default;
 
+$navbar-default-bg: #1C2B36 !default;
+$navbar-default-border: darken($navbar-default-bg, 6.5%) !default;
+
+//=== Shared nav styles
+$nav-link-hover-bg: lighten($navbar-default-bg, 7%) !default;
+
 @import './yeti-variables';
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import './yeti-bootswatch';
@@ -18,6 +24,13 @@ $fa-font-path: "~font-awesome/fonts";
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+}
+
+.top-nav {
+  .nav > li > a:hover, 
+  .nav > li > a:focus {
+    color: #eee;
+  }
 }
 
 .summary-loader {
