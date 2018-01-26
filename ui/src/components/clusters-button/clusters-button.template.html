@@ -6,7 +6,8 @@
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
             <li role="menuitem" ng-repeat="c in clustersButtonCtrl.clusters">
                 <a ng-click="clustersButtonCtrl.goToCluster(c)">
-                    <span class="cluster-name">{{c.cluster_name}}</span>
+                    <span class="cluster-name-success" ng-if="c.cluster_connected"><i class="fa fa-link"></i> {{c.cluster_name}}</span>
+                    <span class="cluster-name-warning" ng-if="!c.cluster_connected"><i class="fa fa-chain-broken"></i> {{c.cluster_name}}</span>
                     <span class="cluster-host">
                         {{c.cluster_host}}
                     </span>
@@ -15,7 +16,7 @@
             </li>
             <li>
                 <a ng-click="clustersButtonCtrl.getClusters();">
-                        <span class="cluster-name">Refresh List</span>
+                        <span class="cluster-name"><i class="fa fa-refresh"></i>  Refresh List</span>
                 </a>
             </li>
         </ul>
