@@ -91,7 +91,7 @@ class clusterIndiceDetailsController {
 
         this.ClusterIndices.clusterIndiceMappings(this.clusterName, this.indexName).then((resp) => {
             this.mappings = resp.data.data[0];
-        })
+        }).finally(() => this.fetching = false)
     }
 
     flushCache() {
