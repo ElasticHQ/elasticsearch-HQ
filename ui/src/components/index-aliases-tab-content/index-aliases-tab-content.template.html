@@ -1,16 +1,21 @@
-<div class="index-aliases-tab-content" ts-wrapper  ts-per-page-default="10">
-  <table class="table table-condensed table-hover ">
-    <thead>
-    <tr>
-      <th>Index</th>
-      <th>Alias</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="alias in iSTabContentCtrl.aliases"  ts-repeat  ts-hide-no-data>
-      <td>{{alias.index_name}}</td>
-      <td>{{alias.alias}}</td>
-    </tr>
-    </tbody>
-  </table>
+<div class="index-aliases-tab-content" ts-wrapper ts-per-page-default="10">
+    <table class="table table-condensed table-hover ">
+        <thead>
+        <tr>
+            <th>Index</th>
+            <th>Alias</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="alias in iATabContentCtrl.aliases" ts-repeat ts-hide-no-data>
+            <td>{{alias.index_name}}</td>
+            <td>{{alias.alias}}</td>
+            <td><a class="btn btn-danger" ui-sref-active="active"
+                   ng-click="iATabContentCtrl.deleteAlias(alias.alias)"
+                   tooltip-placement="top"
+                   uib-tooltip="Delete this Alias"><i class="fa fa-remove"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
 </div>

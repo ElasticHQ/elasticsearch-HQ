@@ -1,5 +1,5 @@
 ==============
-User Guide
+Installation
 ==============
 
 .. contents:: Table of contents

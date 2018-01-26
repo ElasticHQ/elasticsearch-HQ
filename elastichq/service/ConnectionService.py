@@ -5,10 +5,10 @@ import json
 import requests
 from requests.exceptions import ConnectionError
 
-from ..globals import CONNECTIONS, REQUEST_TIMEOUT, LOG
-from ..vendor.elasticsearch import Elasticsearch
 from elastichq.model import ClusterModel
 from elastichq.service.persistence import ClusterDBService
+from ..globals import CONNECTIONS, LOG, REQUEST_TIMEOUT
+from ..vendor.elasticsearch import Elasticsearch
 from ..vendor.elasticsearch.connections import ConnectionNotFoundException
 
 
@@ -16,6 +16,13 @@ class ConnectionService:
     """
     Manages connection pools to all clusters. This class serves as an interface to the ES Connections object.
     """
+
+    def ping(self, ip, port, scheme='http'):
+        try:
+            response = requests.get(scheme + "://" + ip + ":" + port, timeout=3)
+            return True
+        except Exception as e:
+            return False
 
     def create_connection(self, ip, port, scheme='http'):
         """
@@ -32,12 +39,14 @@ class ConnectionService:
 
         # SAVE to Connection Pools
         # TODO: configure timeout
-        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5, version=content.get('version').get('number'))
+        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                             version=content.get('version').get('number'))
         self.add_connection(content.get('cluster_name'), conn=conn)
         #        content['host'] = conn.transport.seed_connections[0].host
 
         # SAVE to DB
-        cluster_model = ClusterModel(content.get("cluster_name"), cluster_ip=ip, cluster_port=port, cluster_scheme=scheme)
+        cluster_model = ClusterModel(content.get("cluster_name"), cluster_ip=ip, cluster_port=port,
+                                     cluster_scheme=scheme)
         cluster_model.cluster_version = content.get('version').get('number')
         cluster_model.cluster_connected = True
         ClusterDBService().save_cluster(cluster_model)
@@ -54,8 +63,11 @@ class ConnectionService:
         for cluster in clusters:
             # create throws requests.exceptions.ConnectionError if it can't connect.
             try:
-                self.get_connection(cluster.cluster_name, create_if_missing=create_if_missing)
-                cluster.cluster_connected = True
+                if self.ping(cluster.cluster_ip, cluster.cluster_port, cluster.cluster_scheme) is True:
+                    self.get_connection(cluster.cluster_name, create_if_missing=create_if_missing)
+                    cluster.cluster_connected = True
+                else:
+                    cluster.cluster_connected = False
             except ConnectionError as ce:
                 cluster.cluster_connected = False
             except ConnectionNotFoundException as cfe:
@@ -77,8 +89,10 @@ class ConnectionService:
                 cluster = ClusterDBService().get_by_id(cluster_name)
                 if cluster is not None:
                     try:
-                        self.create_connection(ip=cluster.cluster_ip, port=cluster.cluster_port, scheme=cluster.cluster_scheme)
-                        return CONNECTIONS.get_connection(cluster_name)  # this will throw a connection not found exception for us.
+                        self.create_connection(ip=cluster.cluster_ip, port=cluster.cluster_port,
+                                               scheme=cluster.cluster_scheme)
+                        return CONNECTIONS.get_connection(
+                            cluster_name)  # this will throw a connection not found exception for us.
                     except ConnectionError as ce:
                         LOG.error('There is no connection with alias %r.' % cluster_name)
                         raise ConnectionNotFoundException('There is no connection with alias %r.' % cluster_name)

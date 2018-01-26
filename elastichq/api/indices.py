@@ -30,10 +30,11 @@ class Index(Resource):
         response = IndicesService().get_indices(cluster_name, index_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
-    @request_wrapper
-    def delete(self, cluster_name, index_name):
-        response = IndicesService().delete_indices(cluster_name, index_name)
-        return APIResponse(response, HTTP_Status.OK, None)
+    #
+    # @request_wrapper
+    # def delete(self, cluster_name, index_name):
+    #     response = IndicesService().delete_indices(cluster_name, index_name)
+    #     return APIResponse(response, HTTP_Status.OK, None)
 
     @request_wrapper
     def post(self, cluster_name, index_name):
@@ -122,7 +123,7 @@ class IndexShards(Resource):
 api.add_resource(IndexAction, '/indices/<string:cluster_name>/<string:index_name>/action/<string:action>',
                  '/indices/<string:cluster_name>/action/<string:action>', endpoint='index_command', methods=['PUT'])
 api.add_resource(Index, '/indices/<string:cluster_name>/<string:index_name>', '/indices/<string:cluster_name>',
-                 endpoint='indices', methods=['GET', 'DELETE', 'POST'])
+                 endpoint='indices', methods=['GET', 'POST'])
 api.add_resource(IndexStats, '/indices/<string:cluster_name>/<string:index_names>/_stats',
                  '/indices/<string:cluster_name>/_stats', endpoint='indices_stats', methods=['GET'])
 api.add_resource(IndexShards, '/indices/<string:cluster_name>/<string:index_names>/_shards',
@@ -132,6 +133,7 @@ api.add_resource(IndexSummary, '/indices/<string:cluster_name>/<string:index_nam
                  methods=['GET'])
 
 api.add_resource(IndexAlias, '/indices/<string:cluster_name>/<string:index_name>/_aliases',
+                 '/indices/<string:cluster_name>/<string:index_name>/<string:alias_name>/_aliases',
                  '/indices/<string:cluster_name>/_aliases', endpoint='index_alias',
                  methods=['GET', 'DELETE', 'POST'])
 api.add_resource(IndexMapping, '/indices/<string:cluster_name>/<string:index_name>/_mapping',

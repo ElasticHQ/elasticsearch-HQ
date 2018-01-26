@@ -65,7 +65,8 @@ class IndicesService:
         return aliases
 
     def remove_alias(self, cluster_name, index_name, alias_name):
-        # TODO
+        connection = ConnectionService().get_connection(cluster_name)
+        connection.indices.delete_alias(index_name, name=alias_name)
         pass
 
     def create_alias(self, cluster_name, index_name, alias_name):

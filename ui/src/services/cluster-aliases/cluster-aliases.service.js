@@ -14,6 +14,14 @@ class ClusterAliasesService {
         });
     }
 
+    clusterAliasesDelete(cluster_name, index_name, alias_name) {
+        // /api/indices/[cluster_name]/[index_name]
+        return this.que.add({
+            url: '/api/indices/' + cluster_name + '/' + index_name + '/' + alias_name + '/_aliases',
+            method: 'DELETE'
+        });
+    }
+
 }
 
 export default ClusterAliasesService;

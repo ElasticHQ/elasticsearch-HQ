@@ -6,14 +6,14 @@ import numaral from 'numeral';
 class clusterIndiceDetailsController {
 
     // Imports go here
-    constructor($stateParams, ClusterIndices) {
+    constructor($stateParams, ClusterIndices, Notification) {
         'ngInject';
 
         this.clusterName = $stateParams.clusterName;
         this.indexName = $stateParams.indexName;
 
         this.ClusterIndices = ClusterIndices;
-
+        this.Notification = Notification;
         // Default to this
         //  In the future, monitor which tab is open so we can
         //  hot link into a tab
@@ -91,32 +91,40 @@ class clusterIndiceDetailsController {
 
         this.ClusterIndices.clusterIndiceMappings(this.clusterName, this.indexName).then((resp) => {
             this.mappings = resp.data.data[0];
-        }).finally(() => this.fetching = false)
+        })
     }
 
     flushCache() {
-        this.fetching = true;
         this.ClusterIndices.clusterIndicesFlush(this.clusterName, this.indexName).then((resp) => {
-            console.log('------ response: ', resp.data)
-        }).finally(() => this.fetching = false)
+            this.Notification.success({message: `Cache flush operation triggered.`, delay: 3000});
+        }, (err) => {
+            this.Notification.error({message: 'Error in operation!'});
+            console.log('---- get clusters error: ', err)
+        })
     }
     clearCache() {
-        this.fetching = true;
         this.ClusterIndices.clusterIndicesClearCache(this.clusterName, this.indexName).then((resp) => {
-            console.log('------ response: ', resp.data)
-        }).finally(() => this.fetching = false)
+            this.Notification.success({message: `Cache clear operation triggered.`, delay: 3000});
+        }, (err) => {
+            this.Notification.error({message: 'Error in operation!'});
+            console.log('---- get clusters error: ', err)
+        })
     }
     refreshIndex() {
-        this.fetching = true;
         this.ClusterIndices.clusterIndicesRefresh(this.clusterName, this.indexName).then((resp) => {
-            console.log('------ response: ', resp.data)
-        }).finally(() => this.fetching = false)
+            this.Notification.success({message: `Index refresh operation triggered.`, delay: 3000});
+        }, (err) => {
+            this.Notification.error({message: 'Error in operation!'});
+            console.log('---- get clusters error: ', err)
+        })
     }
     forceMergeIndex() {
-        this.fetching = true;
         this.ClusterIndices.clusterIndicesForceMerge(this.clusterName, this.indexName).then((resp) => {
-            console.log('------ response: ', resp.data)
-        }).finally(() => this.fetching = false)
+            this.Notification.success({message: `Segment merging operation triggered.`, delay: 3000});
+        }, (err) => {
+            this.Notification.error({message: 'Error in operation!'});
+            console.log('---- get clusters error: ', err)
+        })
     }
 }
 

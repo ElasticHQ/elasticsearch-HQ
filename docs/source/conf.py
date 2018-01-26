@@ -19,7 +19,10 @@ sys.path.insert(0, os.path.split(os.path.split(os.path.split(os.path.realpath(__
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',
-    'sphinx.ext.viewcode'
+    'sphinx.ext.viewcode',
+    'sphinxcontrib.httpdomain',
+    'sphinxcontrib.autohttp.flask',
+    'sphinxcontrib.autohttp.flaskqref'
 ]
   
 # Add any paths that contain templates here, relative to this directory.

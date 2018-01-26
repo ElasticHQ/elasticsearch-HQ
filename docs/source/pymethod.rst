@@ -1,5 +1,5 @@
 ==============
-Python Methods
+REST API
 ==============
 
 .. contents:: Table of Contents
@@ -19,6 +19,13 @@ Python Methods
    :raises ValueError: if the message_body exceeds 160 characters
    :raises TypeError: if the message_body is not a basestring
 
+Summary
+-------
+
+.. autoclass:: elastichq.service.ClusterService
+    :members:
+
+.. autofunction:: elastichq.common.api_response.APIResponse
 
 Client
 ------

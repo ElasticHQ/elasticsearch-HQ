@@ -5,10 +5,14 @@ ElasticHQ Documentation
 .. toctree::
     :hidden:
 
+    installation
     page-1
-    table-with-code
     pymethod
+    table-with-code
 
+
+Overview
+--------
 
 Check this out
 --------------
