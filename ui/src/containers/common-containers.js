@@ -8,6 +8,7 @@ import clusterIndicesController from './cluster-indices/cluster-indices.controll
 import clusterIndiceDetailsController from './cluster-indice-details/cluster-indice-details.controller';
 import clusterNodeDetailsController from './cluster-node-details/cluster-node-details.controller';
 import clusterAliasesController from "./cluster-aliases/cluster-aliases.controller";
+import diagnosticsController from './diagnostics/diagnostics.controller'
 
 
 const CommonContainers = angular.module('commonContainers', [])
@@ -17,6 +18,7 @@ const CommonContainers = angular.module('commonContainers', [])
                             .controller('clusterAliasesController', clusterAliasesController)
                             .controller('clusterIndiceDetailsController', clusterIndiceDetailsController)
                             .controller('clusterNodeDetailsController', clusterNodeDetailsController)
+                            .controller('diagnosticsController', diagnosticsController)
                             .name;
 
 export default CommonContainers;
