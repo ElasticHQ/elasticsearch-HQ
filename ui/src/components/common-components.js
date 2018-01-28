@@ -1,5 +1,6 @@
 
 import topNav from './top-nav/top-nav';
+import footer from './footer/footer';
 import clustersButton from './clusters-button/clusters-button'
 import clusterSummary from './cluster-summary/cluster-summary';
 import clusterNavigation from './cluster-navigation/cluster-navigation';
@@ -43,6 +44,7 @@ const CommonComponents = angular.module('components', [
   indexMetricQCache,
   indexMetricOps,
   indexMetricSearch,
+  footer,
   nodeSummaryInfoTable,
   nodeFsInfoTable,
   nodeProcessTable,
