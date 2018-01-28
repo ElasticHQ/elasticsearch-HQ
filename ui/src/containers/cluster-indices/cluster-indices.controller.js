@@ -1,14 +1,18 @@
 import './cluster-indices.style.scss';
 
+import createIndexModal from './create-index-modal.html';
+
 class clusterIndicesController {
 
     // Imports go here
-    constructor($stateParams, ClusterIndices, QueuedFactory, $scope, Notification) {
+    constructor($stateParams, ClusterIndices, QueuedFactory, $scope, 
+                Notification, $uibModal) {
         'ngInject';
 
         this.ClusterIndices = ClusterIndices;
         this.clusterName = $stateParams.clusterName;
         this.Notification = Notification;
+        this.$uibModal = $uibModal;
 
         // Import QueuedFactory because indicies takes time and 
         //   should be cancelled if not returned before leaving page.
@@ -90,6 +94,47 @@ class clusterIndicesController {
             this.Notification.error({message: 'Error in operation!'});
             console.log('---- get clusters error: ', err)
         }).finally(() => this.fetching = false)
+    }
+
+    createIndex() {    
+        const modalInstance = this.$uibModal.open({
+          template: createIndexModal,
+          controller: ($scope, $uibModalInstance, clusterName) => {
+            'ngInject';
+            
+            // After you pass in the resolver, below, attache it for reference
+            $scope.clusterName = clusterName;
+            $scope.disabled = false;
+            $scope.$uibModalInstance = $uibModalInstance;
+
+            $scope.formData = {};
+            $scope.cancel = () => {
+              $scope.$uibModalInstance.dismiss('close');
+            };
+    
+             // This is what gets returned in the end
+            $scope.save = () => {
+                //  We could also put the logic to send Create here
+                //  so if there is a failure, we still have the modal
+                //  open and user can correct if possible.
+                $scope.$uibModalInstance.close($scope.formData);
+            };
+    
+          },
+          resolve: {
+            // How you pass info into the Modal
+            clusterName: () => { return this.clusterName; },
+          }
+    
+        });
+
+        // Only when user clicks save, do we proceed
+        modalInstance.result.then((formData) => {
+            // Logic for Creating Index goes here.
+            console.log('==== form data: ', formData)
+        }, (err) =>  {
+            console.log('Modal dismissed at: ' + new Date());
+        });
     }
 
 }
