@@ -7,7 +7,7 @@ import os
 #sys.path.insert(0, os.path.abspath('.'))
 print(os.path.split(os.path.split(os.path.split(os.path.realpath(__file__))[0])[0])[0]+os.sep+'')
 sys.path.insert(0, os.path.split(os.path.split(os.path.split(os.path.realpath(__file__))[0])[0])[0]+os.sep+'')
-sys.path.insert(0, os.path.split(os.path.split(os.path.split(os.path.realpath(__file__))[0])[0])[0]+os.sep+'doc_server')
+sys.path.insert(0, os.path.split(os.path.split(os.path.split(os.path.realpath(__file__))[0])[0])[0]+os.sep+'elastichq')
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.

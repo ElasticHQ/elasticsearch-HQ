@@ -14,33 +14,14 @@ ElasticHQ Documentation
 Overview
 --------
 
-Check this out
---------------
+ElasticHQ serves as a monitoring and management platform for Elasticsearch clusters. It is freely available and distributed under the Apache Software License.
 
-1. Foo
-2. Bar
-3. Baz
+Key Features:
 
-
-Another list
-------------
-
-* `lorem ipsum dolor <https://github.com/guzzle/guzzle_sphinx_theme>`_
-* dolor lorem ipsum
-* lorem ipsum dolor
-* dolor lorem ipsum
+* Works with any version of Elasticsearch since v2.x, including 5.x and 6.x.
+* Can monitor and manage *many* clusters at the same time.
+* Monitor and manage clusters, nodes, indices, aliases, and shards.
+* Saves monitored clusters
+* API available for direct use from applications
 
 
-Some definitions
-----------------
-
-Donec sodales
-    velit ac sagittis fermentum, metus ante pharetra ex, ac eleifend
-    erat ligula in lacus. Donec tincidunt urna est, non mollis turpis lacinia
-
-sit amet
-    Duis ac facilisis libero, ut interdum nibh. Sed rutrum dapibus pharetra.
-
-Ut ac luctus nisi
-    vitae volutpat arcu. Vivamus venenatis eu nibh ut consectetur. Cras
-    tincidunt dui nisi, et facilisis eros feugiat nec.

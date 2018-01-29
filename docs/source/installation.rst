@@ -18,8 +18,11 @@ magna mattis, vel tincidunt quam tincidunt. Vestibulum nec feugiat metus, nec
 scelerisque eros. Ut ultricies ornare aliquam.
 
 
-Section II
-----------
+Instructions
+------------
+
+Requirements
+~~~~~~~~~~~~
 
 Proin ac mi tempor, ullamcorper ante at, sodales augue. Duis enim turpis,
 volutpat eget consectetur id, facilisis vel nisl. Sed non leo aliquam, tempus
@@ -32,8 +35,6 @@ commodo felis.
   euismod turpis.
 
 
-Sub section
-~~~~~~~~~~~
 
 In lobortis elementum tempus. Nam facilisis orci neque, eget vestibulum lectus
 imperdiet sed. Aenean ac eros sollicitudin, accumsan turpis ac, faucibus arcu.
