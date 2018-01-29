@@ -124,3 +124,4 @@ venv.bak/
 node_modules/
 dist/
 cover/
+/dev_notes/
