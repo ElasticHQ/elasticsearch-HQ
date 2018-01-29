@@ -22,6 +22,14 @@ class ClusterIndicesService {
         });
     }
 
+    clusterIndexCreate(cluster_name, index_name, settings) {
+        return this.que.add({
+            url: '/api/indices/' + cluster_name + '/' + index_name,
+            method: 'POST',
+            data: settings
+        });
+    }
+
     clusterIndiceSummary(cluster_name, index_name) {
         // /api/indices/[cluster_name]/[index_name]
         return this.que.add({

@@ -22,6 +22,13 @@ class ClusterAliasesService {
         });
     }
 
+    clusterAliasesCreate(cluster_name, index_name, alias_name) {
+        return this.que.add({
+            url: '/api/indices/' + cluster_name + '/' + index_name + '/' + alias_name + '/_aliases',
+            method: 'POST'
+        });
+    }
+
 }
 
 export default ClusterAliasesService;

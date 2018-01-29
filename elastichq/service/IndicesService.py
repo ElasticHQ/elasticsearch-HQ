@@ -2,8 +2,8 @@ __author__ = 'royrusso'
 
 import jmespath
 
+from elastichq.service import ClusterService, ConnectionService
 from ..globals import REQUEST_TIMEOUT
-from elastichq.service import ConnectionService, ClusterService
 
 
 class IndicesService:
@@ -21,7 +21,7 @@ class IndicesService:
 
     def create_index(self, cluster_name, index_name, settings=None):
         connection = ConnectionService().get_connection(cluster_name)
-        return connection.indices.create(index=index_name, request_timeout=REQUEST_TIMEOUT)
+        return connection.indices.create(index=index_name, body=settings, request_timeout=REQUEST_TIMEOUT)
 
     def open_index(self, cluster_name, index_name):
         connection = ConnectionService().get_connection(cluster_name)
@@ -66,12 +66,11 @@ class IndicesService:
 
     def remove_alias(self, cluster_name, index_name, alias_name):
         connection = ConnectionService().get_connection(cluster_name)
-        connection.indices.delete_alias(index_name, name=alias_name)
-        pass
+        return connection.indices.delete_alias(index_name, name=alias_name)
 
     def create_alias(self, cluster_name, index_name, alias_name):
-        # TODO
-        pass
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.indices.put_alias(index_name, name=alias_name)
 
     def force_merge(self, cluster_name, index_name):
         connection = ConnectionService().get_connection(cluster_name)

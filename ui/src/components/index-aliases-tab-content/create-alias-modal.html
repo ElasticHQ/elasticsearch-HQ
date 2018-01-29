@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">
+        Add Alias to <span style="color:rebeccapurple;font-weight:400">{{indexName}}</span> Index
+    </h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div>
+        <form name="ciForm">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" ng-model="formData.name" class="form-control" required>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-disabled="!ciForm.$valid" type="button" ng-click="save()">Save</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>
