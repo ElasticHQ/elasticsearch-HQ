@@ -26,6 +26,17 @@ html, body {
     overflow-x: hidden;
 }
 
+body {
+  position: relative;
+  padding-bottom: 200px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  height: 200px;
+}
+
 .top-nav {
   .nav > li > a:hover, 
   .nav > li > a:focus {
