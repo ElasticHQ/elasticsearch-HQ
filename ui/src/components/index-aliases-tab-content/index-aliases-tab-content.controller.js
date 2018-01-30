@@ -22,7 +22,7 @@ class indexAliasesTabContentController {
         this.ClusterAliases.clusterAliasesDelete(this.clusterName, this.indexName, alias_name).then((resp) => {
             console.log('------ response: ', resp.data)
             this.Notification.success({message: `Alias deleted.`, delay: 3000});
-            this.fetch();
+            if (this.fetchFn && (typeof this.fetchFn === 'function'))this.fetchFn()();
         }).finally(() => this.fetching = false)
     }
 
@@ -71,9 +71,8 @@ class indexAliasesTabContentController {
             this.fetching = true;
             this.aliasName = formData.name;
             console.log("FETCH ON CREATE " , (typeof this.fetch));
-            this.fetch()("Foo");
             this.ClusterAliases.clusterAliasesCreate(this.clusterName, this.indexName, this.aliasName).then((resp) => {
-
+                if (this.fetchFn && (typeof this.fetchFn === 'function'))this.fetchFn()();
                 this.Notification.success({message: `Alias created.`, delay: 3000});
 
             });
