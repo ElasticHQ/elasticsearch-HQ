@@ -4,12 +4,13 @@ import createAliasModal from './create-alias-modal.html';
 
 class indexAliasesTabContentController {
 
-    constructor($stateParams, ClusterAliases, $uibModal) {
+    constructor($stateParams, ClusterAliases, Notification, $uibModal) {
         'ngInject';
 
         this.clusterName = $stateParams.clusterName;
         this.indexName = $stateParams.indexName;
         this.$uibModal = $uibModal;
+        this.Notification = Notification;
         this.ClusterAliases = ClusterAliases;
         console.log("aaaaaa %O", this.ClusterAliases);
     }
@@ -18,6 +19,7 @@ class indexAliasesTabContentController {
         this.fetching = true;
         this.ClusterAliases.clusterAliasesDelete(this.clusterName, this.indexName, alias_name).then((resp) => {
             console.log('------ response: ', resp.data)
+        this.Notification.success({message: `Alias deleted.`, delay: 3000});
         }).finally(() => this.fetching = false)
     }
 
@@ -63,14 +65,17 @@ class indexAliasesTabContentController {
             // Logic for Creating Index goes here.
             console.log('==== form data: ', formData);
 
+            this.fetching = true;
             this.aliasName = formData.name;
+
             this.ClusterAliases.clusterAliasesCreate(this.clusterName, this.indexName, this.aliasName);
 
-            // TODO: refresh alias screen
-
+            this.Notification.success({message: `Alias created.`, delay: 3000});
         }, (err) => {
             console.log('Modal dismissed at: ' + new Date());
-        });
+        }).finally(() =>
+            this.fetching = false
+        );
     }
 }
 

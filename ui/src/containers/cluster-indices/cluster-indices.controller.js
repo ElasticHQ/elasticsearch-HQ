@@ -54,7 +54,7 @@ class clusterIndicesController {
                 }
                 return item;
             });
-            
+
 
         }).catch((err) => {
             console.log('---- err: ', err);
@@ -143,16 +143,18 @@ class clusterIndicesController {
             // Logic for Creating Index goes here.
             console.log('==== form data: ', formData);
 
-            let { settings } = formData;
+            let {settings} = formData;
 
             this.fetching = true;
             this.ClusterIndices.clusterIndexCreate(this.clusterName, formData.index_name, {settings: settings}).then((resp) => {
                 this.fetchIndicies();
             }, (err) => {
                 console.log('---- err: ', err)
-            }).finally(() => this.fetching = false);
+            }).finally(() =>
+                this.fetching = false
+            );
 
-            // TODO: refresh indices screen
+            this.Notification.success({message: `Index created.`, delay: 3000});
 
         }, (err) => {
             console.log('Modal dismissed at: ' + new Date());

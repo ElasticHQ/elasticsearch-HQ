@@ -68,9 +68,8 @@
     
       <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../page-1.html">User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../pymethod.html">REST API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../table-with-code.html">Developer Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rest-api.html">REST API</a></li>
 </ul>
 
     
@@ -115,7 +114,7 @@
 <span class="kn">from</span> <span class="nn">.NodeService</span> <span class="kn">import</span> <span class="n">NodeService</span>
 
 
-<div class="viewcode-block" id="ClusterService"><a class="viewcode-back" href="../../../pymethod.html#elastichq.service.ClusterService">[docs]</a><span class="k">class</span> <span class="nc">ClusterService</span><span class="p">:</span>
+<div class="viewcode-block" id="ClusterService"><a class="viewcode-back" href="../../../rest-api.html#elastichq.service.ClusterService">[docs]</a><span class="k">class</span> <span class="nc">ClusterService</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">get_cluster_health</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
         <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">health</span><span class="p">(</span><span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
@@ -147,7 +146,7 @@
                 <span class="n">cluster</span><span class="o">.</span><span class="n">cluster_health</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_health</span><span class="p">(</span><span class="n">cluster_name</span><span class="o">=</span><span class="n">cluster</span><span class="o">.</span><span class="n">cluster_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">clusters</span>
 
-<div class="viewcode-block" id="ClusterService.get_cluster_summary"><a class="viewcode-back" href="../../../pymethod.html#elastichq.service.ClusterService.get_cluster_summary">[docs]</a>    <span class="k">def</span> <span class="nf">get_cluster_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+<div class="viewcode-block" id="ClusterService.get_cluster_summary"><a class="viewcode-back" href="../../../rest-api.html#elastichq.service.ClusterService.get_cluster_summary">[docs]</a>    <span class="k">def</span> <span class="nf">get_cluster_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a high-level view of the cluster using several existing endpoints from ES.</span>
 <span class="sd">        :param cluster_name: </span>

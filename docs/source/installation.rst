@@ -3,23 +3,17 @@ Installation
 ==============
 
 .. contents:: Table of contents
-    :depth: 1
+    :depth: 3
     :local:
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec ipsum a
-eros convallis facilisis eget at leo. Cras eu pulvinar eros, at accumsan dolor.
-Ut gravida massa sed eros imperdiet fermentum. Donec ac diam ut lorem consequat
-laoreet. Maecenas at ex diam. Phasellus tincidunt orci felis, nec commodo nisl
-aliquet ac. Aenean eget ornare tellus. Nullam vel nunc quis nisi sodales
-finibus in ut metus. Praesent ultrices mollis leo, auctor volutpat eros
-consectetur in. Sed ac odio nisi. Cras aliquet ultrices nisl ac mattis. Nulla a
-dui velit. Proin et ipsum quis metus auctor viverra. Proin suscipit massa quis
-magna mattis, vel tincidunt quam tincidunt. Vestibulum nec feugiat metus, nec
-scelerisque eros. Ut ultricies ornare aliquam.
+
 
 
 Instructions
 ------------
+
+Requirements
+^^^^^^^^^^^^
 
 Requirements
 ~~~~~~~~~~~~
