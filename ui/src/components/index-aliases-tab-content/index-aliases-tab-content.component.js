@@ -4,7 +4,7 @@ import controller from './index-aliases-tab-content.controller';
 const indexAliasesTabContentComponent = {
   bindings: {
     aliases: '<',
-    fetch: '&?'
+    fetchFn: '&?'
   },  
   template,
   controller,

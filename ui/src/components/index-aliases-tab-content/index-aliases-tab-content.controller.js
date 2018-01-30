@@ -22,7 +22,13 @@ class indexAliasesTabContentController {
         this.ClusterAliases.clusterAliasesDelete(this.clusterName, this.indexName, alias_name).then((resp) => {
             console.log('------ response: ', resp.data)
             this.Notification.success({message: `Alias deleted.`, delay: 3000});
-            if (this.fetchFn && (typeof this.fetchFn === 'function'))this.fetchFn()();
+            if (this.fetchFn && (typeof this.fetchFn === 'function')) this.fetchFn();
+        }, (err) => {
+            let msg = `Delete Alias Failed. ${err.status}`;
+            try {
+                msg += `<br /> ${err.data.message}`;
+            } catch (err) { }
+            this.Notification.error({message: msg, delay: 5000});
         }).finally(() => this.fetching = false)
     }
 
@@ -70,11 +76,16 @@ class indexAliasesTabContentController {
 
             this.fetching = true;
             this.aliasName = formData.name;
-            console.log("FETCH ON CREATE " , (typeof this.fetch));
             this.ClusterAliases.clusterAliasesCreate(this.clusterName, this.indexName, this.aliasName).then((resp) => {
-                if (this.fetchFn && (typeof this.fetchFn === 'function'))this.fetchFn()();
+                if (this.fetchFn && (typeof this.fetchFn === 'function')) this.fetchFn();
                 this.Notification.success({message: `Alias created.`, delay: 3000});
 
+            }, (err) => {
+                let msg = `Create Alias Failed. ${err.status}`;
+                try {
+                    msg += `<br /> ${err.data.message}`;
+                } catch (err) { }
+                this.Notification.error({message: msg, delay: 5000});
             });
 
 
