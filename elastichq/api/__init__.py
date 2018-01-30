@@ -9,11 +9,12 @@ api = Api(api_blueprint, catch_all_404s=True)
 
 # much of this taken from this boilerplate: https://github.com/oleg-agapov/flask-vue-spa
 # https://stackoverflow.com/questions/23327293/flask-raises-templatenotfound-error-even-though-template-file-exists
-public_blueprint = Blueprint("public", __name__, template_folder="../../templates", static_folder="../../../static")
-#public_blueprint = Blueprint("public", __name__)
+#public_blueprint = Blueprint("public", __name__, template_folder="../../templates", static_folder="../../../static")
+public_blueprint = Blueprint("public", __name__)
 
-#@public_blueprint.route('/ui/<path:path>')
+
 @public_blueprint.route('/', defaults={'path': 'index.html'})
+@public_blueprint.route('/<path:path>')
 def catch_all(path):
     return render_template("index.html")
 
