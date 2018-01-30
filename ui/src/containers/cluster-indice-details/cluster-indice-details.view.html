@@ -43,6 +43,7 @@
                 <uib-tab index="2" heading="Aliases" ng-click="cIndDetailsCtrl.fetchAliases()">
                     <div class="divider-3"></div>
                     <eshq-index-aliases-tab-content aliases="cIndDetailsCtrl.aliases"
+                                                    fetch="cInDetails.fetchAliases()"
                     ></eshq-index-aliases-tab-content>
                 </uib-tab>
                 <uib-tab index="3" heading="Mappings" ng-click="cIndDetailsCtrl.fetchMapping()">
@@ -88,20 +89,20 @@
                             </td>
                         </tr>
                         <!--<tr>-->
-                            <!--<td class="action-btn"><a class="btn btn-warning btn-block"-->
-                                                      <!--ng-click="cIndDetailsCtrl.closeIndex()">Close Index</a></td>-->
-                            <!--<td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos mollitia sed sunt-->
-                                <!--dolores ipsa id maiores quam quae cum, adipisci laboriosam at sint,-->
-                                <!--suscipit perferendis obcaecati dolorem iure dolor tempora.-->
-                            <!--</td>-->
+                        <!--<td class="action-btn"><a class="btn btn-warning btn-block"-->
+                        <!--ng-click="cIndDetailsCtrl.closeIndex()">Close Index</a></td>-->
+                        <!--<td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos mollitia sed sunt-->
+                        <!--dolores ipsa id maiores quam quae cum, adipisci laboriosam at sint,-->
+                        <!--suscipit perferendis obcaecati dolorem iure dolor tempora.-->
+                        <!--</td>-->
                         <!--</tr>-->
                         <!--<tr>-->
-                            <!--<td class="action-btn"><a class="btn btn-danger btn-block"-->
-                                                      <!--ng-click="cIndDetailsCtrl.deleteIndex()">Delete Index</a></td>-->
-                            <!--<td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos mollitia sed sunt-->
-                                <!--dolores ipsa id maiores quam quae cum, adipisci laboriosam at sint,-->
-                                <!--suscipit perferendis obcaecati dolorem iure dolor tempora.-->
-                            <!--</td>-->
+                        <!--<td class="action-btn"><a class="btn btn-danger btn-block"-->
+                        <!--ng-click="cIndDetailsCtrl.deleteIndex()">Delete Index</a></td>-->
+                        <!--<td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos mollitia sed sunt-->
+                        <!--dolores ipsa id maiores quam quae cum, adipisci laboriosam at sint,-->
+                        <!--suscipit perferendis obcaecati dolorem iure dolor tempora.-->
+                        <!--</td>-->
                         <!--</tr>-->
                         </tbody>
                     </table>

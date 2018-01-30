@@ -13,13 +13,16 @@ class indexAliasesTabContentController {
         this.Notification = Notification;
         this.ClusterAliases = ClusterAliases;
         console.log("aaaaaa %O", this.ClusterAliases);
+        console.log(this);
     }
 
     deleteAlias(alias_name) {
+        console.log("in delete: ", this);
         this.fetching = true;
         this.ClusterAliases.clusterAliasesDelete(this.clusterName, this.indexName, alias_name).then((resp) => {
             console.log('------ response: ', resp.data)
-        this.Notification.success({message: `Alias deleted.`, delay: 3000});
+            this.Notification.success({message: `Alias deleted.`, delay: 3000});
+            this.fetch();
         }).finally(() => this.fetching = false)
     }
 
@@ -67,10 +70,15 @@ class indexAliasesTabContentController {
 
             this.fetching = true;
             this.aliasName = formData.name;
+            console.log("FETCH ON CREATE " , (typeof this.fetch));
+            this.fetch()("Foo");
+            this.ClusterAliases.clusterAliasesCreate(this.clusterName, this.indexName, this.aliasName).then((resp) => {
 
-            this.ClusterAliases.clusterAliasesCreate(this.clusterName, this.indexName, this.aliasName);
+                this.Notification.success({message: `Alias created.`, delay: 3000});
 
-            this.Notification.success({message: `Alias created.`, delay: 3000});
+            });
+
+
         }, (err) => {
             console.log('Modal dismissed at: ' + new Date());
         }).finally(() =>

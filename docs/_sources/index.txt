@@ -8,6 +8,7 @@ ElasticHQ Documentation
     installation
     user-guide
     rest-api
+    faq
 
 Overview
 --------

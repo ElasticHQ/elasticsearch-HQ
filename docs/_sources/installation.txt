@@ -1,23 +1,41 @@
-==============
-Installation
-==============
+===============
+Getting Started
+===============
 
 .. contents:: Table of contents
     :depth: 3
-    :includehidden:
     :local:
 
 
 
+Quick-Start Guide
+-----------------
 
-Instructions
+
+Installation
 ------------
 
 Requirements
 ^^^^^^^^^^^^
 
-Requirements
-~~~~~~~~~~~~
+Install ElasticHQ
+^^^^^^^^^^^^^^^^^
+
+Pre-Releases
+^^^^^^^^^^^^
+
+Configuration
+-------------
+
+Directory Structure
+^^^^^^^^^^^^^^^^^^^
+
+License
+-------
+
+
+.. Requirements
+.. 1~~~~~~~~~~~~
 
 Proin ac mi tempor, ullamcorper ante at, sodales augue. Duis enim turpis,
 volutpat eget consectetur id, facilisis vel nisl. Sed non leo aliquam, tempus
@@ -35,8 +53,6 @@ In lobortis elementum tempus. Nam facilisis orci neque, eget vestibulum lectus
 imperdiet sed. Aenean ac eros sollicitudin, accumsan turpis ac, faucibus arcu.
 
 
-Section III
------------
 
 Donec sodales, velit ac sagittis fermentum, metus ante pharetra ex, ac eleifend
 erat ligula in lacus. Donec tincidunt urna est, non mollis turpis lacinia sit

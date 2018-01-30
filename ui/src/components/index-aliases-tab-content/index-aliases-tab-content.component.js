@@ -3,7 +3,8 @@ import controller from './index-aliases-tab-content.controller';
 
 const indexAliasesTabContentComponent = {
   bindings: {
-    aliases: '<'
+    aliases: '<',
+    fetch: '&'
   },  
   template,
   controller,

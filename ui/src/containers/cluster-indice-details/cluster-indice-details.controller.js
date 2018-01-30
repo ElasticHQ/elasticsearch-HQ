@@ -56,6 +56,7 @@ class clusterIndiceDetailsController {
     }
 
     fetchAliases() {
+        console.log("Fetching Aliases");
         this.fetching = true;
         this.fetchingTitle = 'Aliases';
         this.aliases = undefined;
