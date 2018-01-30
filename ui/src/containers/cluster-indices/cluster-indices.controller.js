@@ -19,7 +19,7 @@ class clusterIndicesController {
         this.que = QueuedFactory;
 
         // Fetch the data
-        this.fetchingIndices = true;
+        this.fetchingIndices = false;
 
         // Because on new versions of UI-ROUTER
         //  Controllers are not "Destroyed" when re-routing
@@ -31,7 +31,15 @@ class clusterIndicesController {
             if (this.request) this.que.cancel(this.request);
         })
 
-        this.request = ClusterIndices.clusterInidices($stateParams.clusterName)
+        // INIT Get all Indicies
+        this.fetchIndicies();
+
+    }
+
+    fetchIndicies() {
+        this.fetchingIndices = true;
+
+        this.request = this.ClusterIndices.clusterInidices(this.clusterName)
 
         // #FIXME
         //  https://github.com/angular/angular.js/issues/15607
@@ -46,15 +54,15 @@ class clusterIndicesController {
                 }
                 return item;
             });
-            this.fetchingIndices = false;
+            
 
         }).catch((err) => {
             console.log('---- err: ', err);
         }).finally(() => {
             console.log('---- done fetching')
             this.request = undefined;
+            this.fetchingIndices = false;
         });
-
     }
 
     clearCache() {
@@ -107,7 +115,7 @@ class clusterIndicesController {
                 $scope.disabled = false;
                 $scope.$uibModalInstance = $uibModalInstance;
 
-                $scope.formData = {};
+                $scope.formData = {settings: {}};
                 $scope.cancel = () => {
                     $scope.$uibModalInstance.dismiss('close');
                 };
@@ -135,13 +143,14 @@ class clusterIndicesController {
             // Logic for Creating Index goes here.
             console.log('==== form data: ', formData);
 
-            this.index_name = formData.name;
-            this.settings = {};
-            this.settings.number_of_shards = formData.shards;
-            this.settings.number_of_replicas = formData.replicas;
-            this.settings_data = {"settings": this.settings};
+            let { settings } = formData;
 
-            this.ClusterIndices.clusterIndexCreate(this.clusterName, this.index_name, this.settings_data);
+            this.fetching = true;
+            this.ClusterIndices.clusterIndexCreate(this.clusterName, formData.index_name, {settings: settings}).then((resp) => {
+                this.fetchIndicies();
+            }, (err) => {
+                console.log('---- err: ', err)
+            }).finally(() => this.fetching = false);
 
             // TODO: refresh indices screen
 

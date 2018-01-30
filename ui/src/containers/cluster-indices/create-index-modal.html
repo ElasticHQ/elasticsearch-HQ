@@ -8,15 +8,15 @@
         <form name="ciForm">
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" ng-model="formData.name" class="form-control" required>
+                <input type="text" ng-model="formData.index_name" class="form-control" required>
             </div>
             <div class="form-group">
                 <label>Number of Shards</label>
-                <input type="number" ng-model="formData.shards" class="form-control" required>
+                <input type="number" ng-model="formData.settings.number_of_shards" class="form-control" required>
             </div>
             <div class="form-group">
                 <label>Number of Replicas</label>
-                <input type="number" ng-model="formData.replicas" class="form-control" required>
+                <input type="number" ng-model="formData.settings.number_of_replicas" class="form-control" required>
             </div>
         </form>
     </div>
