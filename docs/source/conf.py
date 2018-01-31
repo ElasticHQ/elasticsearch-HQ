@@ -26,6 +26,8 @@ extensions = [
     'sphinxcontrib.autohttp.flaskqref',
     'sphinxcontrib.fulltoc'
 ]
+
+# http://sphinxcontrib-httpdomain.readthedocs.io/en/stable/#module-sphinxcontrib.httpdomain
   
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

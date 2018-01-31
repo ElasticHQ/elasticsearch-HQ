@@ -141,6 +141,8 @@
 <span class="sd">        Creates a connection to a given host/port. Accepts a JSON POST BODY. This will add the connection, if it doesn&#39;t already</span>
 <span class="sd">        exist, to the pool of connections and save the details in the database.</span>
 
+<span class="sd">        Responds with the `elastichq.common.api_response.APIResponse` object.</span>
+
 <span class="sd">        .. :quickref: Creates a connection to the cluster.</span>
 
 <span class="sd">        **Example request**:</span>
@@ -150,60 +152,13 @@
 <span class="sd">          GET /clusters/_connect/ HTTP/1.1</span>
 <span class="sd">          Accept: application/json</span>
 
-<span class="sd">        **Example response**:</span>
-
-<span class="sd">        .. sourcecode:: http</span>
-
-<span class="sd">          HTTP/1.1 200 OK</span>
-<span class="sd">          Content-Type: application/json</span>
-
-<span class="sd">          [</span>
 <span class="sd">            {</span>
-<span class="sd">              &quot;post_id&quot;: 12345,</span>
-<span class="sd">              &quot;author&quot;: &quot;/author/123/&quot;,</span>
-<span class="sd">              &quot;tags&quot;: [&quot;sphinx&quot;, &quot;rst&quot;, &quot;flask&quot;],</span>
-<span class="sd">              &quot;title&quot;: &quot;Documenting API in Sphinx with httpdomain&quot;,</span>
-<span class="sd">              &quot;body&quot;: &quot;How to...&quot;</span>
-<span class="sd">            },</span>
-<span class="sd">            {</span>
-<span class="sd">              &quot;post_id&quot;: 12346,</span>
-<span class="sd">              &quot;author&quot;: &quot;/author/123/&quot;,</span>
-<span class="sd">              &quot;tags&quot;: [&quot;python3&quot;, &quot;typehints&quot;, &quot;annotations&quot;],</span>
-<span class="sd">              &quot;title&quot;: &quot;To typehint or not to typehint that is the question&quot;,</span>
-<span class="sd">              &quot;body&quot;: &quot;Static checking in python...&quot;</span>
+<span class="sd">                &quot;ip&quot;: &quot;127.0.0.1&quot;,</span>
+<span class="sd">                &quot;port&quot;: &quot;9200&quot;,</span>
+<span class="sd">                &quot;use_ssl&quot;: false</span>
 <span class="sd">            }</span>
-<span class="sd">          ]</span>
 
-<span class="sd">        :reqheader Accept: application/json</span>
-<span class="sd">        :&lt;json string title: post title</span>
-<span class="sd">        :&lt;json string body: post body</span>
-<span class="sd">        :&lt;json string author: author id</span>
-<span class="sd">        :&lt;json List[string] tags: tags list</span>
-<span class="sd">        :&gt;json int: id</span>
-<span class="sd">        :resheader Content-Type: application/json</span>
-<span class="sd">        :status 200: posts found</span>
-<span class="sd">        :status 201: post created</span>
-<span class="sd">        :status 400: malformed request</span>
-<span class="sd">        :status 422: invalid parameters</span>
-
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :rtype: APIResponse</span>
-<span class="sd">        :param:</span>
-
-<span class="sd">          **POST BODY**</span>
-
-<span class="sd">          ::</span>
-
-<span class="sd">              {</span>
-<span class="sd">                  &quot;ip&quot;: &quot;127.0.0.1&quot;,</span>
-<span class="sd">                  &quot;port&quot; : &quot;9200&quot;,</span>
-<span class="sd">                  &quot;use_ssl: true</span>
-<span class="sd">              }</span>
-
-<span class="sd">          **Request Structure**</span>
+<span class="sd">        **Request Structure**</span>
 
 <span class="sd">          - *(dict) --*</span>
 
@@ -212,6 +167,48 @@
 <span class="sd">            - **port** *(string) --* ES REST API port</span>
 
 <span class="sd">            - **use_ssl** *(boolean) --* Whether to use HTTPS or not.</span>
+
+<span class="sd">        **Example response**:</span>
+
+<span class="sd">        .. sourcecode:: http</span>
+
+<span class="sd">          HTTP/1.1 201</span>
+<span class="sd">          Content-Type: application/json</span>
+
+<span class="sd">            {</span>
+<span class="sd">              &quot;data&quot;: [</span>
+<span class="sd">                {</span>
+<span class="sd">                  &quot;cluster_name&quot;: &quot;&quot;,</span>
+<span class="sd">                  &quot;cluster_ip&quot;: &quot;&quot;,</span>
+<span class="sd">                  &quot;cluster_port&quot;: &quot;9200&quot;,</span>
+<span class="sd">                  &quot;cluster_scheme&quot;: &quot;http&quot;,</span>
+<span class="sd">                  &quot;cluster_connected&quot;: true,</span>
+<span class="sd">                  &quot;cluster_host&quot;: &quot;http://10.0.0.0:9200&quot;,</span>
+<span class="sd">                  &quot;cluster_version&quot;: &quot;2.3.5&quot;,</span>
+<span class="sd">                }</span>
+<span class="sd">              ],</span>
+<span class="sd">              &quot;status_code&quot;: 201,</span>
+<span class="sd">              &quot;message&quot;: null,</span>
+<span class="sd">              &quot;response_time&quot;: 92</span>
+<span class="sd">            }</span>
+
+<span class="sd">        **Response Structure**</span>
+
+<span class="sd">          - *(dict) --*</span>
+
+<span class="sd">            - **ip** *(string) --* IP address or host name</span>
+
+<span class="sd">            - **port** *(string) --* ES REST API port</span>
+
+<span class="sd">            - **use_ssl** *(boolean) --* Whether to use HTTPS or not.</span>
+
+
+<span class="sd">        :reqheader Accept: application/json</span>
+<span class="sd">        :resheader Content-Type: application/json</span>
+<span class="sd">        :status 201: connection created</span>
+<span class="sd">        :status 400: bad request</span>
+<span class="sd">        :status 500: server error</span>
+
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">json_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -311,56 +308,7 @@
 
     <span class="nd">@request_wrapper</span>
 <div class="viewcode-block" id="ClusterState.get"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterState.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return collection of posts.</span>
-
-<span class="sd">        .. :quickref: Posts Collection; Get collection of posts.</span>
-
-<span class="sd">        **Example request**:</span>
-
-<span class="sd">        .. sourcecode:: http</span>
-
-<span class="sd">          GET /posts/ HTTP/1.1</span>
-<span class="sd">          Host: example.com</span>
-<span class="sd">          Accept: application/json</span>
-
-<span class="sd">        **Example response**:</span>
-
-<span class="sd">        .. sourcecode:: http</span>
-
-<span class="sd">          HTTP/1.1 200 OK</span>
-<span class="sd">          Vary: Accept</span>
-<span class="sd">          Content-Type: application/json</span>
-
-<span class="sd">          [</span>
-<span class="sd">            {</span>
-<span class="sd">              &quot;post_id&quot;: 12345,</span>
-<span class="sd">              &quot;author&quot;: &quot;/author/123/&quot;,</span>
-<span class="sd">              &quot;tags&quot;: [&quot;sphinx&quot;, &quot;rst&quot;, &quot;flask&quot;],</span>
-<span class="sd">              &quot;title&quot;: &quot;Documenting API in Sphinx with httpdomain&quot;,</span>
-<span class="sd">              &quot;body&quot;: &quot;How to...&quot;</span>
-<span class="sd">            },</span>
-<span class="sd">            {</span>
-<span class="sd">              &quot;post_id&quot;: 12346,</span>
-<span class="sd">              &quot;author&quot;: &quot;/author/123/&quot;,</span>
-<span class="sd">              &quot;tags&quot;: [&quot;python3&quot;, &quot;typehints&quot;, &quot;annotations&quot;],</span>
-<span class="sd">              &quot;title&quot;: &quot;To typehint or not to typehint that is the question&quot;,</span>
-<span class="sd">              &quot;body&quot;: &quot;Static checking in python...&quot;</span>
-<span class="sd">            }</span>
-<span class="sd">          ]</span>
-
-<span class="sd">        :reqheader Accept: application/json</span>
-<span class="sd">        :&lt;json string title: post title</span>
-<span class="sd">        :&lt;json string body: post body</span>
-<span class="sd">        :&lt;json string author: author id</span>
-<span class="sd">        :&lt;json List[string] tags: tags list</span>
-<span class="sd">        :&gt;json int: id</span>
-<span class="sd">        :resheader Content-Type: application/json</span>
-<span class="sd">        :status 200: posts found</span>
-<span class="sd">        :status 201: post created</span>
-<span class="sd">        :status 400: malformed request</span>
-<span class="sd">        :status 422: invalid parameters</span>
-
-
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">ClusterService</span><span class="p">()</span><span class="o">.</span><span class="n">get_cluster_state</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span></div></div>

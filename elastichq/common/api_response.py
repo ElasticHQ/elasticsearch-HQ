@@ -1,4 +1,9 @@
-__author__ = 'royrusso'
+"""
+.. module:: apiresponse
+
+.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+"""
+
 import time
 
 from flask import g
