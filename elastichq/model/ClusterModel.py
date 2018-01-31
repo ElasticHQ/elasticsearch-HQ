@@ -1,4 +1,8 @@
-__author__ = 'royrusso'
+"""
+.. module:: ClusterModel
+
+.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+"""
 
 from ..globals import db, ma
 
@@ -18,6 +22,14 @@ class ClusterModel(db.Model):
     cluster_health = None
 
     def __init__(self, cluster_name, cluster_ip, cluster_port='9200', cluster_scheme='http'):
+        """
+        Init
+
+        :param cluster_name:
+        :param cluster_ip:
+        :param cluster_port:
+        :param cluster_scheme:
+        """
         self.cluster_name = cluster_name
         self.cluster_port = cluster_port
         self.cluster_ip = cluster_ip
@@ -25,10 +37,19 @@ class ClusterModel(db.Model):
 
     @property
     def cluster_host(self):
+        """
+        Concats scheme, ip, port
+
+        :return: SCHEME://IP:PORT
+        """
         return self.cluster_scheme + "://" + self.cluster_ip + ":" + self.cluster_port
 
 
 class ClusterDTO(ma.ModelSchema):
+    """
+    Generic data transfer object for a cluster.
+
+    """
     _links = ma.Hyperlinks({
         'summary': ma.AbsoluteURLFor('.clusters_summary', cluster_name='<cluster_name>', _external=True),
         'stats': ma.AbsoluteURLFor('.clusters_stats', cluster_name='<cluster_name>', _external=True),
@@ -40,4 +61,5 @@ class ClusterDTO(ma.ModelSchema):
         ordered = True
         model = ClusterModel
         fields = (
-            'cluster_name', 'cluster_ip', 'cluster_port', 'cluster_scheme', 'cluster_connected', 'cluster_host', 'cluster_version', 'cluster_health', '_links')
+            'cluster_name', 'cluster_ip', 'cluster_port', 'cluster_scheme', 'cluster_connected', 'cluster_host',
+            'cluster_version', 'cluster_health', '_links')

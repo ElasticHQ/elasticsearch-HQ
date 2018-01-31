@@ -3,18 +3,19 @@ import time
 
 from flask import g
 
-from ..api import api
 from .status_codes import HTTP_Status
+from ..api import api
 
 
 def APIResponse(data, status_code=HTTP_Status.OK, headers=None, message=None):
     """
     Uniform response envelope
-    :param data: 
+
+    :param data: Typically an array of dicts to be returned in the JSON output
     :param status_code: An HTTP code
     :param headers: 
-    :param message: 
-    :return:
+    :param message: If an error or success message is added.
+    :return: A Flask-RESTFul response
     """
     if not isinstance(data, (list)):
         data = [data]

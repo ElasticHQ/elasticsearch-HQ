@@ -1,4 +1,9 @@
-__author__ = 'royrusso'
+"""
+.. module:: ClusterService
+
+.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+"""
+
 import jmespath
 
 from elastichq.globals import REQUEST_TIMEOUT
@@ -7,6 +12,9 @@ from .NodeService import NodeService
 
 
 class ClusterService:
+    """
+    cc
+    """
     def get_cluster_health(self, cluster_name):
         connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.health(request_timeout=REQUEST_TIMEOUT)
@@ -41,6 +49,7 @@ class ClusterService:
     def get_cluster_summary(self, cluster_name):
         """
         Returns a high-level view of the cluster using several existing endpoints from ES.
+
         :param cluster_name: 
         :return:
         """

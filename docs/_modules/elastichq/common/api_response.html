@@ -45,6 +45,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">ElasticHQ latest documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
@@ -69,7 +75,7 @@
       <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../user-guide.html">User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../rest-api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer-guide.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
 </ul>
 
@@ -112,18 +118,19 @@
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">g</span>
 
-<span class="kn">from</span> <span class="nn">..api</span> <span class="kn">import</span> <span class="n">api</span>
 <span class="kn">from</span> <span class="nn">.status_codes</span> <span class="kn">import</span> <span class="n">HTTP_Status</span>
+<span class="kn">from</span> <span class="nn">..api</span> <span class="kn">import</span> <span class="n">api</span>
 
 
-<div class="viewcode-block" id="APIResponse"><a class="viewcode-back" href="../../../rest-api.html#elastichq.common.api_response.APIResponse">[docs]</a><span class="k">def</span> <span class="nf">APIResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="APIResponse"><a class="viewcode-back" href="../../../developers.html#elastichq.common.api_response.APIResponse">[docs]</a><span class="k">def</span> <span class="nf">APIResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Uniform response envelope</span>
-<span class="sd">    :param data: </span>
+
+<span class="sd">    :param data: Typically an array of dicts to be returned in the JSON output</span>
 <span class="sd">    :param status_code: An HTTP code</span>
 <span class="sd">    :param headers: </span>
-<span class="sd">    :param message: </span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param message: If an error or success message is added.</span>
+<span class="sd">    :return: A Flask-RESTFul response</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">)):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
@@ -152,6 +159,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="../../../http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">ElasticHQ latest documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>

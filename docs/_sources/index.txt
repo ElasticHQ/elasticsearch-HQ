@@ -2,12 +2,13 @@
 ElasticHQ Documentation
 =======================
 
+
 .. toctree::
     :hidden:
 
     installation
     user-guide
-    rest-api
+    developer-guide
     faq
 
 Overview

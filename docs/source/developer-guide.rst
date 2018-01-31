@@ -1,6 +1,15 @@
-==============
+===============
+Developer Guide
+===============
+
+Versions
+--------
+
+REST Standards
+--------------
+
 REST API
-==============
+--------
 
 .. contents:: Table of Contents
 
@@ -17,7 +26,7 @@ REST API
    :raises TypeError: if the message_body is not a basestring
 
 Connections
------------
+^^^^^^^^^^^
 
 .. autoflask:: manage:app
     :blueprints: api
@@ -26,7 +35,7 @@ Connections
     :order: path
 
 Clusters
---------
+^^^^^^^^
 
 .. autoflask:: manage:app
     :blueprints: api
@@ -41,7 +50,7 @@ Clusters
     :order: path
 
 Nodes
------
+^^^^^
 
 .. autoflask:: manage:app
     :blueprints: api
@@ -50,7 +59,7 @@ Nodes
     :order: path
 
 Indices
--------
+^^^^^^^
 
 .. autoflask:: manage:app
     :blueprints: api
@@ -60,10 +69,17 @@ Indices
 
 
 Diagnostics
------------
+^^^^^^^^^^^
 
 Status
--------
+^^^^^^
 
 .. automodule:: elastichq.api.clusters
    :members:
+
+
+Contributing
+------------
+
+Issues/Bugs
+-----------

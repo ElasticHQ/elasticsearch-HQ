@@ -1,3 +1,9 @@
+"""
+.. module:: exceptions
+
+.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+"""
+
 from functools import wraps
 
 from flask import jsonify
@@ -35,13 +41,25 @@ def request_wrapper(functor, message="Oops! Something bad happened."):
 
 
 class ApiException(Exception):
+    """
+    Generic API parser/formatter for exception messages.
+
+    :param message:
+    :param status_code: Defaults to 500
+    """
+
     def __init__(self, message, status_code=HTTP_Status.INTERNAL_SERVER_ERROR):
         super().__init__()
         self.message = message
         self.status_code = status_code
 
     def to_response(self):
-        response = jsonify({"message": self.message, "status_code" : self.status_code})
+        """
+        Converts an exception message to a proper status code and response JSON
+
+        :return:
+        """
+        response = jsonify({"message": self.message, "status_code": self.status_code})
         response.status_code = self.status_code
         response.headers.add('Status', self.status_code)
 
@@ -49,16 +67,37 @@ class ApiException(Exception):
 
 
 class NotFoundException(ApiException):
+    """
+    Responsible for returning HTTP 404
+
+    :param message:
+    :param status_code: Defaults to 404
+    """
+
     def __init__(self, message, status_code=HTTP_Status.NOT_FOUND):
         super().__init__(message, status_code)
 
 
 class BadRequest(ApiException):
+    """
+    Responsible for returning HTTP 400
+
+    :param message:
+    :param status_code: Defaults to 400
+    """
+
     def __init__(self, message, status_code=HTTP_Status.BAD_REQUEST):
         super().__init__(message, status_code)
 
 
 class InternalServerError(ApiException):
+    """
+    Responsible for returning HTTP 500
+
+    :param message:
+    :param status_code: Defaults to 500
+    """
+
     def __init__(
             self, message='Internal Server Error',
             status_code=HTTP_Status.NOT_IMPLEMENTED):
