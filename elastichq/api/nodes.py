@@ -10,34 +10,36 @@ from ..service import NodeService
 
 
 class NodesSummary(Resource):
-    """
-    Summary of Node(s).
-    """
-
     @request_wrapper
     def get(self, cluster_name, node_ids=None):
+        """
+        Summary of Node(s). Returns a condensed view of all nodes in the cluster. Summary information is pulled from
+        both the info and stats APIs.
+        """
+
         response = NodeService().get_node_summary(cluster_name, node_ids)
         return APIResponse(response, HTTP_Status.OK, None)
 
 
 class NodesStats(Resource):
-    """
-    Wrapper for https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html
-    """
 
     @request_wrapper
     def get(self, cluster_name, node_ids=None):
+        """
+        Wrapper for https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html
+        """
+
         response = NodeService().get_node_stats(cluster_name, node_ids)
         return APIResponse(response, HTTP_Status.OK, None)
 
 
 class NodesInfo(Resource):
-    """
-    Wrapper for https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html
-    """
 
     @request_wrapper
     def get(self, cluster_name, node_ids=None):
+        """
+        Wrapper for https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html
+        """
         response = NodeService().get_node_info(cluster_name, node_ids)
         return APIResponse(response, HTTP_Status.OK, None)
 

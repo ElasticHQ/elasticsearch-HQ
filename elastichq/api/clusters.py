@@ -23,81 +23,80 @@ class ClusterConnection(Resource):
     @request_wrapper
     def post(self):
         """
+
         Creates a connection to a given host/port. Accepts a JSON POST BODY. This will add the connection, if it doesn't already
         exist, to the pool of connections and save the details in the database.
 
-        .. :quickref: Creates a connection to the cluster.
+        .. :quickref: ClusterConnection; Creates a connection to the cluster.
 
         **Example request**:
 
         .. sourcecode:: http
 
-          GET /clusters/_connect/ HTTP/1.1
+          POST /api/clusters/_connect/ HTTP/1.1
           Accept: application/json
+
+        .. code-block:: json
+
+            {
+                "ip": "127.0.0.1",
+                "port": "9200",
+                "use_ssl": false
+            }
+
+        **Request Structure**
+
+          - *(dict) --*
+
+            - **ip** *(string) --* IP address or host name
+            - **port** *(string) --* ES REST API port
+            - **use_ssl** *(boolean) --* Whether to use HTTPS or not.
 
         **Example response**:
 
         .. sourcecode:: http
 
-          HTTP/1.1 200 OK
+          HTTP/1.1 201
           Content-Type: application/json
 
-          [
+        .. code-block:: json
+
             {
-              "post_id": 12345,
-              "author": "/author/123/",
-              "tags": ["sphinx", "rst", "flask"],
-              "title": "Documenting API in Sphinx with httpdomain",
-              "body": "How to..."
-            },
-            {
-              "post_id": 12346,
-              "author": "/author/123/",
-              "tags": ["python3", "typehints", "annotations"],
-              "title": "To typehint or not to typehint that is the question",
-              "body": "Static checking in python..."
+              "data": [
+                {
+                  "cluster_name": "",
+                  "cluster_ip": "",
+                  "cluster_port": "9200",
+                  "cluster_scheme": "http",
+                  "cluster_connected": true,
+                  "cluster_host": "http://10.0.0.0:9200",
+                  "cluster_version": "2.3.5"
+                }
+              ],
+              "status_code": 200,
+              "message": null,
+              "response_time": 92
             }
-          ]
-
-        :reqheader Accept: application/json
-        :<json string title: post title
-        :<json string body: post body
-        :<json string author: author id
-        :<json List[string] tags: tags list
-        :>json int: id
-        :resheader Content-Type: application/json
-        :status 200: posts found
-        :status 201: post created
-        :status 400: malformed request
-        :status 422: invalid parameters
 
 
-        """
-        """
-
-        :rtype: APIResponse
-        :param:
-
-          **POST BODY**
-
-          ::
-
-              {
-                  "ip": "127.0.0.1",
-                  "port" : "9200",
-                  "use_ssl: true
-              }
-
-          **Request Structure**
+        **Response Structure**
 
           - *(dict) --*
 
-            - **ip** *(string) --* IP address or host name
+            - **cluster_name** *(string) --* cluster name
+            - **cluster_ip** *(string) --* IP or host
+            - **cluster_port** *(string) --*
+            - **cluster_scheme** *(string) --*
+            - **cluster_connected** *(boolean) --* Whether there was a successful connection.
+            - **cluster_host** *(string) --* The complete connection url
+            - **cluster_version** *(string) --* Elasticsearch version
 
-            - **port** *(string) --* ES REST API port
 
-            - **use_ssl** *(boolean) --* Whether to use HTTPS or not.
-
+        :reqheader Accept: application/json
+        :resheader Content-Type: application/json
+        :status 201: connection created
+        :status 400: bad request
+        :status 500: server error
         """
         json_data = request.get_json(force=True)
         params = request.values.to_dict()
@@ -122,11 +121,21 @@ class ClusterConnection(Resource):
         """
         Deletes a connection from the connection pool and the database, by cluster name.
 
+        :note: This method does NOT delete your Elasticsearch Cluster, just the connection from HQ to it.
+
+        **Example request**:
+
+        .. sourcecode:: http
+
+          DELETE /clusters/_connect/<CLUSTER_NAME> HTTP/1.1
+          Accept: application/json
+
         :type cluster_name: string
-        :param cluster_name: the name of the cluster.
-        :return: APIResponse
-        :rtype: elastichq.common.api_response.APIResponse
-        :rtype: :class: `elastichq.common.api_response.APIResponse`
+        :param cluster_name: Name of cluster connection to remove.
+        :returns: List of active clusters.
+        :status 200 Ok
+        :status 400: bad request
+        :status 500: server error
         """
         response = ConnectionService().delete_connection(cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
@@ -139,73 +148,14 @@ class ClusterList(Resource):
 
     @request_wrapper
     def get(self):
-        """
-        Retrieves a list of all active and inactive cluster connections.
+        """Returns a collection of clusters.
 
-        :return:
-
-          **POST BODY**
-
-          ::
-
-              {
-                  "ip": "127.0.0.1",
-                  "port" : "9200",
-                  "use_ssl: true
-              }
-
-          **Request Structure**
-
-          - *(dict) --*
-
-            - **ip** *(string) --* IP address or host name
-
-            - **port** *(string) --* ES REST API port
-
-            - **use_ssl** *(boolean) --* Whether to use HTTPS or not.
-
-        """
-        response = ClusterService().get_clusters()
-
-        schema = ClusterDTO(many=True)
-        result = schema.dump(response)
-        return APIResponse(result.data, HTTP_Status.OK, None)
-
-
-class ClusterHealth(Resource):
-    """
-    qq
-    """
-
-    @request_wrapper
-    def get(self, cluster_name):
-        """
-        Returns cluster health 
-        :param cluster_name: 
-        :return:
-        """
-
-        response = ClusterService().get_cluster_health(cluster_name)
-        return APIResponse(response, HTTP_Status.OK, None)
-
-
-class ClusterState(Resource):
-    """
-    q
-    """
-
-    @request_wrapper
-    def get(self, cluster_name):
-        """Return collection of posts.
-
-        .. :quickref: Posts Collection; Get collection of posts.
 
         **Example request**:
 
         .. sourcecode:: http
 
-          GET /posts/ HTTP/1.1
-          Host: example.com
+          GET /api/clusters/ HTTP/1.1
           Accept: application/json
 
         **Example response**:
@@ -216,36 +166,119 @@ class ClusterState(Resource):
           Vary: Accept
           Content-Type: application/json
 
-          [
+        .. code-block:: json
+
             {
-              "post_id": 12345,
-              "author": "/author/123/",
-              "tags": ["sphinx", "rst", "flask"],
-              "title": "Documenting API in Sphinx with httpdomain",
-              "body": "How to..."
-            },
-            {
-              "post_id": 12346,
-              "author": "/author/123/",
-              "tags": ["python3", "typehints", "annotations"],
-              "title": "To typehint or not to typehint that is the question",
-              "body": "Static checking in python..."
+                "status_code": 200,
+                "response_time": 1648,
+                "message": null,
+                "data": [
+                    {
+                        "cluster_name": "",
+                        "cluster_ip": "",
+                        "cluster_port": "9200",
+                        "cluster_scheme": "http",
+                        "cluster_connected": true,
+                        "cluster_host": "http://10.0.0.0:9200",
+                        "cluster_version": "2.3.5",
+                        "cluster_health": {  }
+                    }
+                ]
             }
-          ]
 
-        :reqheader Accept: application/json
-        :<json string title: post title
-        :<json string body: post body
-        :<json string author: author id
-        :<json List[string] tags: tags list
-        :>json int: id
+        **Response Structure**
+
+          - *(dict) --*
+
+            - **cluster_name** *(string) --* cluster name
+            - **cluster_ip** *(string) --* IP or host
+            - **cluster_port** *(string) --*
+            - **cluster_scheme** *(string) --*
+            - **cluster_connected** *(boolean) --* Whether there was a successful connection.
+            - **cluster_host** *(string) --* The complete connection url
+            - **cluster_version** *(string) --* Elasticsearch version
+
         :resheader Content-Type: application/json
-        :status 200: posts found
-        :status 201: post created
-        :status 400: malformed request
-        :status 422: invalid parameters
+        :status 200: OK
+        :status 500: server error
+        """
+        response = ClusterService().get_clusters()
+
+        schema = ClusterDTO(many=True)
+        result = schema.dump(response)
+        return APIResponse(result.data, HTTP_Status.OK, None)
 
 
+class ClusterHealth(Resource):
+    """
+    Wrapper around the Cluster health API https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html
+    """
+
+    @request_wrapper
+    def get(self, cluster_name):
+        """
+        Returns cluster health for one cluster
+
+
+        **Example request**:
+
+        .. sourcecode:: http
+
+          GET /api/clusters/<cluster_name>/_health HTTP/1.1
+
+        :type cluster_name: string
+        :param cluster_name: Name of cluster
+
+        **Example response**:
+
+        .. sourcecode:: http
+
+          HTTP/1.1 200 OK
+          Vary: Accept
+          Content-Type: application/json
+
+        .. code-block:: json
+
+            {
+                "status_code": 200,
+                "data": [
+                    {
+                        "active_primary_shards": 10,
+                        "relocating_shards": 0,
+                        "cluster_name": "es_v2",
+                        "active_shards": 10,
+                        "task_max_waiting_in_queue_millis": 0,
+                        "number_of_pending_tasks": 0,
+                        "timed_out": false,
+                        "number_of_nodes": 1,
+                        "unassigned_shards": 10,
+                        "number_of_in_flight_fetch": 0,
+                        "initializing_shards": 0,
+                        "delayed_unassigned_shards": 0,
+                        "active_shards_percent_as_number": 50,
+                        "status": "yellow",
+                        "number_of_data_nodes": 1
+                    }
+                ],
+                "response_time": 38,
+                "message": null
+            }
+
+
+        :resheader Content-Type: application/json
+        :status 200: OK
+        :status 500: server error
+        """
+        response = ClusterService().get_cluster_health(cluster_name)
+        return APIResponse(response, HTTP_Status.OK, None)
+
+
+class ClusterState(Resource):
+
+    @request_wrapper
+    def get(self, cluster_name):
+        """
+        Wrapper around https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-state.html
         """
         response = ClusterService().get_cluster_state(cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
@@ -258,6 +291,12 @@ class ClusterSummary(Resource):
 
     @request_wrapper
     def get(self, cluster_name):
+        """
+        Given a cluster_name, returns summary information from several ES Cluster APIs.
+
+        :param cluster_name:
+        :return:
+        """
         response = ClusterService().get_cluster_summary(cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
@@ -265,6 +304,11 @@ class ClusterSummary(Resource):
 class ClusterStats(Resource):
     @request_wrapper
     def get(self, cluster_name):
+        """
+        Wrapper around https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-stats.html
+        :param cluster_name:
+        :return:
+        """
         response = ClusterService().get_cluster_stats(cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
 

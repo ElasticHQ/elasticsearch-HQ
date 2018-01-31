@@ -33,7 +33,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ElasticHQ latest documentation" href="index.html" />
-    <link rel="next" title="Developers API" href="developers.html" />
+    <link rel="next" title="For Developers" href="developer-guide.html" />
     <link rel="prev" title="User Guide" href="user-guide.html" />
   
    
@@ -53,7 +53,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="developers.html" title="Developers API"
+          <a href="developer-guide.html" title="For Developers"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="user-guide.html" title="User Guide"
@@ -82,15 +82,42 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">REST API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#connections">Connections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#clusters">Clusters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#nodes">Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#indices">Indices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#diagnostics">Diagnostics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-elastichq.api.clusters">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connection-apis">Connection APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#connections">Connections</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="developers.html">Developers API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cluster-apis">Cluster APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-list">Cluster List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-health">Cluster Health</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-summary">Cluster Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-state">Cluster State</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#node-apis">Node APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nodes-summary">Nodes Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node-info">Node Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nodes-stats">Nodes Stats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#index-apis">Index APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#indices">Indices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indices-summary">Indices Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#index-stats">Index Stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#index-command">Index Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#index-shards">Index Shards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#index-alias">Index Alias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#index-mapping">Index Mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#diagnostics">Diagnostics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hq-apis">HQ APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hq-status">HQ Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hq-routes">HQ Routes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer-guide.html">For Developers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -131,18 +158,47 @@
 <p class="topic-title first">Table of Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#rest-api" id="id1">REST API</a><ul>
-<li><a class="reference internal" href="#connections" id="id2">Connections</a></li>
-<li><a class="reference internal" href="#clusters" id="id3">Clusters</a></li>
-<li><a class="reference internal" href="#nodes" id="id4">Nodes</a></li>
-<li><a class="reference internal" href="#indices" id="id5">Indices</a></li>
-<li><a class="reference internal" href="#diagnostics" id="id6">Diagnostics</a></li>
-<li><a class="reference internal" href="#module-elastichq.api.clusters" id="id7">Status</a></li>
+<li><a class="reference internal" href="#connection-apis" id="id2">Connection APIs</a><ul>
+<li><a class="reference internal" href="#connections" id="id3">Connections</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cluster-apis" id="id4">Cluster APIs</a><ul>
+<li><a class="reference internal" href="#cluster-list" id="id5">Cluster List</a></li>
+<li><a class="reference internal" href="#cluster-health" id="id6">Cluster Health</a></li>
+<li><a class="reference internal" href="#cluster-summary" id="id7">Cluster Summary</a></li>
+<li><a class="reference internal" href="#cluster-state" id="id8">Cluster State</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#node-apis" id="id9">Node APIs</a><ul>
+<li><a class="reference internal" href="#nodes-summary" id="id10">Nodes Summary</a></li>
+<li><a class="reference internal" href="#node-info" id="id11">Node Info</a></li>
+<li><a class="reference internal" href="#nodes-stats" id="id12">Nodes Stats</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#index-apis" id="id13">Index APIs</a><ul>
+<li><a class="reference internal" href="#indices" id="id14">Indices</a></li>
+<li><a class="reference internal" href="#indices-summary" id="id15">Indices Summary</a></li>
+<li><a class="reference internal" href="#index-stats" id="id16">Index Stats</a></li>
+<li><a class="reference internal" href="#index-command" id="id17">Index Command</a></li>
+<li><a class="reference internal" href="#index-shards" id="id18">Index Shards</a></li>
+<li><a class="reference internal" href="#index-alias" id="id19">Index Alias</a></li>
+<li><a class="reference internal" href="#index-mapping" id="id20">Index Mapping</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#diagnostics" id="id21">Diagnostics</a></li>
+<li><a class="reference internal" href="#hq-apis" id="id22">HQ APIs</a><ul>
+<li><a class="reference internal" href="#hq-status" id="id23">HQ Status</a></li>
+<li><a class="reference internal" href="#hq-routes" id="id24">HQ Routes</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="connection-apis">
+<h2><a class="toc-backref" href="#id2">Connection APIs</a><a class="headerlink" href="#connection-apis" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="connections">
-<h2><a class="toc-backref" href="#id2">Connections</a><a class="headerlink" href="#connections" title="Permalink to this headline">¶</a></h2>
+<h3><a class="toc-backref" href="#id3">Connections</a><a class="headerlink" href="#connections" title="Permalink to this headline">¶</a></h3>
 <dl class="delete">
 <dt id="delete--api-clusters-(string-cluster_name)-_connect">
 <code class="descname">DELETE </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_connect</code><a class="headerlink" href="#delete--api-clusters-(string-cluster_name)-_connect" title="Permalink to this definition">¶</a></dt>
@@ -156,29 +212,32 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cluster_name</strong> (<em>string</em>) &#8211; the name of the cluster.</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body">This method does NOT delete your Elasticsearch Cluster, just the connection from HQ to it.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><p class="first">APIResponse</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Rtype:</th><td class="field-body"><p class="first">elastichq.common.api_response.APIResponse</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Rtype:</th><td class="field-body"><table class="first last docutils field-list" frame="void" rules="none">
+</tbody>
+</table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/clusters/_connect/&lt;CLUSTER_NAME&gt;</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">class:</th><td class="field-body"><cite>elastichq.common.api_response.APIResponse</cite></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> (<em>string</em>) &#8211; Name of cluster connection to remove.</li>
+</ul>
+</td>
 </tr>
-</tbody>
-</table>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of active clusters.</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>:status 200 Ok
+:status 400: bad request
+:status 500: server error</p>
 </dd></dl>
 
 <dl class="post">
@@ -192,96 +251,20 @@
 <dd><p>Creates a connection to a given host/port. Accepts a JSON POST BODY. This will add the connection, if it doesn&#8217;t already
 exist, to the pool of connections and save the details in the database.</p>
 <p><strong>Example request</strong>:</p>
-<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/clusters/_connect/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/clusters/_connect/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
 </div>
-<p><strong>Example response</strong>:</p>
-<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-
-<span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;post_id&quot;</span><span class="p">:</span> <span class="mi">12345</span><span class="p">,</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;/author/123/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sphinx&quot;</span><span class="p">,</span> <span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="s2">&quot;flask&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Documenting API in Sphinx with httpdomain&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;How to...&quot;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;post_id&quot;</span><span class="p">:</span> <span class="mi">12346</span><span class="p">,</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;/author/123/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span> <span class="s2">&quot;typehints&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;To typehint or not to typehint that is the question&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;Static checking in python...&quot;</span>
-  <span class="p">}</span>
-<span class="p">]</span>
-</pre></div>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-5.3.2">Accept</a> &#8211; application/json</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Request JSON Object:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>title</strong> (<em>string</em>) &#8211; post title</li>
-<li><strong>body</strong> (<em>string</em>) &#8211; post body</li>
-<li><strong>author</strong> (<em>string</em>) &#8211; author id</li>
-<li><strong>tags</strong> (<em>List[string]</em>) &#8211; tags list</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>int</strong> &#8211; id</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> &#8211; application/json</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; posts found</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> &#8211; post created</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; malformed request</li>
-<li><a class="reference external" href="http://tools.ietf.org/html/rfc4918#section-11.2">422 Unprocessable Entity</a> &#8211; invalid parameters</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="clusters">
-<h2><a class="toc-backref" href="#id3">Clusters</a><a class="headerlink" href="#clusters" title="Permalink to this headline">¶</a></h2>
-<dl class="get">
-<dt id="get--api-clusters">
-<code class="descname">GET </code><code class="descname">/api/clusters</code><a class="headerlink" href="#get--api-clusters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves a list of all active and inactive cluster connections.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return:</th><td class="field-body"><p class="first"><strong>POST BODY</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>{
-    &quot;ip&quot;: &quot;127.0.0.1&quot;,
-    &quot;port&quot; : &quot;9200&quot;,
-    &quot;use_ssl: true
-}
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;ip&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="s2">&quot;9200&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;use_ssl&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Request Structure</strong></p>
-<ul class="last simple">
+<blockquote>
+<div><ul class="simple">
 <li><em>(dict) &#8211;</em><ul>
 <li><strong>ip</strong> <em>(string) &#8211;</em> IP address or host name</li>
 <li><strong>port</strong> <em>(string) &#8211;</em> ES REST API port</li>
@@ -289,59 +272,45 @@ exist, to the pool of connections and save the details in the database.</p>
 </ul>
 </li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="get">
-<dt id="get--api-clusters-(string-cluster_name)-_summary">
-<code class="descname">GET </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_summary</code><a class="headerlink" href="#get--api-clusters-(string-cluster_name)-_summary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Brief summary for a given cluster name</p>
-</dd></dl>
-
-<dl class="get">
-<dt id="get--api-clusters-(string-cluster_name)-_health">
-<code class="descname">GET </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_health</code><a class="headerlink" href="#get--api-clusters-(string-cluster_name)-_health" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns cluster health 
-:param cluster_name: 
-:return:</p>
-</dd></dl>
-
-<dl class="get">
-<dt id="get--api-clusters-(string-cluster_name)-_state">
-<code class="descname">GET </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_state</code><a class="headerlink" href="#get--api-clusters-(string-cluster_name)-_state" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return collection of posts.</p>
-<p><strong>Example request</strong>:</p>
-<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/posts/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
-</div>
+</div></blockquote>
 <p><strong>Example response</strong>:</p>
-<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-
-<span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;post_id&quot;</span><span class="p">:</span> <span class="mi">12345</span><span class="p">,</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;/author/123/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sphinx&quot;</span><span class="p">,</span> <span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="s2">&quot;flask&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Documenting API in Sphinx with httpdomain&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;How to...&quot;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;post_id&quot;</span><span class="p">:</span> <span class="mi">12346</span><span class="p">,</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;/author/123/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span> <span class="s2">&quot;typehints&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;To typehint or not to typehint that is the question&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;Static checking in python...&quot;</span>
-  <span class="p">}</span>
-<span class="p">]</span>
+<div class="highlight-http"><div class="highlight"><pre><span></span>HTTP/1.1 201
+Content-Type: application/json
 </pre></div>
 </div>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;cluster_name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;cluster_ip&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;cluster_port&quot;</span><span class="p">:</span> <span class="s2">&quot;9200&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;cluster_scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;cluster_connected&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;cluster_host&quot;</span><span class="p">:</span> <span class="s2">&quot;http://10.0.0.0:9200&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;cluster_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.3.5&quot;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nt">&quot;response_time&quot;</span><span class="p">:</span> <span class="mi">92</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Response Structure</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><em>(dict) &#8211;</em><ul>
+<li><strong>cluster_name</strong> <em>(string) &#8211;</em> cluster name</li>
+<li><strong>cluster_ip</strong> <em>(string) &#8211;</em> IP or host</li>
+<li><strong>cluster_port</strong> <em>(string) &#8211;</em></li>
+<li><strong>cluster_scheme</strong> <em>(string) &#8211;</em></li>
+<li><strong>cluster_connected</strong> <em>(boolean) &#8211;</em> Whether there was a successful connection.</li>
+<li><strong>cluster_host</strong> <em>(string) &#8211;</em> The complete connection url</li>
+<li><strong>cluster_version</strong> <em>(string) &#8211;</em> Elasticsearch version</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -352,21 +321,6 @@ exist, to the pool of connections and save the details in the database.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Request JSON Object:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>title</strong> (<em>string</em>) &#8211; post title</li>
-<li><strong>body</strong> (<em>string</em>) &#8211; post body</li>
-<li><strong>author</strong> (<em>string</em>) &#8211; author id</li>
-<li><strong>tags</strong> (<em>List[string]</em>) &#8211; tags list</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>int</strong> &#8211; id</li>
-</ul>
-</td>
-</tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
 <li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> &#8211; application/json</li>
@@ -374,10 +328,9 @@ exist, to the pool of connections and save the details in the database.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; posts found</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> &#8211; post created</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; malformed request</li>
-<li><a class="reference external" href="http://tools.ietf.org/html/rfc4918#section-11.2">422 Unprocessable Entity</a> &#8211; invalid parameters</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> &#8211; connection created</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; bad request</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a> &#8211; server error</li>
 </ul>
 </td>
 </tr>
@@ -386,8 +339,193 @@ exist, to the pool of connections and save the details in the database.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="nodes">
-<h2><a class="toc-backref" href="#id4">Nodes</a><a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="cluster-apis">
+<h2><a class="toc-backref" href="#id4">Cluster APIs</a><a class="headerlink" href="#cluster-apis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cluster-list">
+<h3><a class="toc-backref" href="#id5">Cluster List</a><a class="headerlink" href="#cluster-list" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-clusters">
+<code class="descname">GET </code><code class="descname">/api/clusters</code><a class="headerlink" href="#get--api-clusters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a collection of clusters.</p>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/clusters/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+</div>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+</div>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="nt">&quot;response_time&quot;</span><span class="p">:</span> <span class="mi">1648</span><span class="p">,</span>
+    <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;cluster_name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;cluster_ip&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;cluster_port&quot;</span><span class="p">:</span> <span class="s2">&quot;9200&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;cluster_scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;cluster_connected&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;cluster_host&quot;</span><span class="p">:</span> <span class="s2">&quot;http://10.0.0.0:9200&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;cluster_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.3.5&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;cluster_health&quot;</span><span class="p">:</span> <span class="p">{</span>  <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Response Structure</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><em>(dict) &#8211;</em><ul>
+<li><strong>cluster_name</strong> <em>(string) &#8211;</em> cluster name</li>
+<li><strong>cluster_ip</strong> <em>(string) &#8211;</em> IP or host</li>
+<li><strong>cluster_port</strong> <em>(string) &#8211;</em></li>
+<li><strong>cluster_scheme</strong> <em>(string) &#8211;</em></li>
+<li><strong>cluster_connected</strong> <em>(boolean) &#8211;</em> Whether there was a successful connection.</li>
+<li><strong>cluster_host</strong> <em>(string) &#8211;</em> The complete connection url</li>
+<li><strong>cluster_version</strong> <em>(string) &#8211;</em> Elasticsearch version</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; OK</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a> &#8211; server error</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="cluster-health">
+<h3><a class="toc-backref" href="#id6">Cluster Health</a><a class="headerlink" href="#cluster-health" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-clusters-(string-cluster_name)-_health">
+<code class="descname">GET </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_health</code><a class="headerlink" href="#get--api-clusters-(string-cluster_name)-_health" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns cluster health for one cluster</p>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/clusters/&lt;cluster_name&gt;/_health</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cluster_name</strong> (<em>string</em>) &#8211; Name of cluster</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example response</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Vary</span><span class="o">:</span> <span class="l">Accept</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+</div>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;active_primary_shards&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="nt">&quot;relocating_shards&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;cluster_name&quot;</span><span class="p">:</span> <span class="s2">&quot;es_v2&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;active_shards&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="nt">&quot;task_max_waiting_in_queue_millis&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;number_of_pending_tasks&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;timed_out&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;number_of_nodes&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;unassigned_shards&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="nt">&quot;number_of_in_flight_fetch&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;initializing_shards&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;delayed_unassigned_shards&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;active_shards_percent_as_number&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;number_of_data_nodes&quot;</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;response_time&quot;</span><span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
+    <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="kc">null</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; OK</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a> &#8211; server error</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="cluster-summary">
+<h3><a class="toc-backref" href="#id7">Cluster Summary</a><a class="headerlink" href="#cluster-summary" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-clusters-(string-cluster_name)-_summary">
+<code class="descname">GET </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_summary</code><a class="headerlink" href="#get--api-clusters-(string-cluster_name)-_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a cluster_name, returns summary information from several ES Cluster APIs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="cluster-state">
+<h3><a class="toc-backref" href="#id8">Cluster State</a><a class="headerlink" href="#cluster-state" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-clusters-(string-cluster_name)-_state">
+<code class="descname">GET </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_state</code><a class="headerlink" href="#get--api-clusters-(string-cluster_name)-_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-state.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-state.html</a></p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="node-apis">
+<h2><a class="toc-backref" href="#id9">Node APIs</a><a class="headerlink" href="#node-apis" title="Permalink to this headline">¶</a></h2>
+<p>Note that when calling the Node APIs, you can optionally pass in a comma-delimited list of node_id&#8217;s as parameters.
+Otherwise, information for all nodes in the cluster is returned.</p>
+<div class="section" id="nodes-summary">
+<h3><a class="toc-backref" href="#id10">Nodes Summary</a><a class="headerlink" href="#nodes-summary" title="Permalink to this headline">¶</a></h3>
 <dl class="get">
 <dt id="get--api-nodes-(string-cluster_name)-(string-node_ids)-_summary">
 <code class="descname">GET </code><code class="descname">/api/nodes/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>node_ids</em><span class="sig-paren">)</span><code class="descname">/_summary</code><a class="headerlink" href="#get--api-nodes-(string-cluster_name)-(string-node_ids)-_summary" title="Permalink to this definition">¶</a></dt>
@@ -396,20 +534,13 @@ exist, to the pool of connections and save the details in the database.</p>
 <dl class="get">
 <dt id="get--api-nodes-(string-cluster_name)-_summary">
 <code class="descname">GET </code><code class="descname">/api/nodes/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_summary</code><a class="headerlink" href="#get--api-nodes-(string-cluster_name)-_summary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Summary of Node(s).</p>
+<dd><p>Summary of Node(s). Returns a condensed view of all nodes in the cluster. Summary information is pulled from
+both the info and stats APIs.</p>
 </dd></dl>
 
-<dl class="get">
-<dt id="get--api-nodes-(string-cluster_name)-(string-node_ids)-_stats">
-<code class="descname">GET </code><code class="descname">/api/nodes/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>node_ids</em><span class="sig-paren">)</span><code class="descname">/_stats</code><a class="headerlink" href="#get--api-nodes-(string-cluster_name)-(string-node_ids)-_stats" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="get">
-<dt id="get--api-nodes-(string-cluster_name)-_stats">
-<code class="descname">GET </code><code class="descname">/api/nodes/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_stats</code><a class="headerlink" href="#get--api-nodes-(string-cluster_name)-_stats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper for <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html">https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html</a></p>
-</dd></dl>
-
+</div>
+<div class="section" id="node-info">
+<h3><a class="toc-backref" href="#id11">Node Info</a><a class="headerlink" href="#node-info" title="Permalink to this headline">¶</a></h3>
 <dl class="get">
 <dt id="get--api-nodes-(string-cluster_name)-(string-node_ids)-_info">
 <code class="descname">GET </code><code class="descname">/api/nodes/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>node_ids</em><span class="sig-paren">)</span><code class="descname">/_info</code><a class="headerlink" href="#get--api-nodes-(string-cluster_name)-(string-node_ids)-_info" title="Permalink to this definition">¶</a></dt>
@@ -422,8 +553,248 @@ exist, to the pool of connections and save the details in the database.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="nodes-stats">
+<h3><a class="toc-backref" href="#id12">Nodes Stats</a><a class="headerlink" href="#nodes-stats" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-nodes-(string-cluster_name)-(string-node_ids)-_stats">
+<code class="descname">GET </code><code class="descname">/api/nodes/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>node_ids</em><span class="sig-paren">)</span><code class="descname">/_stats</code><a class="headerlink" href="#get--api-nodes-(string-cluster_name)-(string-node_ids)-_stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-nodes-(string-cluster_name)-_stats">
+<code class="descname">GET </code><code class="descname">/api/nodes/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_stats</code><a class="headerlink" href="#get--api-nodes-(string-cluster_name)-_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html">https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html</a></p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="index-apis">
+<h2><a class="toc-backref" href="#id13">Index APIs</a><a class="headerlink" href="#index-apis" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="indices">
-<h2><a class="toc-backref" href="#id5">Indices</a><a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h2>
+<h3><a class="toc-backref" href="#id14">Indices</a><a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_name)">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-indices-(string-cluster_name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--api-indices-(string-cluster_name)-(string-index_name)">
+<code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--api-indices-(string-cluster_name)-(string-index_name)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="post">
+<dt id="post--api-indices-(string-cluster_name)">
+<code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--api-indices-(string-cluster_name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new index on the cluster.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/indices/&lt;cluster_name&gt;/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+</div>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;settings&quot;</span><span class="p">:</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;number_of_replicas&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&quot;number_of_shards&quot;</span><span class="p">:</span> <span class="mi">4</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Request Structure</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><em>(dict) &#8211;</em><ul>
+<li><strong>number_of_shards</strong> <em>(string) &#8211;</em></li>
+<li><strong>number_of_replicas</strong> <em>(string) &#8211;</em></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-5.3.2">Accept</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> &#8211; index created</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; bad request</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a> &#8211; server error</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="indices-summary">
+<h3><a class="toc-backref" href="#id15">Indices Summary</a><a class="headerlink" href="#indices-summary" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_names)-_summary">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_names</em><span class="sig-paren">)</span><code class="descname">/_summary</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_names)-_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-_summary">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_summary</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a summary view of one index for the UI.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_names</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="index-stats">
+<h3><a class="toc-backref" href="#id16">Index Stats</a><a class="headerlink" href="#index-stats" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_names)-_stats">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_names</em><span class="sig-paren">)</span><code class="descname">/_stats</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_names)-_stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-_stats">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_stats</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_names</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="index-command">
+<h3><a class="toc-backref" href="#id17">Index Command</a><a class="headerlink" href="#index-command" title="Permalink to this headline">¶</a></h3>
+<dl class="put">
+<dt id="put--api-indices-(string-cluster_name)-(string-index_name)-action-(string-action)">
+<code class="descname">PUT </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/action/</code><span class="sig-paren">(</span><em class="property">string: </em><em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#put--api-indices-(string-cluster_name)-(string-index_name)-action-(string-action)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="put">
+<dt id="put--api-indices-(string-cluster_name)-action-(string-action)">
+<code class="descname">PUT </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/action/</code><span class="sig-paren">(</span><em class="property">string: </em><em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#put--api-indices-(string-cluster_name)-action-(string-action)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trigger a command on one or many indices.</p>
+<p>The possible commands are:</p>
+<ul class="simple">
+<li>_open - Opens the Index for writes.</li>
+<li>_close - Closed the index for writes.</li>
+<li>_flush - Flushes caches</li>
+<li>_refresh - Refresh the searchable data.</li>
+<li>_force_merge - Formerly known as _optimize. Forces a segment merge.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>action</strong> (<em>string</em>) &#8211; One of _open, _close, _flush, _refresh, _cache, _force_merge</li>
+<li><strong>index_name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="index-shards">
+<h3><a class="toc-backref" href="#id18">Index Shards</a><a class="headerlink" href="#index-shards" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_names)-_shards">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_names</em><span class="sig-paren">)</span><code class="descname">/_shards</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_names)-_shards" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-_shards">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_shards</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-_shards" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return shard information for this index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_names</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="index-alias">
+<h3><a class="toc-backref" href="#id19">Index Alias</a><a class="headerlink" href="#index-alias" title="Permalink to this headline">¶</a></h3>
 <dl class="get">
 <dt id="get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases">
 <code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>alias_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases" title="Permalink to this definition">¶</a></dt>
@@ -437,10 +808,21 @@ exist, to the pool of connections and save the details in the database.</p>
 <dl class="get">
 <dt id="get--api-indices-(string-cluster_name)-_aliases">
 <code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-_aliases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get all aliases for this index
-:param cluster_name: 
-:param index_name: 
-:return:</p>
+<dd><p>Get all aliases for this index</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="delete">
@@ -456,11 +838,22 @@ exist, to the pool of connections and save the details in the database.</p>
 <dl class="delete">
 <dt id="delete--api-indices-(string-cluster_name)-_aliases">
 <code class="descname">DELETE </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#delete--api-indices-(string-cluster_name)-_aliases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes an alias.
-:param cluster_name: 
-:param index_name: 
-:param alias_name: 
-:return:</p>
+<dd><p>Deletes an alias.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_name</strong> &#8211; </li>
+<li><strong>alias_name</strong> (<em>string</em>) &#8211; Alias to delete</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="post">
@@ -476,253 +869,130 @@ exist, to the pool of connections and save the details in the database.</p>
 <dl class="post">
 <dt id="post--api-indices-(string-cluster_name)-_aliases">
 <code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#post--api-indices-(string-cluster_name)-_aliases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a new alias.
-:param cluster_name: 
-:param index_name: 
-:param alias_name: 
-:return:</p>
+<dd><p>Creates a new alias.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_name</strong> &#8211; </li>
+<li><strong>alias_name</strong> (<em>string</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
+</div>
+<div class="section" id="index-mapping">
+<h3><a class="toc-backref" href="#id20">Index Mapping</a><a class="headerlink" href="#index-mapping" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-_mapping-(string-mapping_name)">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/_mapping/</code><span class="sig-paren">(</span><em class="property">string: </em><em>mapping_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-_mapping-(string-mapping_name)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-_mapping">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/_mapping</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns one (or many) mappings that are found in the index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_name</strong> &#8211; </li>
+<li><strong>mapping_name</strong> (<em>string</em>) &#8211; Mapping for only this doc type.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 </div>
 <div class="section" id="diagnostics">
-<h2><a class="toc-backref" href="#id6">Diagnostics</a><a class="headerlink" href="#diagnostics" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id21">Diagnostics</a><a class="headerlink" href="#diagnostics" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-elastichq.api.clusters">
-<span id="status"></span><h2><a class="toc-backref" href="#id7">Status</a><a class="headerlink" href="#module-elastichq.api.clusters" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-clusters"></span><p><em>Module author: Roy Russo &lt;royrusso.gmail.com&gt;</em></p>
-<dl class="class">
-<dt id="elastichq.api.clusters.ClusterConnection">
-<em class="property">class </em><code class="descclassname">elastichq.api.clusters.</code><code class="descname">ClusterConnection</code><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterConnection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Manages cluster connection pool.</p>
-<dl class="method">
-<dt id="elastichq.api.clusters.ClusterConnection.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>cluster_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterConnection.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterConnection.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes a connection from the connection pool and the database, by cluster name.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cluster_name</strong> (<em>string</em>) &#8211; the name of the cluster.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">APIResponse</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="developers.html#elastichq.common.api_response.APIResponse" title="elastichq.common.api_response.APIResponse">elastichq.common.api_response.APIResponse</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">class:</th><td class="field-body"><cite>elastichq.common.api_response.APIResponse</cite></td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="elastichq.api.clusters.ClusterConnection.post">
-<code class="descname">post</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterConnection.post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterConnection.post" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a connection to a given host/port. Accepts a JSON POST BODY. This will add the connection, if it doesn&#8217;t already
-exist, to the pool of connections and save the details in the database.</p>
-<p><strong>Example request</strong>:</p>
-<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/clusters/_connect/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
-</div>
-<p><strong>Example response</strong>:</p>
-<div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-
-<span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;post_id&quot;</span><span class="p">:</span> <span class="mi">12345</span><span class="p">,</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;/author/123/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sphinx&quot;</span><span class="p">,</span> <span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="s2">&quot;flask&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Documenting API in Sphinx with httpdomain&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;How to...&quot;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;post_id&quot;</span><span class="p">:</span> <span class="mi">12346</span><span class="p">,</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;/author/123/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span> <span class="s2">&quot;typehints&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;To typehint or not to typehint that is the question&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;Static checking in python...&quot;</span>
-  <span class="p">}</span>
-<span class="p">]</span>
-</pre></div>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Reqheader Accept:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">application/json</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">&lt;json string title:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">post title</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">&lt;json string body:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">post body</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">&lt;json string author:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">author id</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">&lt;json List[string] tags:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">tags list</td>
-</tr>
-<tr class="field-even field"><th class="field-name">&gt;json int:</th><td class="field-body">id</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Resheader Content-Type:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">application/json</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status 200:</th><td class="field-body">posts found</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Status 201:</th><td class="field-body">post created</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status 400:</th><td class="field-body">malformed request</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Status 422:</th><td class="field-body">invalid parameters</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="elastichq.api.clusters.ClusterHealth">
-<em class="property">class </em><code class="descclassname">elastichq.api.clusters.</code><code class="descname">ClusterHealth</code><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterHealth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterHealth" title="Permalink to this definition">¶</a></dt>
-<dd><p>qq</p>
-<dl class="method">
-<dt id="elastichq.api.clusters.ClusterHealth.get">
-<code class="descname">get</code><span class="sig-paren">(</span><em>cluster_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterHealth.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterHealth.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns cluster health 
-:param cluster_name: 
-:return:</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="elastichq.api.clusters.ClusterList">
-<em class="property">class </em><code class="descclassname">elastichq.api.clusters.</code><code class="descname">ClusterList</code><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves a list of all active and inactive cluster connections.</p>
-<dl class="method">
-<dt id="elastichq.api.clusters.ClusterList.get">
-<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterList.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterList.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves a list of all active and inactive cluster connections.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>POST BODY</strong><div class="highlight-python"><div class="highlight"><pre><span></span>{
-    &quot;ip&quot;: &quot;127.0.0.1&quot;,
-    &quot;port&quot; : &quot;9200&quot;,
-    &quot;use_ssl: true
-}
-</pre></div>
-</div>
-<p><strong>Request Structure</strong></p>
-<ul class="simple">
-<li><em>(dict) &#8211;</em><ul>
-<li><strong>ip</strong> <em>(string) &#8211;</em> IP address or host name</li>
-<li><strong>port</strong> <em>(string) &#8211;</em> ES REST API port</li>
-<li><strong>use_ssl</strong> <em>(boolean) &#8211;</em> Whether to use HTTPS or not.</li>
-</ul>
-</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="elastichq.api.clusters.ClusterState">
-<em class="property">class </em><code class="descclassname">elastichq.api.clusters.</code><code class="descname">ClusterState</code><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterState" title="Permalink to this definition">¶</a></dt>
-<dd><p>q</p>
-<dl class="method">
-<dt id="elastichq.api.clusters.ClusterState.get">
-<code class="descname">get</code><span class="sig-paren">(</span><em>cluster_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterState.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterState.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return collection of posts.</p>
-<p><strong>Example request</strong>:</p>
-<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/posts/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
-</div>
+<div class="section" id="hq-apis">
+<h2><a class="toc-backref" href="#id22">HQ APIs</a><a class="headerlink" href="#hq-apis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hq-status">
+<h3><a class="toc-backref" href="#id23">HQ Status</a><a class="headerlink" href="#hq-status" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-status">
+<code class="descname">GET </code><code class="descname">/api/status</code><a class="headerlink" href="#get--api-status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns status information about HQ and all connected clusters.</p>
 <p><strong>Example response</strong>:</p>
 <div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Vary</span><span class="o">:</span> <span class="l">Accept</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-
-<span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;post_id&quot;</span><span class="p">:</span> <span class="mi">12345</span><span class="p">,</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;/author/123/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sphinx&quot;</span><span class="p">,</span> <span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="s2">&quot;flask&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Documenting API in Sphinx with httpdomain&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;How to...&quot;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;post_id&quot;</span><span class="p">:</span> <span class="mi">12346</span><span class="p">,</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;/author/123/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span> <span class="s2">&quot;typehints&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;To typehint or not to typehint that is the question&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;Static checking in python...&quot;</span>
-  <span class="p">}</span>
-<span class="p">]</span>
 </pre></div>
 </div>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="nt">&quot;response_time&quot;</span><span class="p">:</span> <span class="mi">1648</span><span class="p">,</span>
+    <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;installed_version&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;current_stable_version&quot;</span><span class="p">:</span> <span class="s2">&quot;9200&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;clusters&quot;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Response Structure</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><em>(dict) &#8211;</em><ul>
+<li><strong>name</strong> <em>(string) &#8211;</em></li>
+<li><strong>installed_version</strong> <em>(string) &#8211;</em></li>
+<li><strong>current_stable_version</strong> <em>(string) &#8211;</em> Taken from pinging github for the current master release version</li>
+<li><strong>clusters</strong> <em>(list) &#8211;</em></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Reqheader Accept:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">application/json</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">&lt;json string title:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">post title</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">&lt;json string body:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">post body</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">&lt;json string author:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">author id</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">&lt;json List[string] tags:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">tags list</td>
-</tr>
-<tr class="field-even field"><th class="field-name">&gt;json int:</th><td class="field-body">id</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Resheader Content-Type:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">application/json</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status 200:</th><td class="field-body">posts found</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Status 201:</th><td class="field-body">post created</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status 400:</th><td class="field-body">malformed request</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Status 422:</th><td class="field-body">invalid parameters</td>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; OK</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a> &#8211; server error</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
+</div>
+<div class="section" id="hq-routes">
+<h3><a class="toc-backref" href="#id24">HQ Routes</a><a class="headerlink" href="#hq-routes" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-routes">
+<code class="descname">GET </code><code class="descname">/api/routes</code><a class="headerlink" href="#get--api-routes" title="Permalink to this definition">¶</a></dt>
+<dd><p>From: <a class="reference external" href="http://flask.pocoo.org/snippets/117/">http://flask.pocoo.org/snippets/117/</a></p>
+<p>Returns a list of available routes in the API.</p>
 </dd></dl>
 
-<dl class="class">
-<dt id="elastichq.api.clusters.ClusterSummary">
-<em class="property">class </em><code class="descclassname">elastichq.api.clusters.</code><code class="descname">ClusterSummary</code><a class="reference internal" href="_modules/elastichq/api/clusters.html#ClusterSummary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.api.clusters.ClusterSummary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Brief summary for a given cluster name</p>
-</dd></dl>
-
+</div>
 </div>
 </div>
 
@@ -736,7 +1006,7 @@ exist, to the pool of connections and save the details in the database.</p>
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="developers.html" title="next chapter (use the right arrow)">Developers API</a>
+        <a class="btn btn-default" href="developer-guide.html" title="next chapter (use the right arrow)">For Developers</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -757,7 +1027,7 @@ exist, to the pool of connections and save the details in the database.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="developers.html" title="Developers API"
+          <a href="developer-guide.html" title="For Developers"
              >next</a> |</li>
         <li class="right" >
           <a href="user-guide.html" title="User Guide"

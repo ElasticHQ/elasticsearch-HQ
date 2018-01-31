@@ -1,23 +1,17 @@
-==============
+========
 REST API
-==============
+========
 
 .. contents:: Table of Contents
 
-.. .. py:function:: send_message(sender, recipient, message_body, [priority=1])
-   Send a message to a recipient
-   :param str sender: The person sending the message
-   :param str recipient: The recipient of the message
-   :param str message_body: The body of the message
-   :param priority: The priority of the message, can be a number 1-5
-   :type priority: integer or None
-   :return: the message id
-   :rtype: int
-   :raises ValueError: if the message_body exceeds 160 characters
-   :raises TypeError: if the message_body is not a basestring
+Connection APIs
+---------------
+.. .. qrefflask:: manage:app
+    :endpoints: api.clusters
+    :undoc-static:
 
 Connections
------------
+~~~~~~~~~~~
 
 .. autoflask:: manage:app
     :blueprints: api
@@ -25,14 +19,38 @@ Connections
     :undoc-static:
     :order: path
 
-Clusters
---------
+Cluster APIs
+------------
+
+Cluster List
+~~~~~~~~~~~~
 
 .. autoflask:: manage:app
     :blueprints: api
-    :endpoints: api.clusters_list, api.clusters_summary, api.clusters_health
+    :endpoints: api.clusters_list
     :undoc-static:
     :order: path
+
+Cluster Health
+~~~~~~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.clusters_health
+    :undoc-static:
+    :order: path
+
+Cluster Summary
+~~~~~~~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.clusters_summary
+    :undoc-static:
+    :order: path
+
+Cluster State
+~~~~~~~~~~~~~
 
 .. autoflask:: manage:app
     :blueprints: api
@@ -40,21 +58,102 @@ Clusters
     :undoc-static:
     :order: path
 
-Nodes
------
+Node APIs
+---------
+
+Note that when calling the Node APIs, you can optionally pass in a comma-delimited list of node_id's as parameters.
+Otherwise, information for all nodes in the cluster is returned.
+
+Nodes Summary
+~~~~~~~~~~~~~
 
 .. autoflask:: manage:app
     :blueprints: api
-    :endpoints: api.nodes_summary, api.nodes_stats, api.nodes_info
+    :endpoints: api.nodes_summary
     :undoc-static:
     :order: path
 
-Indices
--------
+Node Info
+~~~~~~~~~
 
 .. autoflask:: manage:app
     :blueprints: api
-    :endpoints: api.indices_summary, api.indices_stats, api.index_command, api.indices_shards, api.index_alias, api.index_mapping
+    :endpoints: api.nodes_info
+    :undoc-static:
+    :order: path
+
+Nodes Stats
+~~~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.nodes_stats
+    :undoc-static:
+    :order: path
+
+Index APIs
+----------
+
+Indices
+~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.indices
+    :undoc-static:
+    :order: path
+
+Indices Summary
+~~~~~~~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.indices_summary
+    :undoc-static:
+    :order: path
+
+Index Stats
+~~~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.indices_stats
+    :undoc-static:
+    :order: path
+
+Index Command
+~~~~~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.index_command
+    :undoc-static:
+    :order: path
+
+Index Shards
+~~~~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.indices_shards
+    :undoc-static:
+    :order: path
+
+Index Alias
+~~~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.index_alias
+    :undoc-static:
+    :order: path
+
+Index Mapping
+~~~~~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.index_mapping
     :undoc-static:
     :order: path
 
@@ -62,8 +161,24 @@ Indices
 Diagnostics
 -----------
 
-Status
+HQ APIs
 -------
 
-.. automodule:: elastichq.api.clusters
-   :members:
+HQ Status
+~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.status
+    :undoc-static:
+    :order: path
+
+HQ Routes
+~~~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.routes
+    :undoc-static:
+    :order: path
+

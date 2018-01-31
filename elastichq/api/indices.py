@@ -1,4 +1,8 @@
-__author__ = 'royrusso'
+"""
+.. module:: indices
+
+.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+"""
 
 from flask import request
 from flask_restful import Resource
@@ -13,6 +17,13 @@ from ..service import IndicesService
 class IndexSummary(Resource):
     @request_wrapper
     def get(self, cluster_name, index_names=None):
+        """
+        Generate a summary view of one index for the UI.
+
+        :param cluster_name:
+        :param index_names:
+        :return:
+        """
         response = IndicesService().get_indices_summary(cluster_name, index_names)
         return APIResponse(response, HTTP_Status.OK, None)
 
@@ -20,6 +31,13 @@ class IndexSummary(Resource):
 class IndexStats(Resource):
     @request_wrapper
     def get(self, cluster_name, index_names=None):
+        """
+        Wrapper around https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html
+
+        :param cluster_name:
+        :param index_names:
+        :return:
+        """
         response = IndicesService().get_indices_stats(cluster_name, index_names)
         return APIResponse(response, HTTP_Status.OK, None)
 
@@ -27,6 +45,13 @@ class IndexStats(Resource):
 class Index(Resource):
     @request_wrapper
     def get(self, cluster_name, index_name=None):
+        """
+        Wrapper around https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html
+
+        :param cluster_name:
+        :param index_name:
+        :return:
+        """
         response = IndicesService().get_indices(cluster_name, index_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
@@ -38,6 +63,44 @@ class Index(Resource):
 
     @request_wrapper
     def post(self, cluster_name, index_name):
+        """
+        Creates a new index on the cluster.
+
+        :param cluster_name:
+        :param index_name:
+
+        **Example request**:
+
+        .. sourcecode:: http
+
+          POST /api/indices/<cluster_name>/ HTTP/1.1
+          Accept: application/json
+
+        .. code-block:: json
+
+            {
+                "settings":
+                    {
+                        "number_of_replicas": 2,
+                        "number_of_shards": 4
+                    }
+            }
+
+        **Request Structure**
+
+          - *(dict) --*
+
+            - **number_of_shards** *(string) --*
+            - **number_of_replicas** *(string) --*
+
+        :reqheader Accept: application/json
+        :resheader Content-Type: application/json
+        :status 201: index created
+        :status 400: bad request
+        :status 500: server error
+
+        :return:
+        """
         json_data = request.get_json(force=True)
         params = request.values.to_dict()
         params.update(json_data)
@@ -49,6 +112,23 @@ class Index(Resource):
 class IndexAction(Resource):
     @request_wrapper
     def put(self, cluster_name, action, index_name=None):
+        """
+        Trigger a command on one or many indices.
+
+        The possible commands are:
+
+        * _open - Opens the Index for writes.
+        * _close - Closed the index for writes.
+        * _flush - Flushes caches
+        * _refresh - Refresh the searchable data.
+        * _force_merge - Formerly known as _optimize. Forces a segment merge.
+
+        :param cluster_name:
+        :type action: string
+        :param action: One of _open, _close, _flush, _refresh, _cache, _force_merge
+        :param index_name:
+        :return:
+        """
         response = {}
 
         if action == '_open':
@@ -74,6 +154,7 @@ class IndexAlias(Resource):
     def get(self, cluster_name, index_name=None):
         """
         Get all aliases for this index
+
         :param cluster_name: 
         :param index_name: 
         :return:
@@ -85,9 +166,11 @@ class IndexAlias(Resource):
     def delete(self, cluster_name, index_name, alias_name):
         """
         Deletes an alias.
+
         :param cluster_name: 
-        :param index_name: 
-        :param alias_name: 
+        :param index_name:
+        :type alias_name: string
+        :param alias_name: Alias to delete
         :return:
         """
         response = IndicesService().remove_alias(cluster_name, index_name, alias_name)
@@ -97,8 +180,10 @@ class IndexAlias(Resource):
     def post(self, cluster_name, index_name, alias_name):
         """
         Creates a new alias.
+
         :param cluster_name: 
-        :param index_name: 
+        :param index_name:
+        :type alias_name: string
         :param alias_name: 
         :return:
         """
@@ -109,6 +194,15 @@ class IndexAlias(Resource):
 class IndexMapping(Resource):
     @request_wrapper
     def get(self, cluster_name, index_name, mapping_name=None):
+        """
+        Returns one (or many) mappings that are found in the index.
+
+        :param cluster_name:
+        :param index_name:
+        :type mapping_name: string
+        :param mapping_name: Mapping for only this doc type.
+        :return:
+        """
         response = IndicesService().get_mapping(cluster_name, index_name, mapping_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
@@ -116,6 +210,13 @@ class IndexMapping(Resource):
 class IndexShards(Resource):
     @request_wrapper
     def get(self, cluster_name, index_names=None):
+        """
+        Return shard information for this index.
+
+        :param cluster_name:
+        :param index_names:
+        :return:
+        """
         response = IndicesService().get_shards(cluster_name, index_names)
         return APIResponse(response, HTTP_Status.OK, None)
 

@@ -1,22 +1,65 @@
-__author__ = 'royrusso'
+"""
+.. module:: status
 
+.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+"""
 import json
-from urllib.parse import unquote_plus
 from urllib import request
-
-from flask_restful import Resource
+from urllib.parse import unquote_plus
 
 from flask import current_app, url_for
+from flask_restful import Resource
 
 from elastichq.model.ClusterModel import ClusterDTO
-from ..service import ClusterService
-from ..common.status_codes import HTTP_Status
 from . import api
 from ..common.api_response import APIResponse
+from ..common.status_codes import HTTP_Status
 from ..globals import LOG
+from ..service import ClusterService
 
 
 class Status(Resource):
+    """
+    Returns status information about HQ and all connected clusters.
+
+    **Example response**:
+
+    .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Vary: Accept
+      Content-Type: application/json
+
+    .. code-block:: json
+
+        {
+            "status_code": 200,
+            "response_time": 1648,
+            "message": null,
+            "data": [
+                {
+                    "name": "",
+                    "installed_version": "",
+                    "current_stable_version": "9200",
+                    "clusters": []
+                }
+            ]
+        }
+
+    **Response Structure**
+
+      - *(dict) --*
+
+        - **name** *(string) --*
+        - **installed_version** *(string) --*
+        - **current_stable_version** *(string) --* Taken from pinging github for the current master release version
+        - **clusters** *(list) --*
+
+    :resheader Content-Type: application/json
+    :status 200: OK
+    :status 500: server error
+    """
+
     def get(self):
 
         version_str = ""
@@ -47,7 +90,10 @@ class Status(Resource):
 
 class Routes(Resource):
     """
-    http://flask.pocoo.org/snippets/117/
+    From: http://flask.pocoo.org/snippets/117/
+
+    Returns a list of available routes in the API.
+
     """
 
     def get(self):
