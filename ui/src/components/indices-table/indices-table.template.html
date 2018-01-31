@@ -1,6 +1,14 @@
 <div class="indices-table ">
-        <table ts-wrapper class="table table-striped table-hover"  ts-per-page-default="10">
+        <table ts-wrapper class="table table-striped table-hover"  
+                ts-per-page-default="10"
+                ts-display-filtering="false" 
+                ts-filter-function="indicesTableCtrl.filterFn">
             <thead>
+                <tr>
+                    <th colspan="{{indicesTableCtrl.columns.length + 1}}">
+                        <input type="text" placeholder="Search" class="form-control" ng-model="indicesTableCtrl.search.text" />
+                    </th>
+                </tr>
                   <tr>
                     <th ng-repeat="c in indicesTableCtrl.columns" 
                         colspan="{{($index == 0) ? 2 : 1}}"

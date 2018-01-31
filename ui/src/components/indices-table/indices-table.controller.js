@@ -24,6 +24,8 @@ class indicesTableController {
 
         this.search = {text: ''}
 
+        this.filterFn = this.filterFn.bind(this);
+
         this.columns = [
             {
                 label: 'Index',
@@ -109,6 +111,13 @@ class indicesTableController {
         this.currentPage = 1;
         
         this.data = _data;
+      }
+
+      filterFn(item) {
+          let filtered = (this.search.text && this.search.text.length) ?
+                            this.$filter('filter')([item], this.search.text).length :
+                            1;
+          return !!filtered;
       }
 }
 
