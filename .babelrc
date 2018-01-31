@@ -1,4 +1,4 @@
 {
-    "presets": ["env"],
+    "presets": ["@babel/preset-env"],
     // "plugins": ["ng-annotate-loader"]
 }

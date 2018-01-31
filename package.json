@@ -9,6 +9,7 @@
   "scripts": {
     "test": "NODE_ENV=test karma start",
     "start": "./node_modules/.bin/webpack-dev-server --hot --inline  --progress",
+    "build": "rm -rf elastichq/static/* && webpack --config webpack.prod.js --progress",
     "make:component": "./node_modules/.bin/babel-node ui/build_scripts/make_component",
     "make:container": "./node_modules/.bin/babel-node ui/build_scripts/make_container",
     "make:service": "./node_modules/.bin/babel-node ui/build_scripts/make_service",
@@ -40,9 +41,11 @@
     "numeral": "^2.0.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.39",
+    "@babel/preset-env": "^7.0.0-beta.39",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "^8.0.0-beta.0",
     "babel-preset-env": "^1.6.1",
     "bootstrap-sass": "^3.3.7",
     "css-loader": "^0.28.8",
@@ -58,6 +61,7 @@
     "uglifyjs-webpack-plugin": "^1.1.6",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.2",
     "webpack-clean-obsolete-chunks": "^0.3.0",
     "webpack-dev-server": "^2.11.0"
   }
