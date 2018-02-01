@@ -1,7 +1,12 @@
 
 import topNav from './top-nav/top-nav';
 import footer from './footer/footer';
-import clustersButton from './clusters-button/clusters-button'
+import clustersButton from './clusters-button/clusters-button';
+
+// Components for Settings
+import clusters from './clusters/clusters';
+
+//
 import clusterSummary from './cluster-summary/cluster-summary';
 import clusterNavigation from './cluster-navigation/cluster-navigation';
 import indicesTable from './indices-table/indices-table';
@@ -28,6 +33,7 @@ import nodeOsInfoTable from './node-os-info-table/node-os-info-table';
 import nodeJVMStatsTable from './node-jvm-stats-table/node-jvm-stats-table';
 
 const CommonComponents = angular.module('components', [
+  clusters,
   clusterSummary,
   clusterNavigation,
   clustersButton,

@@ -1,6 +1,7 @@
 import angular from 'angular';
 
 import homeController from './home/home.controller';
+import settingsController from './settings/settings.controller';
 
 // Cluster('s) Views
 import clusterDetailsController from './cluster-details/cluster-details.controller';
@@ -19,6 +20,7 @@ const CommonContainers = angular.module('commonContainers', [])
                             .controller('clusterIndiceDetailsController', clusterIndiceDetailsController)
                             .controller('clusterNodeDetailsController', clusterNodeDetailsController)
                             .controller('diagnosticsController', diagnosticsController)
+                            .controller('settingsController', settingsController)
                             .name;
 
 export default CommonContainers;

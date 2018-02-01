@@ -41,12 +41,11 @@
     "numeral": "^2.0.6"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.39",
     "@babel/core": "^7.0.0-beta.39",
+    "@babel/node": "^7.0.0-beta.39",
     "@babel/preset-env": "^7.0.0-beta.39",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
     "babel-loader": "^8.0.0-beta.0",
-    "babel-preset-env": "^1.6.1",
     "bootstrap-sass": "^3.3.7",
     "css-loader": "^0.28.8",
     "extract-text-webpack-plugin": "^3.0.2",

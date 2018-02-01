@@ -48,6 +48,22 @@
 .clusters-button .hr {
   padding: 0;
   margin: 0; }
+.clusters .table thead th {
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap; }
+
+.clusters .table tbody td.health {
+  padding: 8px 3px; }
+  .clusters .table tbody td.health.green {
+    background: #43ac6a; }
+  .clusters .table tbody td.health.yellow {
+    background: #ffc107; }
+  .clusters .table tbody td.health.red {
+    background: #dc3545; }
+
+.clusters .table tbody td.index_info {
+  font-size: 14px; }
 .cluster-navigation {
   margin-left: -15px;
   margin-right: -15px;
@@ -202,6 +218,8 @@ hue-6-2: #e6c07b
       -webkit-box-align: center;
       align-items: center;
       justify-content: center; }
+.settings {
+  margin-top: 20px; }
 .node-details .table thead th {
   cursor: pointer;
   font-size: 14px;

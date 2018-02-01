@@ -67,6 +67,17 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider,
             controller: 'clusterDetailsController',
             controllerAs: 'clusterDetailsCtrl'
         })
+        .state('settings', {
+            url: '/settings',
+            abstract: true,
+            template: require('./containers/settings/settings.view.html'),
+            controller: 'settingsController',
+            controllerAs: 'settingsCtrl'
+        })
+        .state('settings.clusters', {
+            url: '/clusters',
+            component: 'eshqClusters'
+        })
         .state('home', {
             url: '/',
             template: require('./containers/home/home.view.html'),
