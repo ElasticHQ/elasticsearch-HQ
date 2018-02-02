@@ -1,9 +1,13 @@
-__author__ = 'royrusso'
+"""
+.. module:: diagnostics
+
+.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+"""
 
 import json
 from urllib.parse import unquote_plus
-from urllib import request
-
+from flask import request
+import json
 from flask_restful import Resource
 
 from flask import current_app, url_for
@@ -16,38 +20,39 @@ from ..common.api_response import APIResponse
 from ..globals import LOG
 
 
-class Diagnostics(Resource):
+class DiagnosticsSummary(Resource):
 
     def get(self, cluster_name):
         """
-        Executes diagnostics rules across the cluster.
+        Executes diagnostics rules across the cluster, and returns a summary view per node.
 
+        :type cluster_name: string
+        :param cluster_name:
         :return:
         """
-        version_str = ""
-        try:
-            fp = request.urlopen("http://www.elastichq.org/currversion.json", timeout=10)
-            mbyte = fp.read()
-            version_str = mbyte.decode("utf-8")
-            fp.close()
-        except Exception as ex:
-            LOG.error("error retrieving version information", ex)
 
-        stable_version = (json.loads(version_str)).get("version", None)
+        result = []
+        return APIResponse(result.data, HTTP_Status.CREATED, None)
 
-        clusters = ClusterService().get_clusters()
-        schema = ClusterDTO(many=True)
-        result = schema.dump(clusters)
+class Diagnostics(Resource):
 
-        status = {
-            "name": "ElasticHQ",
-            "installed_version": current_app.config.get('API_VERSION'),
-            "current_stable_version": stable_version,
-            "tagline": "You know, for Elasticsearch",
-            "clusters": result.data
-        }
-        LOG.debug(json.dumps(status))
-        return APIResponse(status, HTTP_Status.OK, None)
+    def get(self, cluster_name, node_id):
+        """
+        Executes diagnostics rules for one node, and returns values and threshold information.
+
+        :type cluster_name: string
+        :param cluster_name:
+        :type node_id: string
+        :param node_id: ID of node to fetch diagnostics information for.
+        :return:
+        """
 
 
-api.add_resource(Diagnostics, '/diagnostics/<string:cluster_name>', endpoint='diagnostics', methods=['GET'])
+
+
+        result = []
+        return APIResponse(result.data, HTTP_Status.CREATED, None)
+
+
+api.add_resource(DiagnosticsSummary, '/diagnostics/<string:cluster_name>/_summary', endpoint='diagnostics_summary', methods=['GET'])
+api.add_resource(Diagnostics, '/diagnostics/<string:cluster_name>/<string:node_id>/_stats', endpoint='diagnostics_stats', methods=['GET'])

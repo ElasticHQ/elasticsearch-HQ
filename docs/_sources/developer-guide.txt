@@ -28,13 +28,14 @@ You still need to start the python server, but that is accomplished as normal:
 
 In this case, using a development version, the API will be running on port ``5000``, and the UI will be accessible on port ``8080``.
 
-Building a Distro
-~~~~~~~~~~~~~~~~~
+Building a Distribution
+~~~~~~~~~~~~~~~~~~~~~~~
 
-To build the final distribution that will have the UI and API accessible from port ``5000``, run ``npm build``.
+To build the final distribution that will have the UI and API accessible from port ``5000``, run ``npm run-script build``.
 
 This will create an ``index.html`` that the Flask server will serve, under ``/elastichq/templates`` and static file bundles under ``/elastichq/static``.
 
+Once the distribution is built, you can start the server with ``python application.py`` and view the application at ``http://localhost:5000``
 
 HTTP Responses
 --------------
@@ -71,8 +72,6 @@ Standard header response below:
 Customer headers are pre-fixed with ``X-HQ``.
 
 * X-HQ-Response-Time: The time, in milliseconds it took from request to response.
-
-
 
 Issues/Bugs
 -----------

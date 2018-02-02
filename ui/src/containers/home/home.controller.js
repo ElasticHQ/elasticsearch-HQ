@@ -12,7 +12,7 @@ class homeController {
         this.$timeout = $timeout;
         this.Notification = Notification;
 
-        this.connection = 'http://10.0.0.182:9200';
+        this.connection = 'http://localhost:9200';
     }
 
     

@@ -85,7 +85,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">For Developers</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#building-pre-releases">Building Pre-Releases</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#install-build-the-ui">Install/Build the UI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#building-a-distro">Building a Distro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-a-distribution">Building a Distribution</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#http-responses">HTTP Responses</a><ul>
@@ -137,7 +137,7 @@
 <ul class="simple">
 <li><a class="reference internal" href="#building-pre-releases" id="id1">Building Pre-Releases</a><ul>
 <li><a class="reference internal" href="#install-build-the-ui" id="id2">Install/Build the UI</a></li>
-<li><a class="reference internal" href="#building-a-distro" id="id3">Building a Distro</a></li>
+<li><a class="reference internal" href="#building-a-distribution" id="id3">Building a Distribution</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#http-responses" id="id4">HTTP Responses</a><ul>
@@ -167,10 +167,11 @@ pre-release versions have to be built manually - with the UI and API working in 
 </ol>
 <p>In this case, using a development version, the API will be running on port <code class="docutils literal"><span class="pre">5000</span></code>, and the UI will be accessible on port <code class="docutils literal"><span class="pre">8080</span></code>.</p>
 </div>
-<div class="section" id="building-a-distro">
-<h3><a class="toc-backref" href="#id3">Building a Distro</a><a class="headerlink" href="#building-a-distro" title="Permalink to this headline">¶</a></h3>
-<p>To build the final distribution that will have the UI and API accessible from port <code class="docutils literal"><span class="pre">5000</span></code>, run <code class="docutils literal"><span class="pre">npm</span> <span class="pre">build</span></code>.</p>
+<div class="section" id="building-a-distribution">
+<h3><a class="toc-backref" href="#id3">Building a Distribution</a><a class="headerlink" href="#building-a-distribution" title="Permalink to this headline">¶</a></h3>
+<p>To build the final distribution that will have the UI and API accessible from port <code class="docutils literal"><span class="pre">5000</span></code>, run <code class="docutils literal"><span class="pre">npm</span> <span class="pre">run-script</span> <span class="pre">build</span></code>.</p>
 <p>This will create an <code class="docutils literal"><span class="pre">index.html</span></code> that the Flask server will serve, under <code class="docutils literal"><span class="pre">/elastichq/templates</span></code> and static file bundles under <code class="docutils literal"><span class="pre">/elastichq/static</span></code>.</p>
+<p>Once the distribution is built, you can start the server with <code class="docutils literal"><span class="pre">python</span> <span class="pre">application.py</span></code> and view the application at <code class="docutils literal"><span class="pre">http://localhost:5000</span></code></p>
 </div>
 </div>
 <div class="section" id="http-responses">

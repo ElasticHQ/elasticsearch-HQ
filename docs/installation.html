@@ -88,6 +88,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database">Database</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#directory-structure">Directory Structure</a></li>
 </ul>
 </li>
@@ -144,10 +146,12 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#configuration" id="id6">Configuration</a><ul>
-<li><a class="reference internal" href="#directory-structure" id="id7">Directory Structure</a></li>
+<li><a class="reference internal" href="#logging" id="id7">Logging</a></li>
+<li><a class="reference internal" href="#database" id="id8">Database</a></li>
+<li><a class="reference internal" href="#directory-structure" id="id9">Directory Structure</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#license" id="id8">License</a></li>
+<li><a class="reference internal" href="#license" id="id10">License</a></li>
 </ul>
 </div>
 <div class="section" id="quick-start-guide">
@@ -164,6 +168,18 @@
 </div>
 <div class="section" id="install-elastichq">
 <h3><a class="toc-backref" href="#id4">Install ElasticHQ</a><a class="headerlink" href="#install-elastichq" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Download or clone the repository <a class="reference external" href="https://github.com/ElasticHQ/elasticsearch-HQ">https://github.com/ElasticHQ/elasticsearch-HQ</a></li>
+<li>Navigate to the root of the repository: <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></li>
+<li>Start the server: <code class="docutils literal"><span class="pre">python</span> <span class="pre">application.py</span></code></li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Alternatively, you can start the server with <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">runserver</span></code></p>
+</div>
+<ol class="arabic simple" start="4">
+<li>Point your browser to: <a class="reference external" href="http://localhost:5000">http://localhost:5000</a></li>
+</ol>
 </div>
 <div class="section" id="pre-releases">
 <h3><a class="toc-backref" href="#id5">Pre-Releases</a><a class="headerlink" href="#pre-releases" title="Permalink to this headline">¶</a></h3>
@@ -178,12 +194,44 @@
 </div>
 <div class="section" id="configuration">
 <h2><a class="toc-backref" href="#id6">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="logging">
+<h3><a class="toc-backref" href="#id7">Logging</a><a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p>ElasticHQ logs out to console by default. You can change this, and log to file, by modifying the logging configuration.</p>
+<p>Logging configuration is kept under <code class="docutils literal"><span class="pre">elastichq/config/logger.json</span></code>. To have ElasticHQ log to file, change the root logger from:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;root&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;console&quot;</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;root&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;standard_handler&quot;</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can also adjust the log level to INFO, WARN, or ERROR there as well.</p>
+</div>
+<div class="section" id="database">
+<h3><a class="toc-backref" href="#id8">Database</a><a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
+<p>ElasticHQ ships with SQLLite integration to store clusters you have connected to and other meta information. This database is kept under the root directory as <code class="docutils literal"><span class="pre">elastichq.db</span></code>.</p>
+</div>
 <div class="section" id="directory-structure">
-<h3><a class="toc-backref" href="#id7">Directory Structure</a><a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">Directory Structure</a><a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h3>
+<p>TODO</p>
 </div>
 </div>
 <div class="section" id="license">
-<h2><a class="toc-backref" href="#id8">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p>Copyright 2013-2018 Roy Russo</p>
 <p>Licensed under the Apache License, Version 2.0 (the &#8220;License&#8221;);
 you may not use this file except in compliance with the License.

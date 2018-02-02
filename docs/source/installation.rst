@@ -24,6 +24,14 @@ Requirements
 Install ElasticHQ
 ^^^^^^^^^^^^^^^^^
 
+1. Download or clone the repository https://github.com/ElasticHQ/elasticsearch-HQ
+2. Navigate to the root of the repository: ``pip install -r requirements.txt``
+3. Start the server: ``python application.py``
+
+.. note:: Alternatively, you can start the server with ``python manage.py runserver``
+
+4. Point your browser to: http://localhost:5000
+
 Pre-Releases
 ^^^^^^^^^^^^
 
@@ -38,8 +46,51 @@ Our branching organization is as follows:
 Configuration
 -------------
 
+Logging
+^^^^^^^
+
+ElasticHQ logs out to console by default. You can change this, and log to file, by modifying the logging configuration.
+
+Logging configuration is kept under ``elastichq/config/logger.json``. To have ElasticHQ log to file, change the root logger from:
+
+.. code-block:: json
+
+    {
+        "root": {
+            "level": "DEBUG",
+            "handlers": [
+              "console"
+            ]
+        }
+    }
+
+To:
+
+.. code-block:: json
+
+    {
+        "root": {
+            "level": "DEBUG",
+            "handlers": [
+              "standard_handler"
+            ]
+        }
+    }
+
+You can also adjust the log level to INFO, WARN, or ERROR there as well.
+
+
+Database
+^^^^^^^^
+
+ElasticHQ ships with SQLLite integration to store clusters you have connected to and other meta information. This database is kept under the root directory as ``elastichq.db``.
+
+
 Directory Structure
 ^^^^^^^^^^^^^^^^^^^
+
+TODO
+
 
 License
 -------
