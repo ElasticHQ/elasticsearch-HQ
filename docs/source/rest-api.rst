@@ -161,21 +161,12 @@ Index Mapping
 Diagnostics
 -----------
 
-Summary
-~~~~~~~
+Cluster Diagnostics
+~~~~~~~~~~~~~~~~~~~
 
 .. autoflask:: manage:app
     :blueprints: api
     :endpoints: api.diagnostics_summary
-    :undoc-static:
-    :order: path
-
-Node Diagnostics
-~~~~~~~~~~~~~~~~
-
-.. autoflask:: manage:app
-    :blueprints: api
-    :endpoints: api.diagnostics_stats
     :undoc-static:
     :order: path
 

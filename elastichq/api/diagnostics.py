@@ -4,21 +4,13 @@
 .. moduleauthor:: Roy Russo <royrusso.gmail.com>
 """
 
-import json
-from urllib.parse import unquote_plus
-from flask import request
-import json
 from flask_restful import Resource
 
-from flask import current_app, url_for
-
-from elastichq.model.ClusterModel import ClusterDTO
-from ..service import ClusterService
-from ..common.status_codes import HTTP_Status
+from elastichq.service import DiagnosticsService
 from . import api
 from ..common.api_response import APIResponse
-from ..globals import LOG
-from elastichq.service import DiagnosticsService
+from ..common.status_codes import HTTP_Status
+
 
 class DiagnosticsSummary(Resource):
 
@@ -33,6 +25,8 @@ class DiagnosticsSummary(Resource):
 
         summary = DiagnosticsService().get_diagnostics_summary(cluster_name)
         return APIResponse(summary, HTTP_Status.CREATED, None)
+
+
 #
 # class Diagnostics(Resource):
 #
@@ -54,5 +48,6 @@ class DiagnosticsSummary(Resource):
 #         return APIResponse(result.data, HTTP_Status.CREATED, None)
 
 
-api.add_resource(DiagnosticsSummary, '/diagnostics/<string:cluster_name>/_summary', endpoint='diagnostics_summary', methods=['GET'])
-#api.add_resource(Diagnostics, '/diagnostics/<string:cluster_name>/<string:node_id>/_stats', endpoint='diagnostics_stats', methods=['GET'])
+api.add_resource(DiagnosticsSummary, '/clusters/<string:cluster_name>/diagnostics/_summary',
+                 endpoint='diagnostics_summary', methods=['GET'])
+# api.add_resource(Diagnostics, '/diagnostics/<string:cluster_name>/<string:node_id>/_stats', endpoint='diagnostics_stats', methods=['GET'])
