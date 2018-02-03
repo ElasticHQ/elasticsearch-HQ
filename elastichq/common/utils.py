@@ -1,3 +1,6 @@
+import jmespath
+
+
 def string_to_bool(value):
     valid = {'true': True, 't': True, '1': True,
              'false': False, 'f': False, '0': False,
@@ -14,3 +17,7 @@ def string_to_bool(value):
         return valid[lower_value]
     else:
         raise ValueError('invalid literal for boolean: "%s"' % value)
+
+
+def get_key_from_dict(key, dict):
+    return jmespath.search(key, dict)

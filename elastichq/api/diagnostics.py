@@ -18,7 +18,7 @@ from ..common.status_codes import HTTP_Status
 from . import api
 from ..common.api_response import APIResponse
 from ..globals import LOG
-
+from elastichq.service import DiagnosticsService
 
 class DiagnosticsSummary(Resource):
 
@@ -31,8 +31,9 @@ class DiagnosticsSummary(Resource):
         :return:
         """
 
+        summary = DiagnosticsService().get_diagnostics_summary(cluster_name)
         result = []
-        return APIResponse(result.data, HTTP_Status.CREATED, None)
+        return APIResponse(summary, HTTP_Status.CREATED, None)
 
 class Diagnostics(Resource):
 
