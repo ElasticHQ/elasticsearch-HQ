@@ -28,6 +28,13 @@ class ClusterNodesService {
               method: 'GET',
             });
   }
+
+  diagnostics(clusterName) {
+    return this.que.add({
+              url: ('/api/clusters/' + clusterName + '/diagnostics/_summary'),
+              method: 'GET',
+            });
+  }
 }
 
 export default ClusterNodesService;

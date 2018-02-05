@@ -4,5 +4,9 @@
             <eshq-cluster-navigation></eshq-cluster-navigation>
         </div>
     </div>
-    diagnostics 
+    <div class="row" ng-repeat="group in diagnosticsCtrl.data">
+        <div class="col-md-6" ng-repeat="item in group">
+            <eshq-node-diagnostics-wrapper node-info="item"></eshq-node-diagnostics-wrapper>
+        </div>
+    </div> 
 </div>
