@@ -103,7 +103,7 @@ class DiagnosticsService:
                 one_rule = {"rule_label": rule_label, "rule_comment": rule.get("comment", None),
                             "rule_formula": formula, "formula_repl": formula_repl,
                             "rule_value": value, "status": status, "format": rule.get('format', None),
-                            "unit": rule.get("unit", None)}
+                            "unit": rule.get("unit", None), "upper_limit": upper_limit, "lower_limit": lower_limit}
                 results.append(one_rule)
             except Exception as ex:
                 LOG.error(ex, exc_info=True)
