@@ -10,6 +10,7 @@
             <li><a href="https://groups.google.com/d/forum/elastichq" target="_blank">Google Group</a></li>
         </ul>
         <p>
+            <div ng-if="footerCtrl.dataSet" ng-bind-html="footerCtrl.versionInfo"></div>
             <small>Current versions can always be found running at <a href="http://www.elastichq.org"
                                                                       target="_blank">ElasticHQ</a>.
             </small>
