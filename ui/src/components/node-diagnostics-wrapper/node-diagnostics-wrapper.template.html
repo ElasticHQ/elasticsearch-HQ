@@ -26,7 +26,8 @@
                 <td class="rule-value" 
                     ng-class="rule.status"
                     uib-popover-template="'ndwPopoverTemplate.html'" 
-                    popover-title="How this rule is calculated" 
+                    popover-title="How this rule is calculated"
+                    popover-trigger="'mouseenter'"
                     >{{rule.rule_value | numeral:rule.format}}</td>
             </tr>
         </tbody>
