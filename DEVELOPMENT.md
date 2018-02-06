@@ -34,7 +34,11 @@ elastichq/run_tests
 ## DISTRIBUTION
 
 
-...
+To build the final distribution that will have the UI and API accessible from port 5000, run `npm run-script build`.
+
+This will create an `index.html` that the Flask server will serve, under `/elastichq/templates` and static file bundles under `/elastichq/static`.
+
+Once the distribution is built, you can start the server with `python application.py` and view the application at http://localhost:5000
 
 ## CHANGELOG
 
