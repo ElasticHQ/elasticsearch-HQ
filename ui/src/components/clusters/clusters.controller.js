@@ -76,6 +76,22 @@ class clustersController {
         return this.$sce.trustAsHtml(numeral(val).format(col.formatter));
     }
 
+    deleteCluster(cluster_name){
+        console.log("in delete: ", this);
+        this.fetching = true;
+        this.service.deleteCluster(cluster_name).then((resp) => {
+            console.log('------ response: ', resp.data)
+            this.Notification.success({message: `Connection deleted.`, delay: 3000});
+            if (this.fetchFn && (typeof this.fetchFn === 'function')) this.fetchFn();
+        }, (err) => {
+            let msg = `Delete Connection Failed. ${err.status}`;
+            try {
+                msg += `<br /> ${err.data.message}`;
+            } catch (err) { }
+            this.Notification.error({message: msg, delay: 5000});
+        }).finally(() => this.fetching = false)
+    }
+
     filterFn(item) {
         let filtered = (this.search.text && this.search.text.length) ?
                           this.$filter('filter')([item], this.search.text).length :

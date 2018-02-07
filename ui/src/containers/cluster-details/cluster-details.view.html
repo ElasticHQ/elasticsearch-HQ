@@ -28,8 +28,9 @@
                     <th ts-criteria="is_master_node">Master</th>
                     <th ts-criteria="is_data_node">Data</th>
                     <th ts-criteria="host">HTTP Addr</th>
-                    <th ts-criteria="jvm.heap_used_in_bytes">JVM Heap</th>
-                    <th ts-criteria="fs.used_in_percent">FS Used %</th>
+                    <th ts-criteria="heapPercent">Heap Used</th>
+                    <th ts-criteria="fsFree">Free Space</th>
+                    <th ts-criteria="load">Load</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,16 +38,19 @@
                     <td>
                         <a ui-sref="clusterNodeDetails({clusterName: clusterDetailsCtrl.clusterName, nodeId: node.node_id})">{{node['name']}}</a>
                     </td>
-                    <!--<td>{{node.is_master_node}}</td>-->
-                    <!--<td>{{node.is_data_node}}</td>-->
-                    <td><i class="fa" ng-class="{{node.is_master_node}} ? 'fa-check-square' : ''"></i></td>
+                    <td><i class="fa" ng-class="{{node.is_master_node}} ? 'fa-check-square' : ''"
+                           tooltip-placement="bottom"
+                           uib-tooltip="Current Master Node"></i><i class="fa"
+                                                                    ng-class="{{node.is_electable_master}} ? 'fa-minus' : ''"
+                                                                    tooltip-placement="bottom"
+                                                                    uib-tooltip="Electable Master Node"></i></td>
                     <td><i class="fa" ng-class="{{node.is_data_node}} ? 'fa-check-square' : ''"></i></td>
 
                     <td>{{node.host}}</td>
-                    <td>{{node.jvm.heap_used_in_bytes | numeral: '0[.][0] b' }} / {{node.jvm.heap_max_in_bytes |
-                        numeral: '0[.][0] b' }}
+                    <td>{{node.heapPercent}}%
                     </td>
-                    <td>{{node.fs.used_in_percent | numeral: '0[.][0]%' }}</td>
+                    <td>{{node.fsFree}}</td>
+                    <td>{{node.load}}</td>
                 </tr>
                 </tbody>
             </table>

@@ -18,7 +18,7 @@ class diagnosticsController {
   fetchDiagnostics() {
     this.service.diagnostics(this.clusterName).then((resp) => {
       console.log('---- resp: ', resp.data.data)
-      this.data = _.chunk(resp.data.data, 2);
+      this.data = _.chunk(resp.data.data, 3);
 
     })
   }

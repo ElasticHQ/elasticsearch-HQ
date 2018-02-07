@@ -14,9 +14,6 @@ class clusterDetailsController {
     this.ClusterIndices = ClusterIndices;
     this.ClusterNodes = ClusterNodes;
 
-
-    
-
     this.fetchingIndices = true;
     this.ClusterIndices.clusterInidices(this.clusterName).then((resp) => {
       console.log('------ inidicies: ', resp.data.data)
@@ -28,16 +25,16 @@ class clusterDetailsController {
     })
     .finally(() => {
       this.fetchingIndices = false;
-    })
+    });
 
     this.ClusterNodes.getNodesSummary(this.clusterName).then((resp) => {
       console.log('---- new nodes summary: ', resp.data.data)
       let data = resp.data.data;
       this.nodes = data.map((node) => {
-        let { fs } = node;
-        node.jvm.used_percent = node.jvm.heap_used_percent / 100;
-        let used = fs.total_in_bytes - fs.available_in_bytes;
-        fs.used_in_percent = (fs.total_in_bytes / used) / 100;
+        // let { fs } = node;
+        // node.jvm.used_percent = node.jvm.heap_used_percent / 100;
+        // let used = fs.total_in_bytes - fs.available_in_bytes;
+        // fs.used_in_percent = (used / fs.total_in_bytes); /// 100;
         return node;
       })
     })

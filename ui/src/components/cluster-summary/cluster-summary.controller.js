@@ -27,11 +27,11 @@ class clusterSummaryController {
                 value: numeral(this.summary.number_of_nodes).format(formatNum)
             },
             {
-                label: 'Total Shards',
+                label: 'Active Shards',
                 value: numeral(this.summary.active_shards).format(formatNum)
             },
             {
-                label: 'Successful Shards',
+                label: 'Primary Shards',
                 value: numeral(this.summary.active_primary_shards).format(formatNum)
             },
             {
