@@ -9,7 +9,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="cluster-name"><i class="fa fa-heartbeat icon-label {{clusterNavCtrl.summary.status}}"></i>
-                    <a ui-sref="clusterDetails({clusterName: clusterNavCtrl.clusterName})">{{clusterNavCtrl.clusterName}}</a> <small>{{clusterNavCtrl.summary.version}}</small>
+                    <a ui-sref="clusterDetails({clusterName: clusterNavCtrl.clusterName})">{{clusterNavCtrl.clusterName}}</a>
+                    <small>{{clusterNavCtrl.summary.version}}</small>
                 </div>
             </div>
             <div class="col-md-6">
@@ -17,17 +18,17 @@
                     <a class="btn btn-success" ui-sref-active="active"
                        ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
-                       uib-tooltip="List of indices" ><i class="fa fa-list"></i>
+                       uib-tooltip="List of indices"><i class="fa fa-list"></i>
                         Indices</a>
                     <a class="btn btn-success" ui-sref-active="active"
                        ui-sref="clusterAliases({ clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
-                       uib-tooltip="List of aliases" ><i
+                       uib-tooltip="List of aliases"><i
                             class="fa fa-share-alt"></i> Aliases</a>
                     <a class="btn btn-success" ui-sref-active="active"
-                        ui-sref="diagnostics({clusterName: clusterNavCtrl.clusterName })"
-                        tooltip-placement="bottom"
-                        uib-tooltip="Diagnostics information" ><i class="fa fa-ambulance"></i> Diagnostics</a>
+                       ui-sref="diagnostics({clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="bottom"
+                       uib-tooltip="Diagnostics information"><i class="fa fa-ambulance"></i> Diagnostics</a>
                     <!--<a class="btn btn-success" ui-sref=""><i class="fa fa-code"></i> REST</a>-->
                 </div>
             </div>
@@ -38,13 +39,13 @@
                 <!--<a ng-disabled="true" class="btn btn-primary">Node Diagnostics</a>-->
                 <a ng-repeat="node in clusterNavCtrl.summary.nodes"
                    class="btn"
-                   ng-class="node.master === 'true' ? 'btn-primary' : 'btn-info'"
+                   ng-class="node.is_master_node === true ? 'btn-primary' : 'btn-info'"
                    ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
                    ui-sref-active="active"
-                   popover-title="{{node.name}}" 
-                   popover-placement="top-left" 
-                   uib-popover="Address: {{node.http_address}}" 
-                   popover-trigger="'mouseenter'" >
+                   popover-title="{{node.name}}"
+                   popover-placement="bottom-right"
+                   uib-popover="Address: {{node.host}}"
+                   popover-trigger="'mouseenter'">
                     {{node.name}}</a>
             </div>
         </div>

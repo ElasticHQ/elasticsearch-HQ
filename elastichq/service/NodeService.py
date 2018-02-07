@@ -1,10 +1,8 @@
 __author__ = 'royrusso'
 
-import jmespath
-
 from .ConnectionService import ConnectionService
 from ..globals import REQUEST_TIMEOUT
-from elastichq.common.utils import string_to_bool
+
 
 class NodeService:
     def get_node_stats(self, cluster_name, nodes_list=None):
@@ -25,36 +23,35 @@ class NodeService:
         :return: List of nodesummary
         """
         connection = ConnectionService().get_connection(cluster_name)
-        nodes_stats = connection.nodes.stats(node_id=node_ids, metric="fs,jvm,os,process",
-                                             request_timeout=REQUEST_TIMEOUT)
-        node_ids = list(nodes_stats['nodes'].keys())
+
+        # https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html
+        cat_nodes = connection.cat.nodes(format="json", h="id,m,n,u,role,hp,ip,disk.avail,l", full_id=True)
 
         nodes = []
-        for node_id in node_ids:
-            node_dict = nodes_stats['nodes'][node_id]
-            node = {"node_id": node_id,
-                    "name": jmespath.search("name", node_dict),
-                    "jvm": jmespath.search("jvm.mem", node_dict),
-                    "fs": jmespath.search("fs.data[0]", node_dict),
-                    "host": jmespath.search("host", node_dict)
+        for cnode in cat_nodes:
+
+            node = {"node_id": cnode.get('id', None),
+                    "name": cnode.get('n', None),
+                    "fsFree": cnode.get('disk.avail', None),
+                    "heapPercent": cnode.get('hp', None),
+                    "host": cnode.get('ip', None),
+                    "load": cnode.get('l', None)
                     }
-            if connection.version.startswith("2"):
-                node.update({"is_master_node": string_to_bool(jmespath.search("attributes.master", node_dict))})
 
-                node_info = self.get_node_info(cluster_name, node_id)
-                if node_info:
-                    node_settings = jmespath.search("nodes.*.settings", node_info)[0].get("node", None)
-                    if node_settings is not None:
-                        node.update({"is_data_node": bool(node_settings.get("data", False))})
-
-            else:
-                node_roles = jmespath.search("roles", node_dict)
-                if "master" in node_roles:
+            node.update({"uptime": cnode.get('u')})
+            if cnode.get('m', None) is not None:
+                if cnode['m'] == '*':
                     node.update({"is_master_node": True})
+                    node.update({"is_electable_master": False}) # technically this node is electable, but since it has already been elected, we set as false for the ui.
+                elif cnode['m'] == '-':
+                    node.update({"is_master_node": False})
+                    node.update({"is_electable_master": True})
                 else:
                     node.update({"is_master_node": False})
+                    node.update({"is_electable_master": False})
 
-                if "data" in node_roles:
+            if cnode.get('role', None) is not None:
+                if cnode['role'] == 'd':
                     node.update({"is_data_node": True})
                 else:
                     node.update({"is_data_node": False})

@@ -23,6 +23,14 @@ class ClusterConnectionService {
             });
   }
 
+
+  deleteCluster(cluster_name) {
+    return this.que.add({
+              url: ('/api/clusters/' + cluster_name) + '/_connect',
+              method: 'DELETE'
+            });
+  }
+
   summary(cluster_name) {
     return this.que.add({
       url: ('/api/clusters/' + cluster_name + '/_summary'),
