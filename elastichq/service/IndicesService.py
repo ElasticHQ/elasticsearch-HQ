@@ -129,3 +129,23 @@ class IndicesService:
                                                  request_timeout=REQUEST_TIMEOUT)
         except: # this will time out on large indices, so ignore.
             return
+
+    def get_indices_templates(self, cluster_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.indices.get_template()
+
+    def get_indices_segments(self, cluster_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.indices.segments()
+
+    def get_indices_shard_stores(self, cluster_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.indices.shard_stores()
+
+    def get_indices_recovery(self, cluster_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.indices.recovery()
+
+
+
+
