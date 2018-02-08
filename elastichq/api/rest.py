@@ -35,9 +35,11 @@ class GenericREST(Resource):
                 response = ClusterService().get_cluster_state(cluster_name)
             elif command == '_cluster_stats':
                 response = ClusterService().get_cluster_stats(cluster_name)
-            elif command == '_cluster_nodes':
+            elif command == '_cluster_health':
+                response = ClusterService().get_cluster_health(cluster_name)
+            elif command == '_nodes':
                 response = NodeService().get_node_info(cluster_name)
-            elif command == '_cluster_nodes_stats':
+            elif command == '_nodes_stats':
                 response = NodeService().get_node_stats(cluster_name)
             elif command == '_cluster_settings':
                 pass

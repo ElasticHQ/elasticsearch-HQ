@@ -49,14 +49,14 @@ class apiEndpointsController {
                 group: 'Nodes',
                 request_type: 'GET',
                 short_label: 'Info',
-                url: '_cluster_nodes',
+                url: '_nodes',
                 params: {all: true}
             },
             {
                 group: 'Nodes',
                 request_type: 'GET',
                 short_label: 'Stats',
-                url: '_cluster_nodes_stats',
+                url: '_nodes_stats',
                 params: {all: true}
             },
             {
