@@ -73,7 +73,7 @@ class GenericREST(Resource):
                 pass
 
         # summary = DiagnosticsService().get_diagnostics_summary(cluster_name)
-        return APIResponse(response, HTTP_Status.CREATED, None)
+        return APIResponse(response, HTTP_Status.OK, None)
 
 
 api.add_resource(GenericREST, '/rest/<string:cluster_name>/<string:command>',
