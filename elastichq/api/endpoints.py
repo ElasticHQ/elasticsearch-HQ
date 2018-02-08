@@ -10,5 +10,7 @@ from . import nodes
 from . import status
 # noinspection PyUnresolvedReferences
 from . import diagnostics
+# noinspection PyUnresolvedReferences
+from . import rest
 
 

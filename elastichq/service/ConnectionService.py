@@ -110,5 +110,8 @@ class ConnectionService:
                 CONNECTIONS.remove_connection(name)
         else:
             ClusterDBService().delete_cluster_by_name(cluster_name)
-            CONNECTIONS.remove_connection(cluster_name)
+            try:
+                CONNECTIONS.remove_connection(cluster_name)
+            except Exception as ex:
+                LOG.error("Connection does not exist: " + cluster_name)
         return

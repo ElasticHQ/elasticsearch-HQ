@@ -23,6 +23,10 @@ class ClusterService:
         connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.state(metric=metric, index=indices, request_timeout=REQUEST_TIMEOUT)
 
+    def get_cluster_status(self, cluster_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.info(request_timeout=REQUEST_TIMEOUT)
+
     def get_cluster_stats(self, cluster_name):
         connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.stats(request_timeout=REQUEST_TIMEOUT)

@@ -170,7 +170,6 @@ Cluster Diagnostics
     :undoc-static:
     :order: path
 
-
 HQ APIs
 -------
 
@@ -192,3 +191,11 @@ HQ Routes
     :undoc-static:
     :order: path
 
+ES REST
+~~~~~~~
+
+.. autoflask:: manage:app
+    :blueprints: api
+    :endpoints: api.generic_rest
+    :undoc-static:
+    :order: path
