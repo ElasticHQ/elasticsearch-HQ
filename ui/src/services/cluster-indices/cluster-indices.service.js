@@ -130,6 +130,21 @@ class ClusterIndicesService {
         }
     }
 
+    clusterIndicesExpungeDeleted(cluster_name, index_name) {
+        if (index_name === undefined) {
+            return this.que.add({
+                url: '/api/indices/' + cluster_name + '/action/_expunge_deleted',
+                method: 'PUT'
+            });
+        }
+        else {
+            return this.que.add({
+                url: '/api/indices/' + cluster_name + '/' + index_name + '/action/_expunge_deleted',
+                method: 'PUT'
+            });
+        }
+    }
+
 }
 
 export default ClusterIndicesService;

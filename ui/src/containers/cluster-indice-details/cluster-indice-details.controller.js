@@ -127,6 +127,14 @@ class clusterIndiceDetailsController {
             console.log('---- get clusters error: ', err)
         })
     }
+    expungeDeleted() {
+        this.ClusterIndices.clusterIndicesExpungeDeleted(this.clusterName, this.indexName).then((resp) => {
+            this.Notification.success({message: `Expunge deleted operation triggered.`, delay: 3000});
+        }, (err) => {
+            this.Notification.error({message: 'Error in operation!'});
+            console.log('---- get clusters error: ', err)
+        })
+    }
 }
 
 export default clusterIndiceDetailsController;

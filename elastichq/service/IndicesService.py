@@ -121,3 +121,11 @@ class IndicesService:
         connection = ConnectionService().get_connection(cluster_name)
         shards = connection.cat.shards(index=index_name, format='json')
         return shards
+
+    def expunge_deleted(self, cluster_name, index_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        try:
+            return connection.indices.forcemerge(index=index_name, params={"only_expunge_deletes": 1},
+                                                 request_timeout=REQUEST_TIMEOUT)
+        except: # this will time out on large indices, so ignore.
+            return

@@ -57,7 +57,7 @@
                         <tbody>
                         <tr>
                             <td class="action-btn"><a class="btn btn-default btn-block"
-                                                      ng-click="cIndDetailsCtrl.flushCache()">Flush Cache</a></td>
+                                                      ng-click="cIndDetailsCtrl.flushCache()"><i class="fa fa-rotate-right"></i> Flush Cache</a></td>
                             <td>The flush process frees memory from the index by flushing data to
                                 the index storage and clearing the internal transaction log. By default, ElasticSearch
                                 uses memory heuristics in order to automatically trigger flush operations as required in
@@ -66,13 +66,13 @@
                         </tr>
                         <tr>
                             <td class="action-btn"><a class="btn btn-default btn-block"
-                                                      ng-click="cIndDetailsCtrl.clearCache()">Clear Cache</a></td>
+                                                      ng-click="cIndDetailsCtrl.clearCache()"><i class="fa fa-eraser"></i> Clear Cache</a></td>
                             <td>Clears the field data cache, filter cache, and parent/child cache.
                             </td>
                         </tr>
                         <tr>
                             <td class="action-btn"><a class="btn btn-default btn-block"
-                                                      ng-click="cIndDetailsCtrl.forceMergeIndex()">Force Merge Index</a>
+                                                      ng-click="cIndDetailsCtrl.forceMergeIndex()"><i class="fa fa-compress"></i> Force Merge Index</a>
                             </td>
                             <td>The force merge process optimizes the index for faster search operations (and
                                 relates to the number of segments a lucene index holds within each shard). This
@@ -82,10 +82,16 @@
                         </tr>
                         <tr>
                             <td class="action-btn"><a class="btn btn-default btn-block"
-                                                      ng-click="cIndDetailsCtrl.refreshIndex()">Refresh Index</a></td>
+                                                      ng-click="cIndDetailsCtrl.refreshIndex()"><i class="fa fa-refresh"></i> Refresh Index</a></td>
                             <td>Makes all operations performed since the last refresh available for search. The (near)
                                 real-time capabilities depend on the index engine used. By default refreshes are
                                 scheduled periodically within Elasticsearch.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="action-btn"><a class="btn btn-default btn-block"
+                                                      ng-click="cIndDetailsCtrl.expungeDeleted()"><i class="fa fa-trash-o"></i> Expunge Deleted</a></td>
+                            <td>Attempts to clear deleted documents from disk during the merge process.
                             </td>
                         </tr>
                         <!--<tr>-->

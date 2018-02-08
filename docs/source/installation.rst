@@ -85,6 +85,7 @@ Database
 
 ElasticHQ ships with SQLLite integration to store clusters you have connected to and other meta information. This database is kept under the root directory as ``elastichq.db``.
 
+.. note:: In the event you want to start with a clean slate, simply delete the ``elastichq.db`` file. ElasticHQ will recreate it at next startup.
 
 Directory Structure
 ^^^^^^^^^^^^^^^^^^^

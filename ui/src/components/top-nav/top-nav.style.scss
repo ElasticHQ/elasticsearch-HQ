@@ -4,6 +4,12 @@
   }
 }
 
+.navbar-nav {
+  li > a {
+    color: #FFFFFF;
+  }
+}
+
 .navbar-brand {
   background-color: #1C2B36;
   display: block;
@@ -16,10 +22,10 @@
 
   span {
     color: #FFFFFF;
-  }  
-  
+  }
+
   .a {
     font-size: 50px;
   }
-  
+
 }

@@ -21,13 +21,16 @@
         </div>
         <div class="col-md-6">
             <div class="btn-group pull-right">
-                <a class="btn btn-default"  ng-click="clusterIndicesCtrl.refreshIndex()" data-toggle="popover" title="Popover title"
-                   data-content="And here's some amazing content. It's very engaging. Right?"><i
-                        class="fa fa-refresh"></i> Refresh</a>
-                <a class="btn btn-default" ng-click="clusterIndicesCtrl.forceMergeIndex()"><i class="fa fa-rocket"></i> Force Merge</a>
-                <a class="btn btn-default" ng-click="clusterIndicesCtrl.flushCache()"><i class="fa fa-rotate-right"></i> Flush</a>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.refreshIndex()"><i class="fa fa-refresh"></i>
+                    Refresh</a>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.forceMergeIndex()"><i class="fa fa-compress"></i>
+                    Force Merge</a>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.flushCache()"><i class="fa fa-rotate-right"></i>
+                    Flush</a>
                 <a class="btn btn-default" ng-click="clusterIndicesCtrl.clearCache()"><i class="fa fa-eraser"></i> Clear
                     Cache</a>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.expungeDeleted()"><i class="fa fa-trash-o"></i>
+                    Expunge Deleted</a>
             </div>
         </div>
     </div>

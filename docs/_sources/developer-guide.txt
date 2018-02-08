@@ -69,7 +69,7 @@ Standard header response below:
     Status: 200
     X-HQ-Response-Time: 2570
 
-Customer headers are pre-fixed with ``X-HQ``.
+Custom headers are pre-fixed with ``X-HQ``.
 
 * X-HQ-Response-Time: The time, in milliseconds it took from request to response.
 

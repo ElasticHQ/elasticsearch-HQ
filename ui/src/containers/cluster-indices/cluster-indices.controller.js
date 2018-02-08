@@ -104,6 +104,16 @@ class clusterIndicesController {
         }).finally(() => this.fetching = false)
     }
 
+    expungeDeleted() {
+        this.fetching = true;
+        this.ClusterIndices.clusterIndicesExpungeDeleted(this.clusterName).then((resp) => {
+            this.Notification.success({message: `Expunge Deleted operation triggered.`, delay: 3000});
+        }, (err) => {
+            this.Notification.error({message: 'Error in operation!'});
+            console.log('---- get clusters error: ', err)
+        }).finally(() => this.fetching = false)
+    }
+
     createIndex() {
         const modalInstance = this.$uibModal.open({
             template: createIndexModal,

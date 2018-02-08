@@ -122,10 +122,11 @@ class IndexAction(Resource):
         * _flush - Flushes caches
         * _refresh - Refresh the searchable data.
         * _force_merge - Formerly known as _optimize. Forces a segment merge.
+        * _expunge_deleted - Forces deleted documents to be removed from disk.
 
         :param cluster_name:
         :type action: string
-        :param action: One of _open, _close, _flush, _refresh, _cache, _force_merge
+        :param action: One of _open, _close, _flush, _refresh, _cache, _force_merge, _expunge_deleted
         :param index_name:
         :return:
         """
@@ -143,6 +144,8 @@ class IndexAction(Resource):
             response = IndicesService().clear_cache(cluster_name, index_name)
         elif action == '_force_merge':
             response = IndicesService().force_merge(cluster_name, index_name)
+        elif action == '_expunge_deleted':
+            response = IndicesService().expunge_deleted(cluster_name, index_name)
         else:
             return APIResponse(response, HTTP_Status.NOT_FOUND, None)
 
