@@ -1,12 +1,17 @@
 import './clusters-button.style.scss'
 
 class clustersButtonController {
-    constructor(ClusterConnection, $state, Notification) {
+    constructor(ClusterConnection, $state, Notification, $rootScope) {
         'ngInject';
 
         this.service = ClusterConnection;
         this.$state = $state;
         this.Notification = Notification;
+
+        $rootScope.$on('clusters.refresh', (event, data) => {
+            this.getClusters();
+        });
+
         this.getClusters();
 
         console.log('----- in clusters button constructor')

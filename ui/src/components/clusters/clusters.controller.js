@@ -4,7 +4,7 @@ import _ from 'lodash';
 import numeral from 'numeral';
 
 class clustersController {
-    constructor(ClusterConnection, Notification, $state, $sce, $filter) {
+    constructor(ClusterConnection, Notification, $state, $sce, $filter, $rootScope) {
         'ngInject';
 
         this.service = ClusterConnection;
@@ -13,6 +13,7 @@ class clustersController {
         this.$state = $state;
         this.$sce = $sce;
         this.$filter = $filter;
+        this.$rootScope = $rootScope;
 
         this.search = { text: "" };
 
@@ -51,6 +52,9 @@ class clustersController {
         ];
 
         this.filterFn = this.filterFn.bind(this);
+        this.$rootScope.$on('clusters.refresh', (event, data) => {
+            this.getClusters();
+        });
 
         this.getClusters();
     }
@@ -82,6 +86,7 @@ class clustersController {
         this.service.deleteCluster(cluster_name).then((resp) => {
             console.log('------ response: ', resp.data)
             this.Notification.success({message: `Connection deleted.`, delay: 3000});
+            this.$rootScope.$emit('clusters.refresh', {})
             if (this.fetchFn && (typeof this.fetchFn === 'function')) this.fetchFn();
         }, (err) => {
             let msg = `Delete Connection Failed. ${err.status}`;
