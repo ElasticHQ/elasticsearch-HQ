@@ -78,6 +78,17 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider,
             url: '/clusters',
             component: 'eshqClusters'
         })
+        .state('restapi', {
+            url: '/clusters/:clusterName/restapi',
+            abstract: true,
+            controller: 'restApiController',
+            controllerAs: 'restApiCtrl',
+            template: require('./containers/rest-api/rest-api.view.html')
+        })
+        .state('restapi.endpoints', {
+            url: '/endpoints',
+            component: 'eshqApiEndpoints'
+        })
         .state('home', {
             url: '/',
             template: require('./containers/home/home.view.html'),

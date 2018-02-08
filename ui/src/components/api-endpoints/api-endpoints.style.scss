@@ -1,0 +1,32 @@
+.api-endpoints {
+  min-height: 400px;
+  display: flex;
+  flex-direction: row;
+  > div {
+      min-height: 200px;
+      width: 100%;
+  }
+  .left-nav {
+      width: 240px;
+      margin-right: 2em;
+      padding: 10px;
+      .options-group {
+          margin-bottom: 1em;
+          .api-label {
+              font-size: 1.15em;
+              text-transform: uppercase;
+          }
+          .api-option {
+              display: block;
+              padding: 3px;
+              border-bottom: 1px solid rgb(230, 230, 230);
+              &:hover {
+                  background: rgb(230, 230, 230);
+                  text-decoration: none;
+                  cursor: pointer;
+              }
+          }
+
+      }
+  }
+}
