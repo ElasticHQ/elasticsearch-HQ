@@ -18,10 +18,13 @@ class ClusterModel(db.Model):
     cluster_port = db.Column(db.String, nullable=False, default="9200")
     cluster_scheme = db.Column(db.String, nullable=False, default="http")
     cluster_version = db.Column(db.String, nullable=False, default="http")
+    cluster_username = db.Column(db.String, nullable=True)
+    cluster_password = db.Column(db.String, nullable=True)
     cluster_connected = False
     cluster_health = None
 
-    def __init__(self, cluster_name, cluster_ip, cluster_port='9200', cluster_scheme='http'):
+    def __init__(self, cluster_name, cluster_ip, cluster_port='9200', cluster_scheme='http', username=None,
+                 password=None):
         """
         Init
 
@@ -34,6 +37,8 @@ class ClusterModel(db.Model):
         self.cluster_port = cluster_port
         self.cluster_ip = cluster_ip
         self.cluster_scheme = cluster_scheme
+        self.cluster_username = username
+        self.cluster_password = password
 
     @property
     def cluster_host(self):
@@ -43,6 +48,12 @@ class ClusterModel(db.Model):
         :return: SCHEME://IP:PORT
         """
         return self.cluster_scheme + "://" + self.cluster_ip + ":" + self.cluster_port
+
+    @property
+    def is_basic_auth(self):
+        if self.cluster_username is not None and self.cluster_password is not None:
+            return True
+        return False
 
 
 class ClusterDTO(ma.ModelSchema):

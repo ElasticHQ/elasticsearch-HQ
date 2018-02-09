@@ -24,7 +24,7 @@ class ConnectionService:
         except Exception as e:
             return False
 
-    def create_connection(self, ip, port, scheme='http'):
+    def create_connection(self, ip, port, scheme='http', username=None, password=None):
         """
         Creates a connection with a cluster and place the connection inside of a connection pool, using the cluster_name as an alias.
         :param ip: 
@@ -32,27 +32,40 @@ class ConnectionService:
         :param scheme: 
         :return:
         """
-        # determine version first
-        response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
-        content = json.loads(response.content.decode('utf-8'))
-        # TODO: is supported version?
+        try:
+            is_basic_auth = False
+            if username is not None and password is not None:
+                is_basic_auth = True
 
-        # SAVE to Connection Pools
-        # TODO: configure timeout
-        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                             version=content.get('version').get('number'))
-        self.add_connection(content.get('cluster_name'), conn=conn)
-        #        content['host'] = conn.transport.seed_connections[0].host
+            # determine version first
+            if is_basic_auth is True:
+                response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
+                                        timeout=REQUEST_TIMEOUT)
+            else:
+                response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
 
-        # SAVE to DB
-        cluster_model = ClusterModel(content.get("cluster_name"), cluster_ip=ip, cluster_port=port,
-                                     cluster_scheme=scheme)
-        cluster_model.cluster_version = content.get('version').get('number')
-        cluster_model.cluster_connected = True
-        ClusterDBService().save_cluster(cluster_model)
+            content = json.loads(response.content.decode('utf-8'))
 
-        # TODO: Should be returning the cluster model, or some merged version of both?
-        return cluster_model
+            # SAVE to Connection Pools
+            if is_basic_auth is True:
+                conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                     version=content.get('version').get('number'), http_auth=(username, password))
+            else:
+                conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                     version=content.get('version').get('number'))
+
+            self.add_connection(content.get('cluster_name'), conn=conn)
+
+            # SAVE to DB
+            cluster_model = ClusterModel(content.get("cluster_name"), cluster_ip=ip, cluster_port=port,
+                                         cluster_scheme=scheme, username=username, password=password)
+            cluster_model.cluster_version = content.get('version').get('number')
+            cluster_model.cluster_connected = True
+            ClusterDBService().save_cluster(cluster_model)
+            return cluster_model
+        except Exception as ex:
+            LOG.error("Unable to create connection!", ex)
+            return None
 
     def add_connection(self, cluster_name, conn):
         CONNECTIONS.add_connection(alias=cluster_name, conn=conn)
@@ -89,8 +102,12 @@ class ConnectionService:
                 cluster = ClusterDBService().get_by_id(cluster_name)
                 if cluster is not None:
                     try:
-                        self.create_connection(ip=cluster.cluster_ip, port=cluster.cluster_port,
-                                               scheme=cluster.cluster_scheme)
+                        if cluster.is_basic_auth is True:
+                            self.create_connection(ip=cluster.cluster_ip, port=cluster.cluster_port,
+                                                   scheme=cluster.cluster_scheme, username=cluster.cluster_username, password=cluster.cluster_password)
+                        else:
+                            self.create_connection(ip=cluster.cluster_ip, port=cluster.cluster_port,
+                                                   scheme=cluster.cluster_scheme)
                         return CONNECTIONS.get_connection(
                             cluster_name)  # this will throw a connection not found exception for us.
                     except ConnectionError as ce:

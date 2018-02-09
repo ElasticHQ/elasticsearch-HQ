@@ -35,14 +35,15 @@ class clustersButtonController {
             port: cluster_port,
             use_ssl: (cluster_scheme === 'https:')
         }
-        this.service.connectCluster(params).then((resp) => {
-            let cluster = resp.data.data[0];
-            this.$state.transitionTo('clusterDetails', {clusterName: cluster.cluster_name}, {reload: true})
-            // this.$state.go('configuration.users.detail', {user_id: user.id}, {reload: true});
-        }, (err) => {
-            let msg = (err.data && err.data.message) ? err.data.message : 'Error connecting to cluster'
-            this.Notification.error({message: msg});
-        })
+        this.$state.transitionTo('clusterDetails', {clusterName: cluster.cluster_name}, {reload: true})
+        // this.service.connectCluster(params).then((resp) => {
+        //     let cluster = resp.data.data[0];
+        //     this.$state.transitionTo('clusterDetails', {clusterName: cluster.cluster_name}, {reload: true})
+        //     // this.$state.go('configuration.users.detail', {user_id: user.id}, {reload: true});
+        // }, (err) => {
+        //     let msg = (err.data && err.data.message) ? err.data.message : 'Error connecting to cluster'
+        //     this.Notification.error({message: msg});
+        // })
     }
 
 

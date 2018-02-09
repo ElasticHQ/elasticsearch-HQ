@@ -18,6 +18,7 @@ six==1.8.0
 # Database
 SQLAlchemy==1.2.0
 Flask-SQLAlchemy==2.3.2
+Flask-Migrate
 
 # Testing
 coverage == 3.7.1

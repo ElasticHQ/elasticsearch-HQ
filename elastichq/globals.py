@@ -9,10 +9,14 @@ from flask_apscheduler import APScheduler
 from .vendor.elasticsearch.connections import Connections
 from .config import settings
 
+
+from flask_migrate import Migrate, upgrade
+
 __author__ = 'royrusso'
 
 db = SQLAlchemy()
 ma = Marshmallow()
+migrate = Migrate()
 scheduler = APScheduler()
 
 
@@ -38,9 +42,12 @@ def init_database(app, tests=False):
 
     # noinspection PyUnresolvedReferences
     import elastichq.model
-
     db.create_all(app=app)
 
+    migrate.init_app(app, db)
+
+def migrate_db(app):
+    pass
 
 def tick():
     print('Tick! The time is: %s' % datetime.now())

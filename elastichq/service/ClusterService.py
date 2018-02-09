@@ -43,7 +43,7 @@ class ClusterService:
         connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.put_settings(body=settings, request_timeout=REQUEST_TIMEOUT)
 
-    def get_clusters(self):
+    def get_clusters(self, create_if_missing=True):
         clusters = ConnectionService().get_connections()
         for cluster in clusters:
             if cluster.cluster_connected is True:

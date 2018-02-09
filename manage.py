@@ -5,7 +5,8 @@ __author__ = 'royrusso'
 
 import os
 
-from flask_script import Manager, Command
+from flask_migrate import MigrateCommand
+from flask_script import Command, Manager
 
 from elastichq.factory import create_app
 from elastichq.globals import db
@@ -37,6 +38,15 @@ class PyTest(Command):
 
 manager.add_command('clean-db', CleanDB)
 manager.add_command('run-tests', PyTest)
+
+"""
+This draws on https://github.com/miguelgrinberg/Flask-Migrate
+
+ To upgrade DB:
+ 1. python manage.py db migrate (GENERATE the migration scripts)
+ 2. python manage.py db upgrade (PERFORMS the update ddl)
+"""
+manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()

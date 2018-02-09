@@ -110,7 +110,8 @@ class ClusterConnection(Resource):
             scheme = 'https'
 
         response = ConnectionService().create_connection(ip=params['ip'], port=params.get('port', "9200"),
-                                                         scheme=scheme)
+                                                         scheme=scheme, username=params.get('username', None),
+                                                         password=params.get('password', None))
 
         schema = ClusterDTO(many=False)
         result = schema.dump(response)
