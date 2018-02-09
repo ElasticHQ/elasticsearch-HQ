@@ -134,10 +134,13 @@
     <span class="n">cluster_port</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;9200&quot;</span><span class="p">)</span>
     <span class="n">cluster_scheme</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;http&quot;</span><span class="p">)</span>
     <span class="n">cluster_version</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;http&quot;</span><span class="p">)</span>
+    <span class="n">cluster_username</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">cluster_password</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">cluster_connected</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="n">cluster_health</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">,</span> <span class="n">cluster_ip</span><span class="p">,</span> <span class="n">cluster_port</span><span class="o">=</span><span class="s1">&#39;9200&#39;</span><span class="p">,</span> <span class="n">cluster_scheme</span><span class="o">=</span><span class="s1">&#39;http&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">,</span> <span class="n">cluster_ip</span><span class="p">,</span> <span class="n">cluster_port</span><span class="o">=</span><span class="s1">&#39;9200&#39;</span><span class="p">,</span> <span class="n">cluster_scheme</span><span class="o">=</span><span class="s1">&#39;http&#39;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">password</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Init</span>
 
@@ -150,6 +153,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cluster_port</span> <span class="o">=</span> <span class="n">cluster_port</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cluster_ip</span> <span class="o">=</span> <span class="n">cluster_ip</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cluster_scheme</span> <span class="o">=</span> <span class="n">cluster_scheme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cluster_username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cluster_password</span> <span class="o">=</span> <span class="n">password</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cluster_host</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -158,7 +163,13 @@
 
 <span class="sd">        :return: SCHEME://IP:PORT</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_scheme</span> <span class="o">+</span> <span class="s2">&quot;://&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_ip</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_port</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_scheme</span> <span class="o">+</span> <span class="s2">&quot;://&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_ip</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_port</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_basic_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cluster_password</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span></div>
 
 
 <div class="viewcode-block" id="ClusterDTO"><a class="viewcode-back" href="../../../developers.html#elastichq.model.ClusterModel.ClusterDTO">[docs]</a><span class="k">class</span> <span class="nc">ClusterDTO</span><span class="p">(</span><span class="n">ma</span><span class="o">.</span><span class="n">ModelSchema</span><span class="p">):</span>

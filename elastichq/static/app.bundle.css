@@ -1,6 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700);.top-nav .clusters-button {
   margin-top: 0.65em; }
 
+.navbar-nav li > a {
+  color: #FFFFFF; }
+
 .navbar-brand {
   background-color: #1C2B36;
   display: block;
@@ -22,6 +25,8 @@
   border-top: 1px solid #e5e5e5;
   background-color: #f5f5f5;
   font-size: 14px; }
+  .footer .mini-alert {
+    padding: 4px; }
   .footer p {
     margin-bottom: 0;
     color: #777; }
@@ -189,6 +194,54 @@ hue-6-2: #e6c07b
 
 .hljs-link {
   text-decoration: underline; }
+.node-diagnostics-wrapper {
+  border: 1px solid #ccc;
+  padding: 10px; }
+  .node-diagnostics-wrapper .section-label {
+    font-size: 1.3em;
+    font-weight: 500; }
+  .node-diagnostics-wrapper table.table tbody td {
+    font-size: 14px; }
+  .node-diagnostics-wrapper table.table tbody td.rule-value {
+    text-align: right; }
+    .node-diagnostics-wrapper table.table tbody td.rule-value.PASS {
+      background: #dff0d8; }
+    .node-diagnostics-wrapper table.table tbody td.rule-value.WARN {
+      background: #fcf8e3; }
+  .node-diagnostics-wrapper table.table tbody .popover {
+    max-width: 400px;
+    font-size: 1.1em;
+    font-weight: 400; }
+    .node-diagnostics-wrapper table.table tbody .popover .popover-inner .popover-title, .node-diagnostics-wrapper table.table tbody .popover .popover-inner .popover-content {
+      color: #000; }
+      .node-diagnostics-wrapper table.table tbody .popover .popover-inner .popover-title .alert > .fa, .node-diagnostics-wrapper table.table tbody .popover .popover-inner .popover-content .alert > .fa {
+        font-size: 1.25em; }
+      .node-diagnostics-wrapper table.table tbody .popover .popover-inner .popover-title ul, .node-diagnostics-wrapper table.table tbody .popover .popover-inner .popover-content ul {
+        padding-left: 5px; }
+.api-endpoints {
+  min-height: 400px;
+  display: flex;
+  flex-direction: row; }
+  .api-endpoints > div {
+    min-height: 200px;
+    width: 100%; }
+  .api-endpoints .left-nav {
+    width: 240px;
+    margin-right: 2em;
+    padding: 10px; }
+    .api-endpoints .left-nav .options-group {
+      margin-bottom: 1em; }
+      .api-endpoints .left-nav .options-group .api-label {
+        font-size: 1.15em;
+        text-transform: uppercase; }
+      .api-endpoints .left-nav .options-group .api-option {
+        display: block;
+        padding: 3px;
+        border-bottom: 1px solid #e6e6e6; }
+        .api-endpoints .left-nav .options-group .api-option:hover {
+          background: #e6e6e6;
+          text-decoration: none;
+          cursor: pointer; }
 .home .flex-container {
   display: -ms-flexbox;
   display: -webkit-flex;

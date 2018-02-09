@@ -59,7 +59,7 @@ class Status(Resource):
     """
 
     def get(self):
-        status = HQService.get_status()
+        status = HQService().get_status()
         LOG.debug(json.dumps(status))
         return APIResponse(status, HTTP_Status.OK, None)
 
