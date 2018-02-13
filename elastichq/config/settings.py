@@ -63,16 +63,19 @@ class TestSettings(BaseSettings):
     ES_V5_PORT = '8200'
     ES_V6_HOST = '127.0.0.1'
     ES_V6_PORT = '7200'
+    ES_V6_USERNAME = 'elastic'
+    ES_V6_PASSWORD = 'Gm4UAvzFWlK7PupHxjPs'
 
     # Cluster URL is used in the text fixture, for easy connections using lib requests.
     ES_V2_CLUSTER_URL = 'http://%s:%s' % (ES_V2_HOST, ES_V2_PORT)
     ES_V5_CLUSTER_URL = 'http://%s:%s' % (ES_V5_HOST, ES_V5_PORT)
-    ES_V6_CLUSTER_URL = 'http://%s:%s' % (ES_V6_HOST, ES_V6_PORT)
+    ES_V6_CLUSTER_URL = 'http://%s:%s@%s:%s' % (ES_V6_USERNAME, ES_V6_PASSWORD, ES_V6_HOST, ES_V6_PORT)
 
     # Cluster connect strings are passed to /_connect endpoint to initiate pools
     ES_V2_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s"}' % (ES_V2_HOST, ES_V2_PORT)
     ES_V5_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s"}' % (ES_V5_HOST, ES_V5_PORT)
-    ES_V6_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s"}' % (ES_V6_HOST, ES_V6_PORT)
+    ES_V6_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s", "username" : "%s", "password" : "%s"}' % (
+        ES_V6_HOST, ES_V6_PORT, ES_V6_USERNAME, ES_V6_PASSWORD)
 
     # Key matching: For tests, we enforce that all responses, regardless of ES version contain the same keys.
     KEYS_CLUSTER_HEALTH = ['active_primary_shards', 'number_of_in_flight_fetch', 'number_of_data_nodes',

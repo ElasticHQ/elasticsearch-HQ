@@ -29,7 +29,7 @@ class footerController {
 
         let latestStable = this.dataSet.current_stable_version;
         // For Testing
-        // latestStable = "3.0.0-beta.30";
+        //latestStable = "2.8.0"; //-beta.30";
 
 
         let html = '';
@@ -42,7 +42,7 @@ class footerController {
             let latest = parseSemVer(latestStable);
             let installed = parseSemVer(this.installed_version);
 
-            html = `Installed: <b>${this.installed_version}</b> but latest is `;
+            html = `Installed Version: <b>${this.installed_version}</b>. Latest version: `;
             if (latest.major > installed.major) {
                 html += `<span class="alert alert-danger mini-alert">${latestStable}</span>`
             } else if (latest.minor > installed.minor) {
@@ -53,9 +53,10 @@ class footerController {
                 // This would normally be beta releases
                 html += `<span class="alert alert-info mini-alert">${latestStable}</span>`
             }
+            html += '<br/><b>Consider upgrading!</b>'
 
         } else {
-            html = `You are on the current version <span class="alert alert-success mini-alert">${this.installed_version}</span>`
+            html = `You are on the current version: <span class="alert alert-success mini-alert">${this.installed_version}</span>`
         }
 
         this.versionInfo = this.$sce.trustAsHtml(html)

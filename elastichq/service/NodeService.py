@@ -51,7 +51,7 @@ class NodeService:
                     node.update({"is_electable_master": False})
 
             if cnode.get('role', None) is not None:
-                if cnode['role'] == 'd':
+                if cnode['role'] == 'd' or 'd' in cnode['role']:
                     node.update({"is_data_node": True})
                 else:
                     node.update({"is_data_node": False})

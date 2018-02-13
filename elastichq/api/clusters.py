@@ -134,7 +134,8 @@ class ClusterConnection(Resource):
         :type cluster_name: string
         :param cluster_name: Name of cluster connection to remove.
         :returns: List of active clusters.
-        :status 200 Ok
+
+        :status 200: Ok
         :status 400: bad request
         :status 500: server error
         """

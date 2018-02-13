@@ -112,7 +112,7 @@ class TestFixture:
                               method='POST')
             self.http_request("http://" + self.config.ES_V5_HOST + ":" + self.config.ES_V5_PORT + '/_refresh',
                               method='POST')
-            self.http_request("http://" + self.config.ES_V6_HOST + ":" + self.config.ES_V6_PORT + '/_refresh',
+            self.http_request(self.config.ES_V6_CLUSTER_URL + '/_refresh',
                               method='POST')
         except Exception as e:
             print("Failed creating Index: " + str(e))

@@ -15,35 +15,7 @@
                 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <div class="pull-left">
-                    <div id="navbar" class="collapse navbar-collapse"  ng-class="{'in':!navCollapsed}">
-                        <ul class="nav navbar-nav">
-                            <li uib-dropdown>
-                                <a href="#" uib-dropdown-toggle>Clusters <b class="caret"></b></a>
-                                <ul uib-dropdown-menu role="menu" aria-labelledby="split-button">
-                                    <li role="menuitem" ng-repeat="c in topNavCtrl.clusters">
-                                        <a ui-sref="clusterIndices({clusterName: c.cluster_name})"
-                                            ui-sref-active="active" 
-                                            class="cluster-item">
-                                            <span class="cluster-name-success" ng-if="c.cluster_connected"><i class="fa fa-link"></i> {{c.cluster_name}}</span>
-                                            <span class="cluster-name-warning" ng-if="!c.cluster_connected"><i class="fa fa-chain-broken"></i> {{c.cluster_name}}</span>
-                                            <span class="cluster-host">
-                                                {{c.cluster_host}}
-                                            </span>
-                                        </a>
-                                        <hr class="hr"/>
-                                    </li>
-                                    
-                                    <li role="menuitem" class="cluster-item">
-                                        <a ng-click="topNavCtrl.getClusters(true);">
-                                                <span class="cluster-name"><i class="fa fa-refresh"></i>  Refresh List</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
                 <ul class="pull-right nav navbar-nav">
                     <li><a ui-sref="settings.clusters" tooltip-placement="bottom"
                            uib-tooltip="Personalize ElasticHQ"><i
@@ -54,7 +26,37 @@
                     <li><a href="https://github.com/royrusso/elasticsearch-HQ" target="_blank"  tooltip-placement="bottom"
                            uib-tooltip="Thank you for your support!"><i
                             class="fa fa-github"></i> Star us on GitHub</a></li>
-                </ul>                
+                </ul>
+                 <div class="pull-right">
+                    <div id="navbar" class="collapse navbar-collapse"  ng-class="{'in':!navCollapsed}">
+                        <ul class="nav navbar-nav">
+                            <li uib-dropdown>
+                                <a href="#" uib-dropdown-toggle><i
+                            class="fa fa-sitemap"></i> Clusters <b class="caret"></b></a>
+                                <ul uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                    <li role="menuitem" ng-repeat="c in topNavCtrl.clusters">
+                                        <a ui-sref="clusterIndices({clusterName: c.cluster_name})"
+                                            ui-sref-active="active"
+                                            class="cluster-item">
+                                            <span class="cluster-name-success" ng-if="c.cluster_connected"><i class="fa fa-link"></i> {{c.cluster_name}}</span>
+                                            <span class="cluster-name-warning" ng-if="!c.cluster_connected"><i class="fa fa-chain-broken"></i> {{c.cluster_name}}</span>
+                                            <span class="cluster-host">
+                                                {{c.cluster_host}}
+                                            </span>
+                                        </a>
+                                        <hr class="hr"/>
+                                    </li>
+
+                                    <li role="menuitem" class="cluster-item">
+                                        <a ng-click="topNavCtrl.getClusters(true);">
+                                                <span class="cluster-name"><i class="fa fa-refresh"></i>  Refresh List</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>

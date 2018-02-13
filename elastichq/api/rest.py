@@ -6,22 +6,25 @@
 
 from flask_restful import Resource
 
-from elastichq.service import ClusterService, ConnectionService, IndicesService, NodeService, HQService
+from elastichq.model.ClusterModel import ClusterDTO
+from elastichq.service import ClusterService, ConnectionService, HQService, IndicesService, NodeService
 from . import api
 from ..common.api_response import APIResponse
 from ..common.status_codes import HTTP_Status
-from elastichq.model.ClusterModel import ClusterDTO
 
 
 class GenericREST(Resource):
 
     def get(self, cluster_name, command):
         """
+        Endpoint for generic GET requests on a cluster. Simply does a pass-thru call to the actual cluster endpoint.
+
         :type cluster_name: string
-        :param cluster_name
+        :param cluster_name:
         :type command: string
         :param command:
-        :return:
+        :returns:
+
         :resheader Content-Type: application/json
         :status 200: OK
         :status 500: server error
