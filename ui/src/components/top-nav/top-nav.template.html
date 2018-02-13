@@ -35,7 +35,7 @@
                             class="fa fa-sitemap"></i> Clusters <b class="caret"></b></a>
                                 <ul uib-dropdown-menu role="menu" aria-labelledby="split-button">
                                     <li role="menuitem" ng-repeat="c in topNavCtrl.clusters">
-                                        <a ui-sref="clusterIndices({clusterName: c.cluster_name})"
+                                        <a ui-sref="clusterDetails({clusterName: c.cluster_name})"
                                             ui-sref-active="active"
                                             class="cluster-item">
                                             <span class="cluster-name-success" ng-if="c.cluster_connected"><i class="fa fa-link"></i> {{c.cluster_name}}</span>
