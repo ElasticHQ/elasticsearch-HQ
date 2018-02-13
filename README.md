@@ -15,6 +15,7 @@ Simplified Monitoring and Management for ElasticSearch clusters.
 
 Key Features
 ------------
+* Works with 2.x, 5.x, 6.x and current versions of Elasticsearch. 
 * Monitor **many** clusters at once.
 * Monitor Nodes, Indices, Shards, and general cluster metrics.
 * Create and perform maintenance on Elasticsearch Indices.
@@ -47,7 +48,7 @@ Docs + Support
 * Documentation can be found here: http://docs.elastichq.org
 * Google Group can be found here: https://groups.google.com/d/forum/elastichq
 * If you need sample index + documents, see here: https://github.com/royrusso/elasticsearch-sample-index
-* If you find a bug, **please** create an issue and report it, or fix it and let me know. ;-)
+* If you find a bug, **please** create an issue and report it, or fix it and submit a pull request. ;-)
  
 Legal Stuff
 -----------
