@@ -1,10 +1,12 @@
 import './clusters.style.scss';
 
+import addClusterModal from './add-cluster-modal.html';
+
 import _ from 'lodash';
 import numeral from 'numeral';
 
 class clustersController {
-    constructor(ClusterConnection, Notification, $state, $sce, $filter, $rootScope) {
+    constructor(ClusterConnection, Notification, $state, $sce, $filter, $rootScope, $uibModal) {
         'ngInject';
 
         this.service = ClusterConnection;
@@ -14,6 +16,7 @@ class clustersController {
         this.$sce = $sce;
         this.$filter = $filter;
         this.$rootScope = $rootScope;
+        this.$uibModal = $uibModal;
 
         this.search = { text: "" };
 
@@ -102,6 +105,59 @@ class clustersController {
                           this.$filter('filter')([item], this.search.text).length :
                           1;
         return !!filtered;
+    }
+
+    addCluster() {
+        const modalInstance = this.$uibModal.open({
+            template: addClusterModal,
+            controller: ($scope, $uibModalInstance) => {
+                'ngInject';
+
+                // After you pass in the resolver, below, attache it for reference
+                $scope.disabled = false;
+                $scope.$uibModalInstance = $uibModalInstance;
+
+                $scope.formData = {};
+                $scope.cancel = () => {
+                    $scope.$uibModalInstance.dismiss('close');
+                };
+
+                // This is what gets returned in the end
+                $scope.save = () => {
+                    let data;
+                    try {
+                        data = this.parseURI($scope.formData.cluster_connection)
+                    } catch (error) {
+                        console.log('--- error: ', error.message)
+                        return this.Notification.error({message: error.message, delay: 3000});
+                    }
+                    this.service.connectCluster(data).then((resp) => {
+                        // FIXME
+                        // Have to alert the Top Nav bar that a new cluster has been added
+                        // Really should have much of the Cluster List in a factory.
+                        this.Notification.success({message: 'Cluster successfully added', delay: 3000});
+                        this.$rootScope.$emit('clusters.refresh', {});
+                        $scope.$uibModalInstance.close($scope.formData);
+                    }, (err) => {
+            
+                    })
+                };
+
+            }
+
+        });
+    }
+
+    parseURI(connectionUri) {
+        let uri = new URL(connectionUri);
+        let tmp = {
+            ip: uri.hostname,
+            port: uri.port,
+            username: uri.username,
+            password: uri.password,
+            use_ssl: (uri.protocol === 'https:')
+        };
+        return tmp
     }
 }
 

@@ -1,0 +1,23 @@
+<div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            Add Cluster
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div>
+            <form name="ciForm">
+                <div class="form-group">
+                    <label>Cluster Address: </label>
+                    <input type="text" 
+                            ng-model="formData.cluster_connection" 
+                            class="form-control" 
+                            placeholder="example > http://127.0.0.1:9200"
+                            required>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="!ciForm.$valid" type="button" ng-click="save()">Save</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>

@@ -5,8 +5,13 @@
            ts-filter-function="clustersCtrl.filterFn">
         <thead>
         <tr>
-            <th colspan="{{clustersCtrl.columns.length + 1}}">
+            <th colspan="{{clustersCtrl.columns.length}}">
                 <input type="text" placeholder="Search" class="form-control" ng-model="clustersCtrl.search.text"/>
+            </th>
+            <th colspan="2">
+                <button ng-click="clustersCtrl.addCluster()" class="btn btn-primary btn-block">
+                    Add Cluster
+                </button>
             </th>
         </tr>
         <tr>
