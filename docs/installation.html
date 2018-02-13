@@ -94,6 +94,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#upgrading">Upgrading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#latest-version">Latest Version</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#upgrading-minor-and-patch-versions">Upgrading Minor and Patch versions</a></li>
 </ul>
 </li>
@@ -156,10 +157,11 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#upgrading" id="id10">Upgrading</a><ul>
-<li><a class="reference internal" href="#upgrading-minor-and-patch-versions" id="id11">Upgrading Minor and Patch versions</a></li>
+<li><a class="reference internal" href="#latest-version" id="id11">Latest Version</a></li>
+<li><a class="reference internal" href="#upgrading-minor-and-patch-versions" id="id12">Upgrading Minor and Patch versions</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#license" id="id12">License</a></li>
+<li><a class="reference internal" href="#license" id="id13">License</a></li>
 </ul>
 </div>
 <div class="section" id="quick-start-guide">
@@ -243,10 +245,22 @@
 <div class="section" id="upgrading">
 <h2><a class="toc-backref" href="#id10">Upgrading</a><a class="headerlink" href="#upgrading" title="Permalink to this headline">¶</a></h2>
 <p>We adhere to semantic versioning, so as long as the Major version hasn&#8217;t changed, you can expect everything to work well enough. ;-)</p>
+<div class="section" id="latest-version">
+<h3><a class="toc-backref" href="#id11">Latest Version</a><a class="headerlink" href="#latest-version" title="Permalink to this headline">¶</a></h3>
+<p>ElasticHQ checks against the Elastichq.org website, to retrieve the latest stable version number. You can see the check in the footer:</p>
+<p><strong>Versions Match:</strong></p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_static/img/footer_version_1.png"><img alt="_static/img/footer_version_1.png" src="_static/img/footer_version_1.png" style="width: 600px;" /></a>
+</div>
+<p><strong>Time to Upgrade:</strong></p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_static/img/footer_version_2.png"><img alt="_static/img/footer_version_2.png" src="_static/img/footer_version_2.png" style="width: 600px;" /></a>
+</div>
+</div>
 <div class="section" id="upgrading-minor-and-patch-versions">
-<h3><a class="toc-backref" href="#id11">Upgrading Minor and Patch versions</a><a class="headerlink" href="#upgrading-minor-and-patch-versions" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">Upgrading Minor and Patch versions</a><a class="headerlink" href="#upgrading-minor-and-patch-versions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>To upgrade, simply download of clone the repository master branch.</li>
+<li>To upgrade, simply download or clone the repository master branch.</li>
 <li>Upgrade the database: <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">db</span> <span class="pre">upgrade</span></code></li>
 <li>(Re)Start the server: <code class="docutils literal"><span class="pre">python</span> <span class="pre">application.py</span></code></li>
 <li>Point your browser to: <a class="reference external" href="http://localhost:5000">http://localhost:5000</a></li>
@@ -254,7 +268,7 @@
 </div>
 </div>
 <div class="section" id="license">
-<h2><a class="toc-backref" href="#id12">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p>Copyright 2013-2018 Roy Russo and Authors</p>
 <p>Licensed under the Apache License, Version 2.0 (the &#8220;License&#8221;);
 you may not use this file except in compliance with the License.

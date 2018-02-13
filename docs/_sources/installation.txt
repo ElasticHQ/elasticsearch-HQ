@@ -97,10 +97,32 @@ Upgrading
 
 We adhere to semantic versioning, so as long as the Major version hasn't changed, you can expect everything to work well enough. ;-)
 
+Latest Version
+^^^^^^^^^^^^^^
+
+ElasticHQ checks against the Elastichq.org website, to retrieve the latest stable version number. You can see the check in the footer:
+
+**Versions Match:**
+
+
+.. figure::  /_static/img/footer_version_1.png
+    :width: 600px
+    :align: center
+
+
+
+**Time to Upgrade:**
+
+
+.. figure::  /_static/img/footer_version_2.png
+    :width: 600px
+    :align: center
+
+
 Upgrading Minor and Patch versions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. To upgrade, simply download of clone the repository master branch.
+1. To upgrade, simply download or clone the repository master branch.
 2. Upgrade the database: ``python manage.py db upgrade``
 3. (Re)Start the server: ``python application.py``
 4. Point your browser to: http://localhost:5000
