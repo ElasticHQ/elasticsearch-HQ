@@ -1,0 +1,53 @@
+{
+  "name": "backbone.basicauth",
+  "version": "0.4.2",
+  "description": "HTTP Basic Authentication for Backbone",
+  "main": "backbone.basicauth.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiznool/backbone.basicauth.git"
+  },
+  "keywords": [
+    "backbone",
+    "basic",
+    "auth",
+    "http",
+    "basicauth"
+  ],
+  "author": {
+    "name": "Tom Spencer",
+    "email": "fiznool@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fiznool/backbone.basicauth/issues"
+  },
+  "homepage": "https://github.com/fiznool/backbone.basicauth",
+  "gitHead": "44adb4438d0a550a4dfc906ce7edee1aac608477",
+  "_id": "backbone.basicauth@0.4.2",
+  "scripts": {},
+  "_shasum": "046bb3a4a9eba16c48d6d74a6bf8e5cd97975839",
+  "_from": "backbone.basicauth@latest",
+  "_npmVersion": "3.9.5",
+  "_nodeVersion": "6.2.2",
+  "_npmUser": {
+    "name": "fiznool",
+    "email": "fiznool@gmail.com"
+  },
+  "dist": {
+    "shasum": "046bb3a4a9eba16c48d6d74a6bf8e5cd97975839",
+    "tarball": "http://npm-repo-01.plant.nimbus:8080/backbone.basicauth/-/backbone.basicauth-0.4.2.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "fiznool",
+      "email": "fiznool@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/backbone.basicauth-0.4.2.tgz_1467285185312_0.6622694488614798"
+  },
+  "directories": {},
+  "_resolved": "http://npm-repo-01.plant.nimbus:8080/backbone.basicauth/-/backbone.basicauth-0.4.2.tgz"
+}
