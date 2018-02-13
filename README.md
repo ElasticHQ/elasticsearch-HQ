@@ -12,6 +12,17 @@ Simplified Monitoring and Management for ElasticSearch clusters.
 
 ![alt text](main_dashboard.png)
 
+
+Key Features
+------------
+* Monitor **many** clusters at once.
+* Monitor Nodes, Indices, Shards, and general cluster metrics.
+* Create and perform maintenance on Elasticsearch Indices.
+* One-Click access to common ES API endpoints.
+* Well-documented REST API for extensibility.
+* Active project used by Fortune 100 companies around the world.
+* Free. ;-)
+
 Requirements
 ------------
 
@@ -20,6 +31,8 @@ Requirements
 
 Installation
 ------------
+
+For **full** installation and configuration instructions, see [Getting Started](http://docs.elastichq.org/installation.html)
 
 1. Download or clone the repository. 
 2. Open terminal and point to root of repository. Type: ``pip install -r requirements.txt``
