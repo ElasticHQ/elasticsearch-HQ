@@ -10,6 +10,7 @@ Simplified Monitoring and Management for ElasticSearch clusters.
 [![License](https://img.shields.io/badge/license-ASL-blue.svg)](https://opensource.org/licenses/ASL)
 
 
+![alt text](main_dashboard.png)
 
 Requirements
 ------------
@@ -26,7 +27,7 @@ Installation
 4. Access HQ with: `` http://localhost:5000 ``
 5. All API endpoints are available through `` http://localhost:5000/api ``.  
 
-For further installation and configuration help, please read the docs: ElasticHQ Documentation
+For further installation and configuration help, please read the docs: [ElasticHQ Documentation](http://docs.elastichq.org)
 
 Docs + Support
 ---------------

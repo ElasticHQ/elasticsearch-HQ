@@ -2,7 +2,7 @@
 For Developers
 ==============
 
-.. contents:: Table of contents
+.. contents:: Table of Contents
     :depth: 3
     :local:
 
