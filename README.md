@@ -1,9 +1,15 @@
-ElasticHQ - Version 3.0 - In Development
+ElasticHQ
 =========
 
-This version is considered experimental until a formal v3.0GA release. Until then, please use the [master branch](https://github.com/ElasticHQ/elasticsearch-HQ/tree/master) of this repository for production systems.
+Simplified Monitoring and Management for ElasticSearch clusters.
 
-For the formal announcement of this version, [see here](https://groups.google.com/forum/#!topic/elastichq/rZOBFNePRKg).
+[![GitHub Stars](https://img.shields.io/github/stars/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
+[![GitHub Issues](https://img.shields.io/github/issues/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
+[![Current Version](https://img.shields.io/badge/version-3.0.0-green.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
+![Python](https://img.shields.io/badge/python-v3.4%20%2F%20v3.6-blue.svg)
+[![License](https://img.shields.io/badge/license-ASL-blue.svg)](https://opensource.org/licenses/ASL)
+
+
 
 Requirements
 ------------
