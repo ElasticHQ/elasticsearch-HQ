@@ -1,8 +1,30 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700);.top-nav .clusters-button {
-  margin-top: 0.65em; }
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700);.top-nav .cluster-item .cluster-name-success {
+  font-size: 1.2em;
+  display: block;
+  color: #43ac6a; }
+
+.top-nav .cluster-item .cluster-name-warning {
+  font-size: 1.2em;
+  display: block;
+  color: #dc3545; }
+
+.top-nav .cluster-item .cluster-host {
+  font-style: italic; }
+
+.top-nav .cluster-item:hover {
+  cursor: pointer;
+  background: #bcdff1; }
+
+.top-nav .cluster-item.active, .top-nav .cluster-item.active:hover {
+  background: #d9edf7; }
+
+.top-nav .hr {
+  padding: 0;
+  margin: 0; }
 
 .navbar-nav li > a {
-  color: #FFFFFF; }
+  color: #FFFFFF;
+  font-size: 14px; }
 
 .navbar-brand {
   background-color: #1C2B36;
