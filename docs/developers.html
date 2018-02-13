@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Developers API &mdash; ElasticHQ latest documentation</title>
+    
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ElasticHQ latest documentation" href="index.html" />
+  
+   
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    index.html" class="text-logo">ElasticHQ</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest-api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer-guide.html">For Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Developers API</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="developers-api">
+<h1><a class="toc-backref" href="#id1">Developers API</a><a class="headerlink" href="#developers-api" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#developers-api" id="id1">Developers API</a><ul>
+<li><a class="reference internal" href="#services" id="id2">Services</a><ul>
+<li><a class="reference internal" href="#connectionservice" id="id3">ConnectionService</a></li>
+<li><a class="reference internal" href="#module-elastichq.service.ClusterService" id="id4">ClusterService</a></li>
+<li><a class="reference internal" href="#clusterdbservice" id="id5">ClusterDBService</a></li>
+<li><a class="reference internal" href="#indicesservice" id="id6">IndicesService</a></li>
+<li><a class="reference internal" href="#nodeservice" id="id7">NodeService</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-elastichq.model.ClusterModel" id="id8">Models</a></li>
+<li><a class="reference internal" href="#response" id="id9">Response</a></li>
+<li><a class="reference internal" href="#exceptions" id="id10">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="services">
+<h2><a class="toc-backref" href="#id2">Services</a><a class="headerlink" href="#services" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="connectionservice">
+<h3><a class="toc-backref" href="#id3">ConnectionService</a><a class="headerlink" href="#connectionservice" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="module-elastichq.service.ClusterService">
+<span id="clusterservice"></span><h3><a class="toc-backref" href="#id4">ClusterService</a><a class="headerlink" href="#module-elastichq.service.ClusterService" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-ClusterService"></span><p><em>Module author: Roy Russo &lt;royrusso.gmail.com&gt;</em></p>
+<dl class="class">
+<dt id="elastichq.service.ClusterService.ClusterService">
+<em class="property">class </em><code class="descclassname">elastichq.service.ClusterService.</code><code class="descname">ClusterService</code><a class="reference internal" href="_modules/elastichq/service/ClusterService.html#ClusterService"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.service.ClusterService.ClusterService" title="Permalink to this definition">¶</a></dt>
+<dd><p>cc</p>
+<dl class="method">
+<dt id="elastichq.service.ClusterService.ClusterService.get_cluster_summary">
+<code class="descname">get_cluster_summary</code><span class="sig-paren">(</span><em>cluster_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/service/ClusterService.html#ClusterService.get_cluster_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.service.ClusterService.ClusterService.get_cluster_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a high-level view of the cluster using several existing endpoints from ES.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cluster_name</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="clusterdbservice">
+<h3><a class="toc-backref" href="#id5">ClusterDBService</a><a class="headerlink" href="#clusterdbservice" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="indicesservice">
+<h3><a class="toc-backref" href="#id6">IndicesService</a><a class="headerlink" href="#indicesservice" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="nodeservice">
+<h3><a class="toc-backref" href="#id7">NodeService</a><a class="headerlink" href="#nodeservice" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="module-elastichq.model.ClusterModel">
+<span id="models"></span><h2><a class="toc-backref" href="#id8">Models</a><a class="headerlink" href="#module-elastichq.model.ClusterModel" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-ClusterModel"></span><p><em>Module author: Roy Russo &lt;royrusso.gmail.com&gt;</em></p>
+<dl class="class">
+<dt id="elastichq.model.ClusterModel.ClusterDTO">
+<em class="property">class </em><code class="descclassname">elastichq.model.ClusterModel.</code><code class="descname">ClusterDTO</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/model/ClusterModel.html#ClusterDTO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.model.ClusterModel.ClusterDTO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic data transfer object for a cluster.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="elastichq.model.ClusterModel.ClusterModel">
+<em class="property">class </em><code class="descclassname">elastichq.model.ClusterModel.</code><code class="descname">ClusterModel</code><span class="sig-paren">(</span><em>cluster_name</em>, <em>cluster_ip</em>, <em>cluster_port='9200'</em>, <em>cluster_scheme='http'</em>, <em>username=None</em>, <em>password=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/model/ClusterModel.html#ClusterModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.model.ClusterModel.ClusterModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keeping it simple... cluster_name must be unique.</p>
+<dl class="attribute">
+<dt id="elastichq.model.ClusterModel.ClusterModel.cluster_host">
+<code class="descname">cluster_host</code><a class="headerlink" href="#elastichq.model.ClusterModel.ClusterModel.cluster_host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concats scheme, ip, port</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">SCHEME://IP:PORT</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="response">
+<h2><a class="toc-backref" href="#id9">Response</a><a class="headerlink" href="#response" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="elastichq.common.api_response.APIResponse">
+<code class="descclassname">elastichq.common.api_response.</code><code class="descname">APIResponse</code><span class="sig-paren">(</span><em>data</em>, <em>status_code=200</em>, <em>headers=None</em>, <em>message=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/common/api_response.html#APIResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.common.api_response.APIResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uniform response envelope</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> &#8211; Typically an array of dicts to be returned in the JSON output</li>
+<li><strong>status_code</strong> &#8211; An HTTP code</li>
+<li><strong>headers</strong> &#8211; </li>
+<li><strong>message</strong> &#8211; If an error or success message is added.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Flask-RESTFul response</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="exceptions">
+<h2><a class="toc-backref" href="#id10">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<p>All ElasticHQ API endpoints are wrapped by a decorator that handles raised exceptions.</p>
+<dl class="function">
+<dt id="elastichq.common.exceptions.request_wrapper">
+<code class="descclassname">elastichq.common.exceptions.</code><code class="descname">request_wrapper</code><span class="sig-paren">(</span><em>functor</em>, <em>message='Oops! Something bad happened.'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/common/exceptions.html#request_wrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.common.exceptions.request_wrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standardizes error handling across the app</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>functor</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="elastichq.common.exceptions.ApiException">
+<em class="property">class </em><code class="descclassname">elastichq.common.exceptions.</code><code class="descname">ApiException</code><span class="sig-paren">(</span><em>message</em>, <em>status_code=500</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/common/exceptions.html#ApiException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.common.exceptions.ApiException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic API parser/formatter for exception messages.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> &#8211; </li>
+<li><strong>status_code</strong> &#8211; Defaults to 500</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="elastichq.common.exceptions.ApiException.to_response">
+<code class="descname">to_response</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/common/exceptions.html#ApiException.to_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.common.exceptions.ApiException.to_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts an exception message to a proper status code and response JSON</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="elastichq.common.exceptions.NotFoundException">
+<em class="property">class </em><code class="descclassname">elastichq.common.exceptions.</code><code class="descname">NotFoundException</code><span class="sig-paren">(</span><em>message</em>, <em>status_code=404</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/common/exceptions.html#NotFoundException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.common.exceptions.NotFoundException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for returning HTTP 404</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> &#8211; </li>
+<li><strong>status_code</strong> &#8211; Defaults to 404</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="elastichq.common.exceptions.BadRequest">
+<em class="property">class </em><code class="descclassname">elastichq.common.exceptions.</code><code class="descname">BadRequest</code><span class="sig-paren">(</span><em>message</em>, <em>status_code=400</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/common/exceptions.html#BadRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.common.exceptions.BadRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for returning HTTP 400</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> &#8211; </li>
+<li><strong>status_code</strong> &#8211; Defaults to 400</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="elastichq.common.exceptions.InternalServerError">
+<em class="property">class </em><code class="descclassname">elastichq.common.exceptions.</code><code class="descname">InternalServerError</code><span class="sig-paren">(</span><em>message='Internal Server Error'</em>, <em>status_code=501</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/common/exceptions.html#InternalServerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.common.exceptions.InternalServerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for returning HTTP 500</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> &#8211; </li>
+<li><strong>status_code</strong> &#8211; Defaults to 500</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2018, ElasticHQ. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

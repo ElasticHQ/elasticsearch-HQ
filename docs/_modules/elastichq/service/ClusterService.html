@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>elastichq.service.ClusterService &mdash; ElasticHQ latest documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="ElasticHQ latest documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  
+   
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ElasticHQ latest documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    ../../../index.html" class="text-logo">ElasticHQ</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rest-api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer-guide.html">For Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../../index.html">Docs</a></li>
+              
+                <li><a href="../../index.html">Module code</a></li>
+              
+              <li>elastichq.service.ClusterService</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for elastichq.service.ClusterService</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. module:: ClusterService</span>
+
+<span class="sd">.. moduleauthor:: Roy Russo &lt;royrusso.gmail.com&gt;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">jmespath</span>
+
+<span class="kn">from</span> <span class="nn">elastichq.globals</span> <span class="kn">import</span> <span class="n">REQUEST_TIMEOUT</span>
+<span class="kn">from</span> <span class="nn">.ConnectionService</span> <span class="kn">import</span> <span class="n">ConnectionService</span>
+<span class="kn">from</span> <span class="nn">.NodeService</span> <span class="kn">import</span> <span class="n">NodeService</span>
+
+
+<div class="viewcode-block" id="ClusterService"><a class="viewcode-back" href="../../../developers.html#elastichq.service.ClusterService.ClusterService">[docs]</a><span class="k">class</span> <span class="nc">ClusterService</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    cc</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">get_cluster_health</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">health</span><span class="p">(</span><span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_cluster_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_cluster_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_cluster_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">stats</span><span class="p">(</span><span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_cluster_pending_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">pending_tasks</span><span class="p">(</span><span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_cluster_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">get_settings</span><span class="p">(</span><span class="n">include_defaults</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">put_cluster_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">put_settings</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">settings</span><span class="p">,</span> <span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create_if_missing</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">clusters</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connections</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cluster</span><span class="o">.</span><span class="n">cluster_connected</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">cluster</span><span class="o">.</span><span class="n">cluster_health</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_health</span><span class="p">(</span><span class="n">cluster_name</span><span class="o">=</span><span class="n">cluster</span><span class="o">.</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clusters</span>
+
+<div class="viewcode-block" id="ClusterService.get_cluster_summary"><a class="viewcode-back" href="../../../developers.html#elastichq.service.ClusterService.ClusterService.get_cluster_summary">[docs]</a>    <span class="k">def</span> <span class="nf">get_cluster_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a high-level view of the cluster using several existing endpoints from ES.</span>
+
+<span class="sd">        :param cluster_name: </span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">health</span><span class="p">(</span><span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
+        <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">version</span>
+
+        <span class="n">stats</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">stats</span><span class="p">(</span><span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
+        <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;indices_size_in_bytes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">jmespath</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;indices.store.size_in_bytes&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="p">)</span>
+        <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;indices_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">jmespath</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;indices.count&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="p">)</span>
+        <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;number_of_documents&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">jmespath</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;indices.docs.count&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="p">)</span>
+
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">NodeService</span><span class="p">()</span><span class="o">.</span><span class="n">get_node_summary</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;nodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodes</span>
+
+        <span class="k">return</span> <span class="n">summary</span></div></div>
+</pre></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ElasticHQ latest documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../../../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2018, ElasticHQ. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

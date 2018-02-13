@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>elastichq.api.clusters &mdash; ElasticHQ latest documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="ElasticHQ latest documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  
+   
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ElasticHQ latest documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    ../../../index.html" class="text-logo">ElasticHQ</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer-guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../../index.html">Docs</a></li>
+              
+                <li><a href="../../index.html">Module code</a></li>
+              
+              <li>elastichq.api.clusters</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for elastichq.api.clusters</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. module:: clusters</span>
+
+<span class="sd">.. moduleauthor:: Roy Russo &lt;royrusso.gmail.com&gt;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">request</span>
+<span class="kn">from</span> <span class="nn">flask_restful</span> <span class="kn">import</span> <span class="n">Resource</span>
+
+<span class="kn">from</span> <span class="nn">elastichq.model</span> <span class="kn">import</span> <span class="n">ClusterDTO</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">api</span>
+<span class="kn">from</span> <span class="nn">..common.api_response</span> <span class="kn">import</span> <span class="n">APIResponse</span>
+<span class="kn">from</span> <span class="nn">..common.exceptions</span> <span class="kn">import</span> <span class="n">BadRequest</span><span class="p">,</span> <span class="n">request_wrapper</span>
+<span class="kn">from</span> <span class="nn">..common.status_codes</span> <span class="kn">import</span> <span class="n">HTTP_Status</span>
+<span class="kn">from</span> <span class="nn">..service</span> <span class="kn">import</span> <span class="n">ClusterService</span><span class="p">,</span> <span class="n">ConnectionService</span>
+
+
+<div class="viewcode-block" id="ClusterConnection"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterConnection">[docs]</a><span class="k">class</span> <span class="nc">ClusterConnection</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manages cluster connection pool.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@request_wrapper</span>
+<div class="viewcode-block" id="ClusterConnection.post"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterConnection.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a connection to a given host/port. Accepts a JSON POST BODY. This will add the connection, if it doesn&#39;t already</span>
+<span class="sd">        exist, to the pool of connections and save the details in the database.</span>
+
+<span class="sd">        Responds with the `elastichq.common.api_response.APIResponse` object.</span>
+
+<span class="sd">        .. :quickref: Creates a connection to the cluster.</span>
+
+<span class="sd">        **Example request**:</span>
+
+<span class="sd">        .. sourcecode:: http</span>
+
+<span class="sd">          GET /clusters/_connect/ HTTP/1.1</span>
+<span class="sd">          Accept: application/json</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;ip&quot;: &quot;127.0.0.1&quot;,</span>
+<span class="sd">                &quot;port&quot;: &quot;9200&quot;,</span>
+<span class="sd">                &quot;use_ssl&quot;: false</span>
+<span class="sd">            }</span>
+
+<span class="sd">        **Request Structure**</span>
+
+<span class="sd">          - *(dict) --*</span>
+
+<span class="sd">            - **ip** *(string) --* IP address or host name</span>
+
+<span class="sd">            - **port** *(string) --* ES REST API port</span>
+
+<span class="sd">            - **use_ssl** *(boolean) --* Whether to use HTTPS or not.</span>
+
+<span class="sd">        **Example response**:</span>
+
+<span class="sd">        .. sourcecode:: http</span>
+
+<span class="sd">          HTTP/1.1 201</span>
+<span class="sd">          Content-Type: application/json</span>
+
+<span class="sd">            {</span>
+<span class="sd">              &quot;data&quot;: [</span>
+<span class="sd">                {</span>
+<span class="sd">                  &quot;cluster_name&quot;: &quot;&quot;,</span>
+<span class="sd">                  &quot;cluster_ip&quot;: &quot;&quot;,</span>
+<span class="sd">                  &quot;cluster_port&quot;: &quot;9200&quot;,</span>
+<span class="sd">                  &quot;cluster_scheme&quot;: &quot;http&quot;,</span>
+<span class="sd">                  &quot;cluster_connected&quot;: true,</span>
+<span class="sd">                  &quot;cluster_host&quot;: &quot;http://10.0.0.0:9200&quot;,</span>
+<span class="sd">                  &quot;cluster_version&quot;: &quot;2.3.5&quot;,</span>
+<span class="sd">                }</span>
+<span class="sd">              ],</span>
+<span class="sd">              &quot;status_code&quot;: 201,</span>
+<span class="sd">              &quot;message&quot;: null,</span>
+<span class="sd">              &quot;response_time&quot;: 92</span>
+<span class="sd">            }</span>
+
+<span class="sd">        **Response Structure**</span>
+
+<span class="sd">          - *(dict) --*</span>
+
+<span class="sd">            - **ip** *(string) --* IP address or host name</span>
+
+<span class="sd">            - **port** *(string) --* ES REST API port</span>
+
+<span class="sd">            - **use_ssl** *(boolean) --* Whether to use HTTPS or not.</span>
+
+
+<span class="sd">        :reqheader Accept: application/json</span>
+<span class="sd">        :resheader Content-Type: application/json</span>
+<span class="sd">        :status 201: connection created</span>
+<span class="sd">        :status 400: bad request</span>
+<span class="sd">        :status 500: server error</span>
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ip&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadRequest</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;Missing required parameters.&#39;</span><span class="p">)</span>
+
+        <span class="n">scheme</span> <span class="o">=</span> <span class="s1">&#39;http&#39;</span>
+        <span class="k">if</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;use_ssl&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">scheme</span> <span class="o">=</span> <span class="s1">&#39;https&#39;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">],</span> <span class="n">port</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="s2">&quot;9200&quot;</span><span class="p">),</span>
+                                                         <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span><span class="p">)</span>
+
+        <span class="n">schema</span> <span class="o">=</span> <span class="n">ClusterDTO</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">CREATED</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span></div>
+
+    <span class="nd">@request_wrapper</span>
+<div class="viewcode-block" id="ClusterConnection.delete"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterConnection.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes a connection from the connection pool and the database, by cluster name.</span>
+
+<span class="sd">        :type cluster_name: string</span>
+<span class="sd">        :param cluster_name: the name of the cluster.</span>
+<span class="sd">        :return: APIResponse</span>
+<span class="sd">        :rtype: elastichq.common.api_response.APIResponse</span>
+<span class="sd">        :rtype: :class: `elastichq.common.api_response.APIResponse`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">delete_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ClusterList"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterList">[docs]</a><span class="k">class</span> <span class="nc">ClusterList</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieves a list of all active and inactive cluster connections.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@request_wrapper</span>
+<div class="viewcode-block" id="ClusterList.get"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves a list of all active and inactive cluster connections.</span>
+
+<span class="sd">        :return:</span>
+
+<span class="sd">          **POST BODY**</span>
+
+<span class="sd">          ::</span>
+
+<span class="sd">              {</span>
+<span class="sd">                  &quot;ip&quot;: &quot;127.0.0.1&quot;,</span>
+<span class="sd">                  &quot;port&quot; : &quot;9200&quot;,</span>
+<span class="sd">                  &quot;use_ssl: true</span>
+<span class="sd">              }</span>
+
+<span class="sd">          **Request Structure**</span>
+
+<span class="sd">          - *(dict) --*</span>
+
+<span class="sd">            - **ip** *(string) --* IP address or host name</span>
+
+<span class="sd">            - **port** *(string) --* ES REST API port</span>
+
+<span class="sd">            - **use_ssl** *(boolean) --* Whether to use HTTPS or not.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ClusterService</span><span class="p">()</span><span class="o">.</span><span class="n">get_clusters</span><span class="p">()</span>
+
+        <span class="n">schema</span> <span class="o">=</span> <span class="n">ClusterDTO</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ClusterHealth"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterHealth">[docs]</a><span class="k">class</span> <span class="nc">ClusterHealth</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    qq</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@request_wrapper</span>
+<div class="viewcode-block" id="ClusterHealth.get"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterHealth.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns cluster health </span>
+<span class="sd">        :param cluster_name: </span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ClusterService</span><span class="p">()</span><span class="o">.</span><span class="n">get_cluster_health</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ClusterState"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterState">[docs]</a><span class="k">class</span> <span class="nc">ClusterState</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    q</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@request_wrapper</span>
+<div class="viewcode-block" id="ClusterState.get"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterState.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ClusterService</span><span class="p">()</span><span class="o">.</span><span class="n">get_cluster_state</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ClusterSummary"><a class="viewcode-back" href="../../../developer-guide.html#elastichq.api.clusters.ClusterSummary">[docs]</a><span class="k">class</span> <span class="nc">ClusterSummary</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Brief summary for a given cluster name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@request_wrapper</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ClusterService</span><span class="p">()</span><span class="o">.</span><span class="n">get_cluster_summary</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">ClusterStats</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="nd">@request_wrapper</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ClusterService</span><span class="p">()</span><span class="o">.</span><span class="n">get_cluster_stats</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ClusterPendingTasks</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="nd">@request_wrapper</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ClusterService</span><span class="p">()</span><span class="o">.</span><span class="n">get_cluster_pending_tasks</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ClusterSettings</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+
+    <span class="nd">@request_wrapper</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ClusterService</span><span class="p">()</span><span class="o">.</span><span class="n">get_cluster_settings</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="nd">@request_wrapper</span>
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ClusterService</span><span class="p">()</span><span class="o">.</span><span class="n">put_cluster_settings</span><span class="p">(</span><span class="n">json_data</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HTTP_Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">ClusterConnection</span><span class="p">,</span> <span class="s1">&#39;/clusters/_connect&#39;</span><span class="p">,</span> <span class="s1">&#39;/clusters/&lt;string:cluster_name&gt;/_connect&#39;</span><span class="p">,</span>
+                 <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;clusters&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">ClusterList</span><span class="p">,</span> <span class="s1">&#39;/clusters&#39;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;clusters_list&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">ClusterStats</span><span class="p">,</span> <span class="s1">&#39;/clusters/&lt;string:cluster_name&gt;/_stats&#39;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;clusters_stats&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">ClusterHealth</span><span class="p">,</span> <span class="s1">&#39;/clusters/&lt;string:cluster_name&gt;/_health&#39;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;clusters_health&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">ClusterSummary</span><span class="p">,</span> <span class="s1">&#39;/clusters/&lt;string:cluster_name&gt;/_summary&#39;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;clusters_summary&#39;</span><span class="p">,</span>
+                 <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">ClusterState</span><span class="p">,</span> <span class="s1">&#39;/clusters/&lt;string:cluster_name&gt;/_state&#39;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;clusters_state&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">ClusterPendingTasks</span><span class="p">,</span> <span class="s1">&#39;/clusters/&lt;string:cluster_name&gt;/_pending_tasks&#39;</span><span class="p">,</span>
+                 <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;clusters_pending_tasks&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">ClusterSettings</span><span class="p">,</span> <span class="s1">&#39;/clusters/&lt;string:cluster_name&gt;/_settings&#39;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;clusters_settings&#39;</span><span class="p">,</span>
+                 <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">])</span>
+</pre></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ElasticHQ latest documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../../../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2018, ElasticHQ. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

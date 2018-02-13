@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>REST API &mdash; ElasticHQ latest documentation</title>
+    
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ElasticHQ latest documentation" href="index.html" />
+    <link rel="next" title="Developer Resources" href="table-with-code.html" />
+    <link rel="prev" title="User Guide" href="page-1.html" />
+  
+   
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="table-with-code.html" title="Developer Resources"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="page-1.html" title="User Guide"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    index.html" class="text-logo">ElasticHQ</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="page-1.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">REST API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#client">Client</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="table-with-code.html">Developer Resources</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>REST API</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="rest-api">
+<h1><a class="toc-backref" href="#id1">REST API</a><a class="headerlink" href="#rest-api" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#rest-api" id="id1">REST API</a><ul>
+<li><a class="reference internal" href="#summary" id="id2">Summary</a></li>
+<li><a class="reference internal" href="#client" id="id3">Client</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<dl class="function">
+<dt id="send_message">
+<code class="descname">send_message</code><span class="sig-paren">(</span><em>sender</em>, <em>recipient</em>, <em>message_body</em><span class="optional">[</span>, <em>priority=1</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message to a recipient</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sender</strong> (<em>str</em>) &#8211; The person sending the message</li>
+<li><strong>recipient</strong> (<em>str</em>) &#8211; The recipient of the message</li>
+<li><strong>message_body</strong> (<em>str</em>) &#8211; The body of the message</li>
+<li><strong>priority</strong> (<em>integer or None</em>) &#8211; The priority of the message, can be a number 1-5</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the message id</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">int</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ValueError</strong> &#8211; if the message_body exceeds 160 characters</li>
+<li><strong>TypeError</strong> &#8211; if the message_body is not a basestring</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#id2">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="elastichq.service.ClusterService">
+<em class="property">class </em><code class="descclassname">elastichq.service.</code><code class="descname">ClusterService</code><a class="reference internal" href="_modules/elastichq/service/ClusterService.html#ClusterService"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.service.ClusterService" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="elastichq.service.ClusterService.get_cluster_summary">
+<code class="descname">get_cluster_summary</code><span class="sig-paren">(</span><em>cluster_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/service/ClusterService.html#ClusterService.get_cluster_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.service.ClusterService.get_cluster_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a high-level view of the cluster using several existing endpoints from ES.
+:param cluster_name: 
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="elastichq.common.api_response.APIResponse">
+<code class="descclassname">elastichq.common.api_response.</code><code class="descname">APIResponse</code><span class="sig-paren">(</span><em>data</em>, <em>status_code=200</em>, <em>headers=None</em>, <em>message=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/elastichq/common/api_response.html#APIResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#elastichq.common.api_response.APIResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uniform response envelope
+:param data: 
+:param status_code: An HTTP code
+:param headers: 
+:param message: 
+:return:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="client">
+<h2><a class="toc-backref" href="#id3">Client</a><a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Foo.Client">
+<em class="property">class </em><code class="descclassname">Foo.</code><code class="descname">Client</code><a class="headerlink" href="#Foo.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lorem ipsum dolor. Lorem ipsum dolor:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="s1">&#39;baz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Available methods:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#bar" title="bar"><code class="xref py py-meth docutils literal"><span class="pre">bar()</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="bar">
+<code class="descname">bar</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lorem ipsum dolor. Lorem ipsum dolor.</p>
+<p><strong>Request Syntax</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">accept_vpc_peering_connection</span><span class="p">(</span>
+    <span class="n">DryRun</span><span class="o">=</span><span class="bp">True</span><span class="o">|</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">VpcPeeringConnectionId</span><span class="o">=</span><span class="s1">&#39;string&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>DryRun</strong> (<em>boolean</em>) &#8211; Checks whether you have the required permissions for the action, without
+actually making the request, and provides an error response. If you have
+the required permissions, the error response is <code class="docutils literal"><span class="pre">DryRunOperation</span></code>.
+Otherwise, it is <code class="docutils literal"><span class="pre">UnauthorizedOperation</span></code>.</li>
+<li><strong>VpcPeeringConnectionId</strong> (<em>string</em>) &#8211; The ID of the VPC peering connection.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dict</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>Response Syntax</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;VpcPeeringConnection&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;AccepterVpcInfo&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;CidrBlock&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;OwnerId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;VpcId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;ExpirationTime&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;RequesterVpcInfo&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;CidrBlock&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;OwnerId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;VpcId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;Status&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;Code&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Message&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;Tags&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;Key&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Value&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;VpcPeeringConnectionId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Response Structure</strong></p>
+<ul>
+<li><p class="first"><em>(dict) &#8211;</em></p>
+<ul>
+<li><p class="first"><strong>VpcPeeringConnection</strong> <em>(dict) &#8211;</em> Information about the VPC peering connection.</p>
+<ul>
+<li><p class="first"><strong>AccepterVpcInfo</strong> <em>(dict) &#8211;</em> The information of the peer VPC.</p>
+<ul>
+<li><p class="first"><strong>CidrBlock</strong> <em>(string) &#8211;</em> The CIDR block for the VPC.</p>
+<ul>
+<li><p class="first"><strong>OwnerId</strong> <em>(string) &#8211;</em> The AWS account ID of the VPC owner.</p>
+</li>
+<li><p class="first"><strong>VpcId</strong> <em>(string) &#8211;</em> The ID of the VPC.</p>
+</li>
+<li><p class="first"><strong>ExpirationTime</strong> <em>(datetime) &#8211;</em> The time that an unaccepted VPC peering connection will expire.</p>
+</li>
+<li><p class="first"><strong>RequesterVpcInfo</strong> <em>(dict) &#8211;</em> The information of the requester VPC.</p>
+<ul>
+<li><p class="first"><strong>CidrBlock</strong> <em>(string) &#8211;</em> The CIDR block for the VPC.</p>
+</li>
+<li><p class="first"><strong>OwnerId</strong> <em>(string) &#8211;</em> The AWS account ID of the VPC owner.</p>
+</li>
+<li><p class="first"><strong>VpcId</strong> <em>(string) &#8211;</em> The ID of the VPC.</p>
+</li>
+<li><p class="first"><strong>Status</strong> <em>(dict) &#8211;</em> The status of the VPC peering connection.</p>
+</li>
+<li><p class="first"><strong>Code</strong> <em>(string) &#8211;</em> The status of the VPC peering connection.</p>
+</li>
+<li><p class="first"><strong>Message</strong> <em>(string) &#8211;</em> A message that provides more information about the status, if applicable.</p>
+</li>
+<li><p class="first"><strong>Tags</strong> <em>(list) &#8211;</em> Any tags assigned to the resource.</p>
+<ul>
+<li><p class="first"><em>(dict) &#8211;</em> Describes a tag.</p>
+<ul>
+<li><p class="first"><strong>Key</strong> <em>(string) &#8211;</em> The key of the tag.</p>
+<blockquote>
+<div><p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <code class="docutils literal"><span class="pre">aws:</span></code></p>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Value</strong> <em>(string) &#8211;</em> The value of the tag.</p>
+<blockquote>
+<div><p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>VpcPeeringConnectionId</strong> <em>(string) &#8211;</em> The ID of the VPC peering connection.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="page-1.html" title="previous chapter (use the left arrow)">User Guide</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="table-with-code.html" title="next chapter (use the right arrow)">Developer Resources</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="table-with-code.html" title="Developer Resources"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="page-1.html" title="User Guide"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2018, ElasticHQ. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>
