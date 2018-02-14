@@ -1,0 +1,37 @@
+<div class="index-metric-querycache ">
+    <h4>Query Cache</h4>
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Cache Size</td>
+                <td>{{indexMetricQuerycacheCtrl.stats.total.query_cache.memory_size_in_bytes | numeral: '0[.][0] b'}}</td>
+            </tr>
+            <tr>
+                <td>Query Count</td>
+                <td>{{indexMetricQuerycacheCtrl.stats.total.query_cache.total_count | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Miss Count</td>
+                <td>{{indexMetricQuerycacheCtrl.stats.total.query_cache.miss_count | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Hit Count</td>
+                <td>{{indexMetricQuerycacheCtrl.stats.total.query_cache.hit_count | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Cache Count</td>
+                <td>{{indexMetricQuerycacheCtrl.stats.total.query_cache.cache_count | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Evictions</td>
+                <td>{{indexMetricQuerycacheCtrl.stats.total.query_cache.evictions | numeral: '0[,][0]'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

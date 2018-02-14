@@ -1,0 +1,33 @@
+<div class="index-metric-search ">
+    <h4>Search Totals</h4>
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Query Total</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.query_total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Fetch Total</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.fetch_total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Scroll Total</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.scroll_total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Fetch Current Count</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.fetch_current | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Scroll Current Count</td>
+                <td>{{indexMetricSearchCtrl.stats.total.search.scroll_current | numeral: '0[,][0]'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

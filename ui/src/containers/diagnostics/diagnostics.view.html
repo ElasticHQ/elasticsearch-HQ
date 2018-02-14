@@ -1,0 +1,12 @@
+<div class="diagnostics"> 
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation></eshq-cluster-navigation>
+        </div>
+    </div>
+    <div class="row" ng-repeat="group in diagnosticsCtrl.data">
+        <div class="col-md-4" ng-repeat="item in group">
+            <eshq-node-diagnostics-wrapper node-info="item"></eshq-node-diagnostics-wrapper>
+        </div>
+    </div> 
+</div>

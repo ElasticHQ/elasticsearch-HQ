@@ -1,0 +1,34 @@
+<div class="index-metric-docs ">
+    <h4>Documents</h4>
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Primaries</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Size</td>
+                <td>{{iMDocsCtrl.stats.primaries.store.size_in_bytes | numeral: '0[.][0] b'}}</td>
+                <td>{{iMDocsCtrl.stats.total.store.size_in_bytes | numeral: '0[.][0] b'}}</td>
+            </tr>
+            <tr>
+                <td>Documents</td>
+                <td>{{iMDocsCtrl.stats.primaries.docs.count| numeral: '0[,][0]'}}</td>
+                <td>{{iMDocsCtrl.stats.total.docs.count| numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Deleted</td>
+                <td>{{iMDocsCtrl.stats.primaries.docs.deleted| numeral: '0[,][0]'}}</td>
+                <td>{{iMDocsCtrl.stats.total.docs.deleted| numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Field Data Cache</td>
+                <td>{{iMDocsCtrl.stats.primaries.fielddata.memory_size_in_bytes | numeral: '0[.][0] b'}}</td>
+                <td>{{iMDocsCtrl.stats.total.fielddata.memory_size_in_bytes | numeral: '0[.][0] b'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

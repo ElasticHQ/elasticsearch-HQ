@@ -1,0 +1,41 @@
+<div class="node-diagnostics-wrapper ">
+    <h4>{{nDWrapperCtrl.nodeInfo.name}}</h4>
+    <table class="table">
+        <tbody>
+            <tr class="section-label">
+                <td colspan="2">Summary</td>
+            </tr>
+            <tr>
+                <td>IP Address: </td>
+                <td class="rule-value" >{{nDWrapperCtrl.nodeInfo.host}}</td>
+            </tr>
+            <tr>
+                <td>Node ID: </td>
+                <td class="rule-value" >{{nDWrapperCtrl.nodeInfo.node_id}}</td>
+            </tr>
+        </tbody>
+        <tbody ng-repeat="section in nDWrapperCtrl._rules">
+            <tr  class="section-label">
+                <td colspan="2">
+                    <i class="{{section.icon}}"></i>
+                    {{section.title}}
+                </td>
+            </tr>
+            <tr ng-repeat="rule in nDWrapperCtrl.nodeInfo[section.key]">
+                <td>{{rule.rule_label}}</td>
+                <td class="rule-value" 
+                    ng-class="rule.status"
+                    uib-popover-template="'ndwPopoverTemplate.html'" 
+                    popover-title="How this rule is calculated"
+                    popover-trigger="'mouseenter'"
+                    >{{rule.rule_value | numeral:rule.format}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/ng-template" id="ndwPopoverTemplate.html">
+    <div class="popover-content">
+        <div ng-bind-html="rule.popoverContent"></div>
+    </div> 
+</script>

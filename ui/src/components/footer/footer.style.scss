@@ -1,0 +1,29 @@
+.footer {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #e5e5e5;
+    background-color: #f5f5f5;
+    font-size: 14px;
+    .mini-alert {
+        padding: 4px;
+    }
+    p {
+        margin-bottom: 0;
+        color: #777;
+    }
+
+    .footer-links {
+        margin: 10px 0;
+    }
+
+    .footer-links li {
+        display: inline;
+        padding: 0 2px;
+    }
+
+    .footer-links li:first-child {
+        padding-left: 0;
+    }
+}

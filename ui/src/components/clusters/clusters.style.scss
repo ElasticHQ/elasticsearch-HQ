@@ -1,0 +1,32 @@
+@import '../../styles/yeti-variables';
+
+.clusters {
+    .table {
+        thead {
+          th {
+            //width: 100%;
+            cursor: pointer;
+            font-size: $font-size-medium;
+            white-space: nowrap;
+          }
+        }
+        tbody {
+          td.health {
+            padding: 8px 3px;
+            &.green {
+              background: $brand-success;
+            }
+            &.yellow {
+              background: $brand-warning;
+            }
+            &.red {
+              background: $brand-danger;
+            }
+          }
+    
+          td.index_info {
+            font-size: $font-size-medium;
+          }
+        }
+    }
+}

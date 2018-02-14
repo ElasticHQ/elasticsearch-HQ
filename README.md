@@ -1,90 +1,61 @@
 ElasticHQ
 =========
 
-Monitoring, Management, and Querying Web Interface for ElasticSearch instances and clusters.
+Simplified Monitoring and Management for ElasticSearch clusters.
 
-:loudspeaker:  [Important Announcement regarding ElasticHQ v3!](https://groups.google.com/forum/#!topic/elastichq/rZOBFNePRKg)
-
-Benefits:
-* Active real-time monitoring of ElasticSearch clusters and nodes.
-* Manage Indices, Mappings, Shards, Aliases, and Nodes.
-* Query UI for searching one or multiple Indices.
-* REST UI, eliminates the need for cURL and cumbersome JSON formats.
-* No software to install/download. 100% web browser-based.
-* Optimized to work on mobile phones, tablets, and other small screen devices.
-* Easy to use and attractive user interface.
-* Free (as in Beer)
-
-Getting Started
----------------
-
-There are several ways to use ElasticHQ. The full list and help are available here: http://www.elastichq.org/gettingstarted.html
-
-* **FREE Hosted Version:** http://www.elastichq.org
-* **Install as a Plugin:** http://www.elastichq.org/support_plugin.html
-* **Download/Install Web Archive:** https://github.com/royrusso/elasticsearch-HQ/zipball/master
-
-Version Compatibility
----------------------
-
-| Elasticsearch Version | ElasticHQ Branch | Latest HQ Version |
-| --------------------- | ---------------- | ------------------|
-| <=1.7                 | 1.0              | v1.0.0            |
-| =2.x                  | 2.0              | v2.0.3            |
-| =5.x                  | 5.0              | v5.0.0            |
- 
-ElasticHQ master branch, always contains the latest releases supporting the latest Elasticsearch. In this case, Master supports 
-Elasticsearch 5.x.
-
-Plugin Installation
--------------------
-
-Navigating to your elasticsearch/bin directory and using the appropriate release tag or the master branch for ES 2.x users:
+[![GitHub Stars](https://img.shields.io/github/stars/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
+[![GitHub Issues](https://img.shields.io/github/issues/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
+[![Current Version](https://img.shields.io/badge/version-3.0.0-green.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
+![Python](https://img.shields.io/badge/python-v3.4%20%2F%20v3.6-blue.svg)
+[![License](https://img.shields.io/badge/license-ASL-blue.svg)](https://opensource.org/licenses/ASL)
 
 
-```
-./plugin install royrusso/elasticsearch-HQ
-```
+![alt text](main_dashboard.png)
 
-Or for a specific branch:
 
-```
-./plugin install royrusso/elasticsearch-HQ/v1.0.0
-```
- 
+Key Features
+------------
+* Works with 2.x, 5.x, 6.x and current versions of Elasticsearch. 
+* Monitor **many** clusters at once.
+* Monitor Nodes, Indices, Shards, and general cluster metrics.
+* Create and perform maintenance on Elasticsearch Indices.
+* One-Click access to common ES API endpoints.
+* Well-documented REST API for extensibility.
+* Active project used by Fortune 100 companies around the world.
+* Free. ;-)
+
 Requirements
 ------------
-* A Web Browser.
-* A running instance of ElasticSearch with reachable REST endpoint.
 
-Elasticsearch 5.0
------------------
+* Python 3.4+
 
-Site plugins are [not supported](https://www.elastic.co/blog/running-site-plugins-with-elasticsearch-5-0) in Elasticsearch 5.0 and you have to host ElasticHQ by your self ([nginx example](example/nginx_es_5.conf)).
 
-Enabling CORS
--------------
-You most likely need to enable CORS on your Elasticsearch yml configs for this plugin to work if using it from outside of the cluster. 
-
-```
-http.cors.enabled : true
-http.cors.allow-origin : "*"
-http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
-http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
-```
-
-Contributing
+Installation
 ------------
-You can find helpful build tips for local development tips in the [Development Guide](DEVELOPMENT.md)
 
-Notes + Support
-------------
+For **full** installation and configuration instructions, see [Getting Started](http://docs.elastichq.org/installation.html)
+
+1. Download or clone the repository. 
+2. Open terminal and point to root of repository. Type: ``pip install -r requirements.txt``
+3. Run server with: `` python application.py ``. Alternatively: ``./manage.py runserver``
+4. Access HQ with: `` http://localhost:5000 ``
+5. All API endpoints are available through `` http://localhost:5000/api ``.  
+
+For further installation and configuration help, please read the docs: [ElasticHQ Documentation](http://docs.elastichq.org)
+
+Docs + Support
+---------------
+* Documentation can be found here: http://docs.elastichq.org
 * Google Group can be found here: https://groups.google.com/d/forum/elastichq
 * If you need sample index + documents, see here: https://github.com/royrusso/elasticsearch-sample-index
-* If you find a bug, **please** create an issue and report it, or fix it and let me know. ;-)
+* If you find a bug, **please** create an issue and report it, or fix it and submit a pull request. ;-)
  
-License
-------------
-See included [License File](LICENSE.md).
+Legal Stuff
+-----------
+
+* [License File](LICENSE.md).
+* [TOS and Privacy](TERMS.md).
+
+
 
 

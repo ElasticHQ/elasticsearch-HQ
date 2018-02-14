@@ -1,0 +1,25 @@
+<div class="index-metric-ops">
+    <h4>Operations</h4>
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Flush</td>
+                <td>{{indexMetricOpsCtrl.stats.total.flush.total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Refresh</td>
+                <td>{{indexMetricOpsCtrl.stats.total.refresh.total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Merges</td>
+                <td>{{indexMetricOpsCtrl.stats.total.merges.total | numeral: '0[,][0]'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

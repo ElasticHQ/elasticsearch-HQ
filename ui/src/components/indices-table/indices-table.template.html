@@ -1,0 +1,75 @@
+<div class="indices-table ">
+        <table ts-wrapper class="table table-striped table-hover"  
+                ts-per-page-default="10"
+                ts-display-filtering="false" 
+                ts-filter-function="indicesTableCtrl.filterFn">
+            <thead>
+                <tr>
+                    <th colspan="{{indicesTableCtrl.columns.length + 1}}">
+                        <input type="text" placeholder="Search" class="form-control" ng-model="indicesTableCtrl.search.text" />
+                    </th>
+                </tr>
+                  <tr>
+                    <th ng-repeat="c in indicesTableCtrl.columns" 
+                        colspan="{{($index == 0) ? 2 : 1}}"
+                        ts-criteria="{{c.key}}">
+                        {{c.label}}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in indicesTableCtrl.data track by data.index_name" ts-repeat  ts-hide-no-data>
+                            <td ng-class="data.health" class="health"></td>
+                            <td ng-repeat="c in indicesTableCtrl.columns" ng-bind-html="indicesTableCtrl.renderCell(data, c)" class="index_info"></td>
+                        </tr>
+
+                </tbody>
+              </table>
+    <!-- <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th ng-repeat="c in indicesTableCtrl.columns" colspan="{{($index == 0) ? 2 : 1}}">
+                    <a ng-click="indicesTableCtrl.sortBy(c)" class="sorter">
+                        {{c.label}}
+                        <span ng-if="indicesTableCtrl._sorter === c.key">
+                            <i class="fa" ng-class="indicesTableCtrl.sortReverse ? 'fa-caret-up': 'fa-caret-down'"></i>
+                        </span>
+                    </a>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="{{indicesTableCtrl.columns.length + 1}}">
+                    <input type="text" placeholder="Search..."
+                            ng-model="indicesTableCtrl.search.text"
+                            class="form-control"
+                            ng-change="indicesTableCtrl.filterData()">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="data in indicesTableCtrl.data[indicesTableCtrl.currentPage - 1]">
+                <td ng-class="data.health" class="health"></td>
+                <td ng-repeat="c in indicesTableCtrl.columns" ng-bind-html="indicesTableCtrl.renderCell(data, c)" class="index_info"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+        
+                <td colspan="{{indicesTableCtrl.columns.length + 1 }}" class="text-center">
+                <ul uib-pagination ng-show="indicesTableCtrl.numPages > 1"
+                                    total-items="indicesTableCtrl.totalItems" 
+                                    ng-model="indicesTableCtrl.currentPage" 
+                                    max-size="indicesTableCtrl.maxSize" 
+                                    items-per-page="indicesTableCtrl.itemsPerPage"
+                                    ng-change="indicesTableCtrl.shouldResize()"
+                                    num-pages="indicesTableCtrl.numPages"
+                                    boundary-link-numbers="true"
+                                    previous-text="&lsaquo;" 
+                                    next-text="&rsaquo;" 
+                                    first-text="&laquo;" 
+                                    last-text="&raquo;"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table> -->
+</div>

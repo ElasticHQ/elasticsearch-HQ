@@ -1,0 +1,33 @@
+<div class="index-metric-index ">
+    <h4>Index Totals</h4>
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Index Total</td>
+                <td>{{indexMetricIndexCtrl.stats.total.indexing.index_total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Index Current Count</td>
+                <td>{{indexMetricIndexCtrl.stats.total.indexing.index_current | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Delete Total</td>
+                <td>{{indexMetricIndexCtrl.stats.total.indexing.delete_total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Delete Current Count</td>
+                <td>{{indexMetricIndexCtrl.stats.total.indexing.delete_current | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Index Failed</td>
+                <td>{{indexMetricIndexCtrl.stats.total.indexing.index_failed | numeral: '0[,][0]'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

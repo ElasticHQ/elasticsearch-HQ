@@ -2,7 +2,7 @@
 User Guide
 ==============
 
-.. contents:: Table of contents
+.. contents:: Table of Contents
     :depth: 1
     :local:
 
@@ -45,6 +45,8 @@ Running Diagnostics
 
 Reference
 ---------
+
+.. _xpack integration:
 
 X-Pack Integration
 ~~~~~~~~~~~~~~~~~~

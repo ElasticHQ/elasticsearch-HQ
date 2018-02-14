@@ -1,0 +1,57 @@
+<div class="cluster-navigation ">
+    <div class="summary-loader" ng-if="clusterNavCtrl.fetching">
+        <div>
+            Loading Cluster information <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div ng-if="!!clusterNavCtrl.fetched" class="summary-container" ng-cloak>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="cluster-name"><i class="fa fa-heartbeat icon-label {{clusterNavCtrl.summary.status}}"></i>
+                    <a ui-sref="clusterDetails({clusterName: clusterNavCtrl.clusterName})">{{clusterNavCtrl.clusterName}}</a>
+                    <small>{{clusterNavCtrl.summary.version}}</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="btn-group pull-right">
+                    <a class="btn btn-success" ui-sref-active="active"
+                       ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="bottom"
+                       uib-tooltip="List of indices"><i class="fa fa-list"></i>
+                        Indices</a>
+                    <a class="btn btn-success" ui-sref-active="active"
+                       ui-sref="clusterAliases({ clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="bottom"
+                       uib-tooltip="List of aliases"><i
+                            class="fa fa-share-alt"></i> Aliases</a>
+                    <a class="btn btn-success" ui-sref-active="active"
+                       ui-sref="diagnostics({clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="bottom"
+                       uib-tooltip="Diagnostics information"><i class="fa fa-ambulance"></i> Diagnostics</a>
+                    <a class="btn btn-success" ui-sref-active="active"
+                       ui-sref="restapi.endpoints({clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="bottom"
+                       uib-tooltip="JSON information"><i class="fa fa-code"></i> REST</a>
+                    <!--<a class="btn btn-success" ui-sref=""><i class="fa fa-code"></i> REST</a>-->
+                </div>
+            </div>
+        </div>
+        <div class="divider-3"></div>
+        <div class="row">
+            <div class="col-md-6 nodes">
+                <!--<a ng-disabled="true" class="btn btn-primary">Node Diagnostics</a>-->
+                <a ng-repeat="node in clusterNavCtrl.summary.nodes"
+                   class="btn"
+                   ng-class="node.is_master_node === true ? 'btn-primary' : 'btn-info'"
+                   ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
+                   ui-sref-active="active"
+                   popover-title="{{node.name}}"
+                   popover-placement="top-left"
+                   uib-popover="Address: {{node.host}}"
+                   popover-trigger="'mouseenter'">
+                    {{node.name}}</a>
+            </div>
+        </div>
+    </div>
+</div>

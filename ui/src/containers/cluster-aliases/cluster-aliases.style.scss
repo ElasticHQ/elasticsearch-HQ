@@ -1,0 +1,22 @@
+@import '../../styles/yeti-variables';
+
+.cluster-aliases {
+
+  table.table {
+    thead {
+      th {
+        //width: 100%;
+        cursor: pointer;
+        font-size: $font-size-medium;
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          font-size: $font-size-medium;
+        }
+      }
+    }
+  }
+}

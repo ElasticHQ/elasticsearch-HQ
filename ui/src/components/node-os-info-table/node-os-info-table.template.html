@@ -1,0 +1,31 @@
+<div class="node-os-info-table ">
+  <h4>Operating System</h4>
+  <table class="table table-condensed table-hover table-striped">
+
+    <tbody>
+    <tr>
+      <td>System Memory Used % </td>
+      <td>{{nodeOsInfoTableCtrl.stats.mem.used_percent}}%</td>
+    </tr>    <tr>
+      <td>System Memory Used</td>
+      <td>{{nodeOsInfoTableCtrl.stats.mem.used_in_bytes | numeral: '0[.][0] b'}} / {{nodeOsInfoTableCtrl.stats.mem.total_in_bytes | numeral: '0[.][0] b'}}</td>
+    </tr>
+    <tr>
+      <td>Allocated Processors</td>
+      <td>{{nodeOsInfoTableCtrl.os.allocated_processors}}</td>
+    </tr>
+    <tr>
+      <td>Available Processors</td>
+      <td>{{nodeOsInfoTableCtrl.os.available_processors}}</td>
+    </tr>
+    <tr>
+      <td>OS Name</td>
+      <td>{{nodeOsInfoTableCtrl.os.name}}</td>
+    </tr>
+    <tr>
+      <td>OS Architecture</td>
+      <td>{{nodeOsInfoTableCtrl.os.arch}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

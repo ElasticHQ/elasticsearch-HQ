@@ -1,0 +1,38 @@
+<div class="cluster-node-details">
+  <div class="row">
+    <div class="col-md-12">
+      <eshq-cluster-navigation></eshq-cluster-navigation>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+       <!--<span class="sub-info">Version: {{cNodeDetailsCtrl.info.version}}</span>-->
+      <h4>{{ cNodeDetailsCtrl.info.name}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <eshq-node-summary-info-table info="cNodeDetailsCtrl.info"></eshq-node-summary-info-table>
+    </div>
+    <div class="col-md-6">
+      <eshq-node-os-info-table os="cNodeDetailsCtrl.info.os" stats="cNodeDetailsCtrl.stats.os"></eshq-node-os-info-table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <eshq-node-jvm-stats-table jvm="cNodeDetailsCtrl.info.jvm" stats="cNodeDetailsCtrl.stats.jvm"></eshq-node-jvm-stats-table>
+    </div>
+    <div class="col-md-6">
+      <eshq-node-process-table process="cNodeDetailsCtrl.stats.process" info="cNodeDetailsCtrl.info.process"></eshq-node-process-table>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <eshq-node-fs-info-table fs="cNodeDetailsCtrl.stats.fs"></eshq-node-fs-info-table>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="node-process-table ">
+    <h4>Process</h4>
+    <table class="table table-condensed table-hover table-striped">
+
+        <tbody>
+            <!--<tr>-->
+                <!--<td>CPU started</td>-->
+                <!--<td>{{nPTableCtrl.renderTimeWords(nPTableCtrl.process.cpu.total_in_millis)}}</td>-->
+            <!--</tr>-->
+            <tr>
+                <td>CPU percent</td>
+                <td>{{nPTableCtrl.process.cpu.percent / 100 | numeral: '0[.][0][0] %'}}</td>
+            </tr>
+            <tr>
+                <td>File Descriptors</td>
+                <td>{{nPTableCtrl.process.max_file_descriptors | numeral: '0[.][0][0] a'}}</td>
+            </tr>
+            <tr>
+                <td>Open File Descriptors</td>
+                <td>{{nPTableCtrl.process.open_file_descriptors | numeral: '0[.][0][0] a'}}</td>
+            </tr>
+            
+            <tr>
+                <td>MLockAll</td>
+                <td>{{nPTableCtrl.info.mlockall}}</td>
+            </tr>            
+            <tr>
+                <td>Virtual Memory</td>
+                <td>{{nPTableCtrl.process.mem.total_virtual_in_bytes | numeral: '0[.][0][0] b'}}</td>
+            </tr>
+            <tr>
+                <td>Current Time</td>
+                <td>{{nPTableCtrl.process.timestamp | moment }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

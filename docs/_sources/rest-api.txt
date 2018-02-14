@@ -2,6 +2,8 @@
 REST API
 ========
 
+The REST API is used by the user interface to communicate to your clusters. You may also communicate directly with the REST API, via http://localhost:5000/api
+
 .. contents:: Table of Contents
 
 Connection APIs

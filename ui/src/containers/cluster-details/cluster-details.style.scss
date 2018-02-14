@@ -1,0 +1,23 @@
+@import '../../styles/yeti-variables';
+
+.cluster-details {
+
+}
+
+.node-details {
+  .table {
+    thead {
+      th {
+        //width: 100%;
+        cursor: pointer;
+        font-size: $font-size-medium;
+        white-space: nowrap;
+      }
+    }
+    tbody {
+      td {
+        font-size: $font-size-medium;
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+<div class="cluster-details">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation summary="clusterDetailsCtrl.summary"></eshq-cluster-navigation>
+        </div>
+        <div ng-if="!!clusterDetailsCtrl.fetchingIndices" class="col-md-12">
+            <div class="summary-loader">
+                <div>
+                    Loading Indices <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <eshq-cluster-summary ng-if="clusterDetailsCtrl.summary"
+                          summary="clusterDetailsCtrl.summary"></eshq-cluster-summary>
+
+    <div class="row">
+        <div class="col-md-6 node-details">
+            <h3>Nodes</h3>
+            <table ts-wrapper class="table table-striped table-hover" ts-per-page-default="10"
+                   ng-if="clusterDetailsCtrl.nodes.length">
+                <thead>
+                <tr>
+                    <th ts-criteria="name">Name</th>
+                    <th ts-criteria="is_master_node">Master</th>
+                    <th ts-criteria="is_data_node">Data</th>
+                    <th ts-criteria="host">HTTP Addr</th>
+                    <th ts-criteria="heapPercent">Heap Used</th>
+                    <th ts-criteria="fsFree">Free Space</th>
+                    <th ts-criteria="load">Load</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="node in clusterDetailsCtrl.nodes" ts-repeat ts-hide-no-data>
+                    <td>
+                        <a ui-sref="clusterNodeDetails({clusterName: clusterDetailsCtrl.clusterName, nodeId: node.node_id})">{{node['name']}}</a>
+                    </td>
+                    <td><i class="fa" ng-class="{{node.is_master_node}} ? 'fa-check-square' : ''"
+                           tooltip-placement="bottom"
+                           uib-tooltip="Current Master Node"></i><i class="fa"
+                                                                    ng-class="{{node.is_electable_master}} ? 'fa-minus' : ''"
+                                                                    tooltip-placement="bottom"
+                                                                    uib-tooltip="Electable Master Node"></i></td>
+                    <td><i class="fa" ng-class="{{node.is_data_node}} ? 'fa-check-square' : ''"></i></td>
+
+                    <td>{{node.host}}</td>
+                    <td>{{node.heapPercent}}%
+                    </td>
+                    <td>{{node.fsFree}}</td>
+                    <td>{{node.load}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h3>Indices</h3>
+            <eshq-indices-table ng-if="clusterDetailsCtrl.indices.length"
+                                indices="clusterDetailsCtrl.indices"></eshq-indices-table>
+        </div>
+    </div>
+
+
+</div>

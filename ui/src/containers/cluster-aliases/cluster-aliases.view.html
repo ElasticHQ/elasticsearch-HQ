@@ -1,0 +1,69 @@
+<div class="cluster-aliases">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation></eshq-cluster-navigation>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Aliases</h4>
+        </div>
+    </div>
+
+    <table ts-wrapper class="table table-condensed table-hover"
+                ts-per-page-default="10"
+                ts-display-filtering="false"
+                ts-filter-function="clusterAliasesCtrl.filterFn">
+        <thead>
+        <tr>
+            <th colspan="{{clusterAliasesCtrl.columns.length + 1}}">
+                <input type="text" placeholder="Search" class="form-control" ng-model="clusterAliasesCtrl.search.text"/>
+            </th>
+        </tr>
+        <tr>
+            <th ng-repeat="c in clusterAliasesCtrl.columns"
+                colspan="{{($index == 0) ? 1 : 0}}"
+                ts-criteria="{{c.key}}">
+                {{c.label}}
+            </th>
+        </tr>
+        <!--<tr>-->
+        <!--<th colspan="{{clusterAliasesCtrl.columns.length + 1}}">-->
+        <!--<input type="text" placeholder="Search..."-->
+        <!--ng-model="clusterAliasesCtrl.search.text"-->
+        <!--class="form-control"-->
+        <!--ng-change="clusterAliasesCtrl.filterData()">-->
+        <!--</th>-->
+        <!--</tr>-->
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="alias in clusterAliasesCtrl.aliases" ts-repeat ts-hide-no-data>
+            <td class="index_info"><a
+                    ui-sref="clusterIndiceDetails({clusterName: clusterAliasesCtrl.clusterName, indexName: alias.index_name})">{{alias.index_name}}</a>
+            </td>
+            <td>{{alias.alias}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+
+            <td colspan="{{clusterAliasesCtrl.columns.length + 1 }}" class="text-center">
+                <ul uib-pagination ng-show="clusterAliasesCtrl.numPages > 1"
+                    total-items="clusterAliasesCtrl.totalItems"
+                    ng-model="clusterAliasesCtrl.currentPage"
+                    max-size="clusterAliasesCtrl.maxSize"
+                    items-per-page="clusterAliasesCtrl.itemsPerPage"
+                    ng-change="clusterAliasesCtrl.shouldResize()"
+                    num-pages="clusterAliasesCtrl.numPages"
+                    boundary-link-numbers="true"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;"></ul>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+</div>

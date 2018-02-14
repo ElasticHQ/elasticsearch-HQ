@@ -1,0 +1,43 @@
+@import '../../styles/yeti-variables';
+
+.node-diagnostics-wrapper {
+  border: 1px solid #ccc;
+  padding: 10px;
+  .section-label {
+    font-size: 1.3em;
+    font-weight: 500;
+  }
+  table.table {
+    tbody {
+      td {
+        font-size: $font-size-medium;
+      }
+      td.rule-value {
+
+        text-align: right;
+        &.PASS {
+          background: $state-success-bg;
+        }
+        &.WARN {
+          background: $state-warning-bg;
+        }
+      }
+      .popover {
+        max-width: 400px;
+        font-size: 1.1em;
+        font-weight: 400;
+        .popover-inner {
+          .popover-title, .popover-content {
+            color: #000;
+            .alert > .fa {
+              font-size: 1.25em;
+            }
+            ul {
+              padding-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

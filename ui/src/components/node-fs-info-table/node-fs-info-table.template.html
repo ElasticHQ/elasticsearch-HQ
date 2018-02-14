@@ -1,0 +1,24 @@
+<div class="node-fs-info-table ">
+    <h4>File System Info</h4>
+    <table class="table table-condensed table-hover table-striped">
+
+        <tbody>
+            <tr>
+                <td>Available Space</td>
+                <td>{{nFITableCtrl.fs.total.available_in_bytes | numeral: '0[.][0] b'}}</td>
+            </tr>
+            <tr>
+                <td>Free Space</td>
+                <td>{{nFITableCtrl.fs.total.free_in_bytes | numeral: '0[.][0] b'}}</td>
+            </tr>
+            <tr>
+                <td>Total Space</td>
+                <td>{{nFITableCtrl.fs.total.total_in_bytes | numeral: '0[.][0] b'}}</td>
+            </tr>
+            <tr ng-repeat="data in nFITableCtrl.datas">
+                <td>{{data.key}}</td>
+                <td>{{data.value}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

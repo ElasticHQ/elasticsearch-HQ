@@ -1,0 +1,40 @@
+<div class="cluster-indices">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation></eshq-cluster-navigation>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" ng-if="!!clusterIndicesCtrl.fetchingIndices">
+            <div class="summary-loader">
+                <div>
+                    Loading Indices <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider-3"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-primary" ng-click="clusterIndicesCtrl.createIndex()">Create Index</a>
+        </div>
+        <div class="col-md-6">
+            <div class="btn-group pull-right">
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.refreshIndex()"><i class="fa fa-refresh"></i>
+                    Refresh</a>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.forceMergeIndex()"><i class="fa fa-compress"></i>
+                    Force Merge</a>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.flushCache()"><i class="fa fa-rotate-right"></i>
+                    Flush</a>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.clearCache()"><i class="fa fa-eraser"></i> Clear
+                    Cache</a>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.expungeDeleted()"><i class="fa fa-trash-o"></i>
+                    Expunge Deleted</a>
+            </div>
+        </div>
+    </div>
+    <div class="divider-5"></div>
+    <eshq-indices-table ng-if="!clusterIndicesCtrl.fetchingIndices"
+                        indices="clusterIndicesCtrl.indices"></eshq-indices-table>
+</div>

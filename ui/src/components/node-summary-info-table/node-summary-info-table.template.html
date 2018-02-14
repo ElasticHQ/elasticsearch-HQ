@@ -1,0 +1,38 @@
+<div class="node-summary-info-table ">
+  <h4>Summary</h4>
+  <table class="table table-condensed table-hover table-striped">
+
+    <tbody>
+    <tr>
+      <td>Address</td>
+      <td>{{nodeSummaryInfoTableCtrl.info.http.publish_address}}</td>
+    </tr>
+    <tr>
+      <td>Master Node</td>
+      <!--<i class="fa" ng-class="{{nodeSummaryInfoTableCtrl.info.settings.node.master}} ? 'fa-check-square' : ''"></i>-->
+      <td>{{nodeSummaryInfoTableCtrl.info.settings.node.master}}</td>
+    </tr>
+    <tr>
+      <td>Data Node</td>
+      <!--<i class="fa" ng-class="{{nodeSummaryInfoTableCtrl.info.settings.node.master}} ? 'fa-check-square' : ''"></i>-->
+      <td>{{nodeSummaryInfoTableCtrl.info.settings.node.data}}</td>
+    </tr>
+    <tr>
+      <td>Home Path</td>
+      <td>{{nodeSummaryInfoTableCtrl.info.settings.path.home}}</td>
+    </tr>
+    <tr>
+      <td>Data Path</td>
+      <td>{{nodeSummaryInfoTableCtrl.info.settings.path.data}}</td>
+    </tr>
+    <tr>
+      <td>Conf Path</td>
+      <td>{{nodeSummaryInfoTableCtrl.info.settings.path.conf}}</td>
+    </tr>
+    <tr>
+      <td>Logs Path</td>
+      <td>{{nodeSummaryInfoTableCtrl.info.settings.path.logs}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,24 @@
+<div class="home">
+    <div class="flex-container">
+        <div class="flex-item">
+            <div class="title-description">
+                Connect to Elasticsearch...
+            </div>
+            <form class="form-inline" ng-submit="homeCtrl.connect()" name="homeCtrl.form">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-sitemap" aria-hidden="true"></i></span>
+                    <input type="text" 
+                            class="form-control" 
+                            ng-model="homeCtrl.connection"
+                            placeholder="example > http://127.0.0.1:9200">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Connect</button>
+                    </span>
+                </div>
+            </form>
+            <div class="form-group cluster-picker">
+                <eshq-clusters-button></eshq-clusters-button>
+            </div>
+        </div>
+    </div>
+</div>

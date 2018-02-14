@@ -1,0 +1,58 @@
+@import '../../styles/yeti-variables';
+
+.top-nav {
+  .cluster-item {
+
+    .cluster-name-success {
+      font-size: 1.2em;
+      display: block;
+      color: $brand-success;
+    }
+    .cluster-name-warning {
+      font-size: 1.2em;
+      display: block;
+      color: $brand-danger;
+    }
+    .cluster-host {
+      font-style: italic;
+    }
+    &:hover {
+      cursor: pointer;
+      background: darken($state-info-bg, 7%);
+    }
+    &.active, &.active:hover {
+      background: $state-info-bg;
+    }
+  }
+  .hr {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.navbar-nav {
+  li > a {
+    color: #FFFFFF;
+    font-size: $font-size-medium;
+  }
+}
+
+.navbar-brand {
+  background-color: #1C2B36;
+  display: block;
+  font-size: 28px !important;
+  white-space: nowrap;
+  float: left;
+  font-family: 'Roboto', sans-serif;
+  outline: none !important;
+  line-height: 60px;
+
+  span {
+    color: #FFFFFF;
+  }
+
+  .a {
+    font-size: 50px;
+  }
+
+}

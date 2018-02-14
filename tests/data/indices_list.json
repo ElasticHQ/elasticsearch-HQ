@@ -1,0 +1,16 @@
+[
+  {
+    "index": "cars",
+    "data_type": "data",
+    "data_file": "dataset_cars.json",
+    "mapping_file": "mapping_cars.json",
+    "aliases": [
+      {
+        "alias": "alias1"
+      },
+      {
+        "alias": "alias2"
+      }
+    ]
+  }
+]

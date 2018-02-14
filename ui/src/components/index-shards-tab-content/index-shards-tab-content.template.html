@@ -1,0 +1,24 @@
+<div class="index-shards-tab-content ">
+    <table class="table table-condensed table-hover" ts-wrapper  ts-per-page-default="10">
+        <thead>
+            <tr>
+                <th ts-criteria="shard">Shard</th>
+                <th ts-criteria="state">State</th>
+                <th ts-criteria="docs"># Docs</th>
+                <th ts-criteria="store">Size</th>
+                <th ts-criteria="prirep">Primary</th>
+                <th ts-criteria="node">Node</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="shard in iSTabContentCtrl.shards"  ts-repeat  ts-hide-no-data>
+                <td>{{shard.shard}}</td>
+                <td>{{shard.state}}</td>
+                <td>{{shard.docs | numeral: '0[.][0] a'}}</td>
+                <td>{{shard.store}}</td>
+                <td>{{shard.prirep === 'p'}}</td>
+                <td>{{shard.node}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

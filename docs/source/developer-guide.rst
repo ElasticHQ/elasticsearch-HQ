@@ -2,7 +2,7 @@
 For Developers
 ==============
 
-.. contents:: Table of contents
+.. contents:: Table of Contents
     :depth: 3
     :local:
 
@@ -36,6 +36,36 @@ To build the final distribution that will have the UI and API accessible from po
 This will create an ``index.html`` that the Flask server will serve, under ``/elastichq/templates`` and static file bundles under ``/elastichq/static``.
 
 Once the distribution is built, you can start the server with ``python application.py`` and view the application at ``http://localhost:5000``
+
+Running Tests
+-------------
+
+1. ``/tests/scripts`` contains ``start_clusters.sh`` which will start up 3 ES clusters on ports 9200, 8200, 7200. These are versions 2.x, 5.x, and 6.x respectively.
+2. Edit ``start_clusters.sh`` to point to your local ES binaries.
+3. Source the virtual environment:
+
+.. code-block:: bash
+
+    source ../environments/elastichq/bin/activate
+
+4. To run tests:
+
+.. code-block:: bash
+
+    elastichq/run_tests
+
+
+Notes
+~~~~~
+
+* Coverage report will be appear under ``/tests/cover``.
+* All tests will fail without those 3 clusters running. They are the 3 major versions that HQ currently supports.
+* The scripts under ``/tests/scripts`` allow for starting, stopping, and listing all clusters. You will need to edit those for the tests to run.
+
+Building Documentation
+----------------------
+
+``./sphinx-build -b html /path/to/docs/source /path/to/docs``
 
 HTTP Responses
 --------------
@@ -78,3 +108,4 @@ Issues/Bugs
 
 Patches, bug reports, and feature requests are all welcome through the `GitHub site
 <https://github.com/ElasticHQ/elasticsearch-HQ/>`_. Contributions in the form of patches or pull requests are easier to integrate and will receive priority attention.
+

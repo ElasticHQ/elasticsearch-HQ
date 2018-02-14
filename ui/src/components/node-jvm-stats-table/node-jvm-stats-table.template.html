@@ -1,0 +1,31 @@
+<div class="node-jvm-stats-table">
+  <h4>JVM</h4>
+  <table class="table table-condensed table-hover table-striped">
+    <tbody>
+    <tr>
+      <td>Version</td>
+      <td>{{nodeJvmStatsTableCtrl.jvm.vm_name}} ({{nodeJvmStatsTableCtrl.jvm.version}})</td>
+    </tr>
+    <tr>
+      <td>Process ID</td>
+      <td>{{nodeJvmStatsTableCtrl.jvm.pid}}</td>
+    </tr>
+    <tr>
+      <td>Heap Used %</td>
+      <td>{{nodeJvmStatsTableCtrl.stats.mem.heap_used_percent}}%</td>
+    </tr>
+    <tr>
+      <td>Heap Used/Max</td>
+      <td>{{nodeJvmStatsTableCtrl.stats.mem.heap_used_in_bytes | numeral: '0[.][0] b'}} / {{nodeJvmStatsTableCtrl.stats.mem.heap_max_in_bytes | numeral: '0[.][0] b'}}</td>
+    </tr>
+    <tr>
+      <td>GC Collections (Old/Young)</td>
+      <td>{{nodeJvmStatsTableCtrl.stats.gc.collectors.old.collection_count | numeral: '0[,][0]'}} / {{nodeJvmStatsTableCtrl.stats.gc.collectors.young.collection_count | numeral: '0[,][0]'}}</td>
+    </tr>
+    <tr>
+      <td>Threads (Peak/Max)</td>
+      <td>{{nodeJvmStatsTableCtrl.stats.threads.peak_count | numeral: '0[,][0]'}} / {{nodeJvmStatsTableCtrl.stats.threads.count | numeral: '0[,][0]'}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

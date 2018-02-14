@@ -88,6 +88,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#building-a-distribution">Building a Distribution</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#building-documentation">Building Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#http-responses">HTTP Responses</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#http-status">HTTP Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#response-headers">Response Headers</a></li>
@@ -133,19 +138,24 @@
   <div class="section" id="for-developers">
 <h1>For Developers<a class="headerlink" href="#for-developers" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="table-of-contents">
-<p class="topic-title first">Table of contents</p>
+<p class="topic-title first">Table of Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#building-pre-releases" id="id1">Building Pre-Releases</a><ul>
 <li><a class="reference internal" href="#install-build-the-ui" id="id2">Install/Build the UI</a></li>
 <li><a class="reference internal" href="#building-a-distribution" id="id3">Building a Distribution</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#http-responses" id="id4">HTTP Responses</a><ul>
-<li><a class="reference internal" href="#http-status" id="id5">HTTP Status</a></li>
-<li><a class="reference internal" href="#response-headers" id="id6">Response Headers</a></li>
+<li><a class="reference internal" href="#running-tests" id="id4">Running Tests</a><ul>
+<li><a class="reference internal" href="#notes" id="id5">Notes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#issues-bugs" id="id7">Issues/Bugs</a></li>
+<li><a class="reference internal" href="#building-documentation" id="id6">Building Documentation</a></li>
+<li><a class="reference internal" href="#http-responses" id="id7">HTTP Responses</a><ul>
+<li><a class="reference internal" href="#http-status" id="id8">HTTP Status</a></li>
+<li><a class="reference internal" href="#response-headers" id="id9">Response Headers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#issues-bugs" id="id10">Issues/Bugs</a></li>
 </ul>
 </div>
 <div class="section" id="building-pre-releases">
@@ -174,10 +184,39 @@ pre-release versions have to be built manually - with the UI and API working in 
 <p>Once the distribution is built, you can start the server with <code class="docutils literal"><span class="pre">python</span> <span class="pre">application.py</span></code> and view the application at <code class="docutils literal"><span class="pre">http://localhost:5000</span></code></p>
 </div>
 </div>
+<div class="section" id="running-tests">
+<h2><a class="toc-backref" href="#id4">Running Tests</a><a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">/tests/scripts</span></code> contains <code class="docutils literal"><span class="pre">start_clusters.sh</span></code> which will start up 3 ES clusters on ports 9200, 8200, 7200. These are versions 2.x, 5.x, and 6.x respectively.</li>
+<li>Edit <code class="docutils literal"><span class="pre">start_clusters.sh</span></code> to point to your local ES binaries.</li>
+<li>Source the virtual environment:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">source</span> ../environments/elastichq/bin/activate
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>To run tests:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>elastichq/run_tests
+</pre></div>
+</div>
+<div class="section" id="notes">
+<h3><a class="toc-backref" href="#id5">Notes</a><a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Coverage report will be appear under <code class="docutils literal"><span class="pre">/tests/cover</span></code>.</li>
+<li>All tests will fail without those 3 clusters running. They are the 3 major versions that HQ currently supports.</li>
+<li>The scripts under <code class="docutils literal"><span class="pre">/tests/scripts</span></code> allow for starting, stopping, and listing all clusters. You will need to edit those for the tests to run.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="building-documentation">
+<h2><a class="toc-backref" href="#id6">Building Documentation</a><a class="headerlink" href="#building-documentation" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">./sphinx-build</span> <span class="pre">-b</span> <span class="pre">html</span> <span class="pre">/path/to/docs/source</span> <span class="pre">/path/to/docs</span></code></p>
+</div>
 <div class="section" id="http-responses">
-<h2><a class="toc-backref" href="#id4">HTTP Responses</a><a class="headerlink" href="#http-responses" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">HTTP Responses</a><a class="headerlink" href="#http-responses" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="http-status">
-<h3><a class="toc-backref" href="#id5">HTTP Status</a><a class="headerlink" href="#http-status" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">HTTP Status</a><a class="headerlink" href="#http-status" title="Permalink to this headline">¶</a></h3>
 <p>All response codes are included in the HTTP Status response header. There are method-specific responses to take note of:</p>
 <ul class="simple">
 <li>POST - Returns <code class="docutils literal"><span class="pre">201</span></code></li>
@@ -186,7 +225,7 @@ pre-release versions have to be built manually - with the UI and API working in 
 </ul>
 </div>
 <div class="section" id="response-headers">
-<h3><a class="toc-backref" href="#id6">Response Headers</a><a class="headerlink" href="#response-headers" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">Response Headers</a><a class="headerlink" href="#response-headers" title="Permalink to this headline">¶</a></h3>
 <p>Standard header response below:</p>
 <div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Access-Control-Allow-Credentials</span><span class="o">:</span> <span class="l">true</span>
@@ -209,7 +248,7 @@ pre-release versions have to be built manually - with the UI and API working in 
 </div>
 </div>
 <div class="section" id="issues-bugs">
-<h2><a class="toc-backref" href="#id7">Issues/Bugs</a><a class="headerlink" href="#issues-bugs" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Issues/Bugs</a><a class="headerlink" href="#issues-bugs" title="Permalink to this headline">¶</a></h2>
 <p>Patches, bug reports, and feature requests are all welcome through the <a class="reference external" href="https://github.com/ElasticHQ/elasticsearch-HQ/">GitHub site</a>. Contributions in the form of patches or pull requests are easier to integrate and will receive priority attention.</p>
 </div>
 </div>

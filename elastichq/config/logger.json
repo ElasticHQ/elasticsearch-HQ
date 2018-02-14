@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "simple": {
+      "format": "%(asctime)s \t %(levelname)s \t %(name)s \t %(module)s.%(funcName)s:%(lineno)d \t %(message)s"
+    }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "level": "DEBUG",
+      "formatter": "simple",
+      "stream": "ext://sys.stdout"
+    },
+    "standard_handler": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "level": "DEBUG",
+      "formatter": "simple",
+      "filename": "application.log",
+      "maxBytes": 104857600,
+      "backupCount": 2,
+      "encoding": "utf8"
+    }
+  },
+  "loggers": {
+    "elastichq": {
+      "level": "DEBUG",
+      "handlers": [],
+      "propagate": "no"
+    },
+    "sqlalchemy": {
+      "level": "INFO",
+      "handlers": [],
+      "qualname": "sqlalchemy",
+      "propagate": "no"
+    },
+    "flasklogger": {
+      "level": "DEBUG",
+      "handlers": [],
+      "qualname": "flasklogger",
+      "propagate": "no"
+    },
+    "werkzeug": {
+      "level": "DEBUG",
+      "handlers": [],
+      "qualname": "werkzeug",
+      "propagate": "no"
+    },
+    "requests": {
+      "level": "WARN",
+      "handlers": [],
+      "qualname": "requests",
+      "propagate": "no"
+    },
+    "elasticsearch": {
+      "level": "DEBUG",
+      "handlers": [],
+      "qualname": "requests",
+      "propagate": "no"
+    },
+    "elasticsearch.trace": {
+      "level": "INFO",
+      "handlers": [],
+      "qualname": "requests",
+      "propagate": "no"
+    },
+    "urllib3.connectionpool": {
+      "level": "ERROR",
+      "handlers": [],
+      "qualname": "urllib3",
+      "propagate": "no"
+    }
+  },
+  "root": {
+    "level": "DEBUG",
+    "handlers": [
+      "console"
+    ]
+  }
+}

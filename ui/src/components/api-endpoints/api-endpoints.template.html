@@ -1,0 +1,19 @@
+<div class="api-endpoints ">
+    <div class="left-nav">
+        <div class="options-group"
+            ng-repeat="(label,options) in apiEndpointsCtrl.groupedOptions">
+            <div class="api-label">{{label}}</div>
+            <a class="api-option"
+                ng-repeat="opt in options"
+                ng-click="apiEndpointsCtrl.optionClicked(opt)">
+                <i class="fa fa-angle-double-right"></i> {{opt.short_label}}</a>
+        </div>
+    </div>
+    <div>
+        <div ng-show="apiEndpointsCtrl._toRender">
+            <div hljs
+         
+                hljs-source="apiEndpointsCtrl._toRender"></div>
+        </div>
+    </div>
+</div>

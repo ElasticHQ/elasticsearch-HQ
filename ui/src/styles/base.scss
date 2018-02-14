@@ -1,0 +1,143 @@
+
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$fa-font-path: "~font-awesome/fonts";
+
+//$border-radius-base:        0px !default;
+//$border-radius-large:       0px !default;
+//$border-radius-small:       0px !default;
+
+$navbar-default-bg: #1C2B36 !default;
+$navbar-default-border: darken($navbar-default-bg, 6.5%) !default;
+
+// //=== Shared nav styles
+$nav-link-hover-bg: lighten($navbar-default-bg, 7%) !default;
+
+@import './yeti-variables';
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import './yeti-bootswatch';
+@import '~font-awesome/scss/font-awesome.scss';
+
+@import '~angular-ui-notification/dist/angular-ui-notification.css';
+@import '~angular-tablesort/tablesort.css';
+
+// Removes horizontal scrollbar that's sometimes caused by the "divider-#" classes below.
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  padding-bottom: 200px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  height: 200px;
+}
+
+.top-nav {
+  .nav > li > a:hover, 
+  .nav > li > a:focus {
+    color: #eee;
+  }
+}
+
+.nav-pills > li, 
+.nav-pills > li {
+  > a:hover,
+  > a:focus {
+    background: #eee;
+  }
+}
+
+.summary-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  margin-bottom: 1em;
+  background: rgb(224, 224, 224);
+}
+
+.alert.summary-panel {
+  text-align: center;
+  padding: 10px 15px;
+  .number { font-size: 1.8em; }
+  .summary-label { font-size: 1.0em; }
+}
+.icon-label {
+  &.green {
+    color: $brand-success;
+  }
+  &.yellow {
+    color: $brand-warning;
+  }
+  &.red {
+    color: $brand-danger;
+  }
+}
+.status-label {
+  &.green {
+    background: $brand-success;
+  }
+  &.yellow {
+    background: $brand-warning;
+  }
+  &.red {
+    background: $brand-danger;
+  }
+}
+
+table .tablesort-sortable,table .tablesort-sortable{
+  color: $link-color;
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+table .tablesort-asc,table .tablesort-desc{
+  background-color:rgba(141, 192, 219, 0.25);
+}
+
+.custom-pagination-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  .pagination-desc {
+    align-self: center;
+  }
+  ul {
+    margin: 0 10px;
+  }
+  .form-group {
+    margin-bottom: 0;
+  }
+}
+
+.divider-3 {
+  width: 100%;
+  min-height: 1px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  display: inline-block;
+  position: relative;
+}
+.divider-5 {
+  width: 100%;
+  min-height: 1px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+  position: relative;
+}
+.divider-10 {
+  width: 100%;
+  min-height: 1px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+  position: relative;
+}

@@ -1,32 +1,68 @@
 {
-  "author": {
-    "name": "Roy Russo",
-    "company": "RazorBack, LLC"
+  "name": "elasticsearch-hq",
+  "version": "1.0.0",
+  "description": "ElasticHQ - Version 3.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
   },
-  "homepage": "http://www.elastichq.org",
-  "name": "ElasticHQ",
-  "version": "5.0.0",
-  "devDependencies": {
-    "grunt": "~0.4.0",
-    "grunt-contrib": "~0.7.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-cssmin": "~0.6.1",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-string-replace": "~0.2.4",
-    "grunt-contrib-htmlmin": "~0.1.3",
-    "grunt-angular-templates": "~0.3.12",
-    "grunt-contrib-compress": "~0.5.2",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-rev": "~0.1.0",
-    "grunt-usemin": "~2.0.2",
-    "grunt-targethtml": "~0.2.4",
-    "lodash" : ""
+  "scripts": {
+    "test": "NODE_ENV=test karma start",
+    "start": "./node_modules/.bin/webpack-dev-server --hot --inline  --progress",
+    "build": "rm -rf elastichq/static/* && webpack --config webpack.prod.js --progress",
+    "make:component": "./node_modules/.bin/babel-node ui/build_scripts/make_component",
+    "make:container": "./node_modules/.bin/babel-node ui/build_scripts/make_container",
+    "make:service": "./node_modules/.bin/babel-node ui/build_scripts/make_service",
+    "make:filter": "./node_modules/.bin/babel-node ui/build_scripts/make_filter"
   },
-  "license": "Apache License",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElasticHQ/elasticsearch-HQ.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElasticHQ/elasticsearch-HQ/issues"
+  },
+  "homepage": "https://github.com/ElasticHQ/elasticsearch-HQ#readme",
   "dependencies": {
-    "moment": "~2.5.0"
+    "@uirouter/angularjs": "^1.0.12",
+    "angular": "^1.6.8",
+    "angular-highlightjs": "^0.7.1",
+    "angular-tablesort": "^1.6.0",
+    "angular-ui-bootstrap": "^2.5.6",
+    "angular-ui-notification": "^0.3.6",
+    "babel-polyfill": "^6.26.0",
+    "font-awesome": "^4.7.0",
+    "highlight.js": "^9.12.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.20.1",
+    "ng-animate": "^0.3.1",
+    "numeral": "^2.0.6",
+    "semver-parser": "^1.0.14"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.39",
+    "@babel/core": "^7.0.0-beta.39",
+    "@babel/node": "^7.0.0-beta.39",
+    "@babel/preset-env": "^7.0.0-beta.39",
+    "babel-loader": "^8.0.0-beta.0",
+    "bootstrap-sass": "^3.3.7",
+    "css-loader": "^0.28.8",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "html-webpack-plugin": "^2.30.1",
+    "jslint": "^0.11.0",
+    "ng-annotate-loader": "^0.6.1",
+    "ng-cache-loader": "0.0.26",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-clean-obsolete-chunks": "^0.3.0",
+    "webpack-dev-server": "^2.11.0"
   }
 }

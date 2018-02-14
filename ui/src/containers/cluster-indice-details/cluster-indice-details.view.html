@@ -1,0 +1,119 @@
+<div class="cluster-indice-details">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation></eshq-cluster-navigation>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="summary-loader" ng-if="cIndDetailsCtrl.fetching">
+                <div>
+                    Loading {{cIndDetailsCtrl.fetchingTitle}} <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <h4><i class="fa fa-database  icon-label {{cIndDetailsCtrl.summary.health}}"></i>
+                {{cIndDetailsCtrl.indexName}}</h4>
+        </div>
+    </div>
+    <div class="divider-3"></div>
+    <div class="row">
+        <div class="col-md-3" ng-repeat="item in cIndDetailsCtrl.firstRow">
+            <div class="alert alert-info summary-panel">
+                <div class="number">{{item.value}}</div>
+                <div class="summary-label">{{item.label}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="divider-3"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <uib-tabset type="pills">
+                <uib-tab index="0" heading="Metrics" ng-click="cIndDetailsCtrl.fetchMetrics()">
+                    <div class="divider-3"></div>
+                    <eshq-index-metrics-tab-content summary="cIndDetailsCtrl.summary"
+                                                    stats="cIndDetailsCtrl.stats"></eshq-index-metrics-tab-content>
+                </uib-tab>
+                <uib-tab index="1" heading="Shards" ng-click="cIndDetailsCtrl.fetchShards()">
+                    <div class="divider-3"></div>
+                    <eshq-index-shards-tab-content shards="cIndDetailsCtrl.shards"
+                    ></eshq-index-shards-tab-content>
+                </uib-tab>
+                <uib-tab index="2" heading="Aliases" ng-click="cIndDetailsCtrl.fetchAliases()">
+                    <div class="divider-3"></div>
+                    <eshq-index-aliases-tab-content aliases="cIndDetailsCtrl.aliases"
+                                                    fetch-fn="cIndDetailsCtrl.fetchAliases()"
+                    ></eshq-index-aliases-tab-content>
+                </uib-tab>
+                <uib-tab index="3" heading="Mappings" ng-click="cIndDetailsCtrl.fetchMapping()">
+                    <div class="divider-3"></div>
+                    <eshq-index-mappings-tab-content mappings="cIndDetailsCtrl.mappings">
+                    </eshq-index-mappings-tab-content>
+                </uib-tab>
+                <uib-tab index="4" heading="Administration">
+                    <div class="divider-3"></div>
+                    <table class="table administration">
+                        <tbody>
+                        <tr>
+                            <td class="action-btn"><a class="btn btn-default btn-block"
+                                                      ng-click="cIndDetailsCtrl.flushCache()"><i class="fa fa-rotate-right"></i> Flush Cache</a></td>
+                            <td>The flush process frees memory from the index by flushing data to
+                                the index storage and clearing the internal transaction log. By default, ElasticSearch
+                                uses memory heuristics in order to automatically trigger flush operations as required in
+                                order to clear memory.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="action-btn"><a class="btn btn-default btn-block"
+                                                      ng-click="cIndDetailsCtrl.clearCache()"><i class="fa fa-eraser"></i> Clear Cache</a></td>
+                            <td>Clears the field data cache, filter cache, and parent/child cache.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="action-btn"><a class="btn btn-default btn-block"
+                                                      ng-click="cIndDetailsCtrl.forceMergeIndex()"><i class="fa fa-compress"></i> Force Merge Index</a>
+                            </td>
+                            <td>The force merge process optimizes the index for faster search operations (and
+                                relates to the number of segments a lucene index holds within each shard). This
+                                operation reduces the number of segments by merging them. <strong>Should not be done on
+                                    a cluster with active/live writes!</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="action-btn"><a class="btn btn-default btn-block"
+                                                      ng-click="cIndDetailsCtrl.refreshIndex()"><i class="fa fa-refresh"></i> Refresh Index</a></td>
+                            <td>Makes all operations performed since the last refresh available for search. The (near)
+                                real-time capabilities depend on the index engine used. By default refreshes are
+                                scheduled periodically within Elasticsearch.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="action-btn"><a class="btn btn-default btn-block"
+                                                      ng-click="cIndDetailsCtrl.expungeDeleted()"><i class="fa fa-trash-o"></i> Expunge Deleted</a></td>
+                            <td>Attempts to clear deleted documents from disk during the merge process.
+                            </td>
+                        </tr>
+                        <!--<tr>-->
+                        <!--<td class="action-btn"><a class="btn btn-warning btn-block"-->
+                        <!--ng-click="cIndDetailsCtrl.closeIndex()">Close Index</a></td>-->
+                        <!--<td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos mollitia sed sunt-->
+                        <!--dolores ipsa id maiores quam quae cum, adipisci laboriosam at sint,-->
+                        <!--suscipit perferendis obcaecati dolorem iure dolor tempora.-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td class="action-btn"><a class="btn btn-danger btn-block"-->
+                        <!--ng-click="cIndDetailsCtrl.deleteIndex()">Delete Index</a></td>-->
+                        <!--<td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos mollitia sed sunt-->
+                        <!--dolores ipsa id maiores quam quae cum, adipisci laboriosam at sint,-->
+                        <!--suscipit perferendis obcaecati dolorem iure dolor tempora.-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        </tbody>
+                    </table>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

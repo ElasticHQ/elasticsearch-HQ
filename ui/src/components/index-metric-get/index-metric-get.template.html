@@ -1,0 +1,25 @@
+<div class="index-metric-get ">
+    <h4>Get Totals</h4>
+    <table class="table table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody> 
+            <tr>
+                <td>Exists</td>
+                <td>{{indexMetricGetCtrl.stats.primaries.get.exists_total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Missing</td>
+                <td>{{indexMetricGetCtrl.stats.primaries.get.missing_total | numeral: '0[,][0]'}}</td>
+            </tr>
+            <tr>
+                <td>Gets</td>
+                <td>{{indexMetricGetCtrl.stats.primaries.get.total | numeral: '0[,][0]'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

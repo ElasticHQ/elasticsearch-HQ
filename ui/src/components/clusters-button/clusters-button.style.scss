@@ -1,0 +1,22 @@
+@import '../../styles/yeti-variables';
+
+.clusters-button {
+  .cluster-name-success {
+    font-size: 1.2em;
+    display: block;
+    color: $brand-success;
+  }
+  .cluster-name-warning {
+    font-size: 1.2em;
+    display: block;
+    color: $brand-danger;
+  }
+  .cluster-host {
+    font-style: italic;
+  }
+
+  .hr {
+    padding: 0;
+    margin: 0;
+  }
+}

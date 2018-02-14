@@ -1,0 +1,25 @@
+@import '../../styles/yeti-variables';
+
+.cluster-node-details {
+  h4 > .sub-info {
+    font-size: 0.75em;
+    font-weight: 400;
+  }
+
+  table.table {
+    thead {
+      th {
+        width: 100%;
+        cursor: pointer;
+        font-size: $font-size-medium;
+      }
+    }
+    tbody {
+      tr {
+        td {
+          font-size: $font-size-medium;
+        }
+      }
+    }
+  }
+}

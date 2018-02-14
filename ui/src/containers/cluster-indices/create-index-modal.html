@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">
+        Add Index to <span style="color:rebeccapurple;font-weight:400">{{clusterName}}</span> Cluster
+    </h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div>
+        <form name="ciForm">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" ng-model="formData.index_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Number of Shards</label>
+                <input type="number" ng-model="formData.settings.number_of_shards" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Number of Replicas</label>
+                <input type="number" ng-model="formData.settings.number_of_replicas" class="form-control" required>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-disabled="!ciForm.$valid" type="button" ng-click="save()">Save</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>

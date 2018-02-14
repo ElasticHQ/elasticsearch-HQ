@@ -1,0 +1,24 @@
+<div class="clusters-button ">
+    <div class="btn-group "  uib-dropdown is-open="clustersButtonCtrl.isopen">
+        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="!clustersButtonCtrl.clusters.length">
+            Choose a cluster&nbsp;<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem" ng-repeat="c in clustersButtonCtrl.clusters">
+                <a ng-click="clustersButtonCtrl.goToCluster(c)">
+                    <span class="cluster-name-success" ng-if="c.cluster_connected"><i class="fa fa-link"></i> {{c.cluster_name}}</span>
+                    <span class="cluster-name-warning" ng-if="!c.cluster_connected"><i class="fa fa-chain-broken"></i> {{c.cluster_name}}</span>
+                    <span class="cluster-host">
+                        {{c.cluster_host}}
+                    </span>
+                </a>
+                <hr class="hr"/>
+            </li>
+            <li>
+                <a ng-click="clustersButtonCtrl.getClusters();">
+                        <span class="cluster-name"><i class="fa fa-refresh"></i>  Refresh List</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

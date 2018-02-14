@@ -1,0 +1,39 @@
+<div class="clusters ">
+    <table ts-wrapper class="table table-striped table-hover"
+           ts-per-page-default="10"
+           ts-display-filtering="false"
+           ts-filter-function="clustersCtrl.filterFn">
+        <thead>
+        <tr>
+            <th colspan="{{clustersCtrl.columns.length}}">
+                <input type="text" placeholder="Search" class="form-control" ng-model="clustersCtrl.search.text"/>
+            </th>
+            <th colspan="2">
+                <button ng-click="clustersCtrl.addCluster()" class="btn btn-primary btn-block">
+                    Add Cluster Connection
+                </button>
+            </th>
+        </tr>
+        <tr>
+            <th ng-repeat="c in clustersCtrl.columns"
+                colspan="{{($index == 0) ? 2 : 1}}"
+                ts-criteria="{{c.key}}">
+                {{c.label}}
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in clustersCtrl.clusters track by data.cluster_name" ts-repeat ts-hide-no-data>
+            <td ng-class="data.cluster_health.status" class="health"></td>
+            <td ng-repeat="c in clustersCtrl.columns" ng-bind-html="clustersCtrl.renderCell(data, c)"
+                class="index_info"></td>
+            <td><a class="btn btn-danger" ui-sref-active="active"
+                   ng-click="clustersCtrl.deleteCluster(data.cluster_name)"
+                   tooltip-placement="top"
+                   uib-tooltip="Removes the connection to this cluster in ElasticHQ."><i class="fa fa-remove"></i></a></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
