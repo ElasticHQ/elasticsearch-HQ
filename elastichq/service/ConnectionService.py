@@ -64,7 +64,7 @@ class ConnectionService:
             ClusterDBService().save_cluster(cluster_model)
             return cluster_model
         except Exception as ex:
-            LOG.error("Unable to create connection!", ex)
+            LOG.error("Unable to create connection to: " + scheme + "://" + ip + ":" + port, ex)
             return None
 
     def add_connection(self, cluster_name, conn):
@@ -104,7 +104,8 @@ class ConnectionService:
                     try:
                         if cluster.is_basic_auth is True:
                             self.create_connection(ip=cluster.cluster_ip, port=cluster.cluster_port,
-                                                   scheme=cluster.cluster_scheme, username=cluster.cluster_username, password=cluster.cluster_password)
+                                                   scheme=cluster.cluster_scheme, username=cluster.cluster_username,
+                                                   password=cluster.cluster_password)
                         else:
                             self.create_connection(ip=cluster.cluster_ip, port=cluster.cluster_port,
                                                    scheme=cluster.cluster_scheme)
