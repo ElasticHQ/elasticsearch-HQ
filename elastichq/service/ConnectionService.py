@@ -82,6 +82,8 @@ class ConnectionService:
             cluster_model.cluster_connected = True
             ClusterDBService().save_cluster(cluster_model)
             return cluster_model
+        except ConnectionNotAuthorized as cna:
+            raise cna
         except Exception as ex:
             message = "Unable to create connection to: " + scheme + "://" + ip + ":" + port
             LOG.error(message, ex)

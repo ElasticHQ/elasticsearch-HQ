@@ -30,7 +30,12 @@ class homeController {
             // this.$state.go('configuration.users.detail', {user_id: user.id}, {reload: true});
             console.log('----- state: ', this.$state)
         }, (err) => {
-
+            if (err.status == 404) {
+                this.Notification.error({message: `Cluster connection Failed! <br/><br/> Check server logs if problem persists.`, delay: 3000});
+            } else if (err.status == 401) {
+                this.Notification.error({message: `Cluster connection Failed! <br/><br/> Server responded with UNAUTHORIZED.`, delay: 3000});
+            }
+            console.log('ERR: ' , err);
         })
     }
 
