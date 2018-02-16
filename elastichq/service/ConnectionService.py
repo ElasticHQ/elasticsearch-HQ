@@ -12,6 +12,16 @@ from ..vendor.elasticsearch import Elasticsearch
 from ..vendor.elasticsearch.connections import ConnectionNotFoundException
 
 
+class ConnectionNotAuthorized(Exception):
+    """
+
+    """
+
+    def __init__(self, message, status_code=401):
+        super().__init__(message, status_code)
+        self.message = message
+
+
 class ConnectionService:
     """
     Manages connection pools to all clusters. This class serves as an interface to the ES Connections object.
@@ -34,6 +44,11 @@ class ConnectionService:
         """
         try:
             is_basic_auth = False
+
+            # clean the params
+            username = None if username == "" else username
+            password = None if password == "" else password
+
             if username is not None and password is not None:
                 is_basic_auth = True
 
@@ -43,6 +58,10 @@ class ConnectionService:
                                         timeout=REQUEST_TIMEOUT)
             else:
                 response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
+
+            if response.status_code == 401:
+                message = "Unable to create connection! Server returned 401 - UNAUTHORIZED: " + scheme + "://" + ip + ":" + port
+                raise ConnectionNotAuthorized(message=message)
 
             content = json.loads(response.content.decode('utf-8'))
 
@@ -64,8 +83,9 @@ class ConnectionService:
             ClusterDBService().save_cluster(cluster_model)
             return cluster_model
         except Exception as ex:
-            LOG.error("Unable to create connection to: " + scheme + "://" + ip + ":" + port, ex)
-            return None
+            message = "Unable to create connection to: " + scheme + "://" + ip + ":" + port
+            LOG.error(message, ex)
+            raise ex
 
     def add_connection(self, cluster_name, conn):
         CONNECTIONS.add_connection(alias=cluster_name, conn=conn)

@@ -6,13 +6,14 @@
 
 from flask import request
 from flask_restful import Resource
+from requests.exceptions import ConnectionError
 
 from elastichq.model import ClusterDTO
 from . import api
 from ..common.api_response import APIResponse
 from ..common.exceptions import BadRequest, request_wrapper
 from ..common.status_codes import HTTP_Status
-from ..service import ClusterService, ConnectionService
+from ..service import ClusterService, ConnectionNotAuthorized, ConnectionService
 
 
 class ClusterConnection(Resource):
@@ -109,13 +110,18 @@ class ClusterConnection(Resource):
         if params.get('use_ssl', False) is True:
             scheme = 'https'
 
-        response = ConnectionService().create_connection(ip=params['ip'], port=params.get('port', "9200"),
-                                                         scheme=scheme, username=params.get('username', None),
-                                                         password=params.get('password', None))
+        try:
+            response = ConnectionService().create_connection(ip=params['ip'], port=params.get('port', "9200"),
+                                                             scheme=scheme, username=params.get('username', None),
+                                                             password=params.get('password', None))
 
-        schema = ClusterDTO(many=False)
-        result = schema.dump(response)
-        return APIResponse(result.data, HTTP_Status.CREATED, None)
+            schema = ClusterDTO(many=False)
+            result = schema.dump(response)
+            return APIResponse(result.data, HTTP_Status.CREATED, None)
+        except ConnectionNotAuthorized as cna:
+            return APIResponse([], HTTP_Status.UNAUTHORIZED, None)
+        except ConnectionError as ce:
+            return APIResponse([], HTTP_Status.NOT_FOUND, None)
 
     @request_wrapper
     def delete(self, cluster_name):
