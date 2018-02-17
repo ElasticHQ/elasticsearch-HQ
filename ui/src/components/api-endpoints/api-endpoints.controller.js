@@ -27,6 +27,13 @@ class apiEndpointsController {
             {
                 group: 'Cluster',
                 request_type: 'GET',
+                short_label: 'Tasks',
+                url: '_cluster_tasks',
+                params: {}
+            },
+            {
+                group: 'Cluster',
+                request_type: 'GET',
                 short_label: 'State',
                 url: '_cluster_state',
                 params: {}

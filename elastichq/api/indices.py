@@ -224,6 +224,13 @@ class IndexShards(Resource):
         return APIResponse(response, HTTP_Status.OK, None)
 
 
+class ReIndex(Resource):
+    @request_wrapper
+    def post(self, cluster_name):
+        return APIResponse([], HTTP_Status.OK, None)
+
+
+api.add_resource(ReIndex, '/indices/<string:cluster_name>/_reindex', endpoint='index_reindex', methods=['POST'])
 api.add_resource(IndexAction, '/indices/<string:cluster_name>/<string:index_name>/action/<string:action>',
                  '/indices/<string:cluster_name>/action/<string:action>', endpoint='index_command', methods=['PUT'])
 api.add_resource(Index, '/indices/<string:cluster_name>/<string:index_name>', '/indices/<string:cluster_name>',

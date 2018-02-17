@@ -64,7 +64,7 @@ class TestSettings(BaseSettings):
     ES_V6_HOST = '127.0.0.1'
     ES_V6_PORT = '7200'
     ES_V6_USERNAME = 'elastic'
-    ES_V6_PASSWORD = 'Gm4UAvzFWlK7PupHxjPs'
+    ES_V6_PASSWORD = 'new_password'
 
     # Cluster URL is used in the text fixture, for easy connections using lib requests.
     ES_V2_CLUSTER_URL = 'http://%s:%s' % (ES_V2_HOST, ES_V2_PORT)

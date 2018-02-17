@@ -5,6 +5,8 @@ import os
 
 import requests
 
+from elastichq.vendor.elasticsearch import Elasticsearch, helpers
+
 
 class TestFixture:
     _app = None  # Flask app
@@ -30,6 +32,8 @@ class TestFixture:
 
             self.create_indices()
             self.create_aliases()
+
+            self.refresh()
 
         except Exception as e:
             raise e
@@ -101,22 +105,42 @@ class TestFixture:
                 with open(os.path.join(test_data_path, row['data_file'])) as data_file:
                     data = json.load(data_file)
 
+                actions = []
                 for datarow in data:
                     source = json.dumps(datarow)
-                    self.http_request(v2_index_url + "/" + mapping_name, method='POST', data=source, headers=headers)
-                    self.http_request(v5_index_url + "/" + mapping_name, method='POST', data=source, headers=headers)
-                    self.http_request(v6_index_url + "/" + mapping_name, method='POST', data=source, headers=headers)
+                    action = {
+                        "_index": index_name,
+                        "_type": mapping_name,
+                        "_op_type": 'index',
+                        "doc": source
+                    }
+                    actions.append(action)
 
-            # Trigger refresh or index tests will fail on doc counts.
-            self.http_request("http://" + self.config.ES_V2_HOST + ":" + self.config.ES_V2_PORT + '/_refresh',
-                              method='POST')
-            self.http_request("http://" + self.config.ES_V5_HOST + ":" + self.config.ES_V5_PORT + '/_refresh',
-                              method='POST')
-            self.http_request(self.config.ES_V6_CLUSTER_URL + '/_refresh',
-                              method='POST')
+                ES_CLIENT_v2 = Elasticsearch(hosts=[self.config.ES_V2_CLUSTER_URL])
+                helpers.bulk(ES_CLIENT_v2, actions, chunk_size=1000)
+                ES_CLIENT_v5 = Elasticsearch(hosts=[self.config.ES_V5_CLUSTER_URL])
+                helpers.bulk(ES_CLIENT_v5, actions, chunk_size=1000)
+                ES_CLIENT_v6 = Elasticsearch(hosts=[self.config.ES_V6_CLUSTER_URL])
+                helpers.bulk(ES_CLIENT_v6, actions, chunk_size=1000)
+                # self.http_request(self.config.ES_V2_CLUSTER_URL + "/_bulk", method='POST', data=actions,
+                #                       headers=headers)
+                # self.http_request(v5_index_url + "/" + mapping_name + "?refresh=true", method='POST', data=source,
+                #                       headers=headers)
+                # self.http_request(v6_index_url + "/" + mapping_name + "?refresh=true", method='POST', data=source,
+                #                       headers=headers)
+
         except Exception as e:
             print("Failed creating Index: " + str(e))
             raise
+
+    def refresh(self):
+        # Trigger refresh or index tests will fail on doc counts.
+        self.http_request("http://" + self.config.ES_V2_HOST + ":" + self.config.ES_V2_PORT + '/_refresh',
+                          method='POST')
+        self.http_request("http://" + self.config.ES_V5_HOST + ":" + self.config.ES_V5_PORT + '/_refresh',
+                          method='POST')
+        self.http_request(self.config.ES_V6_CLUSTER_URL + '/_refresh',
+                          method='POST')
 
     def get_index_definitions(self):
         cur_path = os.path.dirname(__file__)
@@ -130,15 +154,14 @@ class TestFixture:
         """
 
         for row in self.indices_definitions:
-            index_name = row['index']
 
-            v2_index_url = self.config.ES_V2_CLUSTER_URL + "/" + index_name
+            v2_index_url = self.config.ES_V2_CLUSTER_URL + "/_all"
             self.http_request(v2_index_url, method='DELETE')
 
-            v5_index_url = self.config.ES_V5_CLUSTER_URL + "/" + index_name
+            v5_index_url = self.config.ES_V5_CLUSTER_URL + "/_all"
             self.http_request(v5_index_url, method='DELETE')
 
-            v6_index_url = self.config.ES_V6_CLUSTER_URL + "/" + index_name
+            v6_index_url = self.config.ES_V6_CLUSTER_URL + "/_all"
             self.http_request(v6_index_url, method='DELETE')
 
     def clear_all_clusters(self):

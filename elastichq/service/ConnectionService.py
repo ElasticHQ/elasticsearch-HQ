@@ -34,12 +34,13 @@ class ConnectionService:
         except Exception as e:
             return False
 
-    def create_connection(self, ip, port, scheme='http', username=None, password=None):
+    def create_connection(self, ip, port, scheme='http', username=None, password=None, fail_on_exception=False):
         """
         Creates a connection with a cluster and place the connection inside of a connection pool, using the cluster_name as an alias.
         :param ip: 
         :param port: 
-        :param scheme: 
+        :param scheme:
+        :param fail_on_exception: If we should raise an exception on a failed connection
         :return:
         """
         try:
@@ -83,11 +84,19 @@ class ConnectionService:
             ClusterDBService().save_cluster(cluster_model)
             return cluster_model
         except ConnectionNotAuthorized as cna:
-            raise cna
+            if fail_on_exception is True:
+                LOG.error(cna)
+                raise cna
+            message = "UNAUTHORIZED to connect: " + scheme + "://" + ip + ":" + port
+            LOG.error(message)
+            return None
         except Exception as ex:
-            message = "Unable to create connection to: " + scheme + "://" + ip + ":" + port
-            LOG.error(message, ex)
-            raise ex
+            if fail_on_exception is True:
+                message = "Unable to create connection to: " + scheme + "://" + ip + ":" + port
+                LOG.error(message, ex)
+                raise ex
+            return None
+
 
     def add_connection(self, cluster_name, conn):
         CONNECTIONS.add_connection(alias=cluster_name, conn=conn)
