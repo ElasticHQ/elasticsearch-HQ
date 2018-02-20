@@ -12,7 +12,7 @@ class footerController {
         this.dataSet = false;
 
         let req = {
-            url: '/api/status',
+            url: 'api/status',
             method: 'GET'
         }
 

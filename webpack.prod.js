@@ -33,7 +33,7 @@ module.exports = {
         sourceMapFilename: '[name].[hash].js.map',
         // chunkFilename: '[name].[hash].bundle.js',
         path: path.resolve(__dirname, 'elastichq/static'),
-        publicPath: '/static/'
+        publicPath: 'static/'
     },
     module: {
         rules: [

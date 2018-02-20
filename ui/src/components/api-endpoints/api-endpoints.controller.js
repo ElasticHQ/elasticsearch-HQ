@@ -271,7 +271,7 @@ class apiEndpointsController {
 
         // Configure the request object
         const urlConfig = {
-            url: '/api/rest/' + this.clusterName + '/' + option.url,
+            url: 'api/rest/' + this.clusterName + '/' + option.url,
             method: option.request_type,
             params: option.params
             //params: Object.assign({}, option.params, {endpoint: option.url})
