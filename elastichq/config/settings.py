@@ -116,7 +116,7 @@ class ProdSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = '3.0.2'
+    API_VERSION = '3.0.3'
     SCHEDULER_JOBSTORES = {
         'default': MemoryJobStore()
     }
