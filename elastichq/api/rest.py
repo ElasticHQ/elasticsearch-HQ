@@ -35,6 +35,8 @@ class GenericREST(Resource):
                 response = ClusterService().get_cluster_status(cluster_name)
             elif command == '_cluster_settings':
                 response = ClusterService().get_cluster_settings(cluster_name)
+            elif command == '_cluster_tasks':
+                response = ClusterService().get_cluster_tasks(cluster_name)
             elif command == '_cluster_state':
                 response = ClusterService().get_cluster_state(cluster_name)
             elif command == '_cluster_stats':

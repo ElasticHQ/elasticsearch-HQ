@@ -15,6 +15,7 @@ class ClusterService:
     """
     cc
     """
+
     def get_cluster_health(self, cluster_name):
         connection = ConnectionService().get_connection(cluster_name)
         return connection.cluster.health(request_timeout=REQUEST_TIMEOUT)
@@ -44,7 +45,7 @@ class ClusterService:
         return connection.cluster.put_settings(body=settings, request_timeout=REQUEST_TIMEOUT)
 
     def get_clusters(self, create_if_missing=True):
-        clusters = ConnectionService().get_connections()
+        clusters = ConnectionService().get_connections(create_if_missing=create_if_missing)
         for cluster in clusters:
             if cluster.cluster_connected is True:
                 cluster.cluster_health = self.get_cluster_health(cluster_name=cluster.cluster_name)
@@ -70,3 +71,7 @@ class ClusterService:
         summary['nodes'] = nodes
 
         return summary
+
+    def get_cluster_tasks(self, cluster_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.cluster.pending_tasks(request_timeout=REQUEST_TIMEOUT)

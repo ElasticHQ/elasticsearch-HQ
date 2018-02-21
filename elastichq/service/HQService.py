@@ -23,7 +23,7 @@ class HQService:
 
         stable_version = (json.loads(version_str)).get("version", None)
 
-        clusters = ClusterService().get_clusters()
+        clusters = ClusterService().get_clusters(create_if_missing=False)
         schema = ClusterDTO(many=True)
         result = schema.dump(clusters)
 

@@ -27,6 +27,13 @@ class apiEndpointsController {
             {
                 group: 'Cluster',
                 request_type: 'GET',
+                short_label: 'Tasks',
+                url: '_cluster_tasks',
+                params: {}
+            },
+            {
+                group: 'Cluster',
+                request_type: 'GET',
                 short_label: 'State',
                 url: '_cluster_state',
                 params: {}
@@ -264,7 +271,7 @@ class apiEndpointsController {
 
         // Configure the request object
         const urlConfig = {
-            url: '/api/rest/' + this.clusterName + '/' + option.url,
+            url: 'api/rest/' + this.clusterName + '/' + option.url,
             method: option.request_type,
             params: option.params
             //params: Object.assign({}, option.params, {endpoint: option.url})

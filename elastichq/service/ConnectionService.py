@@ -12,6 +12,16 @@ from ..vendor.elasticsearch import Elasticsearch
 from ..vendor.elasticsearch.connections import ConnectionNotFoundException
 
 
+class ConnectionNotAuthorized(Exception):
+    """
+
+    """
+
+    def __init__(self, message, status_code=401):
+        super().__init__(message, status_code)
+        self.message = message
+
+
 class ConnectionService:
     """
     Manages connection pools to all clusters. This class serves as an interface to the ES Connections object.
@@ -24,16 +34,22 @@ class ConnectionService:
         except Exception as e:
             return False
 
-    def create_connection(self, ip, port, scheme='http', username=None, password=None):
+    def create_connection(self, ip, port, scheme='http', username=None, password=None, fail_on_exception=False):
         """
         Creates a connection with a cluster and place the connection inside of a connection pool, using the cluster_name as an alias.
         :param ip: 
         :param port: 
-        :param scheme: 
+        :param scheme:
+        :param fail_on_exception: If we should raise an exception on a failed connection
         :return:
         """
         try:
             is_basic_auth = False
+
+            # clean the params
+            username = None if username == "" else username
+            password = None if password == "" else password
+
             if username is not None and password is not None:
                 is_basic_auth = True
 
@@ -43,6 +59,10 @@ class ConnectionService:
                                         timeout=REQUEST_TIMEOUT)
             else:
                 response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
+
+            if response.status_code == 401:
+                message = "Unable to create connection! Server returned 401 - UNAUTHORIZED: " + scheme + "://" + ip + ":" + port
+                raise ConnectionNotAuthorized(message=message)
 
             content = json.loads(response.content.decode('utf-8'))
 
@@ -63,9 +83,20 @@ class ConnectionService:
             cluster_model.cluster_connected = True
             ClusterDBService().save_cluster(cluster_model)
             return cluster_model
-        except Exception as ex:
-            LOG.error("Unable to create connection!", ex)
+        except ConnectionNotAuthorized as cna:
+            if fail_on_exception is True:
+                LOG.error(cna)
+                raise cna
+            message = "UNAUTHORIZED to connect: " + scheme + "://" + ip + ":" + port
+            LOG.error(message)
             return None
+        except Exception as ex:
+            if fail_on_exception is True:
+                message = "Unable to create connection to: " + scheme + "://" + ip + ":" + port
+                LOG.error(message, ex)
+                raise ex
+            return None
+
 
     def add_connection(self, cluster_name, conn):
         CONNECTIONS.add_connection(alias=cluster_name, conn=conn)
@@ -104,7 +135,8 @@ class ConnectionService:
                     try:
                         if cluster.is_basic_auth is True:
                             self.create_connection(ip=cluster.cluster_ip, port=cluster.cluster_port,
-                                                   scheme=cluster.cluster_scheme, username=cluster.cluster_username, password=cluster.cluster_password)
+                                                   scheme=cluster.cluster_scheme, username=cluster.cluster_username,
+                                                   password=cluster.cluster_password)
                         else:
                             self.create_connection(ip=cluster.cluster_ip, port=cluster.cluster_port,
                                                    scheme=cluster.cluster_scheme)

@@ -33,7 +33,7 @@ module.exports = {
         sourceMapFilename: '[name].[hash].js.map',
         // chunkFilename: '[name].[hash].bundle.js',
         path: path.resolve(__dirname, 'elastichq/static'),
-        publicPath: '/static/'
+        publicPath: 'static/'
     },
     module: {
         rules: [
@@ -70,7 +70,7 @@ module.exports = {
             {
                 test: /\.(woff|svg|woff2|eot|ttf|otf)$/,
                 use: [{
-                    loader: 'file-loader',
+                    loader: 'url-loader',
                     options: { name: 'fonts/[name].[ext]' }
                 }]
             }

@@ -9,7 +9,7 @@ class ClusterNodesService {
 
   getNodesSummary(clusterName, nodeId) {
     return this.que.add({
-              url: ('/api/nodes/' + clusterName + '/_summary'),
+              url: ('api/nodes/' + clusterName + '/_summary'),
               method: 'GET',
             });
   }
@@ -17,21 +17,21 @@ class ClusterNodesService {
 
   getNodeInfo(clusterName, nodeId) {
     return this.que.add({
-              url: ('/api/nodes/' + clusterName + '/' + nodeId + '/_info'),
+              url: ('api/nodes/' + clusterName + '/' + nodeId + '/_info'),
               method: 'GET',
             });
   }
 
   getNodeStats(clusterName, nodeId) {
     return this.que.add({
-              url: ('/api/nodes/' + clusterName + '/' + nodeId + '/_stats'),
+              url: ('api/nodes/' + clusterName + '/' + nodeId + '/_stats'),
               method: 'GET',
             });
   }
 
   diagnostics(clusterName) {
     return this.que.add({
-              url: ('/api/clusters/' + clusterName + '/diagnostics/_summary'),
+              url: ('api/clusters/' + clusterName + '/diagnostics/_summary'),
               method: 'GET',
             });
   }
