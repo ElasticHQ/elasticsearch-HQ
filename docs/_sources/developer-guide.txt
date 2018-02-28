@@ -70,6 +70,12 @@ Notes
 Building Documentation
 ----------------------
 
+Sphinx requires specific libraries that are not in the default ``requirements.txt``.
+
+First install the sphinx requirements: ``pip install -r sphinx-requirements.txt``
+
+To generate the documentation:
+
 ``./sphinx-build -b html /path/to/docs/source /path/to/docs``
 
 HTTP Responses
