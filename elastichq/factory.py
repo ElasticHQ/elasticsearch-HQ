@@ -1,11 +1,12 @@
 import os
 from flask import Flask
 from elastichq.api import api_blueprint, public_blueprint
-from elastichq.globals import init_log, init_database, init_marshmallow, init_scheduler
+from elastichq.globals import init_log, init_database, init_marshmallow, init_scheduler, init_socketio
 from elastichq.config.settings import ProdSettings, TestSettings
 
 # noinspection PyUnresolvedReferences
 from elastichq.api import endpoints
+
 
 __author__ = 'royrusso'
 
@@ -35,6 +36,7 @@ def create_app(env='PROD'):
 
     init_marshmallow(app)
 
+    init_socketio(app)
     #init_scheduler(app)
 
     return app

@@ -87,6 +87,20 @@ ElasticHQ ships with SQLLite integration to store clusters you have connected to
 
 .. note:: In the event you want to start with a clean slate, simply delete the ``elastichq.db`` file. ElasticHQ will recreate it at next startup.
 
+Startup Parameters
+^^^^^^^^^^^^^^^^^^
+
+The ``application.py`` start script takes parameters passed in as arguments from the command line:
+
+
+    ==========  ==============  ==========================================
+    Arg         Example Value   Definition
+    ==========  ==============  ==========================================
+    ``--host``  127.0.0.1       Host the HQ server should be reachable on.
+    ``--port``  5150            Port to reach HQ server.
+    ==========  ==============  ==========================================
+
+
 Directory Structure
 ^^^^^^^^^^^^^^^^^^^
 

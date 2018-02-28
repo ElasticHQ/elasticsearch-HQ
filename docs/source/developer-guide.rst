@@ -6,6 +6,11 @@ For Developers
     :depth: 3
     :local:
 
+Contributing
+------------
+
+Please read the `Contributing guidelines <https://github.com/ElasticHQ/elasticsearch-HQ/blob/master/CONTRIBUTING.md>`_ before working on a pull request.
+
 Building Pre-Releases
 ---------------------
 

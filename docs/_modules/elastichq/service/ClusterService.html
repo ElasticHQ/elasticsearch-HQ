@@ -131,6 +131,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    cc</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">get_cluster_health</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
         <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">health</span><span class="p">(</span><span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
@@ -160,7 +161,7 @@
         <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">put_settings</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">settings</span><span class="p">,</span> <span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create_if_missing</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="n">clusters</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connections</span><span class="p">()</span>
+        <span class="n">clusters</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connections</span><span class="p">(</span><span class="n">create_if_missing</span><span class="o">=</span><span class="n">create_if_missing</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">cluster</span><span class="o">.</span><span class="n">cluster_connected</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
                 <span class="n">cluster</span><span class="o">.</span><span class="n">cluster_health</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_health</span><span class="p">(</span><span class="n">cluster_name</span><span class="o">=</span><span class="n">cluster</span><span class="o">.</span><span class="n">cluster_name</span><span class="p">)</span>
@@ -185,7 +186,11 @@
         <span class="n">nodes</span> <span class="o">=</span> <span class="n">NodeService</span><span class="p">()</span><span class="o">.</span><span class="n">get_node_summary</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
         <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;nodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodes</span>
 
-        <span class="k">return</span> <span class="n">summary</span></div></div>
+        <span class="k">return</span> <span class="n">summary</span></div>
+
+    <span class="k">def</span> <span class="nf">get_cluster_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_name</span><span class="p">):</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">ConnectionService</span><span class="p">()</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">pending_tasks</span><span class="p">(</span><span class="n">request_timeout</span><span class="o">=</span><span class="n">REQUEST_TIMEOUT</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

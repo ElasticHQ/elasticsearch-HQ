@@ -1,0 +1,5 @@
+# Docs
+Sphinx>=1.3.0,<1.5.0
+guzzle_sphinx_theme>=0.7.8,<0.8.0
+sphinxcontrib-httpdomain==1.6.0
+sphinxcontrib-fulltoc==1.2.0

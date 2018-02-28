@@ -45,6 +45,9 @@ class NodeService:
                     node.update({"is_electable_master": False}) # technically this node is electable, but since it has already been elected, we set as false for the ui.
                 elif cnode['m'] == '-':
                     node.update({"is_master_node": False})
+                    node.update({"is_electable_master": False})
+                elif cnode['m'] == 'm':
+                    node.update({"is_master_node": False})
                     node.update({"is_electable_master": True})
                 else:
                     node.update({"is_master_node": False})
