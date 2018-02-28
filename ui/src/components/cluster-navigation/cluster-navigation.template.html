@@ -16,6 +16,11 @@
             <div class="col-md-6">
                 <div class="btn-group pull-right">
                     <a class="btn btn-success" ui-sref-active="active"
+                        ui-sref="clusterNodes({ clusterName: clusterNavCtrl.clusterName })"
+                        tooltip-placement="bottom"
+                        uib-tooltip="Nodes Graphs">
+                         Nodes</a>
+                    <a class="btn btn-success" ui-sref-active="active"
                        ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
                        uib-tooltip="List of indices"><i class="fa fa-list"></i>
