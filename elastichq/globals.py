@@ -2,7 +2,6 @@ import json
 import logging
 import logging.config
 import os
-from datetime import datetime
 
 from flask_apscheduler import APScheduler
 from flask_marshmallow import Marshmallow
@@ -52,9 +51,11 @@ def init_database(app, tests=False):
 def migrate_db(app):
     pass
 
-def init_scheduler(app):
-    scheduler.init_app(app)
-    scheduler.start()
+
+#
+# def init_scheduler(app):
+#     scheduler.init_app(app)
+#     scheduler.start()
 
 
 def init_socketio(app):
@@ -78,3 +79,41 @@ CONNECTIONS = Connections()
 
 # TODO: This has to be persisted and made configurable
 REQUEST_TIMEOUT = 10
+
+
+class TaskPool:
+    """
+    Websocket Task pool
+    """
+    tasks = []
+
+    def add(self, task):
+        self.tasks.append(task)
+
+    def get_task_by_room_name(self, room_name):
+        for task in self.tasks:
+            if task.room_name == room_name:
+                return task
+
+    def get_tasks_by_cluster_name(self, cluster_name):
+        for task in self.tasks:
+            if task.cluster_name == cluster_name:
+                return task
+
+    def remove(self, room_name):
+        task = self.get_task_by_room_name(room_name)
+        task.stop()
+        self.tasks.remove(task)
+
+    def create_task(self, task):
+        """
+        Will create the task if one does not exist by that name. Once created, it is added to the global pool.
+        :param task:
+        :return:
+        """
+        if self.get_task_by_room_name(room_name=task.room_name) is None:
+            socketio.start_background_task(target=task.run)
+            taskPool.add(task)
+
+
+taskPool = TaskPool()

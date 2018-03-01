@@ -1,14 +1,10 @@
 from threading import Lock
 
 import eventlet
-from flask_socketio import emit, join_room, rooms
+from flask_socketio import emit, join_room, leave_room, rooms
 
-from ..globals import LOG, socketio
-
-eventlet.monkey_patch()
-
-#######################################################
-
+from elastichq.model import Task
+from ..globals import LOG, socketio, taskPool
 
 """"
 To test using Chrome dev tools:
@@ -30,58 +26,49 @@ socket.emit('join', {"cluster_name": "FOO", "metrics" : "nodes"});
 
 thread = None
 thread_lock = Lock()
+eventlet.monkey_patch()
 
 
 # https://stackoverflow.com/questions/44371041/python-socketio-and-flask-how-to-stop-a-loop-in-a-background-thread
-def background_thread(**kwargs):
+def task_procesor(room_name, cluster_name, metric):
     """
-    Based on Flask-SocketIO exapmle app at:
-    https://github.com/miguelgrinberg/Flask-SocketIO/blob/master/example/app.py
+    This will dispatch to the appropriate task/room
 
-    https://github.com/miguelgrinberg/Flask-SocketIO/issues/117
     """
-    # Do a periodic background emit from the server
-    while True:
-        socketio.sleep(5)
-
-        LOG.info(u'-----------------------------------------')
-        LOG.info(u'[ ] Doing background task')
-        LOG.info(u'    SocketIO: {}'.format(hex(id(socketio))))
-        LOG.info(u'    SocketIO rooms: {}'.format(socketio.server.manager.rooms))
-
-        LOG.info(u'-----------------------------------------')
-        # emit('event', {'data': 'MESSAGE ECHO: ROOM FOO'}, room="FOO")
-        socketio.emit('event', {'data': 'MESSAGE ECHO ROOM ' + kwargs.get('room')}, room=kwargs.get('room'),
-                      namespace="/ws")
-
-
-#        socketio.emit('event', {'data': 'MESSAGE ECHO: ROOM FOO'}, room="BAR", namespace="/ws")
+    task = Task(room_name=room_name, cluster_name=cluster_name, metric=metric)
+    taskPool.create_task(task=task)
 
 
 @socketio.on('join', namespace='/ws')
 def joined(json):
-    """Sent by clients when they enter a room.
-    A status message is broadcast to all people in the room."""
-    LOG.info('Received room join: ' + str(json))
+    """
+    Sent by clients when they enter a room.
+    """
+    LOG.debug('Received room join: ' + str(json))
+    room_name = json.get('room_name')
+    parts = room_name.split('::')
+    cluster_name = parts[0]
+    metric = parts[1]
+    join_room(room_name)
+    # sid = request.sid
+    print(rooms())
+    task_procesor(room_name, cluster_name=cluster_name, metric=metric)
+
+
+@socketio.on('leave', namespace='/ws')
+def on_leave(json):
+    """
+    Sent by client to leave a room
+    :param json:
+    :return:
+    """
+    LOG.debug('Received room leave: ' + str(json))
     room_name = json.get('room_name')
     parts = room_name.split('::')
     cluster_name = parts[0]
     metrics = parts[1]
-    join_room(room_name)
-    # sid = request.sid
+    leave_room(room_name)
     print(rooms())
-    keywords = {'room': room_name, 'cluster_name': cluster_name, 'metrics': metrics}
-    socketio.start_background_task(target=background_thread, **keywords)
-    emit(' has entered the room.', room=room_name)
-
-
-@socketio.on('leave')
-def on_leave(json):
-    pass
-
-
-#    leave_room(room)
-#    emit(username + ' has left the room.', room=room)
 
 
 @socketio.on('connect', namespace='/ws')
@@ -105,4 +92,5 @@ def do_msg(message):
 
 @socketio.on('disconnect', namespace='/ws')
 def disconnect():
-    print('Client disconnected')
+    LOG.debug('Client disconnected')
+    disconnect()
