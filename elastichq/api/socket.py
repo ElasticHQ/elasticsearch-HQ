@@ -1,7 +1,6 @@
 from threading import Lock
 
 import eventlet
-from flask import request
 from flask_socketio import emit, join_room, rooms
 
 from ..globals import LOG, socketio
@@ -65,12 +64,15 @@ def joined(json):
     A status message is broadcast to all people in the room."""
     LOG.info('Received room join: ' + str(json))
     room_name = json.get('cluster_name')
+    parts = room_name.split('::')
+    cluster_name = parts[0]
+    metrics = parts[1]
     join_room(room_name)
-    sid = request.sid
+    # sid = request.sid
     print(rooms())
-    keywords = {'room': room_name}
+    keywords = {'room': room_name, 'cluster_name': cluster_name, 'metrics': metrics}
     socketio.start_background_task(target=background_thread, **keywords)
-    emit(' has entered the room.', room=json.get('cluster_name'))
+    emit(' has entered the room.', room=room_name)
 
 
 @socketio.on('leave')
