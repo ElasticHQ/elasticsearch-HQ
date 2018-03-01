@@ -1,14 +1,13 @@
-import time
 from threading import Lock
 
+import eventlet
 from flask import request
 from flask_socketio import emit, join_room, rooms
-#### This is what fixed the issue...see discussion thread below ######
-#from gevent import monkey
 
 from ..globals import LOG, socketio
 
-#monkey.patch_all()
+eventlet.monkey_patch()
+
 #######################################################
 
 
@@ -34,17 +33,8 @@ thread = None
 thread_lock = Lock()
 
 
-def ping_nodes():
-    LOG.info("here")
-    socketio.emit('event', {'data': 'MESSAGE ECHO: FOO ROOM'})
-    emit('event',
-         {'data': {"msg": "AAAAAA"}},
-         room="FOO")
-    time.sleep(0)
-    return
-
-
-def background_thread():
+# https://stackoverflow.com/questions/44371041/python-socketio-and-flask-how-to-stop-a-loop-in-a-background-thread
+def background_thread(**kwargs):
     """
     Based on Flask-SocketIO exapmle app at:
     https://github.com/miguelgrinberg/Flask-SocketIO/blob/master/example/app.py
@@ -58,11 +48,15 @@ def background_thread():
         LOG.info(u'-----------------------------------------')
         LOG.info(u'[ ] Doing background task')
         LOG.info(u'    SocketIO: {}'.format(hex(id(socketio))))
-        #LOG.info(u'    SocketIO rooms: {}'.format(rooms()))
+        LOG.info(u'    SocketIO rooms: {}'.format(socketio.server.manager.rooms))
 
         LOG.info(u'-----------------------------------------')
-        #emit('event', {'data': 'MESSAGE ECHO: ROOM FOO'}, room="FOO")
-        socketio.emit('event', {'data': 'MESSAGE ECHO: ROOM FOO'}, room="FOO", namespace="/ws")
+        # emit('event', {'data': 'MESSAGE ECHO: ROOM FOO'}, room="FOO")
+        socketio.emit('event', {'data': 'MESSAGE ECHO ROOM ' + kwargs.get('room')}, room=kwargs.get('room'),
+                      namespace="/ws")
+
+
+#        socketio.emit('event', {'data': 'MESSAGE ECHO: ROOM FOO'}, room="BAR", namespace="/ws")
 
 
 @socketio.on('join', namespace='/ws')
@@ -70,17 +64,13 @@ def joined(json):
     """Sent by clients when they enter a room.
     A status message is broadcast to all people in the room."""
     LOG.info('Received room join: ' + str(json))
-    # username = data['username']
-    # room = data['room']
-    # join_room(room)
-    join_room("FOO")  # json.get('cluster_name'))
+    room_name = json.get('cluster_name')
+    join_room(room_name)
     sid = request.sid
     print(rooms())
-    # thread = Thread(target=background_thread)
-    thread = socketio.start_background_task(target=background_thread)
-    #thread.start()
-
-    emit(' has entered the room.', room='FOO')
+    keywords = {'room': room_name}
+    socketio.start_background_task(target=background_thread, **keywords)
+    emit(' has entered the room.', room=json.get('cluster_name'))
 
 
 @socketio.on('leave')
