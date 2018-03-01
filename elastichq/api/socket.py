@@ -63,7 +63,7 @@ def joined(json):
     """Sent by clients when they enter a room.
     A status message is broadcast to all people in the room."""
     LOG.info('Received room join: ' + str(json))
-    room_name = json.get('cluster_name')
+    room_name = json.get('room_name')
     parts = room_name.split('::')
     cluster_name = parts[0]
     metrics = parts[1]

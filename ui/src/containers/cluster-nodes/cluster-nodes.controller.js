@@ -30,7 +30,7 @@ class clusterNodesController {
     this.socket = io(baseUrl);
     this.socket.on('connect', () => { 
       this.connected = true;
-      this.socket.emit('join', {"cluster_name": this.clusterName + "::nodes"});
+      this.socket.emit('join', {"room_name": this.clusterName + "::nodes"});
      })
     this.socket.on('disconnect', () => { this.connected = false })
     this.socket.on('event', (data) => { this.message(data); })
