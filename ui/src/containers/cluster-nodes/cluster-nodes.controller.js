@@ -19,17 +19,23 @@ class clusterNodesController {
     console.log('---- window.location', window.location)
     let baseUrl = window.location.href.split('/#!')[0];
 
-    if (/\:8080/.test(baseUrl)) baseUrl = 'http://localhost:5005';
+    if (/\:8080/.test(baseUrl)) baseUrl = 'http://localhost:5000';
     
     // Websockets do not work with relative paths, so get absolute and append the WS portion
     //  upgrade from HTTP to WS should be automatic
-    baseUrl = baseUrl += `/socket/clusters/${this.clusterName}/nodes`;
+    baseUrl = baseUrl += `/ws/nodes/${this.clusterName}/nodes`;
+    // baseUrl = baseUrl += `/ws/nodes`;
     console.log('---- baseUrl: ', baseUrl)
     
     this.socket = io(baseUrl);
-    this.socket.on('connect', () => { this.connected = true })
+    this.socket.on('connect', () => { 
+      this.connected = true;
+      socket.emit('join', {"cluster_name": this.clusterName, "metrics" : "nodes"});
+     })
     this.socket.on('disconnect', () => { this.connected = false })
     this.socket.on('event', (data) => { this.message(data); })
+
+    console.log('----- this.socket: ', this.socket)
 
     $scope.$on("$destroy", () => {
       this.socket.close();
