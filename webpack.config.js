@@ -37,6 +37,10 @@ module.exports = {
             '/api/*': {
                 target: 'http://localhost:5000',
                 secure: false
+            },
+            '/ws/*': {
+                target: 'http://localhost:5005',
+                secure: false
             }
         },
         headers: {

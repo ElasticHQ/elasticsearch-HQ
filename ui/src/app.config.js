@@ -55,6 +55,12 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider,
             controller: 'clusterNodeDetailsController',
             controllerAs: 'cNodeDetailsCtrl'
         })
+        .state('clusterNodes', {
+            url: '/clusters/:clusterName/nodes',
+            template: require('./containers/cluster-nodes/cluster-nodes.view.html'),
+            controller: 'clusterNodesController',
+            controllerAs: 'cNodesCtrl'
+        })
         .state('diagnostics', {
             url: '/clusters/:clusterName/diagnostics',
             template: require('./containers/diagnostics/diagnostics.view.html'),
