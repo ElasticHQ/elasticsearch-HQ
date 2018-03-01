@@ -1,7 +1,7 @@
 import json
 import os
 from functools import lru_cache
-
+from datetime import datetime
 from apscheduler.jobstores.memory import MemoryJobStore
 
 __author__ = 'wmcginnis'
@@ -117,6 +117,18 @@ class ProdSettings(BaseSettings):
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
     API_VERSION = '3.0.3'
+
+
+    SCHEDULER_EXECUTORS = {
+        'default': {'type': 'threadpool', 'max_workers': 20}
+    }
+
+    SCHEDULER_JOB_DEFAULTS = {
+        'coalesce': False,
+        'max_instances': 3
+    }
+
+    SCHEDULER_API_ENABLED = True
     SCHEDULER_JOBSTORES = {
         'default': MemoryJobStore()
     }

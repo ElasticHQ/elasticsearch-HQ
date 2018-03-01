@@ -52,11 +52,6 @@ def init_database(app, tests=False):
 def migrate_db(app):
     pass
 
-
-def tick():
-    print('Tick! The time is: %s' % datetime.now())
-
-
 def init_scheduler(app):
     scheduler.init_app(app)
     scheduler.start()

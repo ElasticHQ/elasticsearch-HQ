@@ -37,10 +37,12 @@ def create_app(env='PROD', port=5000, host='127.0.0.1', debug=True):
 
     init_marshmallow(app)
 
+    init_scheduler(app)
+
     socketio = init_socketio(app)
     socketio.run(app, port=port, host=host, debug=debug)
     #socketio.run(app, port=port, host=host)
 
-    #init_scheduler(app)
+
 
     return app
