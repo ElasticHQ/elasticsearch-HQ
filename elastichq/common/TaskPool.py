@@ -27,12 +27,15 @@ class TaskPool(object):
         task.stop()
         self.tasks.remove(task)
 
-    def create_task(self, task):
+    def create_task(self, task, sid):
         """
         Will create the task if one does not exist by that name. Once created, it is added to the global pool.
         :param task:
         :return:
         """
         if self.get_task_by_room_name(room_name=task.room_name) is None:
+            task.add_session(sid)
             self.socketio.start_background_task(target=task.run)
             self.add(task)
+        else:
+            task.add_session(sid)

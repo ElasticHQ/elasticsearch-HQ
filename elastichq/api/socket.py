@@ -2,7 +2,7 @@ from threading import Lock
 
 import eventlet
 from flask_socketio import emit, join_room, leave_room, rooms
-
+from flask import request
 from elastichq.model import Task
 from elastichq.service import ConnectionService
 from ..globals import LOG, socketio, taskPool
@@ -41,7 +41,7 @@ def task_procesor(room_name, cluster_name, metric):
     ConnectionService().get_connection(cluster_name)
 
     task = Task(room_name=room_name, cluster_name=cluster_name, metric=metric)
-    taskPool.create_task(task=task)
+    taskPool.create_task(task=task, sid=request.sid)
 
 
 @socketio.on('join', namespace='/ws')

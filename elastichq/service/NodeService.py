@@ -5,10 +5,10 @@ from ..globals import REQUEST_TIMEOUT
 
 
 class NodeService:
-    def get_node_stats(self, cluster_name, nodes_list=None):
+    def get_node_stats(self, cluster_name, nodes_list=None, request_timeout=REQUEST_TIMEOUT):
         connection = ConnectionService().get_connection(cluster_name)
 
-        return connection.nodes.stats(node_id=nodes_list, request_timeout=REQUEST_TIMEOUT)
+        return connection.nodes.stats(node_id=nodes_list, request_timeout=request_timeout)
 
     def get_node_info(self, cluster_name, nodes_list=None):
         connection = ConnectionService().get_connection(cluster_name)
@@ -17,7 +17,8 @@ class NodeService:
 
     def get_node_cat(self, cluster_name, flags="*", request_timeout=REQUEST_TIMEOUT):
         connection = ConnectionService().get_connection(cluster_name)
-        cat_nodes = connection.cat.nodes(format="json", h="id,m,n,u,role,hp,ip,disk.avail,l", full_id=True, request_timeout=request_timeout)
+        # "id,m,n,u,role,hp,ip,disk.avail,l"
+        cat_nodes = connection.cat.nodes(format="json", h=flags, full_id=True, request_timeout=request_timeout)
         return cat_nodes
 
     def get_node_summary(self, cluster_name, node_ids=None):

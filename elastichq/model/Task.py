@@ -29,6 +29,9 @@ class Task:
         self.cluster_name = cluster_name
         self.metric = metric
 
+    def add_session(self, session_id):
+        self.sessions.append(session_id)
+
     def run(self):
         """
         Based on Flask-SocketIO exapmle app at:
@@ -42,7 +45,7 @@ class Task:
 
         # https://stackoverflow.com/questions/44371041/python-socketio-and-flask-how-to-stop-a-loop-in-a-background-thread
         while self.switch:
-            eventlet.sleep(5)
+            eventlet.sleep(10)
 
             LOG.debug('-----------------------------------------')
             LOG.debug('    Doing background task')
@@ -51,10 +54,9 @@ class Task:
             LOG.debug('-----------------------------------------')
 
             if self.metric == 'nodes':
-                nodes_cat = NodeService().get_node_cat(self.cluster_name, flags="id,hc,hm,rc,rm,n,l,u,fm",
-                                                       request_timeout=self.task_timeout)
+                nodes_stats = NodeService().get_node_stats(self.cluster_name, request_timeout=self.task_timeout)
                 nodes = []
-                for node in nodes_cat:
+                for node in nodes_stats:
                     node = {
                         "node_id": node.get('id', None),
                         "name": node.get('n', None),
@@ -68,8 +70,6 @@ class Task:
                     }
                     nodes.append(node)
                 socketio.emit('event', {'data': json.dumps(nodes)}, room=self.room_name, namespace="/ws")
-                # socketio.emit('event', {'data': 'MESSAGE ECHO ROOM ' + self.room_name}, room=self.room_name,
-                #               namespace="/ws")
             else:
                 pass
 
