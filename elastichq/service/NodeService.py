@@ -15,6 +15,11 @@ class NodeService:
 
         return connection.nodes.info(node_id=nodes_list, metric="_all", request_timeout=REQUEST_TIMEOUT)
 
+    def get_node_cat(self, cluster_name, flags="*", request_timeout=REQUEST_TIMEOUT):
+        connection = ConnectionService().get_connection(cluster_name)
+        cat_nodes = connection.cat.nodes(format="json", h="id,m,n,u,role,hp,ip,disk.avail,l", full_id=True, request_timeout=request_timeout)
+        return cat_nodes
+
     def get_node_summary(self, cluster_name, node_ids=None):
         """
         Given a node(s), consolidates data from several Node APIs in a human-readable format.

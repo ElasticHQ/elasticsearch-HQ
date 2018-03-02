@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from elastichq.api import api_blueprint, public_blueprint, ws_blueprint
-from elastichq.globals import init_log, init_database, init_marshmallow, init_socketio
+from elastichq.globals import init_log, init_database, init_marshmallow, init_socketio, init_task_pool
 from elastichq.config.settings import ProdSettings, TestSettings
 
 # noinspection PyUnresolvedReferences
@@ -40,9 +40,11 @@ def create_app(env='PROD', port=5000, host='127.0.0.1', debug=True):
     #init_scheduler(app)
 
     socketio = init_socketio(app)
+
+    init_task_pool(socketio)
+
     socketio.run(app, port=port, host=host, debug=debug)
+
     #socketio.run(app, port=port, host=host)
-
-
 
     return app

@@ -4,6 +4,7 @@ import eventlet
 from flask_socketio import emit, join_room, leave_room, rooms
 
 from elastichq.model import Task
+from elastichq.service import ConnectionService
 from ..globals import LOG, socketio, taskPool
 
 """"
@@ -29,12 +30,16 @@ thread_lock = Lock()
 eventlet.monkey_patch()
 
 
-# https://stackoverflow.com/questions/44371041/python-socketio-and-flask-how-to-stop-a-loop-in-a-background-thread
 def task_procesor(room_name, cluster_name, metric):
     """
     This will dispatch to the appropriate task/room
 
     """
+
+    # DO NOT REMOVE:
+    # This is necessary to initialize SQLAlchemy in case the very first request is made directly to this socket endpoint.
+    ConnectionService().get_connection(cluster_name)
+
     task = Task(room_name=room_name, cluster_name=cluster_name, metric=metric)
     taskPool.create_task(task=task)
 

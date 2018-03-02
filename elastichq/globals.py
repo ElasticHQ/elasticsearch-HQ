@@ -8,7 +8,7 @@ from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
-
+from elastichq.common.TaskPool import TaskPool
 from .config import settings
 from .vendor.elasticsearch.connections import Connections
 
@@ -19,7 +19,7 @@ ma = Marshmallow()
 migrate = Migrate()
 scheduler = APScheduler()
 socketio = SocketIO()
-
+taskPool = TaskPool()
 
 def init_marshmallow(app):
     ma.init_app(app)
@@ -37,6 +37,7 @@ def init_log():
 
 def init_database(app, tests=False):
     db.init_app(app)
+    app.app_context().push()
 
     if tests:  # miserable hack
         db.drop_all(app=app)
@@ -57,7 +58,6 @@ def migrate_db(app):
 #     scheduler.init_app(app)
 #     scheduler.start()
 
-
 def init_socketio(app):
     # Set this variable to "threading", "eventlet" or "gevent" to test the
     # different async modes, or leave it set to None for the application to choose
@@ -65,9 +65,11 @@ def init_socketio(app):
     async_mode = 'eventlet'
 
     socketio.init_app(app, async_mode=async_mode, logger=True, engineio_logger=True)
-    # socketio = SocketIO(app)
+
     return socketio
 
+def init_task_pool(socketio):
+    taskPool.init_app(socketio)
 
 LOG = logging.getLogger('elastichq')
 
@@ -81,39 +83,4 @@ CONNECTIONS = Connections()
 REQUEST_TIMEOUT = 10
 
 
-class TaskPool:
-    """
-    Websocket Task pool
-    """
-    tasks = []
 
-    def add(self, task):
-        self.tasks.append(task)
-
-    def get_task_by_room_name(self, room_name):
-        for task in self.tasks:
-            if task.room_name == room_name:
-                return task
-
-    def get_tasks_by_cluster_name(self, cluster_name):
-        for task in self.tasks:
-            if task.cluster_name == cluster_name:
-                return task
-
-    def remove(self, room_name):
-        task = self.get_task_by_room_name(room_name)
-        task.stop()
-        self.tasks.remove(task)
-
-    def create_task(self, task):
-        """
-        Will create the task if one does not exist by that name. Once created, it is added to the global pool.
-        :param task:
-        :return:
-        """
-        if self.get_task_by_room_name(room_name=task.room_name) is None:
-            socketio.start_background_task(target=task.run)
-            taskPool.add(task)
-
-
-taskPool = TaskPool()
