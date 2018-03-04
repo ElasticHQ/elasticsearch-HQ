@@ -33,6 +33,7 @@
     "angular-ui-bootstrap": "^2.5.6",
     "angular-ui-notification": "^0.3.6",
     "babel-polyfill": "^6.26.0",
+    "d3": "^4.13.0",
     "font-awesome": "^4.7.0",
     "highlight.js": "^9.12.0",
     "lodash": "^4.17.4",

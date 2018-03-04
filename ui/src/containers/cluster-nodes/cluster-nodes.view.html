@@ -4,5 +4,35 @@
             <eshq-cluster-navigation></eshq-cluster-navigation>
         </div>
     </div>
-     cluster-nodes 
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="pull-right">
+
+                <a href ng-click="value.active = !value.active" class="legend-item" ng-repeat="(key, value) in cNodesCtrl._nodes">
+    
+                    <span><i class="fa" ng-class="!!value.active ? 'fa-circle' : 'fa-circle-o'" ng-style="{color: value.color}"></i> {{key}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes" 
+                                            key="'heap_used_in_bytes'" 
+                                            num-format="'0[.][0] b'"
+                                            header="'Heap Used in Bytes'"></eshq-cluster-nodes-line-graph>
+        </div>
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes" 
+                                            key="'docs_count'" 
+                                            num-format="'0[.][0] a'"
+                                            header="'Docs Used'"></eshq-cluster-nodes-line-graph>
+        </div>
+        <div class="col-md-4">
+                <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes" 
+                                                key="'fs_used_in_bytes'" 
+                                                num-format="'0[.][0] b'"
+                                                header="'Files Used'"></eshq-cluster-nodes-line-graph>
+            </div>
+    </div>
 </div>
