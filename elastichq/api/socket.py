@@ -1,8 +1,9 @@
 from threading import Lock
 
 import eventlet
-from flask_socketio import emit, join_room, leave_room, rooms
 from flask import request
+from flask_socketio import emit, join_room, leave_room, rooms
+
 from elastichq.model import Task
 from elastichq.service import ConnectionService
 from ..globals import LOG, socketio, taskPool
@@ -78,7 +79,7 @@ def on_leave(json):
 
 @socketio.on('connect', namespace='/ws')
 def connect():
-    emit('event', {'data': 'Connected'})
+    emit('event', {'connected': True})
 
 
 @socketio.on('message', namespace='/ws')
