@@ -99,4 +99,4 @@ def do_msg(message):
 @socketio.on('disconnect', namespace='/ws')
 def disconnect():
     LOG.debug('Client disconnected')
-    disconnect()
+    # TODO

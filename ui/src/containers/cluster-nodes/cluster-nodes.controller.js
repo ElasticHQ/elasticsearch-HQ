@@ -59,7 +59,7 @@ class clusterNodesController {
         if (!this._nodes[d.name]) this._nodes[d.name] = {data: [], color: this.colors(d.name), active: true};
         this._nodes[d.name].data.push(d);
         let length = this._nodes[d.name].data.length;
-        if (length > 15) this._nodes[d.name].data = this._nodes[d.name].data.slice((length - 15), length)
+        if (length > 50) this._nodes[d.name].data = this._nodes[d.name].data.slice((length - 50), length)
         return d;
       });
     }

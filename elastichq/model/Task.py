@@ -18,7 +18,7 @@ class Task:
     room_name = None
     cluster_name = None
     metric = None
-    task_timeout = 5
+    task_timeout = 3
     sessions = []
 
     switch = False
@@ -46,7 +46,7 @@ class Task:
 
         # https://stackoverflow.com/questions/44371041/python-socketio-and-flask-how-to-stop-a-loop-in-a-background-thread
         while self.switch:
-            eventlet.sleep(10)
+            eventlet.sleep(5)
 
             LOG.debug('-----------------------------------------')
             LOG.debug('    Doing background task')
@@ -71,12 +71,13 @@ class Task:
                             "host": jmespath.search("host", node_dict),
                             "heap_max_in_bytes": jmespath.search("jvm.mem.heap_max_in_bytes", node_dict),
                             "heap_used_in_bytes": jmespath.search("jvm.mem.heap_used_in_bytes", node_dict),
-                            "docs_count": jmespath.search("indices.docs.deleted", node_dict),
-                            "docs_deleted": jmespath.search("indices.docs.count", node_dict),
+                            "docs_count": jmespath.search("indices.docs.count", node_dict),
+                            "docs_deleted": jmespath.search("indices.docs.deleted", node_dict),
                             "store_size": jmespath.search("indices.store.size_in_bytes", node_dict),
                             "cpu_percent": jmespath.search("process.cpu.percent", node_dict),
                             "field_data_cache_in_bytes": jmespath.search("indices.fielddata.memory_size_in_bytes", node_dict),
                             "fs_used_in_bytes" : total_in_bytes - available_in_bytes,
+                            "fs_free_in_bytes" : available_in_bytes,
                             "index_total" : jmespath.search("indices.indexing.index_total", node_dict)
                         }
                     nodes.append(node)
