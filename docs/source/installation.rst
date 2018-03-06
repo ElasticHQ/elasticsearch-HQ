@@ -31,6 +31,11 @@ Install ElasticHQ
 
 .. note:: Alternatively, you can start the server with ``python manage.py runserver``
 
+Docker Images
+^^^^^^^^^^^^^
+
+Docker images are offered on the `ElasticHQ Dockerhub <https://hub.docker.com/r/elastichq/elasticsearch-hq/>`_.
+
 Pre-Releases
 ^^^^^^^^^^^^
 
