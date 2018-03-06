@@ -11,7 +11,7 @@ class clusterNodesLineGraphController {
         this.$window = $window;
         this.widthFrom = angular.element($element[0].children[0])[0];
 
-        this.h = 240;
+        this.h = 220;
         this.svgContainer = d3.select(angular.element($element[0].querySelector('.chart'))[0])
                             .append('svg').attr('height', this.h);
 

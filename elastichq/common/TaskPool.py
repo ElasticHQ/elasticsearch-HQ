@@ -10,12 +10,20 @@ class TaskPool(object):
         return self
 
     def add(self, task):
-        self.tasks.append(task)
+        # sanity check for unique tasks:
+        if self.get_task_by_room_name(task.room_name) is None:
+            self.tasks.append(task)
 
     def get_task_by_room_name(self, room_name):
+        """
+
+        :param room_name: unique ID of tasks
+        :return:
+        """
         for task in self.tasks:
             if task.room_name == room_name:
                 return task
+        return None
 
     def get_tasks_by_cluster_name(self, cluster_name):
         for task in self.tasks:
@@ -37,5 +45,16 @@ class TaskPool(object):
             task.add_session(sid)
             self.socketio.start_background_task(target=task.run)
             self.add(task)
-        else:
+        else: # task already exists
             task.add_session(sid)
+
+    def diconnect_client(self, sid):
+        for task in self.tasks:
+            for session in task.sessions:
+                if session == sid:
+                    task.remove_session(sid)
+                    if len(task.sessions) == 0:
+                        task.stop()
+                        self.remove(task.room_name)
+                    break
+

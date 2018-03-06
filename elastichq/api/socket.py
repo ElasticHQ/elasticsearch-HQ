@@ -99,4 +99,8 @@ def do_msg(message):
 @socketio.on('disconnect', namespace='/ws')
 def disconnect():
     LOG.debug('Client disconnected')
-    # TODO
+
+    # client disconnected
+    sid = request.sid
+    taskPool.diconnect_client(sid)
+

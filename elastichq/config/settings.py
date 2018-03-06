@@ -56,7 +56,7 @@ class TestSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = 'v3.0'
+    API_VERSION = 'v3.1.0'
     ES_V2_HOST = '127.0.0.1'
     ES_V2_PORT = '9200'
     ES_V5_HOST = '127.0.0.1'
@@ -116,7 +116,7 @@ class ProdSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = '3.0.3'
+    API_VERSION = '3.1.0'
 
 
     SCHEDULER_EXECUTORS = {
