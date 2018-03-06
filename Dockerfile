@@ -7,6 +7,7 @@ RUN pip install gunicorn
 
 # Upgrade and install basic Python dependencies
 # This block added because of the trouble installing gevent on many systems
+# https://hub.docker.com/r/openwhisk/dockerskeleton/~/dockerfile/
 RUN apk add --no-cache bash \
  && apk add --no-cache --virtual .build-deps \
         bzip2-dev \
@@ -14,13 +15,6 @@ RUN apk add --no-cache bash \
         libc-dev \
   && pip install --no-cache-dir gevent \
   && apk del .build-deps
-
-
-RUN apk add libevent-dev
-RUN apk add python-dev
-RUN apk add python3-dev
-RUN apk add libffi-dev
-RUN apk add openssl-dev
 
 # reqs layer
 ADD requirements.txt .
