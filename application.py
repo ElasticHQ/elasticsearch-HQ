@@ -3,7 +3,7 @@ import optparse
 
 from elastichq import factory
 
-default_host = '127.0.0.1'
+default_host = '0.0.0.0'
 default_port = 5000
 default_debug = False
 

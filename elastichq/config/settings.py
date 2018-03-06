@@ -117,7 +117,7 @@ class ProdSettings(BaseSettings):
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
     API_VERSION = '3.1.0'
-
+    SERVER_NAME = None
 
     SCHEDULER_EXECUTORS = {
         'default': {'type': 'threadpool', 'max_workers': 20}

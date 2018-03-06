@@ -11,7 +11,7 @@ from elastichq.api import endpoints
 __author__ = 'royrusso'
 
 
-def create_app(env='PROD', port=5000, host='127.0.0.1', debug=True):
+def create_app(env='PROD', port=5000, host='0.0.0.0', debug=True):
     app = Flask(__name__)
 
     if env.lower() == 'prod':

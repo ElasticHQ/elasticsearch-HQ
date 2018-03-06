@@ -12,9 +12,10 @@ RUN apk add --no-cache bash \
  && apk add --no-cache --virtual .build-deps \
         bzip2-dev \
         gcc \
-        libc-dev \
-  && pip install --no-cache-dir gevent \
-  && apk del .build-deps
+        libc-dev
+#  && pip install --no-cache-dir gevent \
+#  && apk del .build-deps
+
 
 # reqs layer
 ADD requirements.txt .
@@ -35,4 +36,7 @@ COPY ./deployment/supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./deployment/gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
 
 # Start processes
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+#CMD ["/usr/local/bin/gunicorn", "--config", "src/gunicorn.conf", "application:application"]
+#CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+ENTRYPOINT ["python"]
+CMD ["src/application.py"]
