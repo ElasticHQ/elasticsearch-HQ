@@ -4,8 +4,22 @@ RUN apk update
 RUN apk add supervisor
 RUN apk add --update py2-pip
 RUN pip install gunicorn
+
+# Upgrade and install basic Python dependencies
+RUN apk add --no-cache bash \
+ && apk add --no-cache --virtual .build-deps \
+        bzip2-dev \
+        gcc \
+        libc-dev \
+  && pip install --no-cache-dir gevent \
+  && apk del .build-deps
+
+
 RUN apk add libevent-dev
+RUN apk add python-dev
 RUN apk add python3-dev
+RUN apk add libffi-dev
+RUN apk add openssl-dev
 
 # reqs layer
 ADD requirements.txt .
