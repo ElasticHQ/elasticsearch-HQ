@@ -4,7 +4,8 @@ RUN apk update
 RUN apk add supervisor
 RUN apk add --update py2-pip
 RUN pip install gunicorn
-RUN apt-get install libevent-dev python3-dev
+RUN apk add libevent-dev
+RUN apk add python3-dev
 
 # reqs layer
 ADD requirements.txt .
