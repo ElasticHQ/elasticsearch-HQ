@@ -6,6 +6,7 @@ RUN apk add --update py2-pip
 RUN pip install gunicorn
 
 # Upgrade and install basic Python dependencies
+# This block added because of the trouble installing gevent on many systems
 RUN apk add --no-cache bash \
  && apk add --no-cache --virtual .build-deps \
         bzip2-dev \
