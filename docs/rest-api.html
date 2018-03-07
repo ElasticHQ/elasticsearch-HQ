@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>REST API &mdash; ElasticHQ latest documentation</title>
+    <title>REST API &#8212; ElasticHQ latest documentation</title>
     
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -32,6 +32,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="ElasticHQ latest documentation" href="index.html" />
     <link rel="next" title="For Developers" href="developer-guide.html" />
     <link rel="prev" title="User Guide" href="user-guide.html" />
@@ -55,7 +57,7 @@
         <li class="right" >
           <a href="user-guide.html" title="User Guide"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -78,7 +80,7 @@
       <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">REST API</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">REST API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#connection-apis">Connection APIs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#connections">Connections</a></li>
 </ul>
@@ -205,6 +207,51 @@
 <h2><a class="toc-backref" href="#id2">Connection APIs</a><a class="headerlink" href="#connection-apis" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="connections">
 <h3><a class="toc-backref" href="#id3">Connections</a><a class="headerlink" href="#connections" title="Permalink to this headline">¶</a></h3>
+<dl class="delete">
+<dt id="delete--api-clusters-(string-cluster_name)-_connect">
+<code class="descname">DELETE </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_connect</code><a class="headerlink" href="#delete--api-clusters-(string-cluster_name)-_connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="delete">
+<dt id="delete--api-clusters-_connect">
+<code class="descname">DELETE </code><code class="descname">/api/clusters/_connect</code><a class="headerlink" href="#delete--api-clusters-_connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a connection from the connection pool and the database, by cluster name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body">This method does NOT delete your Elasticsearch Cluster, just the connection from HQ to it.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example request</strong>:</p>
+<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/clusters/_connect/&lt;CLUSTER_NAME&gt;</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> (<em>string</em>) &#8211; Name of cluster connection to remove.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of active clusters.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; Ok</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; bad request</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a> &#8211; server error</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="post">
 <dt id="post--api-clusters-(string-cluster_name)-_connect">
 <code class="descname">POST </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_connect</code><a class="headerlink" href="#post--api-clusters-(string-cluster_name)-_connect" title="Permalink to this definition">¶</a></dt>
@@ -294,51 +341,6 @@ Content-Type: application/json
 </tr>
 <tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> &#8211; connection created</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; bad request</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a> &#8211; server error</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="delete">
-<dt id="delete--api-clusters-(string-cluster_name)-_connect">
-<code class="descname">DELETE </code><code class="descname">/api/clusters/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_connect</code><a class="headerlink" href="#delete--api-clusters-(string-cluster_name)-_connect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="delete">
-<dt id="delete--api-clusters-_connect">
-<code class="descname">DELETE </code><code class="descname">/api/clusters/_connect</code><a class="headerlink" href="#delete--api-clusters-_connect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes a connection from the connection pool and the database, by cluster name.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body">This method does NOT delete your Elasticsearch Cluster, just the connection from HQ to it.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example request</strong>:</p>
-<div class="highlight-http"><div class="highlight"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/clusters/_connect/&lt;CLUSTER_NAME&gt;</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cluster_name</strong> (<em>string</em>) &#8211; Name of cluster connection to remove.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of active clusters.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; Ok</li>
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; bad request</li>
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a> &#8211; server error</li>
 </ul>
@@ -582,6 +584,31 @@ both the info and stats APIs.</p>
 <h2><a class="toc-backref" href="#id13">Index APIs</a><a class="headerlink" href="#index-apis" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="indices">
 <h3><a class="toc-backref" href="#id14">Indices</a><a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_name)">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-indices-(string-cluster_name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="post">
 <dt id="post--api-indices-(string-cluster_name)-(string-index_name)">
 <code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--api-indices-(string-cluster_name)-(string-index_name)" title="Permalink to this definition">¶</a></dt>
@@ -647,31 +674,6 @@ both the info and stats APIs.</p>
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2">201 Created</a> &#8211; index created</li>
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; bad request</li>
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1">500 Internal Server Error</a> &#8211; server error</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="get">
-<dt id="get--api-indices-(string-cluster_name)-(string-index_name)">
-<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="get">
-<dt id="get--api-indices-(string-cluster_name)">
-<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-indices-(string-cluster_name)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper around <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cluster_name</strong> &#8211; </li>
-<li><strong>index_name</strong> &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -806,20 +808,20 @@ both the info and stats APIs.</p>
 </div>
 <div class="section" id="index-alias">
 <h3><a class="toc-backref" href="#id19">Index Alias</a><a class="headerlink" href="#index-alias" title="Permalink to this headline">¶</a></h3>
-<dl class="post">
-<dt id="post--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases">
-<code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>alias_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#post--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases" title="Permalink to this definition">¶</a></dt>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>alias_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="post">
-<dt id="post--api-indices-(string-cluster_name)-(string-index_name)-_aliases">
-<code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#post--api-indices-(string-cluster_name)-(string-index_name)-_aliases" title="Permalink to this definition">¶</a></dt>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-_aliases">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-_aliases" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="post">
-<dt id="post--api-indices-(string-cluster_name)-_aliases">
-<code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#post--api-indices-(string-cluster_name)-_aliases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a new alias.</p>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-_aliases">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-_aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all aliases for this index</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -827,7 +829,6 @@ both the info and stats APIs.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>cluster_name</strong> &#8211; </li>
 <li><strong>index_name</strong> &#8211; </li>
-<li><strong>alias_name</strong> (<em>string</em>) &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -868,20 +869,20 @@ both the info and stats APIs.</p>
 </table>
 </dd></dl>
 
-<dl class="get">
-<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases">
-<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>alias_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases" title="Permalink to this definition">¶</a></dt>
+<dl class="post">
+<dt id="post--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases">
+<code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>alias_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#post--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="get">
-<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-_aliases">
-<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-_aliases" title="Permalink to this definition">¶</a></dt>
+<dl class="post">
+<dt id="post--api-indices-(string-cluster_name)-(string-index_name)-_aliases">
+<code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#post--api-indices-(string-cluster_name)-(string-index_name)-_aliases" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="get">
-<dt id="get--api-indices-(string-cluster_name)-_aliases">
-<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-_aliases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get all aliases for this index</p>
+<dl class="post">
+<dt id="post--api-indices-(string-cluster_name)-_aliases">
+<code class="descname">POST </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#post--api-indices-(string-cluster_name)-_aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new alias.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -889,6 +890,7 @@ both the info and stats APIs.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>cluster_name</strong> &#8211; </li>
 <li><strong>index_name</strong> &#8211; </li>
+<li><strong>alias_name</strong> (<em>string</em>) &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -1097,7 +1099,7 @@ both the info and stats APIs.</p>
         <li class="right" >
           <a href="user-guide.html" title="User Guide"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &#187;</li> 
       </ul>
     </div>
 <script type="text/javascript">
