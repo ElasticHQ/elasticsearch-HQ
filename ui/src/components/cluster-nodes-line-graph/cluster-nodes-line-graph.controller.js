@@ -15,6 +15,19 @@ class clusterNodesLineGraphController {
         this.svgContainer = d3.select(angular.element($element[0].querySelector('.chart'))[0])
                             .append('svg').attr('height', this.h);
 
+
+        this.tooltip = d3.select("body")
+                            .append("div")
+                            .style("position", "absolute")
+                            .style("z-index", "10")
+                            .style("padding-top", "5px")
+                            .style("padding-bottom", "5px")
+                            .style("padding-left", "10px")
+                            .style("padding-right", "10px")
+                            .style("background", "#2d2d2d")
+                            .style("color", "#eee")
+                            .style("visibility", "hidden");
+
         this.margin = {
             left: 50,
             right: 10,
@@ -27,6 +40,7 @@ class clusterNodesLineGraphController {
 
         $scope.$on('$destroy', () => {
             angular.element($window).off('resize', this.draw);
+            this.tooltip.remove();
         });
         
     }
@@ -157,14 +171,69 @@ class clusterNodesLineGraphController {
         // We draw circles to make it easier to see the actual entries
         let circles = groups.merge(groupEnter).selectAll('circle').data((d) => d.values);
 
+        let setToolTip = (x,y,d) => {
+            // TBD
+            // What information is valuable for the hover.
+            let str = `<h6>${d.name}</h6>` +
+                                `<div>${numeral(d.value).format(this.numFormat)}</div>` +
+                                `<div>Raw: ${d.value}</div>` +
+                                `<div>At: ${d.date}</div>`;
+
+            // Add the HTML first so we can determine size and placement.
+            this.tooltip.html(str);
+
+            let toolTipExtra = this.tooltip.node().getBoundingClientRect(),
+                bodyWidth = document.body.clientWidth,
+                extraX;
+
+            // IF tooltip will be to big to fit in view, and leak to the left
+            //  then make the tool tip right align to the X.
+            // IF tooltip will be off screen to the right, then left align.
+            // ELSE just center.
+            if ((x + (toolTipExtra.width / 2)) > bodyWidth) {
+                extraX = (x - toolTipExtra.width)
+            } else if ((x - (toolTipExtra.width / 2)) < 0) {
+                extraX = x
+            } else {
+                extraX = (x - (toolTipExtra.width / 2))
+            }
+
+            // Add some spacing to y so it does not render
+            // exactly where the mouse is causing a mouse enter / out loop.
+            this.tooltip.style('visibility', 'visible')
+                            .style('top', `${y + 10}px`) 
+                            .style('left', `${extraX}px`);
+        }
+
         circles
             .enter()
                 .append('circle')
-                .attr('r', 1.5)
+                .attr('r', 2.5)
                 .attr('cx', (d) => x(d.date))
                 .attr('cy', (d, i) => y(d.value))
                 .attr('fill', (d) => d.color)
             .merge(circles)
+                .on('mouseover', (d, i, arr) => {
+                    // When hover, make the circle slightly larger
+                    // so user knows which circle tooltip is showing.
+                    d3.select(arr[i]).transition().delay(100).attr('r', 5);
+
+                    let { pageX, pageY } = d3.event;
+                    setToolTip(pageX, pageY, d);                  
+
+                })
+                .on('mousemove', (d, i, arr) => {
+                    // Follow the mouse as new items come into the view.
+                    d3.select(arr[i]).transition().delay(100).attr('r', 5);
+                    let { pageX, pageY } = d3.event;
+                    setToolTip(pageX, pageY, d)
+                })
+                .on('mouseout', (d, i, arr) => {
+                    // As new item comes in, old gets moved,
+                    // circle goes back to normal size and new circle gets hover effect.
+                    let elm = d3.select(arr[i]).transition().delay(100).attr('r', 2.5);
+                    this.tooltip.style('visibility', 'hidden')
+                })
                 .transition()
                 .duration(350)
                 .attr('cx', (d) => x(d.date))
