@@ -16,7 +16,6 @@ RUN apk add --no-cache bash \
 #  && pip install --no-cache-dir gevent \
 #  && apk del .build-deps
 
-
 # reqs layer
 ADD requirements.txt .
 RUN pip3 install -U -r requirements.txt
@@ -24,11 +23,10 @@ RUN pip3 install -U -r requirements.txt
 # Bundle app source
 ADD . /src
 
-# Expose
-EXPOSE  5000
-
 COPY ./deployment/logging.conf /src/logging.conf
 COPY ./deployment/gunicorn.conf /src/gunicorn.conf
+
+EXPOSE 5000
 
 # Setup supervisord
 RUN mkdir -p /var/log/supervisor
@@ -36,7 +34,8 @@ COPY ./deployment/supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./deployment/gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
 
 # Start processes
-#CMD ["/usr/local/bin/gunicorn", "--config", "src/gunicorn.conf", "application:application"]
-#CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
-ENTRYPOINT ["python"]
-CMD ["src/application.py"]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
+
+#ENTRYPOINT ["python"]
+#CMD ["src/application.py"]

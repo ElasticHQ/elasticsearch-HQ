@@ -1,7 +1,8 @@
 # import argparse
 import optparse
 
-from elastichq import factory
+from elastichq import create_app
+from elastichq.globals import socketio
 
 default_host = '0.0.0.0'
 default_port = 5000
@@ -28,5 +29,12 @@ options, _ = parser.parse_args()
 # parser.add_argument("--port", help="The port to listen to", type=int, default=5000)
 # parser.add_argument("--host", help="local IP address to bind to", default="localhost")
 # args = parser.parse_args()
-application = factory.create_app(host=options.host, port=options.port, debug=options.debug)
+#application = create_app(host=options.host, port=options.port, debug=options.debug)
 # application.run(debug=False, threaded=True, use_reloader=True, host=args.host, port=args.port)
+
+
+application = create_app(host=options.host, port=options.port, debug=options.debug)
+
+if __name__ == '__main__':
+    # socketio.run(app, debug=True)
+    socketio.run(application, host=options.host, port=options.port, debug=options.debug)

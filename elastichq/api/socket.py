@@ -6,7 +6,7 @@ from flask_socketio import emit, join_room, leave_room, rooms
 
 from elastichq.model import Task
 from elastichq.service import ConnectionService
-from ..globals import LOG, socketio, taskPool
+from ..globals import LOG, taskPool, socketio
 
 """"
 To test using Chrome dev tools:
