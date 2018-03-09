@@ -49,24 +49,6 @@ class clusterNodesLineGraphController {
         this.paths = this.svgContainer.append('g').attr('class', 'cpu-container')
                                 .attr('transform', 'translate(' + this.margin.left + ','+this.margin.top+')')
                                 .append('g').attr('class', "paths");
-
-        this.focus = this.svgContainer.append('g')
-                                .attr('class', 'focus')
-                                .attr('transform', 'translate(' + this.margin.left + ','+this.margin.top+')')
-                                .style('display', 'none');
-
-        this.focus.append('line')
-                        .attr('class','x')
-                        .style('fill', 'none')
-                        .style('stroke', 'black')
-                        .style('stroke-width', '1.5px');
-
-        this.focus.append('line')
-                        .attr('class','y')
-                        .style('fill', 'none')
-                        .style('stroke', 'black')
-                        .style('stroke-width', '1.5px');
-            
         
         this.axisContainer = this.svgContainer.append('g').attr('class', 'x-axis')
                                 .attr('transform', 'translate(' + this.margin.left + ',0)');
@@ -194,8 +176,7 @@ class clusterNodesLineGraphController {
             // What information is valuable for the hover.
             let str = `<h6>${d.name}</h6>` +
                                 `<div>${numeral(d.value).format(this.numFormat)}</div>` +
-                                `<div>Raw: ${d.value}</div>` +
-                                `<div>At: ${d.date}</div>`;
+                                `<div>${d.date}</div>`;
 
             // Add the HTML first so we can determine size and placement.
             this.tooltip.html(str);
@@ -235,7 +216,6 @@ class clusterNodesLineGraphController {
                     // When hover, make the circle slightly larger
                     // so user knows which circle tooltip is showing.
                     d3.select(arr[i]).transition().delay(100).attr('r', 5);
-                    this.focus.style('display', null)
                     let { pageX, pageY } = d3.event;
                     setToolTip(pageX, pageY, d);                  
 
@@ -245,24 +225,12 @@ class clusterNodesLineGraphController {
                     d3.select(arr[i]).transition().delay(100).attr('r', 5);
                     let { pageX, pageY } = d3.event;
                     setToolTip(pageX, pageY, d);
-                    this.focus.select('line.x')
-                        .attr('x1', 0)
-                        .attr('x2', +x(d.date))
-                        .attr('y1', 0)
-                        .attr('y2', 0);
-
-                    this.focus.select('line.y')
-                        .attr('x1', 0)
-                        .attr('x2', 0)
-                        .attr('y1', 0)
-                        .attr('y2', h - y(d.value));
                 })
                 .on('mouseout', (d, i, arr) => {
                     // As new item comes in, old gets moved,
                     // circle goes back to normal size and new circle gets hover effect.
                     let elm = d3.select(arr[i]).transition().delay(100).attr('r', 2.5);
                     this.tooltip.style('visibility', 'hidden');
-                    // this.focus.style('display', 'none')
                 })
                 .transition()
                 .duration(350)
