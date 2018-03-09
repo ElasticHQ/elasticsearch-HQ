@@ -8,7 +8,7 @@ from elastichq.globals import init_database, init_log, init_marshmallow, init_so
 __author__ = 'royrusso'
 
 
-def create_app(env='PROD', port=5000, host='0.0.0.0', debug=True):
+def create_app(env='PROD'):
     app = Flask(__name__)
 
     if env.lower() == 'prod':

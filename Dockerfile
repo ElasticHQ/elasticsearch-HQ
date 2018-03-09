@@ -3,7 +3,6 @@ FROM python:3.6-alpine3.7
 RUN apk update
 RUN apk add supervisor
 RUN apk add --update py2-pip
-RUN pip install gunicorn
 
 # Upgrade and install basic Python dependencies
 # This block added because of the trouble installing gevent on many systems
@@ -19,6 +18,7 @@ RUN apk add --no-cache bash \
 # reqs layer
 ADD requirements.txt .
 RUN pip3 install -U -r requirements.txt
+RUN pip3 install gunicorn
 
 # Bundle app source
 ADD . /src
