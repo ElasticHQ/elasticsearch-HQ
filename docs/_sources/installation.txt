@@ -162,7 +162,7 @@ In console, run gunicorn with:
 
 The application will be accessible under http://127.0.0.1:5000
 
-Read the `Gunicorn Docs<http://docs.gunicorn.org/en/stable/configure.html>`_ for further command line options.
+Read the `Gunicorn Docs <http://docs.gunicorn.org/en/stable/configure.html>`_ for further command line options.
 
 .. note:: For the *Metrics* section to broadcast via websocket, you must have gunicorn set to 1 worker.
 
