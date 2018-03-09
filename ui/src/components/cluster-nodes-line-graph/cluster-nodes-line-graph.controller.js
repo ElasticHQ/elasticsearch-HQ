@@ -216,7 +216,6 @@ class clusterNodesLineGraphController {
                     // When hover, make the circle slightly larger
                     // so user knows which circle tooltip is showing.
                     d3.select(arr[i]).transition().delay(100).attr('r', 5);
-
                     let { pageX, pageY } = d3.event;
                     setToolTip(pageX, pageY, d);                  
 
@@ -225,13 +224,13 @@ class clusterNodesLineGraphController {
                     // Follow the mouse as new items come into the view.
                     d3.select(arr[i]).transition().delay(100).attr('r', 5);
                     let { pageX, pageY } = d3.event;
-                    setToolTip(pageX, pageY, d)
+                    setToolTip(pageX, pageY, d);
                 })
                 .on('mouseout', (d, i, arr) => {
                     // As new item comes in, old gets moved,
                     // circle goes back to normal size and new circle gets hover effect.
                     let elm = d3.select(arr[i]).transition().delay(100).attr('r', 2.5);
-                    this.tooltip.style('visibility', 'hidden')
+                    this.tooltip.style('visibility', 'hidden');
                 })
                 .transition()
                 .duration(350)
