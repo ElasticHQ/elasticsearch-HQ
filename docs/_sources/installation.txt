@@ -158,11 +158,13 @@ We recommend running this WSGI application with gunicorn. Install gunicorn by ei
 
 In console, run gunicorn with:
 
-``gunicorn -w 4 -b :5000 application:application``
+``gunicorn -w 1 -b :5000 --worker-class eventlet application:application``
 
 The application will be accessible under http://127.0.0.1:5000
 
 Read the `Gunicorn Docs<http://docs.gunicorn.org/en/stable/configure.html>`_ for further command line options.
+
+.. note:: For the *Metrics* section to broadcast via websocket, you must have gunicorn set to 1 worker.
 
 License
 -------
