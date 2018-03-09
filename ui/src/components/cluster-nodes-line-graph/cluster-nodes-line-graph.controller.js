@@ -176,8 +176,7 @@ class clusterNodesLineGraphController {
             // What information is valuable for the hover.
             let str = `<h6>${d.name}</h6>` +
                                 `<div>${numeral(d.value).format(this.numFormat)}</div>` +
-                                `<div>Raw: ${d.value}</div>` +
-                                `<div>At: ${d.date}</div>`;
+                                `<div>${d.date}</div>`;
 
             // Add the HTML first so we can determine size and placement.
             this.tooltip.html(str);

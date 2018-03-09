@@ -36,6 +36,8 @@ Docker Images
 
 Docker images are offered on the `ElasticHQ Dockerhub <https://hub.docker.com/r/elastichq/elasticsearch-hq/>`_.
 
+The ``latest`` tag deploys the latest stable release. Where ``develop`` is the latest unstable working branch.
+
 Pre-Releases
 ^^^^^^^^^^^^
 
@@ -107,11 +109,6 @@ The ``application.py`` start script takes parameters passed in as arguments from
     ``--debug``  False           If True, exposes debug data to UI and causes reload on code changes.
     ===========  ==============  ====================================================================
 
-
-Directory Structure
-^^^^^^^^^^^^^^^^^^^
-
-TODO
 
 Upgrading
 ---------
