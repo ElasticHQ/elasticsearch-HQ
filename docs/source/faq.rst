@@ -20,7 +20,7 @@ How do I...
     You can access the REST API under http://localhost:5000/api
 
 Using ElasticHQ with...
---------------------
+-----------------------
 
 X-Pack
    We have added instructions on X-Pack authentication, see :any:`xpack integration`.

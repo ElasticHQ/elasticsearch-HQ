@@ -40,7 +40,7 @@ class clusterSummaryController {
             },
             {
                 label: 'Documents',
-                value: numeral(this.summary.number_of_documents).format(formatByt)
+                value: numeral(this.summary.number_of_documents).format(formatNum)
             },
             {
                 label: 'Size',

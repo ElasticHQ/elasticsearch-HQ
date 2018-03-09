@@ -10,7 +10,7 @@ Simplified Monitoring and Management for ElasticSearch clusters.
 [![License](https://img.shields.io/badge/license-ASL-blue.svg)](https://opensource.org/licenses/ASL)
 
 
-![alt text](main_dashboard.png)
+![alt text](https://raw.githubusercontent.com/ElasticHQ/elasticsearch-HQ/master/main_dashboard.png)
 
 
 Key Features
@@ -21,6 +21,7 @@ Key Features
 * Create and perform maintenance on Elasticsearch Indices.
 * One-Click access to common ES API endpoints.
 * Well-documented REST API for extensibility.
+* Real-time monitoring charts of important metrics.
 * Active project used by Fortune 100 companies around the world.
 * Free. ;-)
 
@@ -43,19 +44,14 @@ For **full** installation and configuration instructions, see [Getting Started](
 
 For further installation and configuration help, please read the docs: [ElasticHQ Documentation](http://docs.elastichq.org)
 
-Docs + Support
----------------
-* Documentation can be found here: http://docs.elastichq.org
-* Google Group can be found here: https://groups.google.com/d/forum/elastichq
-* If you need sample index + documents, see here: https://github.com/royrusso/elasticsearch-sample-index
-* If you find a bug, **please** create an issue and report it, or fix it and submit a pull request. ;-)
- 
-Legal Stuff
------------
+For those of you wanting to use Docker: [ElasticHQ on Dockerhub](https://hub.docker.com/r/elastichq/elasticsearch-hq/)
 
-* [License File](LICENSE.md).
-* [TOS and Privacy](TERMS.md).
-
+Useful Links
+------------
+* [Documentation](http://docs.elastichq.org)
+* [Official Website](http://www.elastichq.org)
+* [Docker Images](https://hub.docker.com/r/elastichq/elasticsearch-hq/)
+* [Google Group](https://groups.google.com/d/forum/elastichq)
 
 
 

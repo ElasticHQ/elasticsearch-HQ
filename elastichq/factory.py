@@ -1,16 +1,17 @@
 import os
 from flask import Flask
-from elastichq.api import api_blueprint, public_blueprint
-from elastichq.globals import init_log, init_database, init_marshmallow, init_scheduler
+from elastichq.api import api_blueprint, public_blueprint, ws_blueprint
+from elastichq.globals import init_log, init_database, init_marshmallow, init_socketio, init_task_pool
 from elastichq.config.settings import ProdSettings, TestSettings
 
 # noinspection PyUnresolvedReferences
 from elastichq.api import endpoints
 
+
 __author__ = 'royrusso'
 
 
-def create_app(env='PROD'):
+def create_app(env='PROD', port=5000, host='0.0.0.0', debug=True):
     app = Flask(__name__)
 
     if env.lower() == 'prod':
@@ -24,6 +25,7 @@ def create_app(env='PROD'):
 
     app.register_blueprint(api_blueprint)
     app.register_blueprint(public_blueprint)
+    app.register_blueprint(ws_blueprint)
 
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -36,5 +38,13 @@ def create_app(env='PROD'):
     init_marshmallow(app)
 
     #init_scheduler(app)
+
+    socketio = init_socketio(app)
+
+    init_task_pool(socketio)
+
+    socketio.run(app, port=port, host=host, debug=debug)
+
+    #socketio.run(app, port=port, host=host)
 
     return app

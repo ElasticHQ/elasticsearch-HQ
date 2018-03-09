@@ -6,6 +6,11 @@ For Developers
     :depth: 3
     :local:
 
+Contributing
+------------
+
+Please read the `Contributing guidelines <https://github.com/ElasticHQ/elasticsearch-HQ/blob/master/CONTRIBUTING.md>`_ before working on a pull request.
+
 Building Pre-Releases
 ---------------------
 
@@ -64,6 +69,12 @@ Notes
 
 Building Documentation
 ----------------------
+
+Sphinx requires specific libraries that are not in the default ``requirements.txt``.
+
+First install the sphinx requirements: ``pip install -r sphinx-requirements.txt``
+
+To generate the documentation:
 
 ``./sphinx-build -b html /path/to/docs/source /path/to/docs``
 

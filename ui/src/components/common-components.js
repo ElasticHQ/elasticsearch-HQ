@@ -32,7 +32,7 @@ import nodeProcessTable from './node-process-table/node-process-table';
 import nodeOsInfoTable from './node-os-info-table/node-os-info-table';
 import nodeJVMStatsTable from './node-jvm-stats-table/node-jvm-stats-table';
 import nodeDiagnosticsWrapper from './node-diagnostics-wrapper/node-diagnostics-wrapper';
-
+import clusterNodesLineGraph from './cluster-nodes-line-graph/cluster-nodes-line-graph';
 
 // Editors
 import apiEndpoints from './api-endpoints/api-endpoints';
@@ -42,6 +42,7 @@ const CommonComponents = angular.module('components', [
   clusters,
   clusterSummary,
   clusterNavigation,
+  clusterNodesLineGraph,
   clustersButton,
   indicesTable,
   indexAdministrationTabContent,

@@ -33,13 +33,15 @@
     "angular-ui-bootstrap": "^2.5.6",
     "angular-ui-notification": "^0.3.6",
     "babel-polyfill": "^6.26.0",
+    "d3": "^4.13.0",
     "font-awesome": "^4.7.0",
     "highlight.js": "^9.12.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "ng-animate": "^0.3.1",
     "numeral": "^2.0.6",
-    "semver-parser": "^1.0.14"
+    "semver-parser": "^1.0.14",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.39",
@@ -49,6 +51,7 @@
     "babel-loader": "^8.0.0-beta.0",
     "bootstrap-sass": "^3.3.7",
     "css-loader": "^0.28.8",
+    "expose-loader": "^0.7.4",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",

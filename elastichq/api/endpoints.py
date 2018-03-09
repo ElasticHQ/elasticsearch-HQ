@@ -12,5 +12,7 @@ from . import status
 from . import diagnostics
 # noinspection PyUnresolvedReferences
 from . import rest
+# noinspection PyUnresolvedReferences
+from . import socket
 
 

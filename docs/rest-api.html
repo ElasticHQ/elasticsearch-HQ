@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>REST API &mdash; ElasticHQ latest documentation</title>
+    <title>REST API &#8212; ElasticHQ latest documentation</title>
     
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -32,6 +32,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="ElasticHQ latest documentation" href="index.html" />
     <link rel="next" title="For Developers" href="developer-guide.html" />
     <link rel="prev" title="User Guide" href="user-guide.html" />
@@ -50,15 +52,12 @@
           <a href="http-routingtable.html" title="HTTP Routing Table"
              >routing table</a> |</li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="developer-guide.html" title="For Developers"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="user-guide.html" title="User Guide"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -81,7 +80,7 @@
       <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">REST API</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">REST API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#connection-apis">Connection APIs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#connections">Connections</a></li>
 </ul>
@@ -809,6 +808,36 @@ both the info and stats APIs.</p>
 </div>
 <div class="section" id="index-alias">
 <h3><a class="toc-backref" href="#id19">Index Alias</a><a class="headerlink" href="#index-alias" title="Permalink to this headline">¶</a></h3>
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>alias_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-_aliases">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-_aliases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-indices-(string-cluster_name)-_aliases">
+<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-_aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all aliases for this index</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cluster_name</strong> &#8211; </li>
+<li><strong>index_name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="delete">
 <dt id="delete--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases">
 <code class="descname">DELETE </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>alias_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#delete--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases" title="Permalink to this definition">¶</a></dt>
@@ -831,36 +860,6 @@ both the info and stats APIs.</p>
 <li><strong>cluster_name</strong> &#8211; </li>
 <li><strong>index_name</strong> &#8211; </li>
 <li><strong>alias_name</strong> (<em>string</em>) &#8211; Alias to delete</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="get">
-<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases">
-<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>alias_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-(string-alias_name)-_aliases" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="get">
-<dt id="get--api-indices-(string-cluster_name)-(string-index_name)-_aliases">
-<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>index_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-(string-index_name)-_aliases" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="get">
-<dt id="get--api-indices-(string-cluster_name)-_aliases">
-<code class="descname">GET </code><code class="descname">/api/indices/</code><span class="sig-paren">(</span><em class="property">string: </em><em>cluster_name</em><span class="sig-paren">)</span><code class="descname">/_aliases</code><a class="headerlink" href="#get--api-indices-(string-cluster_name)-_aliases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get all aliases for this index</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cluster_name</strong> &#8211; </li>
-<li><strong>index_name</strong> &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -1095,15 +1094,12 @@ both the info and stats APIs.</p>
           <a href="http-routingtable.html" title="HTTP Routing Table"
              >routing table</a> |</li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="developer-guide.html" title="For Developers"
              >next</a> |</li>
         <li class="right" >
           <a href="user-guide.html" title="User Guide"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">ElasticHQ latest documentation</a> &#187;</li> 
       </ul>
     </div>
 <script type="text/javascript">

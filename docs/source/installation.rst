@@ -31,6 +31,13 @@ Install ElasticHQ
 
 .. note:: Alternatively, you can start the server with ``python manage.py runserver``
 
+Docker Images
+^^^^^^^^^^^^^
+
+Docker images are offered on the `ElasticHQ Dockerhub <https://hub.docker.com/r/elastichq/elasticsearch-hq/>`_.
+
+The ``latest`` tag deploys the latest stable release. Where ``develop`` is the latest unstable working branch.
+
 Pre-Releases
 ^^^^^^^^^^^^
 
@@ -87,10 +94,21 @@ ElasticHQ ships with SQLLite integration to store clusters you have connected to
 
 .. note:: In the event you want to start with a clean slate, simply delete the ``elastichq.db`` file. ElasticHQ will recreate it at next startup.
 
-Directory Structure
-^^^^^^^^^^^^^^^^^^^
+Startup Parameters
+^^^^^^^^^^^^^^^^^^
 
-TODO
+The ``application.py`` start script takes parameters passed in as arguments from the command line:
+
+
+
+    ===========  ==============  ====================================================================
+    Arg          Default Value   Definition
+    ===========  ==============  ====================================================================
+    ``--host``   127.0.0.1       Host the HQ server should be reachable on.
+    ``--port``   5000            Port to reach HQ server.
+    ``--debug``  False           If True, exposes debug data to UI and causes reload on code changes.
+    ===========  ==============  ====================================================================
+
 
 Upgrading
 ---------
@@ -126,6 +144,24 @@ Upgrading Minor and Patch versions
 2. Upgrade the database: ``python manage.py db upgrade``
 3. (Re)Start the server: ``python application.py``
 4. Point your browser to: http://localhost:5000
+
+
+Running in Production
+---------------------
+
+We advise that under any considerable usage/load, this application should be run with a multithreaded server. The current flask implemenation by itself should not be run in production without this, as it is a single-threaded process.
+
+We recommend running this WSGI application with gunicorn. Install gunicorn by either commenting out the line in the ``requirements.txt`` file or simply running ``pip install gunicorn``
+
+In console, run gunicorn with:
+
+``gunicorn -w 1 -b :5000 --worker-class eventlet application:application``
+
+The application will be accessible under http://127.0.0.1:5000
+
+Read the `Gunicorn Docs <http://docs.gunicorn.org/en/stable/configure.html>`_ for further command line options.
+
+.. note:: For the *Metrics* section to broadcast via websocket, you must have gunicorn set to 1 worker.
 
 License
 -------

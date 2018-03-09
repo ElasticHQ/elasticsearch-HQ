@@ -1,0 +1,7 @@
+.cluster-nodes-line-graph {
+  .outer-container {
+      // remove bootsrap padding as graph will have it's own
+      margin-left: -15px;
+      margin-right: -15px;
+  }
+}

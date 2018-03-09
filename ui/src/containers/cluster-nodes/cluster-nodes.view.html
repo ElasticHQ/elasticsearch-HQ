@@ -1,0 +1,76 @@
+<div class="cluster-nodes">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation></eshq-cluster-navigation>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="pull-right">
+
+                <a href ng-click="value.active = !value.active" class="legend-item"
+                   ng-repeat="(key, value) in cNodesCtrl._nodes">
+
+                    <span><i class="fa" ng-class="!!value.active ? 'fa-circle' : 'fa-circle-o'"
+                             ng-style="{color: value.color}"></i> {{key}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
+                                           key="'heap_used_in_bytes'"
+                                           num-format="'0[.][0] b'"
+                                           header="'Heap Used'"></eshq-cluster-nodes-line-graph>
+        </div>
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
+                                           key="'docs_count'"
+                                           num-format="'0[.][0] a'"
+                                           header="'Documents Count'"></eshq-cluster-nodes-line-graph>
+        </div>
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
+                                           key="'fs_used_in_bytes'"
+                                           num-format="'0[.][0] b'"
+                                           header="'FS Used'"></eshq-cluster-nodes-line-graph>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
+                                           key="'cpu_percent'"
+                                           num-format="'0[.][0]'"
+                                           header="'CPU %'"></eshq-cluster-nodes-line-graph>
+        </div>
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
+                                           key="'docs_deleted'"
+                                           num-format="'0[.][0] a'"
+                                           header="'Documents Deleted'"></eshq-cluster-nodes-line-graph>
+        </div>
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
+                                           key="'fs_free_in_bytes'"
+                                           num-format="'0[.][0] b'"
+                                           header="'FS Free'"></eshq-cluster-nodes-line-graph>
+        </div>
+    <div class="row">
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
+                                           key="'index_total'"
+                                           num-format="'0[.][0] a'"
+                                           header="'Index Operations'"></eshq-cluster-nodes-line-graph>
+        </div>
+        <div class="col-md-4">
+            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
+                                           key="'field_data_cache_in_bytes'"
+                                           num-format="'0[.][0] b'"
+                                           header="'Field Data Cache'"></eshq-cluster-nodes-line-graph>
+
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>

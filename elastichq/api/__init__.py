@@ -1,15 +1,17 @@
 __author__ = 'royrusso'
 import time
 
-from flask import Blueprint, render_template, g
+from flask import Blueprint, g, render_template
 from flask_restful import Api
 
 api_blueprint = Blueprint("api", __name__, url_prefix='/api')
 api = Api(api_blueprint, catch_all_404s=True)
 
+ws_blueprint = Blueprint("ws", __name__)
+
 # much of this taken from this boilerplate: https://github.com/oleg-agapov/flask-vue-spa
 # https://stackoverflow.com/questions/23327293/flask-raises-templatenotfound-error-even-though-template-file-exists
-#public_blueprint = Blueprint("public", __name__, template_folder="../../templates", static_folder="../../../static")
+# public_blueprint = Blueprint("public", __name__, template_folder="../../templates", static_folder="../../../static")
 public_blueprint = Blueprint("public", __name__)
 
 
@@ -17,6 +19,7 @@ public_blueprint = Blueprint("public", __name__)
 @public_blueprint.route('/<path:path>')
 def catch_all(path):
     return render_template("index.html")
+
 
 @api_blueprint.after_request
 def add_cors(resp):
@@ -39,7 +42,7 @@ def time_elapsed_request():
 
 @api_blueprint.after_request
 def time_elapsed_response(response):
-    diff = int((time.time() - g.start_request_timestamp) * 1000) 
+    diff = int((time.time() - g.start_request_timestamp) * 1000)
     if response:
         response.headers.add('X-HQ-Response-Time', diff)
 
