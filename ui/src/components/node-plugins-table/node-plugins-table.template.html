@@ -1,0 +1,13 @@
+<div class="node-plugins-table">
+    <h4>Installed Plugins</h4>
+    <table class="table table-condensed table-hover table-striped">
+
+        <tbody>
+        <tr ng-repeat="data in nodePluginsTableCtrl.plugins">
+            <td>{{data.name}}</td>
+            <td>v{{data.version}}</td>
+            <td>{{data.description}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
