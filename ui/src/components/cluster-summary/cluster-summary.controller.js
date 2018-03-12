@@ -9,7 +9,7 @@ class clusterSummaryController {
     }
 
     $doCheck() {
-        if(!angular.equals(this._prev, this.summary)){
+        if (!angular.equals(this._prev, this.summary)) {
             this._prev = this.summary;
             this.buildView();
         }
@@ -27,14 +27,6 @@ class clusterSummaryController {
                 value: numeral(this.summary.number_of_nodes).format(formatNum)
             },
             {
-                label: 'Active Shards',
-                value: numeral(this.summary.active_shards).format(formatNum)
-            },
-            {
-                label: 'Primary Shards',
-                value: numeral(this.summary.active_primary_shards).format(formatNum)
-            },
-            {
                 label: 'Indicies',
                 value: numeral(this.summary.indices_count).format(formatNum)
             },
@@ -45,11 +37,19 @@ class clusterSummaryController {
             {
                 label: 'Size',
                 value: numeral(this.summary.indices_size_in_bytes).format(formatByt)
-            }
+            }, {
+                label: 'Unassigned / Active Shards',
+                value: numeral(this.summary.unassigned_shards).format(formatNum) + " / " + numeral(this.summary.active_primary_shards).format(formatNum)
+            },
+            {
+                label: 'Initializing / Relocating Shards',
+                value: numeral(this.summary.initializing_shards).format(formatNum) + " / " + numeral(this.summary.relocating_shards).format(formatNum)
+            },
+
         ]
     }
 
-    
+
 }
 
 export default clusterSummaryController;
