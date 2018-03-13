@@ -6,19 +6,22 @@
   margin-bottom: 1em;
   padding: 10px;
   .cluster-name {
-      font-size: 1.6em;
+    font-size: 1.6em;
 
-      small {
-        font-size: .5em;
-        color: $gray-light;
-      }
+    small {
+      font-size: .5em;
+      color: $gray-light;
+    }
   }
   .nodes {
     .popover {
-        color: #000;
+      color: #000;
     }
     > a.btn {
-        margin-right: 0.5em;
+      margin-right: 0.5em;
+    }
+    .btn {
+      margin-right: 0.5em;
     }
   }
   border-bottom: solid rgba(91, 141, 176, 0.15) thin;
@@ -26,22 +29,25 @@
   background-color: rgba(242, 242, 242, 0.58);
 
   .btn-group {
-      li > a {
-          border-bottom: 1px solid #ccc;
-          &.active {
-            color: $state-info-text;
-            background: $state-info-bg;    
-          }
+    li > a {
+      border-bottom: 1px solid #ccc;
+      font-size: $font-size-medium;
+      &.active {
+        color: $state-info-text;
+        background: $state-info-bg;
       }
+    }
   }
 }
 
 .status_color_red {
-    color:red;
+  color: red;
 }
+
 .status_color_yellow {
-    color: #ffb02a;
+  color: #ffb02a;
 }
+
 .status_color_green {
-    color:green;
+  color: green;
 }

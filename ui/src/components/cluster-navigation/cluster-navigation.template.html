@@ -16,10 +16,10 @@
             <div class="col-md-6">
                 <div class="btn-group pull-right">
                     <a class="btn btn-success" ui-sref-active="active"
-                        ui-sref="clusterNodes({ clusterName: clusterNavCtrl.clusterName })"
-                        tooltip-placement="bottom"
-                        uib-tooltip="Performance Graphs"><i class="fa fa-line-chart"></i>
-                         Metrics</a>
+                       ui-sref="clusterNodes({ clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="bottom"
+                       uib-tooltip="Performance Graphs"><i class="fa fa-line-chart"></i>
+                        Metrics</a>
                     <a class="btn btn-success" ui-sref-active="active"
                        ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
@@ -38,7 +38,31 @@
                        ui-sref="restapi.endpoints({clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
                        uib-tooltip="JSON information"><i class="fa fa-code"></i> REST</a>
-                    <!--<a class="btn btn-success" ui-sref=""><i class="fa fa-code"></i> REST</a>-->
+                    <a class="btn btn-success" ui-sref-active="active"
+                       ui-sref="clusterSnapshots({clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="bottom"
+                       uib-tooltip="Snapshot and Restore Information"><i class="fa fa-camera"></i> Snapshots</a>
+                    <!--
+                    When we decide to group buttons:
+                    <div class="btn-group" uib-dropdown>
+                                        <button type="button" class="btn btn-success" uib-dropdown-toggle
+                                                ng-disabled="disabled"><i class="fa fa-list"></i>
+                                            Indices <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                            <li role="menuitem"><a ui-sref-active="active"
+                                                                   ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"
+                                                                   tooltip-placement="right"
+                                                                   uib-tooltip="Indices Summary">
+                                                Indices Summary</a></li>
+                                            <li role="menuitem"><a ui-sref-active="active"
+                                                                   ui-sref="clusterAliases({ clusterName: clusterNavCtrl.clusterName })"
+                                                                   tooltip-placement="right"
+                                                                   uib-tooltip="Aliases">Aliases</a></li>
+                                        </ul>
+                                    </div>
+                    -->
+
                 </div>
             </div>
         </div>
@@ -46,7 +70,7 @@
         <div class="row">
             <div class="col-md-6 nodes">
                 <!--<a ng-disabled="true" class="btn btn-primary">Node Diagnostics</a>-->
-                <div ng-if="clusterNavCtrl.summary.nodes.length < 5">
+                <div ng-if="clusterNavCtrl.summary.nodes.length <= 5">
                     <a ng-repeat="node in clusterNavCtrl.summary.nodes"
                        class="btn"
                        ng-class="node.is_master_node === true ? 'btn-primary' : 'btn-info'"
@@ -56,22 +80,28 @@
                        popover-placement="top-left"
                        uib-popover="Address: {{node.host}}"
                        popover-trigger="'mouseenter'">
-                        {{node.name}}</a>
+                        {{node.name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
-                <div ng-if="clusterNavCtrl.summary.nodes.length >= 5">
-                    <div class="btn-group"  uib-dropdown>
-                        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
-                            Choose Node <span class="caret"></span>
+                <div ng-if="clusterNavCtrl.summary.nodes.length > 5">
+                    <div class="btn-group" uib-dropdown>
+                        <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle><i
+                                class="fa fa-dot-circle-o"></i>
+                            Nodes <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
                             <li ng-repeat="node in clusterNavCtrl.summary.nodes">
                                 <a href
-                                    ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
-                                    ui-sref-active="active"
-                                    >{{node.name}}</a>
+                                   ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
+                                   ui-sref-active="active"
+                                   ng-class="node.is_master_node === true ? 'btn-primary' : 'btn-info'"
+                                   popover-title="{{node.name}}"
+                                   popover-placement="top-left"
+                                   uib-popover="Address: {{node.host}}"
+                                   popover-trigger="'mouseenter'"
+                                > {{node.name}}</a>
                             </li>
                         </ul>
-                    </div >
+                    </div>
                 </div>
             </div>
         </div>
