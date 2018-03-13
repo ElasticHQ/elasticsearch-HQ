@@ -123,7 +123,7 @@ html_theme_options = {
     #"disqus_comments_shortname": "my_disqus_comments_short_name",
 
     # Set you GA account ID to enable tracking
-    #"google_analytics_account": "my_ga_account",
+    "google_analytics_account": "UA-40876494-1",
 
     # Path to a touch icon
     #"touch_icon": "",

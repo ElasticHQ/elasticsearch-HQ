@@ -23,7 +23,7 @@ Key Features
 * Well-documented REST API for extensibility.
 * Real-time monitoring charts of important metrics.
 * Active project used by Fortune 100 companies around the world.
-* Free. ;-)
+* Free and (Real) Open Source. ;-)
 
 Requirements
 ------------
