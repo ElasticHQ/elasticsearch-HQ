@@ -73,6 +73,9 @@ class clusterNodesLineGraphController {
     $doCheck() {
         if(!angular.equals(this._data, this.data)){
             this._data = JSON.parse(JSON.stringify(this.data));
+            // Check if browser is in the background.
+            //  If so, stop here, else render updates.
+            if (!this.allowRendering) return;
             this.draw()
         }
     }
