@@ -24,6 +24,16 @@
   border-bottom: solid rgba(91, 141, 176, 0.15) thin;
   border-top: solid rgba(91, 141, 176, 0.15) thin;
   background-color: rgba(242, 242, 242, 0.58);
+
+  .btn-group {
+      li > a {
+          border-bottom: 1px solid #ccc;
+          &.active {
+            color: $state-info-text;
+            background: $state-info-bg;    
+          }
+      }
+  }
 }
 
 .status_color_red {

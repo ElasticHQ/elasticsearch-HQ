@@ -46,16 +46,33 @@
         <div class="row">
             <div class="col-md-6 nodes">
                 <!--<a ng-disabled="true" class="btn btn-primary">Node Diagnostics</a>-->
-                <a ng-repeat="node in clusterNavCtrl.summary.nodes"
-                   class="btn"
-                   ng-class="node.is_master_node === true ? 'btn-primary' : 'btn-info'"
-                   ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
-                   ui-sref-active="active"
-                   popover-title="{{node.name}}"
-                   popover-placement="top-left"
-                   uib-popover="Address: {{node.host}}"
-                   popover-trigger="'mouseenter'">
-                    {{node.name}}</a>
+                <div ng-if="clusterNavCtrl.summary.nodes.length < 5">
+                    <a ng-repeat="node in clusterNavCtrl.summary.nodes"
+                       class="btn"
+                       ng-class="node.is_master_node === true ? 'btn-primary' : 'btn-info'"
+                       ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
+                       ui-sref-active="active"
+                       popover-title="{{node.name}}"
+                       popover-placement="top-left"
+                       uib-popover="Address: {{node.host}}"
+                       popover-trigger="'mouseenter'">
+                        {{node.name}}</a>
+                </div>
+                <div ng-if="clusterNavCtrl.summary.nodes.length >= 5">
+                    <div class="btn-group"  uib-dropdown>
+                        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle>
+                            Choose Node <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                            <li ng-repeat="node in clusterNavCtrl.summary.nodes">
+                                <a href
+                                    ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
+                                    ui-sref-active="active"
+                                    >{{node.name}}</a>
+                            </li>
+                        </ul>
+                    </div >
+                </div>
             </div>
         </div>
     </div>
