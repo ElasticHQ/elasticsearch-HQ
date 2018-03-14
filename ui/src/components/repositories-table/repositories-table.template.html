@@ -19,8 +19,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="data in repositoriesTableCtrl.data track by data.index_name" ts-repeat ts-hide-no-data>
-            <td ng-class="data.health" class="health"></td>
+        <tr ng-repeat="data in repositoriesTableCtrl.data track by data.repository_name" ts-repeat ts-hide-no-data>
             <td ng-repeat="c in repositoriesTableCtrl.columns" ng-bind-html="repositoriesTableCtrl.renderCell(data, c)"
                 class="repository_info"></td>
         </tr>

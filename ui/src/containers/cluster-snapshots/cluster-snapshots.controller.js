@@ -43,7 +43,8 @@ class clusterSnapshotsController {
         //  Canceling the request is creating a new promise for the FINALLY Block
         //  causing a second error
         this.request.then((resp) => {
-            console.log('------ repositories: ', resp.data)
+            console.log('------ repositories: ', resp.data);
+            this.repositories = resp.data.data
 
         }).catch((err) => {
             console.log('---- err: ', err);

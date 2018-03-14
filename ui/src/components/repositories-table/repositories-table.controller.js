@@ -1,5 +1,8 @@
 import './repositories-table.style.scss'
 
+import _ from 'lodash';
+import numeral from 'numeral';
+
 class repositoriesTableController {
     constructor($stateParams, $state, $sce, $filter) {
         'ngInject';
@@ -16,49 +19,25 @@ class repositoriesTableController {
         this.maxSize = 7;
         this.itemsPerPage = 10;
 
-        const formatNum = '0[.][0][0]a';
-        const formatByt = '0[.][0][0] b';
-
         this.search = {text: ''}
 
         this.filterFn = this.filterFn.bind(this);
 
         this.columns = [
             {
-                label: 'Index',
-                key: 'index_name'
+                label: 'Repository',
+                key: 'repository_name'
             },
             {
-                label: 'Docs',
-                key: 'docs',
-                formatter: formatNum
-            },
-            {
-                label: 'Shards',
-                key: 'settings.number_of_shards',
-                formatter: formatNum
-            },
-            {
-                label: 'Replicas',
-                key: 'settings.number_of_replicas',
-                formatter: formatNum
-            },
-            {
-                label: 'Size',
-                key: 'size_in_bytes',
-                formatter: formatByt
-            },
-            {
-                label: 'Cache Size',
-                key: 'fielddata.memory_size_in_bytes',
-                formatter: formatByt
+                label: 'Type',
+                key: 'repository_type'
             },
         ]
     }
 
     $doCheck() {
-        if(!angular.equals(this._data, this.indices)){
-            this._data = this.indices;
+        if(!angular.equals(this._data, this.repositories)){
+            this._data = this.repositories;
             this.filterData();
         }
     }
@@ -66,7 +45,7 @@ class repositoriesTableController {
     renderCell(obj, col){
         // console.log('---- obj, col', obj, col)
         let val = _.get(obj, col.key);
-        if (col.key === 'index_name') {
+        if (col.key === 'repository_name') {
             let url = this.$state.href("clusterIndiceDetails", {clusterName: this.clusterName, indexName: val})
             let str = '<a href="' + url + '">' + val + '</a>';
             return this.$sce.trustAsHtml(str);

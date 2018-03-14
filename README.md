@@ -19,9 +19,10 @@ Key Features
 * Monitor **many** clusters at once.
 * Monitor Nodes, Indices, Shards, and general cluster metrics.
 * Create and perform maintenance on Elasticsearch Indices.
-* One-Click access to common ES API endpoints.
+* One-Click access to ES API and cat API endpoints.
 * Well-documented REST API for extensibility.
 * Real-time monitoring charts of important metrics.
+* Diagnostics check-up helps alert to specific nodes having issues.
 * Active project used by Fortune 100 companies around the world.
 * Free and (Real) Open Source. ;-)
 
