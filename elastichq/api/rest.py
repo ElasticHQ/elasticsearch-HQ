@@ -1,7 +1,7 @@
 """
 .. module:: rest
 
-.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+.. moduleauthor:: Roy Russo <royrusso@gmail.com>
 """
 
 from flask_restful import Resource

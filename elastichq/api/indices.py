@@ -1,7 +1,7 @@
 """
 .. module:: indices
 
-.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+.. moduleauthor:: Roy Russo <royrusso@gmail.com>
 """
 
 from flask import request

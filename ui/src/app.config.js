@@ -37,6 +37,12 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider,
             controller: 'clusterIndicesController',
             controllerAs: 'clusterIndicesCtrl'
         })
+        .state('clusterSnapshots', {
+            url: '/clusters/:clusterName/snapshots',
+            template: require('./containers/cluster-snapshots/cluster-snapshots.view.html'),
+            controller: 'clusterSnapshotsController',
+            controllerAs: 'clusterSnapshotsCtrl'
+        })
         .state('clusterAliases', {
             url: '/clusters/:clusterName/aliases',
             template: require('./containers/cluster-aliases/cluster-aliases.view.html'),

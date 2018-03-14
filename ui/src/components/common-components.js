@@ -35,6 +35,9 @@ import nodeJVMStatsTable from './node-jvm-stats-table/node-jvm-stats-table';
 import nodeDiagnosticsWrapper from './node-diagnostics-wrapper/node-diagnostics-wrapper';
 import clusterNodesLineGraph from './cluster-nodes-line-graph/cluster-nodes-line-graph';
 
+// Snapshots
+import repositoriesTable from './repositories-table/repositories-table';
+
 // Editors
 import apiEndpoints from './api-endpoints/api-endpoints';
 
@@ -66,6 +69,7 @@ const CommonComponents = angular.module('components', [
   nodeProcessTable,
   nodeOsInfoTable,
   nodeJVMStatsTable,
+  repositoriesTable,
   topNav,
 ]).name;
 
