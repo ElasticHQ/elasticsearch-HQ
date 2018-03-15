@@ -1,5 +1,5 @@
 """
-.. module:: indices
+.. module:: snapshots
 
 .. moduleauthor:: Roy Russo <royrusso@gmail.com>
 """
@@ -24,6 +24,21 @@ class Repositories(Resource):
         return APIResponse(response, HTTP_Status.OK, None)
 
 
+class Snapshots(Resource):
+    @request_wrapper
+    def get(self, cluster_name, repository_name):
+        """
+        :param cluster_name:
+        :return:
+        """
+        response = SnapshotService().get_snapshots(cluster_name, repository_name)
+        return APIResponse(response, HTTP_Status.OK, None)
+
+
 api.add_resource(Repositories, '/repositories/<string:cluster_name>',
                  endpoint='snapshot_repositories',
+                 methods=['GET'])
+
+api.add_resource(Snapshots, '/snapshots/<string:cluster_name>/repository/<string:repository_name>',
+                 endpoint='snapshots',
                  methods=['GET'])

@@ -13,6 +13,13 @@ class ClusterRepositoriesService {
             method: 'GET'
         });
     }
+
+    clusterSnapshots(cluster_name, repositoryName) {
+        return this.que.add({
+            url: 'api/snapshots/' + cluster_name + '/repository/' + repositoryName,
+            method: 'GET'
+        });
+    }
 }
 
 export default ClusterRepositoriesService;

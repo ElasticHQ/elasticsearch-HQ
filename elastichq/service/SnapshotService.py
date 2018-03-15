@@ -15,3 +15,8 @@ class SnapshotService:
             repo_item = {'repository_name': repo, 'repository_type': repo_type}
             data.append(repo_item)
         return data
+
+    def get_snapshots(self, cluster_name, repository_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        snapshots = connection.snapshot.get(repository=repository_name, snapshot='_all', request_timeout=120)
+        return snapshots

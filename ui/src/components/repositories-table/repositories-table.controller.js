@@ -19,7 +19,7 @@ class repositoriesTableController {
         this.maxSize = 7;
         this.itemsPerPage = 10;
 
-        this.search = {text: ''}
+        this.search = {text: ''};
 
         this.filterFn = this.filterFn.bind(this);
 
@@ -46,8 +46,9 @@ class repositoriesTableController {
         // console.log('---- obj, col', obj, col)
         let val = _.get(obj, col.key);
         if (col.key === 'repository_name') {
-            let url = this.$state.href("clusterIndiceDetails", {clusterName: this.clusterName, indexName: val})
+            let url = this.$state.href("clusterSnapshotsDetails", {clusterName: this.clusterName, repositoryName: val})
             let str = '<a href="' + url + '">' + val + '</a>';
+            console.log(val)
             return this.$sce.trustAsHtml(str);
         }
         if (!col.formatter) return this.$sce.trustAsHtml(val);

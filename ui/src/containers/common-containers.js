@@ -14,6 +14,7 @@ import clusterSnapshotsController from './cluster-snapshots/cluster-snapshots.co
 import clusterAliasesController from "./cluster-aliases/cluster-aliases.controller";
 import diagnosticsController from './diagnostics/diagnostics.controller'
 import restApiController from'./rest-api/rest-api.controller';
+import clusterSnapshotsDetailsController from "./cluster-snapshots-details/cluster-snapshots-details.controller";
 
 const CommonContainers = angular.module('commonContainers', [])
                             .controller('homeController', homeController)
@@ -24,6 +25,7 @@ const CommonContainers = angular.module('commonContainers', [])
                             .controller('clusterNodeDetailsController', clusterNodeDetailsController)
                             .controller('clusterNodesController', clusterNodesController)
                             .controller('clusterSnapshotsController', clusterSnapshotsController)
+                            .controller('clusterSnapshotsDetailsController', clusterSnapshotsDetailsController)
                             .controller('diagnosticsController', diagnosticsController)
                             .controller('settingsController', settingsController)
                             .controller('restApiController', restApiController)
