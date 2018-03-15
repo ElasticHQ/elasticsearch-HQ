@@ -13,9 +13,8 @@ class clusterSnapshotsDetailsController {
 
         ClusterRepositories.clusterSnapshots(this.clusterName, this.repositoryName).then((resp) => {
             console.log("--- clustersnapshots data: ", resp.data.data);
-            this.snapshots = resp.data.data;
+            this.snapshots = resp.data.data
         });
-
 
         // Pagination stuff
         this.totalItems = 1;
@@ -33,6 +32,22 @@ class clusterSnapshotsDetailsController {
             {
                 label: 'Snapshot',
                 key: 'snapshot'
+            },
+            {
+                label: 'Start Time',
+                key: 'start_time_in_millis'
+            },
+            {
+                label: 'End Time',
+                key: 'end_time_in_millis'
+            },
+            {
+                label: 'Duration',
+                key: 'duration_in_millis'
+            },
+            {
+                label: 'Indices',
+                key: 'indices'
             }
         ]
 

@@ -44,9 +44,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="data in clusterSnapshotsDetailsCtrl.data" ts-repeat
+                    <tr ng-repeat="data in clusterSnapshotsDetailsCtrl.snapshots" ts-repeat
                         ts-hide-no-data>
                         <td>{{data.state}}</td>
+                        <td>{{data.snapshot}}</td>
+                        <td>{{data.start_time_in_millis | moment}}</td>
+                        <td>{{data.end_time_in_millis | moment}}</td>
+                        <td>{{data.duration_in_millis |  moment : 'HH:MM:SS'}}</td>
+                        <td></td>
                     </tr>
                     </tbody>
                 </table>
