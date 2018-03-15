@@ -48,9 +48,9 @@
                         ts-hide-no-data>
                         <td>{{data.state}}</td>
                         <td>{{data.snapshot}}</td>
-                        <td>{{data.start_time_in_millis | moment}}</td>
-                        <td>{{data.end_time_in_millis | moment}}</td>
-                        <td>{{data.duration_in_millis |  moment : 'HH:MM:SS'}}</td>
+                        <td>{{data.start_time_in_millis | moment : 'MM-DD-YYYY hh:mm:ss'}}</td>
+                        <td>{{data.end_time_in_millis | moment : 'MM-DD-YYYY hh:mm:ss'}}</td>
+                        <td>{{data.duration_in_millis / 1000}}s</td>
                         <td></td>
                     </tr>
                     </tbody>
