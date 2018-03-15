@@ -1,4 +1,6 @@
-import './cluster-snapshots-details.style.scss'
+import './cluster-snapshots-details.style.scss';
+
+import moment from 'moment';
 
 class clusterSnapshotsDetailsController {
     // Imports go here
@@ -13,7 +15,10 @@ class clusterSnapshotsDetailsController {
 
         ClusterRepositories.clusterSnapshots(this.clusterName, this.repositoryName).then((resp) => {
             console.log("--- clustersnapshots data: ", resp.data.data);
-            this.snapshots = resp.data.data
+            this.snapshots = resp.data.data.map((itm) => {
+                itm.duration_in_words =  moment.duration(itm.duration_in_millis).humanize()
+                return itm
+            })
         });
 
         // Pagination stuff
