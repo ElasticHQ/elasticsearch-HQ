@@ -73,6 +73,7 @@ class clusterSnapshotsDetailsController {
                 // After you pass in the resolver, below, attache it for reference
                 $scope.clusterName = clusterName;
                 $scope.snapshot = data;
+                $scope.indices = data.indices.map((d,i) => {return {name: d, id: i}});
                 $scope.disabled = false;
                 $scope.$uibModalInstance = $uibModalInstance;
 

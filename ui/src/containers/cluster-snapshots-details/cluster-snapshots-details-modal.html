@@ -10,13 +10,13 @@
                ts-display-filtering="false">
             <thead>
             <tr>
-                <th ts-criteria="index">Index Name</th>
+                <th ts-criteria="name">Index Name</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="index in snapshot.indices" ts-repeat
+            <tr ng-repeat="data in indices" ts-repeat
                 ts-hide-no-data>
-                <td>{{index}}</td>
+                <td>{{data.name}}</td>
             </tr>
             </tbody>
         </table>
