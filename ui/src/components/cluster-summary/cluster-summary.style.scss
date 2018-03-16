@@ -1,3 +1,58 @@
 .cluster-summary {
-  
+
+  .status {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  .status .panel-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 42px;
+    font-weight: bold;
+    /*color: #fff;*/
+    line-height: 30px;
+    padding-top: 10px;
+    letter-spacing: -0.8px;
+  }
+
+  .update-nag {
+    /*display: inline-block;*/
+    font-size: 14px;
+    text-align: left;
+    background-color: #fff;
+    height: 20px;
+    //padding: 8px;
+    -webkit-box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .4);
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .3);
+    margin-bottom: 10px;
+  }
+
+  .update-nag:hover {
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .4);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .3);
+  }
+
+  .update-nag > .update-split {
+    background-color: #d9edf7;
+    border-color: #fff;
+    width: 80px;
+    float: left;
+    color: #fff !important;
+    height: 100%;
+    text-align: center;
+    line-height: 20px;
+    vertical-align: middle;
+  }
+
+  .update-nag > .update-split.update-info {
+    background: #92c8de !important;
+    text-align: center;
+  }
+
+  .update-nag > .update-text {
+    line-height: 18px;
+    //padding-top: 3px;
+    padding-left: 95px;
+    color: #6a6d72;
+    //padding-right: 20px;
+  }
 }

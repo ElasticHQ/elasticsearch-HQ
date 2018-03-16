@@ -1,11 +1,26 @@
 <div class="cluster-summary ">
     <div class="row pt-12"></div>
     <div class="row">
-        <div class="col-md-2" ng-repeat="item in clusterSummaryCtrl.firstRow">
-                <div class="alert alert-info summary-panel">
-                    <div class="number">{{item.value}}</div>
-                    <div class="summary-label">{{item.label}}</div>
+        <div class="col-md-3" ng-repeat="item in clusterSummaryCtrl.firstRow track by $index">
+            <div class="panel status panel-info">
+                <div class="panel-heading">
+                    <h1 class="panel-title text-center">{{item.value}}</h1>
                 </div>
+                <div class="panel-body text-center">
+                    <strong>{{item.label}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" ng-repeat="item in clusterSummaryCtrl.secondRow">
+            <div class="col-md-12">
+                <div class="update-nag">
+                    <div class="update-split update-info">{{item.value}}</div>
+                    <div class="update-text">{{item.label}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

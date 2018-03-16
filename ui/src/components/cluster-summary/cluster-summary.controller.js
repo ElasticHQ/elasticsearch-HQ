@@ -20,7 +20,7 @@ class clusterSummaryController {
         let masterArr = [];
         const formatNum = '0[.][0][0] a';
         const formatByt = '0[.][0][0] b';
-        console.log('---- summary: ', this)
+        console.log('---- summary: ', this);
         this.firstRow = [
             {
                 label: 'Nodes',
@@ -37,16 +37,28 @@ class clusterSummaryController {
             {
                 label: 'Size',
                 value: numeral(this.summary.indices_size_in_bytes).format(formatByt)
-            }, {
-                label: 'Unassigned / Active Shards',
-                value: numeral(this.summary.unassigned_shards).format(formatNum) + " / " + numeral(this.summary.active_primary_shards).format(formatNum)
+            }
+
+        ];
+
+        this.secondRow = [
+            {
+                label: 'Active Shards',
+                value: numeral(this.summary.active_primary_shards).format(formatNum)
             },
             {
-                label: 'Initializing / Relocating Shards',
-                value: numeral(this.summary.initializing_shards).format(formatNum) + " / " + numeral(this.summary.relocating_shards).format(formatNum)
+                label: 'Unassigned Shards',
+                value: numeral(this.summary.unassigned_shards).format(formatNum)
             },
-
-        ]
+            {
+                label: 'Initializing Shards',
+                value: numeral(this.summary.initializing_shards).format(formatNum)
+            },
+            {
+                label: 'Relocating Shards',
+                value: numeral(this.summary.relocating_shards).format(formatNum)
+            }
+        ];
     }
 
 
