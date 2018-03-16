@@ -20,9 +20,9 @@ class TestFixture:
 
     def __init__(self, config):
         try:
-            from elastichq import factory
+            from elastichq import create_app
 
-            self._app = factory.create_app(env='test')
+            self._app = create_app(env='test')
             self.app = self._app.test_client()
             self.config = config
             self.indices_definitions = self.get_index_definitions()
