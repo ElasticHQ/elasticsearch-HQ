@@ -20,6 +20,10 @@ class Server(_Server):
     """
 
     help = description = 'Runs the Socket.IO web server'
+    host = '0.0.0.0'
+    port = 5000
+    use_debugger = False
+    use_reloader = False
 
     def get_options(self):
         options = (

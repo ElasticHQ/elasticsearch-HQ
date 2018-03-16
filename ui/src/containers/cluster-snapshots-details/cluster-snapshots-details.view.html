@@ -46,12 +46,15 @@
                     <tbody>
                     <tr ng-repeat="data in clusterSnapshotsDetailsCtrl.snapshots" ts-repeat
                         ts-hide-no-data>
-                        <td>{{data.state}}</td>
+                        <td>{{data.state}}
+                        </td>
                         <td>{{data.snapshot}}</td>
-                        <td>{{data.start_time_in_millis | moment : 'MM-DD-YYYY hh:mm:ss'}}</td>
-                        <td>{{data.end_time_in_millis | moment : 'MM-DD-YYYY hh:mm:ss'}}</td>
+                        <td>{{data.start_time_in_millis | moment : 'MM-DD-YYYY hh:mm:ss ZZ'}}</td>
+                        <td>{{data.end_time_in_millis | moment : 'MM-DD-YYYY hh:mm:ss ZZ'}}</td>
                         <td>{{data.duration_in_words}}</td>
-                        <td></td>
+                        <td><a ng-click="clusterSnapshotsDetailsCtrl.viewSnapshot(data)">{{data.index_count}}</a>
+                        </td>
+                        <td>{{data.shards.successful}} / {{data.shards.total}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -59,3 +62,10 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/ng-template" id="ndwPopoverTemplate.html">
+    <div class="popover-content">
+        <div ng-bind-html="data.popoverContent"></div>
+    </div>
+</script>

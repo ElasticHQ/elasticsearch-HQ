@@ -1,22 +1,24 @@
 import './cluster-snapshots-details.style.scss';
-
+import viewSnapshotModal from './cluster-snapshots-details-modal.html';
 import moment from 'moment';
 
 class clusterSnapshotsDetailsController {
     // Imports go here
-    constructor($stateParams, ClusterRepositories, Notification) {
+    constructor($stateParams, ClusterRepositories, $scope,
+                Notification, $uibModal) {
         'ngInject';
 
         this.clusterName = $stateParams.clusterName;
         this.repositoryName = $stateParams.repositoryName;
-
+        this.$uibModal = $uibModal;
         this.ClusterRepositories = ClusterRepositories;
         this.Notification = Notification;
 
         ClusterRepositories.clusterSnapshots(this.clusterName, this.repositoryName).then((resp) => {
             console.log("--- clustersnapshots data: ", resp.data.data);
             this.snapshots = resp.data.data.map((itm) => {
-                itm.duration_in_words =  moment.duration(itm.duration_in_millis).humanize()
+                itm.duration_in_words = moment.duration(itm.duration_in_millis).humanize();
+                itm.index_count = itm.indices.length;
                 return itm
             })
         });
@@ -53,10 +55,39 @@ class clusterSnapshotsDetailsController {
             {
                 label: 'Indices',
                 key: 'indices'
+            },
+            {
+                label: 'Shards',
+                key: 'shards'
             }
-        ]
+        ];
+    }
 
+    viewSnapshot(data) {
+        console.log(data);
+        const modalInstance = this.$uibModal.open({
+            template: viewSnapshotModal,
+            controller: ($scope, $uibModalInstance, clusterName) => {
+                'ngInject';
 
+                // After you pass in the resolver, below, attache it for reference
+                $scope.clusterName = clusterName;
+                $scope.snapshot = data;
+                $scope.disabled = false;
+                $scope.$uibModalInstance = $uibModalInstance;
+
+                $scope.cancel = () => {
+                    $scope.$uibModalInstance.dismiss('close');
+                };
+            },
+            resolve: {
+                // How you pass info into the Modal
+                clusterName: () => {
+                    return this.clusterName;
+                },
+            }
+
+        });
     }
 }
 
