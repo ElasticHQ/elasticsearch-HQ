@@ -16,21 +16,25 @@
     </div>
     <div class="divider-3"></div>
     <div class="row">
-        <div class="col-md-6">
-            <a class="btn btn-primary" ng-click="clusterIndicesCtrl.createIndex()">Create Index</a>
+        <div class="col-md-3">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
             <div class="btn-group pull-right">
-                <a class="btn btn-default" ng-click="clusterIndicesCtrl.refreshIndex()"><i class="fa fa-refresh"></i>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.refreshIndex()" tooltip-placement="bottom" uib-tooltip="Refresh the entire cluster."><i class="fa fa-refresh"></i>
                     Refresh</a>
-                <a class="btn btn-default" ng-click="clusterIndicesCtrl.forceMergeIndex()"><i class="fa fa-compress"></i>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.forceMergeIndex()" tooltip-placement="bottom" uib-tooltip="Force merge segments across all nodes in the cluster."><i
+                        class="fa fa-compress"></i>
                     Force Merge</a>
-                <a class="btn btn-default" ng-click="clusterIndicesCtrl.flushCache()"><i class="fa fa-rotate-right"></i>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.flushCache()" tooltip-placement="bottom" uib-tooltip="Flush the cache to disk across the cluster."><i class="fa fa-rotate-right"></i>
                     Flush</a>
-                <a class="btn btn-default" ng-click="clusterIndicesCtrl.clearCache()"><i class="fa fa-eraser"></i> Clear
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.clearCache()" tooltip-placement="bottom" uib-tooltip="Clear the field data cache on all nodes."><i class="fa fa-eraser"></i> Clear
                     Cache</a>
-                <a class="btn btn-default" ng-click="clusterIndicesCtrl.expungeDeleted()"><i class="fa fa-trash-o"></i>
+                <a class="btn btn-default" ng-click="clusterIndicesCtrl.expungeDeleted()" tooltip-placement="bottom" uib-tooltip="Force remove deleted items for the entire cluster."><i class="fa fa-trash-o"></i>
                     Expunge Deleted</a>
+                <a class="btn btn-primary" ng-click="clusterIndicesCtrl.createIndex()" tooltip-placement="bottom" uib-tooltip="Create a new index with shard settings."><i class="fa fa-edit"></i>
+                    Create Index</a>
+                <a class="btn btn-primary" ng-click="clusterIndicesCtrl.reIndex()" tooltip-placement="bottom" uib-tooltip="Copy an index, mapping, and data to a new location."><i class="fa fa-copy"></i>
+                    Re-Index</a>
             </div>
         </div>
     </div>

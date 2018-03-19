@@ -1,6 +1,7 @@
 import './cluster-indices.style.scss';
 
 import createIndexModal from './create-index-modal.html';
+import reIndexModal from './reindex-modal.html';
 
 class clusterIndicesController {
 
@@ -112,6 +113,45 @@ class clusterIndicesController {
             this.Notification.error({message: 'Error in operation!'});
             console.log('---- get clusters error: ', err)
         }).finally(() => this.fetching = false)
+    }
+
+    reIndex() {
+        const modalInstance = this.$uibModal.open({
+            template: reIndexModal,
+            controller: ($scope, $uibModalInstance, clusterName) => {
+                'ngInject';
+
+                // After you pass in the resolver, below, attache it for reference
+                $scope.clusterName = clusterName;
+                $scope.indices = this.indices;
+                $scope.disabled = false;
+                $scope.$uibModalInstance = $uibModalInstance;
+
+                $scope.formData = {settings: {}};
+                $scope.cancel = () => {
+                    $scope.$uibModalInstance.dismiss('close');
+                };
+
+                // This is what gets returned in the end
+                $scope.save = () => {
+                    //  We could also put the logic to send Create here
+                    //  so if there is a failure, we still have the modal
+                    //  open and user can correct if possible.
+                    $scope.$uibModalInstance.close($scope.formData);
+                };
+
+            },
+            resolve: {
+                // How you pass info into the Modal
+                clusterName: () => {
+                    return this.clusterName;
+                },
+                indices: () => {
+                    return this.indices;
+                }
+            }
+
+        });
     }
 
     createIndex() {

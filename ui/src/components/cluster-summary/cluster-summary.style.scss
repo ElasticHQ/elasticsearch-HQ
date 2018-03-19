@@ -1,23 +1,34 @@
+@import '../../styles/yeti-variables';
+
 .cluster-summary {
 
-  .status {
-    font-family: 'Source Sans Pro', sans-serif;
-  }
-
-  .status .panel-title {
+  .panel-info {
+    color: #FFF;
     font-family: 'Oswald', sans-serif;
-    font-size: 42px;
-    font-weight: bold;
-    /*color: #fff;*/
-    line-height: 30px;
     padding-top: 10px;
-    letter-spacing: -0.8px;
+
+    > .panel-heading {
+      background: #FFF;
+
+      .panel-title {
+        font-size: 42px;
+        font-weight: bold;
+        color: $alert-info-text;
+      }
+    }
+    > .panel-body {
+      background-color: $alert-info-text;//$panel-primary-heading-bg;//#92c8de;
+      padding: 7px 15px;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
   }
 
   .update-nag {
     /*display: inline-block;*/
     font-size: 14px;
     text-align: left;
+    border: rgb(233, 233, 233) 1px solid;
     background-color: #fff;
     height: 20px;
     //padding: 8px;
@@ -44,7 +55,7 @@
   }
 
   .update-nag > .update-split.update-info {
-    background: #92c8de !important;
+    background: $alert-info-text; //#92c8de !important;
     text-align: center;
   }
 

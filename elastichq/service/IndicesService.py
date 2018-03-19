@@ -115,7 +115,8 @@ class IndicesService:
                     "number_of_replicas": int(jmespath.search("settings.index.number_of_replicas", index_state))}
                 index['state'] = index_state.get("state", None)
                 indices.append(index)
-        return indices
+        return sorted(indices, key=lambda k: k['index_name'])
+
 
     def get_shards(self, cluster_name, index_name):
         connection = ConnectionService().get_connection(cluster_name)
