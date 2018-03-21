@@ -74,4 +74,4 @@ class ClusterService:
 
     def get_cluster_tasks(self, cluster_name):
         connection = ConnectionService().get_connection(cluster_name)
-        return connection.cluster.pending_tasks(request_timeout=REQUEST_TIMEOUT)
+        return connection.tasks.list(detailed=True, request_timeout=REQUEST_TIMEOUT)

@@ -2,6 +2,7 @@ __author__ = 'royrusso'
 
 import jmespath
 
+from elastichq.common.exceptions import BadRequest
 from elastichq.service import ClusterService, ConnectionService
 from ..globals import REQUEST_TIMEOUT
 
@@ -76,7 +77,7 @@ class IndicesService:
         connection = ConnectionService().get_connection(cluster_name)
         return connection.indices.forcemerge(index=index_name, request_timeout=REQUEST_TIMEOUT)
 
-    def get_mapping(self, cluster_name, index_name, mapping_name):
+    def get_mapping(self, cluster_name, index_name, mapping_name=None):
         # TODO: add options here, per: https://www.elastic.co/guide/en/elasticsearch/reference/6.x/indices-get-mapping.html#indices-get-mapping
         connection = ConnectionService().get_connection(cluster_name)
         return connection.indices.get_mapping(index=index_name, doc_type=mapping_name, request_timeout=REQUEST_TIMEOUT)
@@ -117,7 +118,6 @@ class IndicesService:
                 indices.append(index)
         return sorted(indices, key=lambda k: k['index_name'])
 
-
     def get_shards(self, cluster_name, index_name):
         connection = ConnectionService().get_connection(cluster_name)
         shards = connection.cat.shards(index=index_name, format='json')
@@ -128,7 +128,7 @@ class IndicesService:
         try:
             return connection.indices.forcemerge(index=index_name, params={"only_expunge_deletes": 1},
                                                  request_timeout=REQUEST_TIMEOUT)
-        except: # this will time out on large indices, so ignore.
+        except:  # this will time out on large indices, so ignore.
             return
 
     def get_indices_templates(self, cluster_name):
@@ -147,6 +147,32 @@ class IndicesService:
         connection = ConnectionService().get_connection(cluster_name)
         return connection.indices.recovery()
 
+    def copy_mapping(self, cluster_name, from_index, to_index):
 
+        # check that destination does NOT contain a mapping
+        dest_mapping_exists = IndicesService().get_mapping(cluster_name, to_index)
+        if bool(dest_mapping_exists.get(to_index).get('mappings', None)):
+            raise BadRequest(message='Index already contains a mapping!')
+        else:
+            source_mapping = IndicesService().get_mapping(cluster_name, from_index)
+            connection = ConnectionService().get_connection(cluster_name)
+            root_mapping = source_mapping[from_index]
+            doc_type = list(root_mapping['mappings'].keys())[0]
+            mapping_body = root_mapping['mappings'].get(doc_type, {})
+            return connection.indices.put_mapping(doc_type=doc_type, body=mapping_body, index=to_index)
 
+    def reindex(self, cluster_name, from_index, to_index):
+        body = """
+        {
+          "source": {
+            "index": "%s"
+          },
+          "dest": {
+            "index": "%s"
+          }
+        }
+        """ % (from_index, to_index)
 
+        connection = ConnectionService().get_connection(cluster_name)
+        connection.reindex(body=body, wait_for_completion=False)
+        return

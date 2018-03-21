@@ -8,41 +8,43 @@
         <form name="ciForm" class="reindexForm">
             <div class="form-group">
                 <label>Source Index</label>
-                <select class="form-control" id="source_index">
+                <select class="form-control" id="source_index" ng-model="formData.settings.source_index_name"
+                        required="true">
                     <!--<li ng-repeat="node in clusterNavCtrl.summary.nodes">-->
                     <option ng-repeat="index in indices" value="{{index.index_name}}">{{index.index_name}}</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Destination Index</label>
-                <select class="form-control" id="destination_index">
+                <select class="form-control" id="destination_index" ng-model="formData.settings.destination_index_name"
+                        required="true">
                     <option ng-repeat="index in indices" value="{{index.index_name}}">{{index.index_name}}</option>
                 </select>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
+                <input class="form-check-input" type="radio" name="reindex_option" id="reindex"
+                       value="reindex" required
+                       ng-model="formData.settings.reindex_option">
+                <label class="form-check-label" for="reindex">
                     Copy Mapping and Data
                 </label>
-                <br/>
-                <small><i>Performs a complete reindex of all data, using the <a
+                <p class="help-block">Performs a complete reindex of all data, using the <a
                         href="https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html"
-                        target="_blank">ES API</a>.</i></small>
+                        target="_blank">ES API</a>.</p>
             </div>
             <div class="divider-3"></div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                       checked>
-                <label class="form-check-label" for="exampleRadios1">
+                <input class="form-check-input" type="radio" name="reindex_option" id="mappingonly"
+                       value="mapping_only" ng-model="formData.settings.reindex_option" required>
+                <label class="form-check-label" for="mappingonly">
                     Copy Mapping Only
                 </label>
-                <br/>
-                <small><i>Clones the mapping and does <strong>not</strong> copy any documents.</i></small>
+                <p class="help-block">Clones the mapping and does <strong>not</strong> copy any documents.</p>
             </div>
         </form>
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-disabled="!ciForm.$valid" type="button" ng-click="save()">Save</button>
+    <button class="btn btn-primary" ng-disabled="!ciForm.$valid" type="button" ng-click="save()">Clone</button>
     <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 </div>

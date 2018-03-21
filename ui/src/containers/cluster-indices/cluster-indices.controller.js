@@ -150,7 +150,28 @@ class clusterIndicesController {
                     return this.indices;
                 }
             }
+        });
+        // Only when user clicks save, do we proceed
+        modalInstance.result.then((formData) => {
+            console.log('==== form data: ', formData);
 
+            let {settings} = formData;
+
+            this.fetching = true;
+            this.ClusterIndices.clusterIndexReindex(this.clusterName, {settings: settings}).then((resp) => {
+                this.fetchIndicies();
+                this.Notification.success({message: `Operation successful.`, delay: 3000});
+            }, (err) => {
+                console.log('---- err: ', err);
+                return this.Notification.error({message: err.data.message, delay: 3000});
+            }).finally(() => {
+                    this.fetching = false
+                }
+            );
+
+
+        }, (err) => {
+            console.log('Modal dismissed at: ' + new Date());
         });
     }
 
