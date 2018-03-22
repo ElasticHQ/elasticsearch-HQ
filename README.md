@@ -20,6 +20,7 @@ Key Features
 * Monitor Nodes, Indices, Shards, and general cluster metrics.
 * Create and perform maintenance on Elasticsearch Indices.
 * One-Click access to ES API and cat API endpoints.
+* Copy mappings and reindex Indices.
 * Well-documented REST API for extensibility.
 * Real-time monitoring charts of important metrics.
 * Diagnostics check-up helps alert to specific nodes having issues.
