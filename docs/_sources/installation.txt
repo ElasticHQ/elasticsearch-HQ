@@ -56,36 +56,9 @@ Configuration
 Logging
 ^^^^^^^
 
-ElasticHQ logs out to console by default. You can change this, and log to file, by modifying the logging configuration.
+ElasticHQ logs out to console AND file by default. The application log file is located at the root of the HQ path and is called ``application.log``.
 
-Logging configuration is kept under ``elastichq/config/logger.json``. To have ElasticHQ log to file, change the root logger from:
-
-.. code-block:: json
-
-    {
-        "root": {
-            "level": "DEBUG",
-            "handlers": [
-              "console"
-            ]
-        }
-    }
-
-To:
-
-.. code-block:: json
-
-    {
-        "root": {
-            "level": "DEBUG",
-            "handlers": [
-              "standard_handler"
-            ]
-        }
-    }
-
-You can also adjust the log level to INFO, WARN, or ERROR there as well.
-
+Advanced users that want to have control over the logging output, can adjust it by altering the configuration file kept under ``elastichq/config/logger.json``.
 
 Database
 ^^^^^^^^

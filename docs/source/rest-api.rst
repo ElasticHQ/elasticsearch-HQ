@@ -8,14 +8,14 @@ The REST API is used by the user interface to communicate to your clusters. You 
 
 Connection APIs
 ---------------
-.. .. qrefflask:: manage:app
+.. .. qrefflask:: application:application
     :endpoints: api.clusters
     :undoc-static:
 
 Connections
 ~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.clusters
     :undoc-static:
@@ -27,7 +27,7 @@ Cluster APIs
 Cluster List
 ~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.clusters_list
     :undoc-static:
@@ -36,7 +36,7 @@ Cluster List
 Cluster Health
 ~~~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.clusters_health
     :undoc-static:
@@ -45,7 +45,7 @@ Cluster Health
 Cluster Summary
 ~~~~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.clusters_summary
     :undoc-static:
@@ -54,7 +54,7 @@ Cluster Summary
 Cluster State
 ~~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.clusters_state
     :undoc-static:
@@ -69,7 +69,7 @@ Otherwise, information for all nodes in the cluster is returned.
 Nodes Summary
 ~~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.nodes_summary
     :undoc-static:
@@ -78,7 +78,7 @@ Nodes Summary
 Node Info
 ~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.nodes_info
     :undoc-static:
@@ -87,7 +87,7 @@ Node Info
 Nodes Stats
 ~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.nodes_stats
     :undoc-static:
@@ -99,7 +99,7 @@ Index APIs
 Indices
 ~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.indices
     :undoc-static:
@@ -108,7 +108,7 @@ Indices
 Indices Summary
 ~~~~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.indices_summary
     :undoc-static:
@@ -117,7 +117,7 @@ Indices Summary
 Index Stats
 ~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.indices_stats
     :undoc-static:
@@ -126,7 +126,7 @@ Index Stats
 Index Command
 ~~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.index_command
     :undoc-static:
@@ -135,7 +135,7 @@ Index Command
 Index Shards
 ~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.indices_shards
     :undoc-static:
@@ -144,7 +144,7 @@ Index Shards
 Index Alias
 ~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.index_alias
     :undoc-static:
@@ -153,7 +153,7 @@ Index Alias
 Index Mapping
 ~~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.index_mapping
     :undoc-static:
@@ -166,7 +166,7 @@ Diagnostics
 Cluster Diagnostics
 ~~~~~~~~~~~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.diagnostics_summary
     :undoc-static:
@@ -178,7 +178,7 @@ HQ APIs
 HQ Status
 ~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.status
     :undoc-static:
@@ -187,7 +187,7 @@ HQ Status
 HQ Routes
 ~~~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.routes
     :undoc-static:
@@ -196,7 +196,7 @@ HQ Routes
 ES REST
 ~~~~~~~
 
-.. autoflask:: manage:app
+.. autoflask:: application:application
     :blueprints: api
     :endpoints: api.generic_rest
     :undoc-static:
