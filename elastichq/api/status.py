@@ -1,7 +1,7 @@
 """
 .. module:: status
 
-.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+.. moduleauthor:: Roy Russo <royrusso@gmail.com>
 """
 import json
 from urllib.parse import unquote_plus

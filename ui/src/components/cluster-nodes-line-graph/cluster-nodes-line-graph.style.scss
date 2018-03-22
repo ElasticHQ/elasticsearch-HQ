@@ -5,3 +5,21 @@
       margin-right: -15px;
   }
 }
+
+.node-line-graph-tooltip {
+  position: absolute;
+  padding: 3px 5px;
+  background: #2d2d2d;
+  color: #eee;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  > div {
+    flex-direction: row;
+    > div {
+      display: inline-flex;
+      padding: 2px 5px;
+    }
+  }
+}

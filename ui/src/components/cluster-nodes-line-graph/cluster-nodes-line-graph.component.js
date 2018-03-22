@@ -6,7 +6,8 @@ const clusterNodesLineGraphComponent = {
     key: '<',
     data: '<',
     numFormat: '<',
-    header: '<'
+    header: '<',
+    allowRendering: '<'
   },
   template,
   controller,

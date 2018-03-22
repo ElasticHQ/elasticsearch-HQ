@@ -1,15 +1,16 @@
 """
 .. module:: indices
 
-.. moduleauthor:: Roy Russo <royrusso.gmail.com>
+.. moduleauthor:: Roy Russo <royrusso@gmail.com>
 """
 
+import jmespath
 from flask import request
 from flask_restful import Resource
 
 from . import api
 from ..common.api_response import APIResponse
-from ..common.exceptions import request_wrapper
+from ..common.exceptions import BadRequest, request_wrapper
 from ..common.status_codes import HTTP_Status
 from ..service import IndicesService
 
@@ -227,6 +228,22 @@ class IndexShards(Resource):
 class ReIndex(Resource):
     @request_wrapper
     def post(self, cluster_name):
+        json_data = request.get_json(force=True)
+        params = request.values.to_dict()
+        params.update(json_data)
+
+        reindex_options = jmespath.search('settings.reindex_option', json_data)
+        source_index = jmespath.search('settings.source_index_name', json_data)
+        destination_index = jmespath.search('settings.destination_index_name', json_data)
+
+        if source_index == destination_index:
+            raise BadRequest(message='Indices cannot be the same!')
+
+        if reindex_options == 'mapping_only':
+            IndicesService().copy_mapping(cluster_name, from_index=source_index, to_index=destination_index)
+        elif reindex_options == 'reindex':
+            IndicesService().reindex(cluster_name, from_index=source_index, to_index=destination_index)
+
         return APIResponse([], HTTP_Status.OK, None)
 
 

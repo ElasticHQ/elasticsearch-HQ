@@ -1,5 +1,22 @@
 @import '../../styles/yeti-variables';
 
 .cluster-indices {
-  
+
+}
+
+.reindexForm {
+
+  .form-group > label {
+    font-size: $font-size-medium;
+  }
+  .form-check-label {
+    font-size: $font-size-medium;
+  }
+}
+
+.createIndexForm {
+
+  .form-group > label {
+    font-size: $font-size-medium;
+  }
 }

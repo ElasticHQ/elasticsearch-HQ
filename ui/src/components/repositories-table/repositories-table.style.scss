@@ -1,0 +1,21 @@
+
+@import '../../styles/yeti-variables';
+
+.repositories-table {
+  .table {
+    thead {
+      th {
+        //width: 100%;
+        cursor: pointer;
+        font-size: $font-size-medium;
+        white-space: nowrap;
+      }
+    }
+    tbody {
+
+      td.repository_info {
+        font-size: $font-size-medium;
+      }
+    }
+  }
+}

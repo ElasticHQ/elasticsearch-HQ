@@ -1,0 +1,21 @@
+<div class="cluster-snapshots">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation></eshq-cluster-navigation>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" ng-if="!!clusterSnapshotsCtrl.fetchingRepositories">
+            <div class="summary-loader">
+                <div>
+                    Loading Repositories <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider-3"></div>
+
+    <eshq-repositories-table ng-if="!clusterSnapshotsCtrl.fetchingRepositories"
+                        repositories="clusterSnapshotsCtrl.repositories"></eshq-repositories-table>
+</div>

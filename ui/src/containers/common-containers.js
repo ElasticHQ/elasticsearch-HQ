@@ -10,9 +10,11 @@ import clusterIndicesController from './cluster-indices/cluster-indices.controll
 import clusterIndiceDetailsController from './cluster-indice-details/cluster-indice-details.controller';
 import clusterNodeDetailsController from './cluster-node-details/cluster-node-details.controller';
 import clusterNodesController from './cluster-nodes/cluster-nodes.controller';
+import clusterSnapshotsController from './cluster-snapshots/cluster-snapshots.controller';
 import clusterAliasesController from "./cluster-aliases/cluster-aliases.controller";
 import diagnosticsController from './diagnostics/diagnostics.controller'
 import restApiController from'./rest-api/rest-api.controller';
+import clusterSnapshotsDetailsController from "./cluster-snapshots-details/cluster-snapshots-details.controller";
 
 const CommonContainers = angular.module('commonContainers', [])
                             .controller('homeController', homeController)
@@ -22,6 +24,8 @@ const CommonContainers = angular.module('commonContainers', [])
                             .controller('clusterIndiceDetailsController', clusterIndiceDetailsController)
                             .controller('clusterNodeDetailsController', clusterNodeDetailsController)
                             .controller('clusterNodesController', clusterNodesController)
+                            .controller('clusterSnapshotsController', clusterSnapshotsController)
+                            .controller('clusterSnapshotsDetailsController', clusterSnapshotsDetailsController)
                             .controller('diagnosticsController', diagnosticsController)
                             .controller('settingsController', settingsController)
                             .controller('restApiController', restApiController)

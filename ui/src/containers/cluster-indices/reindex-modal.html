@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">
+        Copy Index in <span style="color:rebeccapurple;font-weight:400">{{clusterName}}</span> Cluster
+    </h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div>
+        <form name="ciForm" class="reindexForm">
+            <div class="form-group">
+                <label>Source Index</label>
+                <select class="form-control" id="source_index" ng-model="formData.settings.source_index_name"
+                        required="true">
+                    <!--<li ng-repeat="node in clusterNavCtrl.summary.nodes">-->
+                    <option ng-repeat="index in indices" value="{{index.index_name}}">{{index.index_name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Destination Index</label>
+                <select class="form-control" id="destination_index" ng-model="formData.settings.destination_index_name"
+                        required="true">
+                    <option ng-repeat="index in indices" value="{{index.index_name}}">{{index.index_name}}</option>
+                </select>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="reindex_option" id="reindex"
+                       value="reindex" required
+                       ng-model="formData.settings.reindex_option">
+                <label class="form-check-label" for="reindex">
+                    Copy Mapping and Data
+                </label>
+                <p class="help-block">Performs a complete reindex of all data, using the <a
+                        href="https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html"
+                        target="_blank">ES API</a>.</p>
+            </div>
+            <div class="divider-3"></div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="reindex_option" id="mappingonly"
+                       value="mapping_only" ng-model="formData.settings.reindex_option" required>
+                <label class="form-check-label" for="mappingonly">
+                    Copy Mapping Only
+                </label>
+                <p class="help-block">Clones the mapping and does <strong>not</strong> copy any documents.</p>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-disabled="!ciForm.$valid" type="button" ng-click="save()">Clone</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>

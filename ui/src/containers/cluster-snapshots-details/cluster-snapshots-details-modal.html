@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">
+        Snapshot: <span style="color:rebeccapurple;font-weight:400">{{snapshot.snapshot}}</span>
+    </h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="snapshots-modal-table ">
+        <table ts-wrapper class="table table-striped table-hover"
+               ts-per-page-default="10"
+               ts-display-filtering="false">
+            <thead>
+            <tr>
+                <th ts-criteria="name">Index Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="data in indices" ts-repeat
+                ts-hide-no-data>
+                <td>{{data.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="cancel()">Close</button>
+</div>

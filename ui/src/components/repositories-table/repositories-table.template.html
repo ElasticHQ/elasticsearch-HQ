@@ -1,0 +1,28 @@
+<div class="repositories-table ">
+    <table ts-wrapper class="table table-striped table-hover"
+           ts-per-page-default="10"
+           ts-display-filtering="false"
+           ts-filter-function="repositoriesTableCtrl.filterFn">
+        <thead>
+        <tr>
+            <th colspan="{{repositoriesTableCtrl.columns.length + 1}}">
+                <input type="text" placeholder="Search" class="form-control"
+                       ng-model="repositoriesTableCtrl.search.text"/>
+            </th>
+        </tr>
+        <tr>
+            <th ng-repeat="c in repositoriesTableCtrl.columns"
+                colspan="1"
+                ts-criteria="{{c.key}}">
+                {{c.label}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in repositoriesTableCtrl.data track by data.repository_name" ts-repeat ts-hide-no-data>
+            <td ng-repeat="c in repositoriesTableCtrl.columns" ng-bind-html="repositoriesTableCtrl.renderCell(data, c)"
+                class="repository_info"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

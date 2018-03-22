@@ -1,0 +1,20 @@
+@import '../../styles/yeti-variables';
+
+.cluster-snapshots-details {
+  table.table {
+    thead {
+      th {
+        cursor: pointer;
+        font-size: $font-size-medium;
+      }
+    }
+    tbody {
+      tr {
+        td {
+          cursor: pointer;
+          font-size: $font-size-medium;
+        }
+      }
+    }
+  }
+}

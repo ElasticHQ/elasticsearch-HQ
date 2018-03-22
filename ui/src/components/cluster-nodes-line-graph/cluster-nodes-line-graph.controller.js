@@ -2,6 +2,7 @@ import './cluster-nodes-line-graph.style.scss';
 
 import * as d3 from 'd3';
 import numeral from 'numeral';
+import nearest from 'nearest-date';
 
 class clusterNodesLineGraphController {
     constructor($element, $window, $scope) {
@@ -15,17 +16,12 @@ class clusterNodesLineGraphController {
         this.svgContainer = d3.select(angular.element($element[0].querySelector('.chart'))[0])
                             .append('svg').attr('height', this.h);
 
-
+        //  Tooltip styling in the cluster-nodes-line-graph.style.scss file
+        //  Special class give to this tool tip
         this.tooltip = d3.select("body")
                             .append("div")
-                            .style("position", "absolute")
+                            .attr('class', "node-line-graph-tooltip")
                             .style("z-index", "10")
-                            .style("padding-top", "5px")
-                            .style("padding-bottom", "5px")
-                            .style("padding-left", "10px")
-                            .style("padding-right", "10px")
-                            .style("background", "#2d2d2d")
-                            .style("color", "#eee")
                             .style("visibility", "hidden");
 
         this.margin = {
@@ -33,7 +29,7 @@ class clusterNodesLineGraphController {
             right: 10,
             top: 10,
             bottom: 20  // Basically Font-Size + Tick Size
-            }
+        }
                 
         this.draw = this.draw.bind(this)
         angular.element($window).on('resize', this.draw);
@@ -55,14 +51,31 @@ class clusterNodesLineGraphController {
         
         this.yAxisContainer = this.svgContainer.append('g').attr('class', 'y-axis')
                                 .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+
+        // Attach mouse events to this primary items
+        this.mouseG = this.svgContainer.append('g').attr('class', 'mouse-container')
+                                .attr('transform', 'translate(' + this.margin.left + ','+this.margin.top+')')
+        
+        // RECT that will be catching the mouse events
+        this.mouseG.append('rect')
+                        .attr('fill', 'none')
+                        .attr('pointer-events', 'all');
+
+        // this is the black vertical line to follow mouse
+        this.mouseG.append("path") 
+                        .attr("class", "mouse-line")
+                        .style("stroke", "black")
+                        .style("stroke-width", "1px")
+                        .style("opacity", "0")
    
     }
 
     $doCheck() {
-        // console.log('---- checkint: ', this.data)
-        // console.log('---- aginst: ', this._data)
         if(!angular.equals(this._data, this.data)){
             this._data = JSON.parse(JSON.stringify(this.data));
+            // Check if browser is in the background.
+            //  If so, stop here, else render updates.
+            if (!this.allowRendering) return;
             this.draw()
         }
     }
@@ -105,6 +118,8 @@ class clusterNodesLineGraphController {
         this.yAxisContainer.attr('width', this.margin.left).attr('height', h);
         
         this.axisContainer.attr('transform', 'translate(' + this.margin.left + ',' + (h  + this.margin.top )+ ')');
+
+        this.mouseG.select('rect').attr('width', w).attr('height', h);
 
         let x = d3.scaleTime().range([0, w]),
             y = d3.scaleLinear().range([h, 0]);
@@ -162,6 +177,7 @@ class clusterNodesLineGraphController {
                 .attr('stroke', (d) => d[0].color)
                 .attr('stroke-width', 1)
                 .attr('fill', 'none')
+                .attr('pointer-events', 'none')
             .merge(paths)
                 .attr('stroke', (d) => d[0].color)
                 .attr('d', line)
@@ -171,12 +187,9 @@ class clusterNodesLineGraphController {
         // We draw circles to make it easier to see the actual entries
         let circles = groups.merge(groupEnter).selectAll('circle').data((d) => d.values);
 
-        let setToolTip = (x,y,d) => {
-            // TBD
-            // What information is valuable for the hover.
-            let str = `<h6>${d.name}</h6>` +
-                                `<div>${numeral(d.value).format(this.numFormat)}</div>` +
-                                `<div>${d.date}</div>`;
+        // FIXME
+        // Should really consider making a shared directive for this.
+        let setToolTip = (x,y,str) => {
 
             // Add the HTML first so we can determine size and placement.
             this.tooltip.html(str);
@@ -185,17 +198,15 @@ class clusterNodesLineGraphController {
                 bodyWidth = document.body.clientWidth,
                 extraX;
 
-            // IF tooltip will be to big to fit in view, and leak to the left
-            //  then make the tool tip right align to the X.
-            // IF tooltip will be off screen to the right, then left align.
-            // ELSE just center.
-            if ((x + (toolTipExtra.width / 2)) > bodyWidth) {
-                extraX = (x - toolTipExtra.width)
-            } else if ((x - (toolTipExtra.width / 2)) < 0) {
-                extraX = x
+            
+            // Place tool tip on either the left or right side
+            // of the line.
+            if ((x + toolTipExtra.width) > bodyWidth) {
+                extraX = (x - toolTipExtra.width) - 10
             } else {
-                extraX = (x - (toolTipExtra.width / 2))
+                extraX = x;
             }
+            
 
             // Add some spacing to y so it does not render
             // exactly where the mouse is causing a mouse enter / out loop.
@@ -207,32 +218,12 @@ class clusterNodesLineGraphController {
         circles
             .enter()
                 .append('circle')
-                .attr('r', 2.5)
+                .attr('r', 2)
                 .attr('cx', (d) => x(d.date))
                 .attr('cy', (d, i) => y(d.value))
                 .attr('fill', (d) => d.color)
+                .attr('pointer-events', 'none')
             .merge(circles)
-                .on('mouseover', (d, i, arr) => {
-                    // When hover, make the circle slightly larger
-                    // so user knows which circle tooltip is showing.
-                    d3.select(arr[i]).transition().delay(100).attr('r', 5);
-
-                    let { pageX, pageY } = d3.event;
-                    setToolTip(pageX, pageY, d);                  
-
-                })
-                .on('mousemove', (d, i, arr) => {
-                    // Follow the mouse as new items come into the view.
-                    d3.select(arr[i]).transition().delay(100).attr('r', 5);
-                    let { pageX, pageY } = d3.event;
-                    setToolTip(pageX, pageY, d)
-                })
-                .on('mouseout', (d, i, arr) => {
-                    // As new item comes in, old gets moved,
-                    // circle goes back to normal size and new circle gets hover effect.
-                    let elm = d3.select(arr[i]).transition().delay(100).attr('r', 2.5);
-                    this.tooltip.style('visibility', 'hidden')
-                })
                 .transition()
                 .duration(350)
                 .attr('cx', (d) => x(d.date))
@@ -240,6 +231,48 @@ class clusterNodesLineGraphController {
                 .attr('fill', (d) => d.color)
 
         circles.exit().remove();
+
+
+        // We use flattenData for not only pulling the unique dates
+        //  but also on the hover to pull the Matching items for a Date.
+        let flattenData = _.flattenDeep(data.map(d => d.values))
+        let uniqDates = _.uniqBy(flattenData, 'date').map(d => d.date)
+
+        this.mouseG.on('mousemove', () => {
+
+                        let mouse = d3.mouse(this.mouseG.select('rect').node());
+                        let invertedD = x.invert(mouse[0]);
+                        let found = nearest(uniqDates, invertedD),
+                            date = uniqDates[found];
+
+                        // If mouseover before any data has been loaded, 
+                        //   just return.
+                        if (x(date) === NaN) return;
+
+                        this.mouseG.select('.mouse-line')
+                                .attr("d", () => {
+                                    var d = "M" + x(date) + "," + h;
+                                    d += " " + x(date) + "," + 0;
+                                    return d;
+                                })
+                                .style("opacity", "1");
+
+                        let str = ''
+
+                        flattenData.filter(d => d.date.getTime() == date.getTime())
+                                                    .forEach(itm => {
+                                                        str += `<div style="color: ${itm.color}"><div>${itm.name}: </div>` +
+                                                                `<div>${numeral(itm.value).format(this.numFormat)}</div></div>`;
+                                                    });
+
+                        let { pageX, pageY } = d3.event;
+                        setToolTip(pageX, pageY, str);
+                        
+                    })
+                    .on('mouseout', () => {
+                        this.mouseG.select('.mouse-line').style('opacity', '0');
+                        this.tooltip.style('visibility', 'hidden')
+                    })
         
     }
 }

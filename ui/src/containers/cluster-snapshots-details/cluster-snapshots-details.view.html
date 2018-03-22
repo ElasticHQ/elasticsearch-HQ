@@ -1,0 +1,71 @@
+<div class="cluster-snapshots-details">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation></eshq-cluster-navigation>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="summary-loader" ng-if="clusterSnapshotsDetailsCtrl.fetching">
+                <div>
+                    Loading {{cIndDetailsCtrl.fetchingTitle}} <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <h4><i class="fa fa-database  icon-label {{clusterSnapshotsDetailsCtrl.summary.health}}"></i>
+                {{clusterSnapshotsDetailsCtrl.repositoryName}}</h4>
+        </div>
+    </div>
+    <div class="divider-3"></div>
+    <div class="row">
+        <div class="col-md-3" ng-repeat="item in clusterSnapshotsDetailsCtrl.firstRow">
+            <div class="alert alert-info summary-panel">
+                <div class="number">{{item.value}}</div>
+                <div class="summary-label">{{item.label}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="divider-3"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="snapshots-table ">
+                <table ts-wrapper class="table table-striped table-hover"
+                       ts-per-page-default="10"
+                       ts-display-filtering="false"
+                       ts-filter-function="clusterSnapshotsDetailsCtrl.filterFn">
+                    <thead>
+                    <tr>
+                        <th ng-repeat="c in clusterSnapshotsDetailsCtrl.columns"
+                            colspan="1"
+                            ts-criteria="{{c.key}}">
+                            {{c.label}}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in clusterSnapshotsDetailsCtrl.snapshots" ts-repeat
+                        ts-hide-no-data>
+                        <td>{{data.state}}
+                        </td>
+                        <td>{{data.snapshot}}</td>
+                        <td>{{data.start_time_in_millis | moment : 'MM-DD-YYYY hh:mm:ss ZZ'}}</td>
+                        <td>{{data.end_time_in_millis | moment : 'MM-DD-YYYY hh:mm:ss ZZ'}}</td>
+                        <td>{{data.duration_in_words}}</td>
+                        <td><a ng-click="clusterSnapshotsDetailsCtrl.viewSnapshot(data)">{{data.index_count}}</a>
+                        </td>
+                        <td>{{data.shards.successful}} / {{data.shards.total}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/ng-template" id="ndwPopoverTemplate.html">
+    <div class="popover-content">
+        <div ng-bind-html="data.popoverContent"></div>
+    </div>
+</script>

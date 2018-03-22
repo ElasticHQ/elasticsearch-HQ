@@ -14,5 +14,7 @@ from . import diagnostics
 from . import rest
 # noinspection PyUnresolvedReferences
 from . import socket
+# noinspection PyUnresolvedReferences
+from . import snapshot
 
 

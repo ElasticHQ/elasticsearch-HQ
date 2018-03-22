@@ -28,11 +28,15 @@ import indexMappingsTabContent from './index-mappings-tab-content/index-mappings
 // Nodes components
 import nodeSummaryInfoTable from './node-summary-info-table/node-summary-info-table';
 import nodeFsInfoTable from './node-fs-info-table/node-fs-info-table';
+import nodePluginsTable from './node-plugins-table/node-plugins-table';
 import nodeProcessTable from './node-process-table/node-process-table';
 import nodeOsInfoTable from './node-os-info-table/node-os-info-table';
 import nodeJVMStatsTable from './node-jvm-stats-table/node-jvm-stats-table';
 import nodeDiagnosticsWrapper from './node-diagnostics-wrapper/node-diagnostics-wrapper';
 import clusterNodesLineGraph from './cluster-nodes-line-graph/cluster-nodes-line-graph';
+
+// Snapshots
+import repositoriesTable from './repositories-table/repositories-table';
 
 // Editors
 import apiEndpoints from './api-endpoints/api-endpoints';
@@ -61,9 +65,11 @@ const CommonComponents = angular.module('components', [
   nodeDiagnosticsWrapper,
   nodeSummaryInfoTable,
   nodeFsInfoTable,
+  nodePluginsTable,
   nodeProcessTable,
   nodeOsInfoTable,
   nodeJVMStatsTable,
+  repositoriesTable,
   topNav,
 ]).name;
 

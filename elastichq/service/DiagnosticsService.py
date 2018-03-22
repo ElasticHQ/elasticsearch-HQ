@@ -40,7 +40,12 @@ class DiagnosticsService:
                     "host": jmespath.search("host", node_dict)
                     }
             if connection.version.startswith("2"):
-                node.update({"is_master_node": string_to_bool(jmespath.search("attributes.master", node_dict))})
+
+                is_master = jmespath.search("attributes.master", node_dict)
+                if isinstance(is_master, str):
+                    node.update({"is_master_node": string_to_bool(is_master)})
+                else:
+                    node.update({"is_master_node": is_master})
 
                 node_info = NodeService().get_node_info(cluster_name, node_id)
                 if node_info:

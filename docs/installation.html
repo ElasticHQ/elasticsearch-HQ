@@ -212,30 +212,8 @@
 <h2><a class="toc-backref" href="#id7">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="logging">
 <h3><a class="toc-backref" href="#id8">Logging</a><a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
-<p>ElasticHQ logs out to console by default. You can change this, and log to file, by modifying the logging configuration.</p>
-<p>Logging configuration is kept under <code class="docutils literal"><span class="pre">elastichq/config/logger.json</span></code>. To have ElasticHQ log to file, change the root logger from:</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;root&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="s2">&quot;console&quot;</span>
-        <span class="p">]</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>To:</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;root&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="s2">&quot;standard_handler&quot;</span>
-        <span class="p">]</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>You can also adjust the log level to INFO, WARN, or ERROR there as well.</p>
+<p>ElasticHQ logs out to console AND file by default. The application log file is located at the root of the HQ path and is called <code class="docutils literal"><span class="pre">application.log</span></code>.</p>
+<p>Advanced users that want to have control over the logging output, can adjust it by altering the configuration file kept under <code class="docutils literal"><span class="pre">elastichq/config/logger.json</span></code>.</p>
 </div>
 <div class="section" id="database">
 <h3><a class="toc-backref" href="#id9">Database</a><a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
@@ -378,5 +356,15 @@ limitations under the License.</p>
   <div class="footer">
     &copy; Copyright 2018, ElasticHQ. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-40876494-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
   </body>
 </html>

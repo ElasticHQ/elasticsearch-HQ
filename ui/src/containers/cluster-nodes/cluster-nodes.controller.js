@@ -34,12 +34,30 @@ class clusterNodesController {
     this.socket.on('disconnect', () => { this.connected = false })
     this.socket.on('event', (data) => { this.message(data); })
 
+    // When tab in the background browsers like chrome
+    //    throttle CPU / Tasks like animations, so we 
+    //    STOP the animation from rendering by passing this flag.
+    // When Animation continues, it will update the graph to the 
+    //    latest information. 
+    // NOTE: we stop the animation, but not collecting the info
+    //    from the websockets.
+    this.allow_rendering = true;
+    this.visibilityCallBack = () => {
+      this.allow_rendering = document.visibilityState == 'visible'
+    }
+    document.addEventListener("visibilitychange", this.visibilityCallBack);
+
+
     $scope.$on("$destroy", () => {
       this.socket.close();
+      document.removeEventListener('visibilitychange', this.visibilityCallBack)
     });
 
     this.$scope = $scope;
-    this.colors = d3.scaleOrdinal(d3.schemeCategory10)
+    this.colors = d3.scaleOrdinal(d3.schemeCategory10);
+
+
+
   }
 
   $onInit() {
