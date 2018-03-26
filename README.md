@@ -3,11 +3,12 @@ ElasticHQ
 
 Simplified Monitoring and Management for ElasticSearch clusters.
 
-[![GitHub Stars](https://img.shields.io/github/stars/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
-[![GitHub Issues](https://img.shields.io/github/issues/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
-[![Current Version](https://img.shields.io/badge/version-3.0.0-green.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
-![Python](https://img.shields.io/badge/python-v3.4%20%2F%20v3.6-blue.svg)
-[![License](https://img.shields.io/badge/license-ASL-blue.svg)](https://opensource.org/licenses/ASL)
+[![gitHub stars](https://img.shields.io/github/stars/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
+[![gitHub issues](https://img.shields.io/github/issues/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
+[![latest](https://img.shields.io/badge/version-3.3.0-green.svg)](https://github.com/ElasticHQ/elasticsearch-HQ)
+[![docker pulls](https://img.shields.io/docker/pulls/elastichq/elasticsearch-hq.svg)](https://hub.docker.com/r/elastichq/elasticsearch-hq 'DockerHub') 
+![python](https://img.shields.io/badge/python-v3.4%20%2F%20v3.6-blue.svg)
+[![license](https://img.shields.io/badge/license-ASL-blue.svg)](https://opensource.org/licenses/ASL)
 
 
 ![alt text](https://raw.githubusercontent.com/ElasticHQ/elasticsearch-HQ/master/main_dashboard.png)

@@ -112,7 +112,7 @@ class TestFixture:
                         "_index": index_name,
                         "_type": mapping_name,
                         "_op_type": 'index',
-                        "doc": source
+                        "doc": json.loads(source)
                     }
                     actions.append(action)
 

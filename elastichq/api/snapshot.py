@@ -17,6 +17,8 @@ class Repositories(Resource):
     @request_wrapper
     def get(self, cluster_name):
         """
+        Lists all repositories found on the cluster.
+
         :param cluster_name:
         :return:
         """
@@ -28,6 +30,9 @@ class Snapshots(Resource):
     @request_wrapper
     def get(self, cluster_name, repository_name):
         """
+        Lists all snapshots found for this repository. WARNING: Returns a large payload if there are many snapshots and may even time out.
+
+        :param repository_name:
         :param cluster_name:
         :return:
         """
