@@ -3,7 +3,7 @@ import './home.style.scss';
 const fooImage = require('../../images/foo.gif')
 
 class homeController {
-    constructor(ClusterConnection, $state, $timeout, Notification) {
+    constructor(ClusterConnection, $rootScope, $state, $timeout, Notification) {
         'ngInject';
 
         this.service = ClusterConnection;
@@ -13,6 +13,9 @@ class homeController {
         this.Notification = Notification;
 
         this.connection = 'http://localhost:9200';
+        $rootScope.$on('root.default-url-updated', (evt, data) => {
+            this.connection = data.default_url
+        })
     }
 
 

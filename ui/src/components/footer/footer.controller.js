@@ -3,7 +3,7 @@ import './footer.style.scss';
 import { compareSemVer, isValidSemVer, parseSemVer } from 'semver-parser';
 
 class footerController {
-    constructor(QueuedFactory, $sce) {
+    constructor(QueuedFactory, $sce, $rootScope) {
         'ngInject';
 
         this.que = QueuedFactory;
@@ -20,7 +20,9 @@ class footerController {
             let data = resp.data.data[0];
             this.dataSet = data;
             this.parseVersions();
-            
+            if (data.default_url && !!data.default_url.length) {
+                $rootScope.$emit('root.default-url-updated', {default_url: data.default_url})
+            }
         });
     }
 
