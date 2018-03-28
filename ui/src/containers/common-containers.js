@@ -8,6 +8,7 @@ import settingsController from './settings/settings.controller';
 import clusterDetailsController from './cluster-details/cluster-details.controller';
 import clusterIndicesController from './cluster-indices/cluster-indices.controller';
 import clusterIndiceDetailsController from './cluster-indice-details/cluster-indice-details.controller';
+import clusterIndexQueryController from './cluster-index-query/cluster-index-query.controller';
 import clusterNodeDetailsController from './cluster-node-details/cluster-node-details.controller';
 import clusterNodesController from './cluster-nodes/cluster-nodes.controller';
 import clusterSnapshotsController from './cluster-snapshots/cluster-snapshots.controller';
@@ -20,6 +21,7 @@ const CommonContainers = angular.module('commonContainers', [])
                             .controller('homeController', homeController)
                             .controller('clusterDetailsController', clusterDetailsController)
                             .controller('clusterIndicesController', clusterIndicesController)
+                            .controller('clusterIndexQueryController', clusterIndexQueryController)
                             .controller('clusterAliasesController', clusterAliasesController)
                             .controller('clusterIndiceDetailsController', clusterIndiceDetailsController)
                             .controller('clusterNodeDetailsController', clusterNodeDetailsController)

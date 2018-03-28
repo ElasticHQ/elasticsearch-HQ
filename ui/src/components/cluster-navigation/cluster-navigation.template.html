@@ -54,6 +54,10 @@
                        tooltip-placement="bottom"
                        uib-tooltip="JSON information"><i class="fa fa-code"></i> REST</a>
                     <a class="btn btn-success" ui-sref-active="active"
+                       ui-sref="query({clusterName: clusterNavCtrl.clusterName })"
+                       tooltip-placement="bottom"
+                       uib-tooltip="Query Index"><i class="fa fa-search"></i> Query</a>
+                    <a class="btn btn-success" ui-sref-active="active"
                        ui-sref="clusterSnapshots({clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
                        uib-tooltip="Snapshot and Restore Information"><i class="fa fa-camera"></i> Snapshots</a>

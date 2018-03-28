@@ -79,6 +79,12 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider,
             controller: 'diagnosticsController',
             controllerAs: 'diagnosticsCtrl'
         })
+        .state('query', {
+            url: '/clusters/:clusterName/query',
+            template: require('./containers/cluster-index-query/cluster-index-query.view.html'),
+            controller: 'clusterIndexQueryController',
+            controllerAs: 'cIQueryCtrl'
+        })
         .state('clusterDetails', {
             url: '/clusters/:clusterName',
             template: require('./containers/cluster-details/cluster-details.view.html'),
