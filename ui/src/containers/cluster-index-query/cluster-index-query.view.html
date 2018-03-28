@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="btn-group" uib-dropdown>
                 <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="cIQueryCtrl.disabled">
                   {{cIQueryCtrl.currentIndex.index_name || 'Choose Index'}} <span class="caret"></span>
@@ -17,22 +17,20 @@
                 </ul>
               </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="pull-right">
                 <button class="btn btn-primary" 
                         ng-disabled="!cIQueryCtrl.validQuery || !cIQueryCtrl.currentIndex"
-                        ng-click="cIQueryCtrl.query()">Query - {{cIQueryCtrl.validQuery}}</button>
+                        ng-click="cIQueryCtrl.query()">Query</button>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <div class="query-editor" style="width: 100%; height: 400px;"></div>
+        <div class="col-md-6">
+            <div class="query-editor" style="width: 100%;"></div>
+        </div>
+        <div class="col-md-6">
+            <div ng-show="!!cIQueryCtrl.responseData" class="query-response"></div>
         </div>
     </div>
-    <div class="row">
-            <div class="col-md-12">
-                <div ng-show="!!cIQueryCtrl.responseData" class="query-response"></div>
-            </div>
-        </div>
 </div>
