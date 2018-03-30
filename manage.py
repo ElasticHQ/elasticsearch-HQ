@@ -13,6 +13,7 @@ from elastichq.globals import db, socketio
 
 manager = Manager(create_app)
 
+
 class Server(_Server):
     """
     From https://github.com/miguelgrinberg/flack/blob/master/manage.py
@@ -24,6 +25,7 @@ class Server(_Server):
     port = 5000
     use_debugger = False
     use_reloader = False
+    default_url = 'http://localhost:9200'
 
     def get_options(self):
         options = (
@@ -54,6 +56,11 @@ class Server(_Server):
                    dest='use_reloader',
                    help='do not monitor Python files for changes',
                    default=self.use_reloader),
+            Option('-u', '--url',
+                   action='store_false',
+                   dest='url',
+                   help='Default url for initial display screen',
+                   default=self.default_url)
         )
         return options
 
@@ -69,7 +76,7 @@ class Server(_Server):
                      host=host,
                      port=port,
                      debug=use_debugger,
-                     use_reloader=use_reloader,
+                     use_reloader=use_reloader
                      **self.server_options)
 
 

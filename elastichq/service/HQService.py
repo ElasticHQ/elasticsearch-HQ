@@ -1,4 +1,5 @@
 import json
+import os
 from urllib import request
 
 from flask import current_app
@@ -33,6 +34,6 @@ class HQService:
             "current_stable_version": stable_version,
             "tagline": "You know, for Elasticsearch",
             "clusters": result.data,
-            "default_url": current_app.config.get('DEFAULT_URL')
+            "default_url": os.environ.get('HQ_DEFAULT_URL', current_app.config.get('DEFAULT_URL'))
         }
         return status

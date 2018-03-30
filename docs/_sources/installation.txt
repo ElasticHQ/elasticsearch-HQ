@@ -38,6 +38,11 @@ Docker images are offered on the `ElasticHQ Dockerhub <https://hub.docker.com/r/
 
 The ``latest`` tag deploys the latest stable release. Where ``develop`` is the latest unstable working branch.
 
+When starting with Docker, see :any:`environment variables` for passing startup args. Environment variables are passed to docker using the `-e` flag.
+
+ie. ``-e HQ_DEFAULT_URL='http://aa.com:1212'``
+
+
 Pre-Releases
 ^^^^^^^^^^^^
 
@@ -52,12 +57,10 @@ Our branching organization is as follows:
 Configuration
 -------------
 
-Startup Parameters
-^^^^^^^^^^^^^^^^^^
+Command line Parameters
+^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``application.py`` start script takes parameters passed in as arguments from the command line:
-
-
 
     ===========  =========================  ====================================================================
     Arg          Default Value              Definition
@@ -67,6 +70,18 @@ The ``application.py`` start script takes parameters passed in as arguments from
     ``--debug``  False                      If True, exposes debug data to UI and causes reload on code changes.
     ``--url``    ``http://localhost:9200``  Default URL displayed on the initial connection screen.
     ===========  =========================  ====================================================================
+
+.. _environment variables:
+
+Environment Variables
+^^^^^^^^^^^^^^^^^^^^^
+
+    ==================  =========================  ====================================================================
+    Arg                 Default Value              Definition
+    ==================  =========================  ====================================================================
+    ``HQ_DEFAULT_URL``  ``http://localhost:9200``  Default URL displayed on the initial connection screen.
+    ==================  =========================  ====================================================================
+
 
 Logging
 ^^^^^^^

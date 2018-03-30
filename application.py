@@ -1,5 +1,6 @@
 # import argparse
 import optparse
+import os
 
 from elastichq import create_app
 from elastichq.globals import socketio
@@ -29,6 +30,7 @@ if __name__ == '__main__':
 
     options, _ = parser.parse_args()
 
-    application.config['DEFAULT_URL'] = options.url
+    # set default url, override with env for docker
+    application.config['DEFAULT_URL'] = os.environ.get('HQ_DEFAULT_URL', options.url)
 
     socketio.run(application, host=options.host, port=options.port, debug=options.debug)
