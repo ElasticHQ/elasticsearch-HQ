@@ -7,6 +7,7 @@ from elastichq.globals import socketio
 default_host = '0.0.0.0'
 default_port = 5000
 default_debug = False
+default_url = 'http://localhost:9200'
 
 application = create_app()
 
@@ -24,8 +25,10 @@ if __name__ == '__main__':
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=default_debug,
                       help=optparse.SUPPRESS_HELP)
+    parser.add_option("-u", "--url", default=default_url)
 
     options, _ = parser.parse_args()
 
-    socketio.run(application, host=options.host, port=options.port, debug=options.debug)
+    application.config['DEFAULT_URL'] = options.url
 
+    socketio.run(application, host=options.host, port=options.port, debug=options.debug)

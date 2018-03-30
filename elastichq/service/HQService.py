@@ -32,6 +32,7 @@ class HQService:
             "installed_version": current_app.config.get('API_VERSION'),
             "current_stable_version": stable_version,
             "tagline": "You know, for Elasticsearch",
-            "clusters": result.data
+            "clusters": result.data,
+            "default_url": current_app.config.get('DEFAULT_URL')
         }
         return status

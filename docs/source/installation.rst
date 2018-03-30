@@ -52,6 +52,21 @@ Our branching organization is as follows:
 Configuration
 -------------
 
+Startup Parameters
+^^^^^^^^^^^^^^^^^^
+
+The ``application.py`` start script takes parameters passed in as arguments from the command line:
+
+
+
+    ===========  =========================  ====================================================================
+    Arg          Default Value              Definition
+    ===========  =========================  ====================================================================
+    ``--host``   127.0.0.1                  Host the HQ server should be reachable on.
+    ``--port``   5000                       Port to reach HQ server.
+    ``--debug``  False                      If True, exposes debug data to UI and causes reload on code changes.
+    ``--url``    ``http://localhost:9200``  Default URL displayed on the initial connection screen.
+    ===========  =========================  ====================================================================
 
 Logging
 ^^^^^^^
@@ -66,22 +81,6 @@ Database
 ElasticHQ ships with SQLLite integration to store clusters you have connected to and other meta information. This database is kept under the root directory as ``elastichq.db``.
 
 .. note:: In the event you want to start with a clean slate, simply delete the ``elastichq.db`` file. ElasticHQ will recreate it at next startup.
-
-Startup Parameters
-^^^^^^^^^^^^^^^^^^
-
-The ``application.py`` start script takes parameters passed in as arguments from the command line:
-
-
-
-    ===========  ==============  ====================================================================
-    Arg          Default Value   Definition
-    ===========  ==============  ====================================================================
-    ``--host``   127.0.0.1       Host the HQ server should be reachable on.
-    ``--port``   5000            Port to reach HQ server.
-    ``--debug``  False           If True, exposes debug data to UI and causes reload on code changes.
-    ===========  ==============  ====================================================================
-
 
 Upgrading
 ---------

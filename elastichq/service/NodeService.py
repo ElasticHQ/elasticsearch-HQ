@@ -31,7 +31,7 @@ class NodeService:
         connection = ConnectionService().get_connection(cluster_name)
 
         # https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html
-        cat_nodes = connection.cat.nodes(format="json", h="id,m,n,u,role,hp,ip,disk.avail,l", full_id=True)
+        cat_nodes = connection.cat.nodes(format="json", h="id,m,n,u,role,hp,ip,disk.avail,l", full_id=True, request_timeout=REQUEST_TIMEOUT)
 
         nodes = []
         for cnode in cat_nodes:

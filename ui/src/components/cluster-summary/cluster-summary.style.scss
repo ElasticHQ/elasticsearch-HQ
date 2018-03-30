@@ -17,7 +17,7 @@
       }
     }
     > .panel-body {
-      background-color: $alert-info-text;//$panel-primary-heading-bg;//#92c8de;
+      background-color: #5ea7cc;//$panel-primary-heading-bg;//#92c8de;
       padding: 7px 15px;
       letter-spacing: 1px;
       font-weight: 500;
@@ -55,7 +55,7 @@
   }
 
   .update-nag > .update-split.update-info {
-    background: $alert-info-text; //#92c8de !important;
+    background: #5ea7cc; //#92c8de !important;
     text-align: center;
   }
 
