@@ -16,5 +16,7 @@ from . import rest
 from . import socket
 # noinspection PyUnresolvedReferences
 from . import snapshot
+# noinspection PyUnresolvedReferences
+from . import query
 
 

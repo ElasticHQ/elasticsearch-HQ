@@ -20,6 +20,8 @@ $nav-link-hover-bg: lighten($navbar-default-bg, 7%) !default;
 @import '~angular-ui-notification/dist/angular-ui-notification.css';
 @import '~angular-tablesort/tablesort.css';
 
+@import '~jsoneditor/dist/jsoneditor.css';
+
 // Removes horizontal scrollbar that's sometimes caused by the "divider-#" classes below.
 html, body {
     max-width: 100%;

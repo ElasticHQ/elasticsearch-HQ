@@ -228,6 +228,50 @@ class IndexShards(Resource):
 class ReIndex(Resource):
     @request_wrapper
     def post(self, cluster_name):
+        """
+
+        Reindexes OR copies a mapping from a source to destination index.
+
+        **Example request**:
+
+        .. sourcecode:: http
+
+          POST /api/clusters/_connect/ HTTP/1.1
+          Accept: application/json
+
+        .. code-block:: json
+
+            {
+                "settings": {
+                    "reindex_option" : "reindex",
+                    "source_index_name" : "SOURCE_INDEX",
+                    "destination_index_name" : "DESTINATION_INDEX"
+                }
+            }
+
+        **Request Structure**
+
+          - *(dict) --*
+
+            - **reindex_option** *(string) --* Either "reindex" or "mapping_only". This is taken as a command to trigger on action or the other.
+            - **source_index_name** *(string) --* Index to copy from.
+            - **destination_index_name** *(string) --* Destination index to copy to.
+
+        **Example response**:
+
+        .. sourcecode:: http
+
+          HTTP/1.1 200
+          Content-Type: application/json
+
+
+        :reqheader Accept: application/json
+        :resheader Content-Type: application/json
+        :param cluster_name:
+        :status 201: connection created
+        :status 400: bad request
+        :status 500: server error
+        """
         json_data = request.get_json(force=True)
         params = request.values.to_dict()
         params.update(json_data)

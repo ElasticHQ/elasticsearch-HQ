@@ -1,0 +1,75 @@
+<div class="cluster-index-query">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation summary="cIQueryCtrl.summary"></eshq-cluster-navigation>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="btn-group" uib-dropdown>
+                <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle
+                        ng-disabled="cIQueryCtrl.disabled">
+                    {{cIQueryCtrl.currentIndex.index_name || 'Choose Index'}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                    <li role="menuitem" ng-repeat="indice in cIQueryCtrl.indicies">
+                        <a href ng-click="cIQueryCtrl.indexSelected(indice)">{{indice.index_name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="pull-right">
+                <button class="btn btn-primary"
+                        ng-disabled="!cIQueryCtrl.validQuery || !cIQueryCtrl.currentIndex"
+                        ng-click="cIQueryCtrl.query()">Query
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="query-editor" style="width: 100%;"></div>
+        </div>
+        <div class="col-md-8">
+            <div ng-show="!!cIQueryCtrl.responseData" class="query-response"></div>
+        </div>
+    </div>
+    <div class="divider-5"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading"><i class="fa fa-lightbulb-o fa-2x"></i>&nbsp;&nbsp;<span>Query Editor</span>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        This editor enables you to use the Elasticsearch Query DSL to search your data. For help in query structure, please
+                        <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/query-dsl.html"
+                           target="_blank">Read the Docs</a>.
+                    </p>
+                    <p>Use the code samples below as basic stubs in querying...</p>
+
+                    <div class="row">
+                        <div class="col-md-6"><h5>Sample Query:</h5>
+                            <pre><p>{
+    "query": {
+        "match_all": {}
+    }
+}</p></pre>
+                        </div>
+                        <div class="col-md-6"><h5>Sample Aggregation</h5>
+                            <pre><p>{
+  "size": 0,
+    "aggs" : {
+        "AGG_NAME" : {
+            "terms" : { "field" : "FIELD_NAME" }
+        }
+    }
+}</p></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

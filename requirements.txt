@@ -13,7 +13,6 @@ marshmallow==3.0.0b5
 
 urllib3<1.23,>=1.21.1
 requests>=2.0.0, <3.0.0
-six==1.8.0
 
 # Database
 SQLAlchemy==1.2.0
@@ -40,3 +39,7 @@ eventlet==0.22.1
 
 # Production
 #gunicorn==19.7.1
+
+# Elasticsearch
+six==1.11.0
+python-dateutil==2.7.2

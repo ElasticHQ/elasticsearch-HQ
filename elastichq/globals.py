@@ -82,7 +82,7 @@ CONFIG = settings
 CONNECTIONS = Connections()
 
 # TODO: This has to be persisted and made configurable
-REQUEST_TIMEOUT = 10
+REQUEST_TIMEOUT = 30
 
 
 

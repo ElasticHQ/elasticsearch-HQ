@@ -159,6 +159,14 @@ Index Mapping
     :undoc-static:
     :order: path
 
+Reindex
+~~~~~~~
+
+.. autoflask:: application:application
+    :blueprints: api
+    :endpoints: api.index_reindex
+    :undoc-static:
+    :order: path
 
 Diagnostics
 -----------
@@ -169,6 +177,27 @@ Cluster Diagnostics
 .. autoflask:: application:application
     :blueprints: api
     :endpoints: api.diagnostics_summary
+    :undoc-static:
+    :order: path
+
+Snapshots & Repositories
+------------------------
+
+Repositories
+~~~~~~~~~~~~
+
+.. autoflask:: application:application
+    :blueprints: api
+    :endpoints: api.snapshot_repositories
+    :undoc-static:
+    :order: path
+
+Snapshots
+~~~~~~~~~
+
+.. autoflask:: application:application
+    :blueprints: api
+    :endpoints: api.snapshots
     :undoc-static:
     :order: path
 

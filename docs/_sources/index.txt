@@ -7,7 +7,6 @@ ElasticHQ Documentation
     :hidden:
 
     installation
-    user-guide
     rest-api
     developer-guide
     faq

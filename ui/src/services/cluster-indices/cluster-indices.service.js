@@ -153,6 +153,14 @@ class ClusterIndicesService {
         }
     }
 
+    queryCluster(cluster_name, index_name, query_json) {
+        return this.que.add({
+            url: `api/query/${cluster_name}/${index_name}`,
+            method: 'POST',
+            data: {query: query_json}
+        })
+    }
+
 }
 
 export default ClusterIndicesService;
