@@ -4,10 +4,9 @@
 .. moduleauthor:: Roy Russo <royrusso.gmail.com>
 """
 
-import jmespath
-
 from elastichq.globals import REQUEST_TIMEOUT
 from .ConnectionService import ConnectionService
+
 
 class QueryService:
 
@@ -29,10 +28,10 @@ class QueryService:
             search = Search(using=connection, index=index_name).params(request_timeout=REQUEST_TIMEOUT)
             search.update_from_dict(query_json)
             es_results = search.execute()
-        else: # assume latest in cascade
+        else:  # assume latest in cascade
             from elastichq.vendor.elasticsearch_dsl.v6.elasticsearch_dsl import Search
             search = Search(using=connection, index=index_name).params(request_timeout=REQUEST_TIMEOUT)
             search.update_from_dict(query_json)
             es_results = search.execute()
 
-        return es_results.hits.hits
+        return es_results.to_dict()

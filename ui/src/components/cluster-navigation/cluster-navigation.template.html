@@ -12,21 +12,40 @@
                     <a ui-sref="clusterDetails({clusterName: clusterNavCtrl.clusterName})">{{clusterNavCtrl.clusterName}}</a>
                     <small>{{clusterNavCtrl.summary.version}}</small>
                 </div>
+
             </div>
             <div class="col-md-8">
                 <div class="btn-group pull-right">
-                    <a class="btn btn-success" ui-sref-active="active"
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-info dropdown-toggle" uib-dropdown-toggle
+                                ng-disabled="disabled"><i class="fa fa-list"></i>
+                            Indices <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem"><a ui-sref-active="active"
+                                                   ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"
+                                                   tooltip-placement="left"
+                                                   uib-tooltip="Indices Summary">
+                                Indices Summary</a></li>
+                            <li role="menuitem"><a ui-sref-active="active"
+                                                   ui-sref="clusterAliases({ clusterName: clusterNavCtrl.clusterName })"
+                                                   tooltip-placement="left"
+                                                   uib-tooltip="Aliases">Aliases</a></li>
+                            <li role="menuitem">
+                                <a ui-sref-active="active"
+                                   ui-sref="clusterSnapshots({clusterName: clusterNavCtrl.clusterName })"
+                                   tooltip-placement="left"
+                                   uib-tooltip="Snapshot and Restore Information">Snapshots</a></li>
+                        </ul>
+                    </div>
+
+                    <a class="btn btn-info" ui-sref-active="active"
                        ui-sref="clusterNodes({ clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
                        uib-tooltip="Performance Graphs"><i class="fa fa-line-chart"></i>
                         Metrics</a>
-                    <a class="btn btn-success" ui-sref-active="active"
-                       ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"
-                       tooltip-placement="bottom"
-                       uib-tooltip="Index management and monitoring."><i class="fa fa-list"></i>
-                        Indices</a>
                     <div class="btn-group" uib-dropdown>
-                        <button id="siqngle-button" type="button" class="btn btn-success" uib-dropdown-toggle><i
+                        <button id="siqngle-button" type="button" class="btn btn-info" uib-dropdown-toggle><i
                                 class="fa fa-dot-circle-o"></i>
                             Nodes <span class="caret"></span>
                         </button>
@@ -36,93 +55,28 @@
                                    ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"
 
                                    tooltip-placement="right"
-                                   uib-tooltip="{{node.name}} {{node.host}}"><i ng-if="node.is_master_node === true" class="fa fa-star"></i> {{node.name}}</a>
+                                   uib-tooltip="{{node.name}} {{node.host}}"><i ng-if="node.is_master_node === true"
+                                                                                class="fa fa-star"></i>
+                                    {{node.name}}</a>
                             </li>
                         </ul>
                     </div>
-                    <a class="btn btn-success" ui-sref-active="active"
-                       ui-sref="clusterAliases({ clusterName: clusterNavCtrl.clusterName })"
-                       tooltip-placement="bottom"
-                       uib-tooltip="List of aliases"><i
-                            class="fa fa-share-alt"></i> Aliases</a>
-                    <a class="btn btn-success" ui-sref-active="active"
+                    <a class="btn btn-info" ui-sref-active="active"
                        ui-sref="diagnostics({clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
                        uib-tooltip="Diagnostics information"><i class="fa fa-ambulance"></i> Diagnostics</a>
-                    <a class="btn btn-success" ui-sref-active="active"
+                    <a class="btn btn-info" ui-sref-active="active"
                        ui-sref="restapi.endpoints({clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
                        uib-tooltip="JSON information"><i class="fa fa-code"></i> REST</a>
-                    <a class="btn btn-success" ui-sref-active="active"
+                    <a class="btn btn-info" ui-sref-active="active"
                        ui-sref="query({clusterName: clusterNavCtrl.clusterName })"
                        tooltip-placement="bottom"
                        uib-tooltip="Query Index"><i class="fa fa-search"></i> Query</a>
-                    <a class="btn btn-success" ui-sref-active="active"
-                       ui-sref="clusterSnapshots({clusterName: clusterNavCtrl.clusterName })"
-                       tooltip-placement="bottom"
-                       uib-tooltip="Snapshot and Restore Information"><i class="fa fa-camera"></i> Snapshots</a>
-                    <!--
-                    When we decide to group buttons:
-                    <div class="btn-group" uib-dropdown>
-                                        <button type="button" class="btn btn-success" uib-dropdown-toggle
-                                                ng-disabled="disabled"><i class="fa fa-list"></i>
-                                            Indices <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                            <li role="menuitem"><a ui-sref-active="active"
-                                                                   ui-sref="clusterIndices({ clusterName: clusterNavCtrl.clusterName })"
-                                                                   tooltip-placement="right"
-                                                                   uib-tooltip="Indices Summary">
-                                                Indices Summary</a></li>
-                                            <li role="menuitem"><a ui-sref-active="active"
-                                                                   ui-sref="clusterAliases({ clusterName: clusterNavCtrl.clusterName })"
-                                                                   tooltip-placement="right"
-                                                                   uib-tooltip="Aliases">Aliases</a></li>
-                                        </ul>
-                                    </div>
-                    -->
 
                 </div>
             </div>
         </div>
         <div class="divider-3"></div>
-        <!--<div class="row">-->
-        <!--<div class="col-md-6 nodes">-->
-        <!--&lt;!&ndash;<a ng-disabled="true" class="btn btn-primary">Node Diagnostics</a>&ndash;&gt;-->
-        <!--<div ng-if="clusterNavCtrl.summary.nodes.length <= 5">-->
-        <!--<a ng-repeat="node in clusterNavCtrl.summary.nodes"-->
-        <!--class="btn"-->
-        <!--ng-class="node.is_master_node === true ? 'btn-primary' : 'btn-info'"-->
-        <!--ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"-->
-        <!--ui-sref-active="active"-->
-        <!--popover-title="{{node.name}}"-->
-        <!--popover-placement="top-left"-->
-        <!--uib-popover="Address: {{node.host}}"-->
-        <!--popover-trigger="'mouseenter'">-->
-        <!--{{node.name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
-        <!--</div>-->
-        <!--<div ng-if="clusterNavCtrl.summary.nodes.length > 5">-->
-        <!--<div class="btn-group" uib-dropdown>-->
-        <!--<button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle><i-->
-        <!--class="fa fa-dot-circle-o"></i>-->
-        <!--Nodes <span class="caret"></span>-->
-        <!--</button>-->
-        <!--<ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">-->
-        <!--<li ng-repeat="node in clusterNavCtrl.summary.nodes">-->
-        <!--<a href-->
-        <!--ui-sref="clusterNodeDetails({clusterName: clusterNavCtrl.clusterName, nodeId: node.node_id})"-->
-        <!--ui-sref-active="active"-->
-        <!--ng-class="node.is_master_node === true ? 'btn-primary' : 'btn-info'"-->
-        <!--popover-title="{{node.name}}"-->
-        <!--popover-placement="top-left"-->
-        <!--uib-popover="Address: {{node.host}}"-->
-        <!--popover-trigger="'mouseenter'"-->
-        <!--&gt; {{node.name}}</a>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
     </div>
 </div>
