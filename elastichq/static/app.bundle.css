@@ -165,7 +165,7 @@
     font-size: 14px; }
     .cluster-navigation .btn-group li > a.active {
       color: #31708f;
-      background: #d9edf7; }
+      background: #337ab7; }
 
 .status_color_red {
   color: red; }
@@ -398,6 +398,24 @@ hue-6-2: #e6c07b
 
 .cluster-indice-details .tab-content table.table tbody tr td {
   font-size: 14px; }
+.cluster-index-query .panel-heading span {
+  font-size: 20px; }
+
+.cluster-index-query div.jsoneditor {
+  color: #1A1A1A;
+  border: 1px solid #337ab7; }
+
+.cluster-index-query div.jsoneditor-menu {
+  width: 100%;
+  height: 35px;
+  padding: 2px;
+  margin: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: white;
+  background-color: #337ab7;
+  border-bottom: 1px solid #337ab7; }
 .cluster-node-details h4 > .sub-info {
   font-size: 0.75em;
   font-weight: 400; }
