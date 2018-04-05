@@ -54,6 +54,20 @@ Our branching organization is as follows:
 * ``develop``: contains latest features and fixes. **Not stable.**
 * ``#.#.#RC-#``: Release candidates are pre-release versions. **Not stable.**
 
+Initial Login
+-------------
+
+ElasticHQ is accessible, in default configuration under http://localhost:5000
+
+.. figure::  /_static/img/login.png
+    :width: 600px
+    :align: center
+
+The input field takes a url in the form of: ``http://DOMAIN:PORT``
+
+* ``http`` or ``https`` are accepted schemes
+* For Basic Auth, use the format: ``http://USERNAME:PASSWORD@DOMAIN:PORT``
+
 Configuration
 -------------
 
@@ -89,6 +103,8 @@ Logging
 ElasticHQ logs out to console AND file by default. The application log file is located at the root of the HQ path and is called ``application.log``.
 
 Advanced users that want to have control over the logging output, can adjust it by altering the configuration file kept under ``elastichq/config/logger.json``.
+
+Docker users will find the logfile location under ``/src/application.log``
 
 Database
 ^^^^^^^^
@@ -149,6 +165,36 @@ The application will be accessible under http://127.0.0.1:5000
 Read the `Gunicorn Docs <http://docs.gunicorn.org/en/stable/configure.html>`_ for further command line options.
 
 .. note:: For the *Metrics* section to broadcast via websocket, you must have gunicorn set to 1 worker.
+
+Troubleshooting
+---------------
+
+Diagnosing connection errors
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Failure in connecting initially to an Elasticsearch cluster, can happen for several reason:
+
+* **Basic Authentication:** If you did not enter in the security credentials in the connection URL, HQ will fail to connect. The proper format is ``http://USERNAME:PASSWORD@DOMAIN:PORT``
+* **X-Pack License Expiration:** X-Pack comes with a #-day license that will silently expire. Expiration of the license may cause connectivity issues, so it is advised to either purchase an X-Pack license or uninstall X-Pack.
+* **No Route to ES cluster:** Confirm that the server running HQ has access to ES via network. You can do this by calling ES from withing a terminal window on the HQ server, with a ``curl -XGET http://DOMAIN:PORT``.
+
+
+.. _xpack integration:
+
+X-Pack Integration
+~~~~~~~~~~~~~~~~~~
+
+X-Pack is configured with authentication. To connect, you must pass along the username and password in the connection URL
+using the format ``http://USERNAME:PASSWORD@DOMAIN:PORT``
+
+ElasticHQ will store the username and password in the database, so future connectivity is not an issue.
+
+.. warning:: We do realize that the username and passwords are stored plain text in the ElasticHQ DB, but this is a necessary evil that allows for easy reconnection.
+
+
+Viewing Logs
+^^^^^^^^^^^^
+
 
 License
 -------
