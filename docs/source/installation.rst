@@ -166,6 +166,8 @@ Read the `Gunicorn Docs <http://docs.gunicorn.org/en/stable/configure.html>`_ fo
 
 .. note:: For the *Metrics* section to broadcast via websocket, you must have gunicorn set to 1 worker.
 
+.. note:: The Docker container available on DockerHub is pre-configured to run with gunicorn.
+
 Troubleshooting
 ---------------
 
