@@ -3,10 +3,10 @@ ElasticHQ
 
 Simplified Monitoring and Management for ElasticSearch clusters.
 
-[![gitHub stars](https://img.shields.io/github/stars/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
-[![gitHub issues](https://img.shields.io/github/issues/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ) 
+[![gitHub stars](https://img.shields.io/github/stars/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ)
+[![docker pulls](https://img.shields.io/docker/pulls/elastichq/elasticsearch-hq.svg)](https://hub.docker.com/r/elastichq/elasticsearch-hq 'DockerHub')
 [![latest](https://img.shields.io/github/release/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ)
-[![docker pulls](https://img.shields.io/docker/pulls/elastichq/elasticsearch-hq.svg)](https://hub.docker.com/r/elastichq/elasticsearch-hq 'DockerHub') 
+[![gitHub issues](https://img.shields.io/github/issues/ElasticHQ/elasticsearch-HQ.svg)](https://github.com/ElasticHQ/elasticsearch-HQ)
 ![python](https://img.shields.io/badge/python-v3.4%20%2F%20v3.6-blue.svg)
 [![license](https://img.shields.io/badge/license-ASL-blue.svg)](https://opensource.org/licenses/ASL)
 
