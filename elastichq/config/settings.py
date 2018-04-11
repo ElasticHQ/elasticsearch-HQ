@@ -1,7 +1,7 @@
 import json
 import os
 from functools import lru_cache
-from datetime import datetime
+
 from apscheduler.jobstores.memory import MemoryJobStore
 
 __author__ = 'wmcginnis'
@@ -52,6 +52,18 @@ class TestSettings(BaseSettings):
     _sqlalchemy_database_uri = 'sqlite:///' + os.path.join(BASEPATH, 'test_elastichq.db')
     _scheduler_api_enabled = False
     _sqlalchemy_track_modifications = False
+
+    # cluster settings
+    HQ_CLUSTER_SETTINGS = {
+        'doc_id': 'hqsettings',
+        'index_name': '.elastichq',
+        'version': 1,
+        'doc_type': 'data',
+        'store_metrics': True,
+        'websocket_interval': 5,
+        'historic_poll_interval': 60,
+        'historic_days_to_store': 7
+    }
 
     # static
     HQ_SITE_URL = 'http://elastichq.org'
@@ -118,6 +130,18 @@ class ProdSettings(BaseSettings):
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
     API_VERSION = '3.3.0'
     SERVER_NAME = None
+
+    # cluster settings: specific settings for each cluster and how HQ should handle it.
+    HQ_CLUSTER_SETTINGS = {
+        'doc_id': 'hqsettings',
+        'index_name': '.elastichq',
+        'version': 1,
+        'doc_type': 'data',
+        'store_metrics': True,  # whether to store metrics for this cluster
+        'websocket_interval': 5,  # seconds
+        'historic_poll_interval': 60 * 5,  # seconds
+        'historic_days_to_store': 7  # num days to keep historical metrics data
+    }
 
     SCHEDULER_EXECUTORS = {
         'default': {'type': 'threadpool', 'max_workers': 20}

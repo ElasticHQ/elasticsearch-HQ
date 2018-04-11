@@ -8,6 +8,7 @@ from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
+
 from elastichq.common.TaskPool import TaskPool
 from .config import settings
 from .vendor.elasticsearch.connections import Connections
@@ -21,6 +22,7 @@ scheduler = APScheduler()
 
 socketio = SocketIO()
 taskPool = TaskPool()
+
 
 def init_marshmallow(app):
     ma.init_app(app)
@@ -70,8 +72,20 @@ def init_socketio(app):
 
     return socketio
 
+
 def init_task_pool(socketio):
     taskPool.init_app(socketio)
+
+
+#
+# def init_cache(app):
+#     """
+#     https://pythonhosted.org/Flask-Caching/#configuring-flask-caching
+#     :param app:
+#     :return:
+#     """
+#     cache.init_app(app, config={'CACHE_TYPE': 'simple'})
+
 
 LOG = logging.getLogger('elastichq')
 
@@ -84,5 +98,5 @@ CONNECTIONS = Connections()
 # TODO: This has to be persisted and made configurable
 REQUEST_TIMEOUT = 30
 
-
-
+# Cache
+# cache = Cache(config={'CACHE_TYPE': 'simple'})
