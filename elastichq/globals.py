@@ -3,6 +3,8 @@ import logging
 import logging.config
 import os
 
+from dogpile.cache import make_region
+from dogpile.cache.proxy import ProxyBackend
 from flask_apscheduler import APScheduler
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
@@ -77,14 +79,31 @@ def init_task_pool(socketio):
     taskPool.init_app(socketio)
 
 
-#
-# def init_cache(app):
-#     """
-#     https://pythonhosted.org/Flask-Caching/#configuring-flask-caching
-#     :param app:
-#     :return:
-#     """
-#     cache.init_app(app, config={'CACHE_TYPE': 'simple'})
+class CacheLoggingProxy(ProxyBackend):
+    def set(self, key, value):
+        LOG.info('Setting Cache Key: %s' % key)
+        self.proxied.set(key, value)
+
+    def get(self, key):
+        LOG.info('Getting Cache Key: %s' % key)
+        return self.proxied.get(key)
+
+    def delete(self, key):
+        LOG.info('Deleting Cache Key: %s' % key)
+        return self.proxied.delete(key)
+
+
+def init_cache():
+    # TODO: make env configurable, for testing. Will likely require us to set an ENV when running tests.
+    # default
+    CACHE_REGION = make_region().configure(
+        CONFIG.ProdSettings.DEFAULT_CACHE_BACKEND,
+        expiration_time=CONFIG.ProdSettings.DEFAULT_CACHE_EXPIRE_TIME,
+        arguments={
+            'distributed_lock': CONFIG.ProdSettings.DEFAULT_CACHE_ARGUMENTS['distributed_lock']
+        }, wrap=[CacheLoggingProxy]
+    )
+    return CACHE_REGION
 
 
 LOG = logging.getLogger('elastichq')
@@ -98,5 +117,4 @@ CONNECTIONS = Connections()
 # TODO: This has to be persisted and made configurable
 REQUEST_TIMEOUT = 30
 
-# Cache
-# cache = Cache(config={'CACHE_TYPE': 'simple'})
+CACHE_REGION = init_cache()

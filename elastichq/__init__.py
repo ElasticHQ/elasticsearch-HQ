@@ -3,7 +3,7 @@ from flask import Flask
 # noinspection PyUnresolvedReferences
 from elastichq.api import api_blueprint, endpoints, public_blueprint, ws_blueprint
 from elastichq.config.settings import ProdSettings, TestSettings
-from elastichq.globals import init_database, init_log, init_marshmallow, init_socketio, init_task_pool
+from elastichq.globals import init_cache, init_database, init_log, init_marshmallow, init_socketio, init_task_pool
 
 __author__ = 'royrusso'
 

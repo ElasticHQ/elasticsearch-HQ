@@ -4,7 +4,7 @@ import json
 import eventlet
 import jmespath
 
-from elastichq.service import NodeService
+from elastichq.service import NodeService, HQService
 from ..globals import LOG, socketio
 
 eventlet.monkey_patch()
@@ -30,6 +30,7 @@ class Task:
         self.room_name = room_name
         self.cluster_name = cluster_name
         self.metric = metric
+        self.loop_delay = HQService().get_settings(self.cluster_name).get('websocket_interval', 5)
 
     def remove_session(self, session_id):
         self.sessions.remove(session_id)
@@ -59,7 +60,7 @@ class Task:
                 self.stop()
 
             if loop_count > 5:
-                eventlet.sleep(5)
+                eventlet.sleep(self.loop_delay)
 
             LOG.debug('-----------------------------------------')
             LOG.debug('    Doing background task')

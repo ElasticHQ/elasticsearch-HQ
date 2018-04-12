@@ -143,6 +143,22 @@ class ProdSettings(BaseSettings):
         'historic_days_to_store': 7  # num days to keep historical metrics data
     }
 
+    DEFAULT_CACHE_BACKEND = "dogpile.cache.memory"
+    DEFAULT_CACHE_EXPIRE_TIME = 60 * 60 * 2
+    DEFAULT_CACHE_ARGUMENTS = {
+        'distributed_lock': True
+    }
+
+    REDIS_CACHE_CONFIG = {
+        "cache.local.backend": "dogpile.cache.redis",
+        "cache.local.expiration_time": 3600,
+        "cache.local.arguments.host": 'localhost',
+        "cache.local.arguments.port": 6379,
+        "cache.local.arguments.db": 0,
+        "cache.local.arguments.redis_expiration_time": 3600,
+        "cache.local.arguments.distributed_lock": True
+    }
+
     SCHEDULER_EXECUTORS = {
         'default': {'type': 'threadpool', 'max_workers': 20}
     }
