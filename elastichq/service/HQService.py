@@ -99,4 +99,5 @@ class HQService:
 
     def delete_settings(self, cluster_name):
         connection = ConnectionService().get_connection(cluster_name)
+        self.get_settings.invalidate(self, cluster_name)  # alter cache
         return connection.indices.delete(index=current_app.config.get('HQ_CLUSTER_SETTINGS')['index_name'])
