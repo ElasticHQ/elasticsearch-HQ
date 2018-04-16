@@ -1,15 +1,17 @@
 import './clusters.style.scss';
 
 import addClusterModal from './add-cluster-modal.html';
+import editClusterModal from './edit-cluster-modal.html';
 
 import _ from 'lodash';
 import numeral from 'numeral';
 
 class clustersController {
-    constructor(ClusterConnection, Notification, $state, $sce, $filter, $rootScope, $uibModal) {
+    constructor(ClusterConnection, Hq, Notification, $state, $sce, $filter, $rootScope, $uibModal) {
         'ngInject';
 
         this.service = ClusterConnection;
+        this.hq = Hq;
 
         this.Notification = Notification;
         this.$state = $state;
@@ -143,6 +145,49 @@ class clustersController {
                     })
                 };
 
+            }
+
+        });
+    }
+
+    editCluster(cluster) {
+        console.log('--- cluster to edit: ', cluster)
+        this.hq.settings(cluster.cluster_name).then((resp) => {
+          console.log('---- cluster settings; ', resp.data)
+          this.editModal(cluster, resp.data.data[0])
+        })
+        // editClusterModal
+    }
+
+    editModal(cluster, settings) {
+        const modalInstance = this.$uibModal.open({
+            template: editClusterModal,
+            size: 'lg',
+            controller: ($scope, $uibModalInstance, settings) => {
+                'ngInject';
+
+                // After you pass in the resolver, below, attache it for reference
+                $uibModalInstance = $uibModalInstance;
+
+                
+                $scope.formData = settings;
+                $scope.cancel = () => {
+                    $uibModalInstance.dismiss('close');
+                };
+
+                $scope.save = () => {
+                    this.hq.updateSettings(cluster.cluster_name, $scope.formData).then((resp) => {
+                        this.Notification.success({message: 'Cluster settings with Elastic HQ successfully updated', delay: 3000});
+                        $uibModalInstance.close('Closed');
+                    }, (err) => {
+                        this.Notification.error({message: 'Error saving settings'});
+                        console.log(err)
+                    })
+                }
+
+            },
+            resolve: {
+                settings: () => {return settings;}
             }
 
         });

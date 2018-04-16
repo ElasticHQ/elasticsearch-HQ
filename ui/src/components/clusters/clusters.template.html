@@ -28,7 +28,11 @@
             <td ng-class="data.cluster_health.status" class="health"></td>
             <td ng-repeat="c in clustersCtrl.columns" ng-bind-html="clustersCtrl.renderCell(data, c)"
                 class="index_info"></td>
-            <td><a class="btn btn-danger" ui-sref-active="active"
+            <td><a class="btn btn-success" ui-sref-active="active"
+                ng-click="clustersCtrl.editCluster(data)"
+                tooltip-placement="top"
+                uib-tooltip="Edit Cluster Settings in ElasticHQ.">Edit</a> 
+                <a class="btn btn-danger" ui-sref-active="active"
                    ng-click="clustersCtrl.deleteCluster(data.cluster_name)"
                    tooltip-placement="top"
                    uib-tooltip="Removes the connection to this cluster in ElasticHQ."><i class="fa fa-remove"></i></a></td>
