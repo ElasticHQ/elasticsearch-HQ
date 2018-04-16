@@ -154,7 +154,6 @@ class clustersController {
         this.hq.resetSettings(cluster.cluster_name).then((resp) => {
             let msg = `Cluster settings for "${cluster.cluster_name}" has been reset.`
             this.Notification.success({message: msg, delay: 3000});
-            this.editModal(cluster, resp.data.data[0])
         }, (err) => {
             this.Notification.error({message: 'Error restting settings'});
             console.log(err)
