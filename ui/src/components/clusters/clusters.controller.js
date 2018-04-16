@@ -198,6 +198,11 @@ class clustersController {
                 settings: () => {return settings;}
             }
 
+        }).result.then(() => {
+
+        }, (resp) => { 
+            // so uibModal does not complain????
+            // https://stackoverflow.com/questions/42416570/how-to-handle-possibly-unhandled-rejection-backdrop-click-in-a-general-way#answer-43797839
         });
     }
 
