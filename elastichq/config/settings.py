@@ -53,6 +53,13 @@ class TestSettings(BaseSettings):
     _scheduler_api_enabled = False
     _sqlalchemy_track_modifications = False
 
+    # CACHE
+    DEFAULT_CACHE_BACKEND = "dogpile.cache.memory"
+    DEFAULT_CACHE_EXPIRE_TIME = 60 * 60 * 2
+    DEFAULT_CACHE_ARGUMENTS = {
+        'distributed_lock': True
+    }
+
     # cluster settings
     HQ_CLUSTER_SETTINGS = {
         'doc_id': 'hqsettings',
@@ -68,7 +75,7 @@ class TestSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = 'v3.3.0'
+    API_VERSION = 'v3.5.0'
     ES_V2_HOST = '127.0.0.1'
     ES_V2_PORT = '9200'
     ES_V5_HOST = '127.0.0.1'
@@ -128,7 +135,7 @@ class ProdSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = '3.3.0'
+    API_VERSION = '3.5.0'
     SERVER_NAME = None
 
     # cluster settings: specific settings for each cluster and how HQ should handle it.
@@ -143,6 +150,7 @@ class ProdSettings(BaseSettings):
         'historic_days_to_store': 7  # num days to keep historical metrics data
     }
 
+    # CACHE
     DEFAULT_CACHE_BACKEND = "dogpile.cache.memory"
     DEFAULT_CACHE_EXPIRE_TIME = 60 * 60 * 2
     DEFAULT_CACHE_ARGUMENTS = {
@@ -159,16 +167,23 @@ class ProdSettings(BaseSettings):
         "cache.local.arguments.distributed_lock": True
     }
 
-    SCHEDULER_EXECUTORS = {
-        'default': {'type': 'threadpool', 'max_workers': 20}
-    }
+    # METRICS
+    METRICS_INDEX_NAME = '.elastichq_metrics'
 
-    SCHEDULER_JOB_DEFAULTS = {
-        'coalesce': False,
-        'max_instances': 3
-    }
-
-    SCHEDULER_API_ENABLED = True
     SCHEDULER_JOBSTORES = {
         'default': MemoryJobStore()
     }
+    # SCHEDULER_JOBSTORES = {
+    #     'default': SQLAlchemyJobStore(url='sqlite:///flask_context.db')
+    # }
+
+    SCHEDULER_EXECUTORS = {
+        'default': {'type': 'threadpool', 'max_workers': 10}
+    }
+
+    # SCHEDULER_JOB_DEFAULTS = {
+    #     'coalesce': False,
+    #     'max_instances': 3
+    # }
+
+    SCHEDULER_API_ENABLED = True

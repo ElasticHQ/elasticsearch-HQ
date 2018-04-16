@@ -22,6 +22,7 @@ class ClusterModel(db.Model):
     cluster_password = db.Column(db.String, nullable=True)
     cluster_connected = False
     cluster_health = None
+    cluster_settings = None
 
     def __init__(self, cluster_name, cluster_ip, cluster_port='9200', cluster_scheme='http', username=None,
                  password=None):
@@ -61,16 +62,9 @@ class ClusterDTO(ma.ModelSchema):
     Generic data transfer object for a cluster.
 
     """
-    _links = ma.Hyperlinks({
-        'summary': ma.AbsoluteURLFor('.clusters_summary', cluster_name='<cluster_name>', _external=True),
-        'stats': ma.AbsoluteURLFor('.clusters_stats', cluster_name='<cluster_name>', _external=True),
-        'health': ma.AbsoluteURLFor('.clusters_health', cluster_name='<cluster_name>', _external=True),
-        'collection': ma.AbsoluteURLFor('.clusters_list')
-    })
-
     class Meta:
         ordered = True
         model = ClusterModel
         fields = (
             'cluster_name', 'cluster_ip', 'cluster_port', 'cluster_scheme', 'cluster_connected', 'cluster_host',
-            'cluster_version', 'cluster_health', '_links')
+            'cluster_version', 'cluster_health', 'cluster_settings')

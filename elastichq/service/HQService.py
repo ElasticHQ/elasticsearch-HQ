@@ -5,7 +5,6 @@ from urllib import request
 from flask import current_app
 
 from elastichq.model import ClusterDTO
-from elastichq.service import ClusterService
 from elastichq.vendor.elasticsearch.exceptions import NotFoundError
 from .ConnectionService import ConnectionService
 from ..globals import CACHE_REGION, LOG
@@ -26,6 +25,7 @@ class HQService:
 
         stable_version = (json.loads(version_str)).get("version", None)
 
+        from elastichq.service import ClusterService
         clusters = ClusterService().get_clusters(create_if_missing=False)
         schema = ClusterDTO(many=True)
         result = schema.dump(clusters)
