@@ -75,8 +75,8 @@ class Task:
                     for node_id in node_ids:
                         node_dict = node_stats['nodes'][node_id]
 
-                        available_in_bytes = jmespath.search("fs.data[0].available_in_bytes", node_dict)
-                        total_in_bytes = jmespath.search("fs.data[0].total_in_bytes", node_dict)
+                        available_in_bytes = jmespath.search("fs.data[0].available_in_bytes", node_dict) or 0
+                        total_in_bytes = jmespath.search("fs.data[0].total_in_bytes", node_dict) or 0
 
                         node = \
                             {
