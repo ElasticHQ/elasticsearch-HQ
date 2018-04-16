@@ -35,6 +35,9 @@ def create_app(env='PROD'):
 
     init_marshmallow(app)
 
+    # Init connections, or all other startup inits that require active connections, will fail.
+    init_connections(True)
+
     # TODO: For now as assume always in debug mode, so it doesn't execute the scheduler twice.
     init_scheduler(app, True)
 
@@ -42,6 +45,6 @@ def create_app(env='PROD'):
 
     init_task_pool(socketio)
 
-    init_connections(True)
+
 
     return app

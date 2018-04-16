@@ -72,6 +72,15 @@ def init_connections(debug=True):
         if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
             ClusterService().get_clusters()
 
+#
+# from flask_apscheduler import APScheduler as _BaseAPScheduler
+#
+#
+# class APScheduler(_BaseAPScheduler):
+#     def run_job(self, id, jobstore=None):
+#         with self.app.app_context():
+#             super().run_job(id=id, jobstore=jobstore)
+
 
 def init_scheduler(app, debug=True):
     """
@@ -85,22 +94,27 @@ def init_scheduler(app, debug=True):
     if is_gunicorn:
         scheduler.init_app(app)
         scheduler.start()
+
         JOB = {
             'trigger': 'interval',
-            'seconds': 10,
-            'args': (app, 'in')
+            'seconds': 10  # ,
+            # 'args': (app, 'in')
         }
-        scheduler.add_job('job1', the_job, **JOB)
+        from elastichq.common import JobPool
+        with app.app_context():
+            scheduler.add_job('job1', JobPool.blah, **JOB)
     else:
         if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
             scheduler.init_app(app)
             scheduler.start()
             JOB = {
                 'trigger': 'interval',
-                'seconds': 10,
-                'args': (app, 'in')
+                'seconds': 10  # ,
             }
-            scheduler.add_job('job1', the_job, **JOB)
+            # scheduler.add_job('job1', the_job, **JOB)
+            from elastichq.common import JobPool
+            with app.app_context():
+                scheduler.add_job('job1', JobPool.blah, **JOB)
 
 
 def the_job(app, foo):
@@ -113,11 +127,8 @@ def init_socketio(app):
     # Set this variable to "threading", "eventlet" or "gevent" to test the
     # different async modes, or leave it set to None for the application to choose
     # the best option based on installed packages.
-
     async_mode = 'eventlet'
-
     socketio.init_app(app, async_mode=async_mode, logger=True, engineio_logger=True)
-
     return socketio
 
 
