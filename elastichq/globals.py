@@ -91,30 +91,30 @@ def init_scheduler(app, debug=True):
     :return:
     """
     is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
-    if is_gunicorn:
-        scheduler.init_app(app)
-        scheduler.start()
-
-        JOB = {
-            'trigger': 'interval',
-            'seconds': 10  # ,
-            # 'args': (app, 'in')
-        }
-        from elastichq.common import JobPool
-        with app.app_context():
-            scheduler.add_job('job1', JobPool.blah, **JOB)
-    else:
-        if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-            scheduler.init_app(app)
-            scheduler.start()
-            JOB = {
-                'trigger': 'interval',
-                'seconds': 10  # ,
-            }
-            # scheduler.add_job('job1', the_job, **JOB)
-            from elastichq.common import JobPool
-            with app.app_context():
-                scheduler.add_job('job1', JobPool.blah, **JOB)
+    # if is_gunicorn:
+    #     scheduler.init_app(app)
+    #     scheduler.start()
+    #
+    #     JOB = {
+    #         'trigger': 'interval',
+    #         'seconds': 10  # ,
+    #         # 'args': (app, 'in')
+    #     }
+    #     from elastichq.common import JobPool
+    #     with app.app_context():
+    #         scheduler.add_job('job1', JobPool.blah, **JOB)
+    # else:
+    #     if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+    #         scheduler.init_app(app)
+    #         scheduler.start()
+    #         JOB = {
+    #             'trigger': 'interval',
+    #             'seconds': 10  # ,
+    #         }
+    #         # scheduler.add_job('job1', the_job, **JOB)
+    #         from elastichq.common import JobPool
+    #         with app.app_context():
+    #             scheduler.add_job('job1', JobPool.blah, **JOB)
 
 
 def the_job(app, foo):

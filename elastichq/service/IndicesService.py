@@ -112,8 +112,8 @@ class IndicesService:
 
                 index_state = state_indices.get(key)
                 index['settings'] = {
-                    'number_of_shards': int(jmespath.search("settings.index.number_of_shards", index_state)),
-                    "number_of_replicas": int(jmespath.search("settings.index.number_of_replicas", index_state))}
+                    'number_of_shards': int(jmespath.search("settings.index.number_of_shards", index_state) or 0),
+                    "number_of_replicas": int(jmespath.search("settings.index.number_of_replicas", index_state) or 0)}
                 index['state'] = index_state.get("state", None)
                 indices.append(index)
         return sorted(indices, key=lambda k: k['index_name'])
