@@ -15,6 +15,13 @@ class HqService {
     });
   }
 
+  resetSettings(cluster_name) {
+    return this.que.add({
+      url: ('api/hq/' + cluster_name + '/_settings'),
+      method: 'DELETE'
+    });
+  }
+
   updateSettings(cluster_name, data) {
     return this.que.add({
       url: ('api/hq/' + cluster_name + '/_settings'),
