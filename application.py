@@ -9,6 +9,7 @@ default_host = '0.0.0.0'
 default_port = 5000
 default_debug = False
 default_url = 'http://localhost:9200'
+is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
 
 application = create_app()
 
@@ -33,4 +34,8 @@ if __name__ == '__main__':
     # set default url, override with env for docker
     application.config['DEFAULT_URL'] = os.environ.get('HQ_DEFAULT_URL', options.url)
 
-    socketio.run(application, host=options.host, port=options.port, debug=options.debug)
+    if is_gunicorn:
+        # we set reloader False so gunicorn doesn't call two instances of all the Flask init functions.
+        socketio.run(application, host=options.host, port=options.port, debug=options.debug, use_reloader=False)
+    else:
+        socketio.run(application, host=options.host, port=options.port, debug=options.debug)

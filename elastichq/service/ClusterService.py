@@ -8,6 +8,7 @@ import jmespath
 
 from elastichq.globals import REQUEST_TIMEOUT
 from .ConnectionService import ConnectionService
+from .HQService import HQService
 from .NodeService import NodeService
 
 
@@ -49,6 +50,7 @@ class ClusterService:
         for cluster in clusters:
             if cluster.cluster_connected is True:
                 cluster.cluster_health = self.get_cluster_health(cluster_name=cluster.cluster_name)
+                cluster.cluster_settings = HQService().get_settings(cluster.cluster_name)
         return clusters
 
     def get_cluster_summary(self, cluster_name):

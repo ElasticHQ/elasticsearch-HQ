@@ -5,10 +5,9 @@ from urllib import request
 from flask import current_app
 
 from elastichq.model import ClusterDTO
-from elastichq.service import ClusterService
 from elastichq.vendor.elasticsearch.exceptions import NotFoundError
 from .ConnectionService import ConnectionService
-from ..globals import LOG
+from ..globals import CACHE_REGION, LOG
 
 
 class HQService:
@@ -26,6 +25,7 @@ class HQService:
 
         stable_version = (json.loads(version_str)).get("version", None)
 
+        from elastichq.service import ClusterService
         clusters = ClusterService().get_clusters(create_if_missing=False)
         schema = ClusterDTO(many=True)
         result = schema.dump(clusters)
@@ -40,6 +40,7 @@ class HQService:
         }
         return status
 
+    @CACHE_REGION.cache_on_arguments()
     def get_settings(self, cluster_name):
 
         try:
@@ -91,6 +92,9 @@ class HQService:
                           doc_type=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_type'],
                           id=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_id'],
                           body={"doc": new_settings}, refresh=True)
+
+        self.get_settings.invalidate(self, cluster_name)  # alter cache
+
         return new_settings
 
     def delete_settings(self, cluster_name):
