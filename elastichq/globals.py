@@ -42,6 +42,9 @@ def init_log():
 
 
 def init_database(app, tests=False):
+    # Added assignment, db.app=app, to stop: "RuntimeError: application not registered on db instance and no application bound to current context"
+    # http://piotr.banaszkiewicz.org/blog/2012/06/29/flask-sqlalchemy-init_app/
+    db.app = app
     db.init_app(app)
     app.app_context().push()
 
@@ -72,15 +75,6 @@ def init_connections(debug=True):
         if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
             ClusterService().get_clusters()
 
-#
-# from flask_apscheduler import APScheduler as _BaseAPScheduler
-#
-#
-# class APScheduler(_BaseAPScheduler):
-#     def run_job(self, id, jobstore=None):
-#         with self.app.app_context():
-#             super().run_job(id=id, jobstore=jobstore)
-
 
 def init_scheduler(app, debug=True):
     """
@@ -91,36 +85,21 @@ def init_scheduler(app, debug=True):
     :return:
     """
     is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
-    # if is_gunicorn:
-    #     scheduler.init_app(app)
-    #     scheduler.start()
-    #
-    #     JOB = {
-    #         'trigger': 'interval',
-    #         'seconds': 10  # ,
-    #         # 'args': (app, 'in')
-    #     }
-    #     from elastichq.common import JobPool
-    #     with app.app_context():
-    #         scheduler.add_job('job1', JobPool.blah, **JOB)
-    # else:
-    #     if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-    #         scheduler.init_app(app)
-    #         scheduler.start()
-    #         JOB = {
-    #             'trigger': 'interval',
-    #             'seconds': 10  # ,
-    #         }
-    #         # scheduler.add_job('job1', the_job, **JOB)
-    #         from elastichq.common import JobPool
-    #         with app.app_context():
-    #             scheduler.add_job('job1', JobPool.blah, **JOB)
+    if is_gunicorn:
+        scheduler.init_app(app)
+        scheduler.start()
 
-
-def the_job(app, foo):
-    with app.app_context():
-        #        HQService().get_status()
-        LOG.info('a')
+        from elastichq.common.JobPool import JobPool
+        job = JobPool().init_app(app=app)
+        job.blah()
+    else:
+        if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+            if not scheduler.running:
+                scheduler.init_app(app)
+                scheduler.start()
+                from elastichq.common.JobPool import JobPool
+                job = JobPool().init_app(app=app)
+                job.blah()
 
 
 def init_socketio(app):
