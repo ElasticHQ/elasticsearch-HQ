@@ -39,7 +39,7 @@ def create_app(env='PROD'):
     init_connections(True)
 
     # TODO: For now as assume always in debug mode, so it doesn't execute the scheduler twice.
-    init_scheduler(app, True)
+    #init_scheduler(app, True)
 
     socketio = init_socketio(app)
 

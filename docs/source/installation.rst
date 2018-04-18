@@ -36,7 +36,7 @@ Docker Images
 
 Docker images are offered on the `ElasticHQ Dockerhub <https://hub.docker.com/r/elastichq/elasticsearch-hq/>`_.
 
-The ``master`` tag deploys the latest stable release. Where ``develop`` is the latest unstable working branch.
+The ``latest`` tag deploys the latest stable release. Where ``develop`` is the latest unstable working branch.
 
 When starting with Docker, see :any:`environment variables` for passing startup args. Environment variables are passed to docker using the `-e` flag.
 
@@ -50,7 +50,7 @@ Pre-release versions are made available as branches in the github repository. We
 
 Our branching organization is as follows:
 
-* ``master``: contains Latest Stable
+* ``master``: contains Latest Stable release.
 * ``develop``: contains latest features. **Not stable.**
 * ``#.#.#RC-#``: Release candidates are pre-release versions. **Not stable.**
 
