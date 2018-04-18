@@ -13,7 +13,7 @@ Simplified Monitoring and Management for ElasticSearch clusters.
 ![alt text](https://raw.githubusercontent.com/ElasticHQ/elasticsearch-HQ/master/main_dashboard.png)
 
 
-##Key Features
+## Key Features
 
 * Works with 2.x, 5.x, 6.x and current versions of Elasticsearch. 
 * Monitor **many** clusters at once.
