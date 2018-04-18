@@ -44,11 +44,13 @@ For **full** installation and configuration instructions, see [Getting Started](
 
 For further installation and configuration help, please read the docs: [ElasticHQ Documentation](http://docs.elastichq.org)
 
-### Docker Installation
+## Docker Installation
 
 We are hosted on Dockerhub: [ElasticHQ on Dockerhub](https://hub.docker.com/r/elastichq/elasticsearch-hq/)
 
-#### Useful Links
+Please see relevant documentation: [Docker Images](http://docs.elastichq.org/installation.html#docker-images).
+
+## Useful Links
 
 * [Documentation](http://docs.elastichq.org)
 * [Official Website](http://www.elastichq.org)
