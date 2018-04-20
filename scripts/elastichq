@@ -34,4 +34,5 @@ if __name__ == '__main__':
     # set default url, override with env for docker
     application.config['DEFAULT_URL'] = os.environ.get('HQ_DEFAULT_URL', options.url)
 
+    print("starting on http://%s:%s" % (options.host, options.port))
     socketio.run(application, host=options.host, port=options.port, debug=options.debug)
