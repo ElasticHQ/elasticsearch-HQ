@@ -6,8 +6,8 @@ requirements = open('requirements.txt').read()
 
 setup(
         name='elastichq',
-        version='1',
-        description='elasticsearch headquater management webinterface',
+        version='3.3.0',
+        description='elasticsearch headquarter management webinterface',
         author='royrusso',
         author_email='',
         packages=find_packages(),
