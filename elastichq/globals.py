@@ -2,6 +2,7 @@ import json
 import logging
 import logging.config
 import os
+import sys
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from dogpile.cache import make_region
@@ -13,6 +14,7 @@ from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 
 from elastichq.common.TaskPool import TaskPool
+from .utils import find_config
 from .config import settings
 from .vendor.elasticsearch.connections import Connections
 
@@ -36,9 +38,8 @@ def init_log():
     Initializes log format and console/file appenders
     :return:
     """
-    project_root = os.path.split(os.path.dirname(os.path.abspath(__file__)))[0]
-
-    logging.config.dictConfig(json.load(open(os.path.join(project_root, 'elastichq', 'config', 'logger.json'), 'r')))
+    config = find_config('logger.json')
+    logging.config.dictConfig(config)
 
 
 def init_database(app, tests=False):

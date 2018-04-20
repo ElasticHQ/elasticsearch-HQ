@@ -1,17 +1,13 @@
-import json
 import os
 from functools import lru_cache
+<<<<<<< HEAD
+=======
 
+>>>>>>> develop
 from apscheduler.jobstores.memory import MemoryJobStore
+from ..utils import find_config
 
 __author__ = 'wmcginnis'
-
-_search_paths = [
-    './elastichq.json',
-    './elastichq/elastichq.json',
-    './elastichq/config/elastichq.json',
-    '~/elastichq.json'
-]
 
 
 class BaseSettings:
@@ -22,14 +18,7 @@ class BaseSettings:
 
     @lru_cache(1)
     def _user_config(self):
-        for sp in _search_paths:
-            try:
-                with open(sp, 'r') as f:
-                    config = json.load(f)
-                    return config
-            except FileNotFoundError:
-                pass
-        return dict()
+        return find_config('settings.json', default=dict())
 
     @property
     def SQLALCHEMY_DATABASE_URI(self):
