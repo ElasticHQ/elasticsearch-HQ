@@ -56,13 +56,13 @@
     "elasticsearch": {
       "level": "DEBUG",
       "handlers": [],
-      "qualname": "requests",
+      "qualname": "elasticsearch",
       "propagate": "no"
     },
     "elasticsearch.trace": {
       "level": "INFO",
       "handlers": [],
-      "qualname": "requests",
+      "qualname": "elasticsearch",
       "propagate": "no"
     },
     "urllib3.connectionpool": {

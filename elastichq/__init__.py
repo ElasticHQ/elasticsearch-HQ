@@ -1,9 +1,10 @@
 from flask import Flask
+import os
 
 # noinspection PyUnresolvedReferences
 from elastichq.api import api_blueprint, endpoints, public_blueprint, ws_blueprint
 from elastichq.config.settings import ProdSettings, TestSettings
-from elastichq.globals import init_database, init_log, init_marshmallow, init_socketio, init_task_pool
+from elastichq.globals import init_cache, init_database, init_log, init_marshmallow, init_socketio, init_task_pool, init_scheduler, init_connections
 
 __author__ = 'royrusso'
 
@@ -34,10 +35,16 @@ def create_app(env='PROD'):
 
     init_marshmallow(app)
 
-    # init_scheduler(app)
+    # Init connections, or all other startup inits that require active connections, will fail.
+    init_connections(True)
+
+    # TODO: For now as assume always in debug mode, so it doesn't execute the scheduler twice.
+    #init_scheduler(app, True)
 
     socketio = init_socketio(app)
 
     init_task_pool(socketio)
+
+
 
     return app

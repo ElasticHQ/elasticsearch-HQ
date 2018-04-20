@@ -1,15 +1,17 @@
 import './clusters.style.scss';
 
 import addClusterModal from './add-cluster-modal.html';
+import editClusterModal from './edit-cluster-modal.html';
 
 import _ from 'lodash';
 import numeral from 'numeral';
 
 class clustersController {
-    constructor(ClusterConnection, Notification, $state, $sce, $filter, $rootScope, $uibModal) {
+    constructor(ClusterConnection, Hq, Notification, $state, $sce, $filter, $rootScope, $uibModal) {
         'ngInject';
 
         this.service = ClusterConnection;
+        this.hq = Hq;
 
         this.Notification = Notification;
         this.$state = $state;
@@ -145,6 +147,62 @@ class clustersController {
 
             }
 
+        });
+    }
+
+    resetCluster(cluster) {
+        this.hq.resetSettings(cluster.cluster_name).then((resp) => {
+            let msg = `Cluster settings for "${cluster.cluster_name}" has been reset.`
+            this.Notification.success({message: msg, delay: 3000});
+        }, (err) => {
+            this.Notification.error({message: 'Error restting settings'});
+            console.log(err)
+        })
+    }
+
+    editCluster(cluster) {
+        this.hq.settings(cluster.cluster_name).then((resp) => {
+          this.editModal(cluster, resp.data.data[0])
+        })
+        // editClusterModal
+    }
+
+    editModal(cluster, settings) {
+        const modalInstance = this.$uibModal.open({
+            template: editClusterModal,
+            size: 'lg',
+            controller: ($scope, $uibModalInstance, settings) => {
+                'ngInject';
+
+                // After you pass in the resolver, below, attache it for reference
+                $uibModalInstance = $uibModalInstance;
+
+                
+                $scope.formData = settings;
+                $scope.cancel = () => {
+                    $uibModalInstance.dismiss('close');
+                };
+
+                $scope.save = () => {
+                    this.hq.updateSettings(cluster.cluster_name, $scope.formData).then((resp) => {
+                        this.Notification.success({message: 'Cluster settings with Elastic HQ successfully updated', delay: 3000});
+                        $uibModalInstance.close('Closed');
+                    }, (err) => {
+                        this.Notification.error({message: 'Error saving settings'});
+                        console.log(err)
+                    })
+                }
+
+            },
+            resolve: {
+                settings: () => {return settings;}
+            }
+
+        }).result.then(() => {
+
+        }, (resp) => { 
+            // so uibModal does not complain????
+            // https://stackoverflow.com/questions/42416570/how-to-handle-possibly-unhandled-rejection-backdrop-click-in-a-general-way#answer-43797839
         });
     }
 

@@ -10,9 +10,12 @@ flask-marshmallow==0.8.0
 marshmallow-sqlalchemy==0.13.2
 marshmallow==3.0.0b5
 
-
+# requests
 urllib3<1.23,>=1.21.1
 requests>=2.0.0, <3.0.0
+
+# Cache
+dogpile.cache == 0.6.5
 
 # Database
 SQLAlchemy==1.2.0

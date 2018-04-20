@@ -30,3 +30,17 @@
         }
     }
 }
+
+.edit-cluster-settings-modal {
+  .checkbox {
+    margin-top: 0;
+    label {
+      display: flex;
+      align-items: center;
+    }
+  }
+  label, .checkbox label {
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
