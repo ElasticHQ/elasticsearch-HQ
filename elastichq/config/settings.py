@@ -1,9 +1,6 @@
 import os
 from functools import lru_cache
-<<<<<<< HEAD
-=======
 
->>>>>>> develop
 from apscheduler.jobstores.memory import MemoryJobStore
 from ..utils import find_config
 
