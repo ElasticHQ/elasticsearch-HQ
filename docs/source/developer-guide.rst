@@ -11,6 +11,8 @@ Contributing
 
 Please read the `Contributing guidelines <https://github.com/ElasticHQ/elasticsearch-HQ/blob/master/CONTRIBUTING.md>`_ before working on a pull request.
 
+Note that new features and bug fixes should be performed from `develop` and on a new feature branch for the pull request to be manageable.
+
 Building Pre-Releases
 ---------------------
 

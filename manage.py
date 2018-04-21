@@ -64,7 +64,7 @@ class Server(_Server):
         )
         return options
 
-    def __call__(self, app, host, port, use_debugger, use_reloader):
+    def __call__(self, app, host, port, use_debugger, use_reloader, url):
         # override the default runserver command to start a Socket.IO server
         if use_debugger is None:
             use_debugger = app.debug
