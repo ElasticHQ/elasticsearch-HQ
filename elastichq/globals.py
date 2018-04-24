@@ -1,8 +1,6 @@
-import json
 import logging
 import logging.config
 import os
-import sys
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from dogpile.cache import make_region
@@ -14,8 +12,8 @@ from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 
 from elastichq.common.TaskPool import TaskPool
-from .utils import find_config
 from .config import settings
+from .utils import find_config
 from .vendor.elasticsearch.connections import Connections
 
 __author__ = 'royrusso'
@@ -23,7 +21,7 @@ __author__ = 'royrusso'
 db = SQLAlchemy()
 ma = Marshmallow()
 migrate = Migrate()
-scheduler = APScheduler(BackgroundScheduler())
+# scheduler = APScheduler(BackgroundScheduler())
 
 socketio = SocketIO()
 taskPool = TaskPool()
@@ -63,44 +61,39 @@ def migrate_db(app):
     pass
 
 
-def init_connections(debug=True):
+def init_connections():
     """
     Inits connections to all of the configured clusters.
     :return:
     """
     from elastichq.service import ClusterService
-    is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
-    if is_gunicorn:
-        ClusterService().get_clusters()
-    else:
-        if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-            ClusterService().get_clusters()
+    ClusterService().get_clusters()
 
 
-def init_scheduler(app, debug=True):
-    """
-    Two criteria here... 1/ with gunicorn we explicitly add a job, as this function will only be called once because use_reloader=False.
-    With wsgi, we have to filter out the second call, so we don't create the same job twice.
-    :param app:
-    :param debug: assume true so we don't start the same job twice.
-    :return:
-    """
-    is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
-    if is_gunicorn:
-        scheduler.init_app(app)
-        scheduler.start()
-
-        from elastichq.common.JobPool import JobPool
-        job = JobPool().init_app(app=app)
-        job.blah()
-    else:
-        if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-            if not scheduler.running:
-                scheduler.init_app(app)
-                scheduler.start()
-                from elastichq.common.JobPool import JobPool
-                job = JobPool().init_app(app=app)
-                job.blah()
+# def init_scheduler(app, debug=True):
+#     """
+#     Two criteria here... 1/ with gunicorn we explicitly add a job, as this function will only be called once because use_reloader=False.
+#     With wsgi, we have to filter out the second call, so we don't create the same job twice.
+#     :param app:
+#     :param debug: assume true so we don't start the same job twice.
+#     :return:
+#     """
+#     is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
+#     if is_gunicorn:
+#         scheduler.init_app(app)
+#         scheduler.start()
+#
+#         from elastichq.common.JobPool import JobPool
+#         job = JobPool().init_app(app=app)
+#         job.blah()
+#     else:
+#         if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+#             if not scheduler.running:
+#                 scheduler.init_app(app)
+#                 scheduler.start()
+#                 from elastichq.common.JobPool import JobPool
+#                 job = JobPool().init_app(app=app)
+#                 job.blah()
 
 
 def init_socketio(app):

@@ -12,7 +12,7 @@ class indexAliasesTabContentController {
         this.$uibModal = $uibModal;
         this.Notification = Notification;
         this.ClusterAliases = ClusterAliases;
-        console.log("aaaaaa %O", this.ClusterAliases);
+        //console.log("aaaaaa %O", this.ClusterAliases);
         console.log(this);
     }
 

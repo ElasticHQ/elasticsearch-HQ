@@ -4,7 +4,7 @@ import os
 # noinspection PyUnresolvedReferences
 from elastichq.api import api_blueprint, endpoints, public_blueprint, ws_blueprint
 from elastichq.config.settings import ProdSettings, TestSettings
-from elastichq.globals import init_cache, init_database, init_log, init_marshmallow, init_socketio, init_task_pool, init_scheduler, init_connections
+from elastichq.globals import init_cache, init_database, init_log, init_marshmallow, init_socketio, init_task_pool, init_connections #,init_scheduler
 
 __author__ = 'royrusso'
 
@@ -36,7 +36,7 @@ def create_app(env='PROD'):
     init_marshmallow(app)
 
     # Init connections, or all other startup inits that require active connections, will fail.
-    init_connections(True)
+    init_connections()
 
     # TODO: For now as assume always in debug mode, so it doesn't execute the scheduler twice.
     #init_scheduler(app, True)

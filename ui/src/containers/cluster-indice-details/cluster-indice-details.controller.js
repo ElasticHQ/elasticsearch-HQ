@@ -103,6 +103,7 @@ class clusterIndiceDetailsController {
             console.log('---- get clusters error: ', err)
         })
     }
+
     clearCache() {
         this.ClusterIndices.clusterIndicesClearCache(this.clusterName, this.indexName).then((resp) => {
             this.Notification.success({message: `Cache clear operation triggered.`, delay: 3000});
@@ -111,6 +112,7 @@ class clusterIndiceDetailsController {
             console.log('---- get clusters error: ', err)
         })
     }
+
     refreshIndex() {
         this.ClusterIndices.clusterIndicesRefresh(this.clusterName, this.indexName).then((resp) => {
             this.Notification.success({message: `Index refresh operation triggered.`, delay: 3000});
@@ -119,6 +121,7 @@ class clusterIndiceDetailsController {
             console.log('---- get clusters error: ', err)
         })
     }
+
     forceMergeIndex() {
         this.ClusterIndices.clusterIndicesForceMerge(this.clusterName, this.indexName).then((resp) => {
             this.Notification.success({message: `Segment merging operation triggered.`, delay: 3000});
@@ -127,9 +130,20 @@ class clusterIndiceDetailsController {
             console.log('---- get clusters error: ', err)
         })
     }
+
     expungeDeleted() {
         this.ClusterIndices.clusterIndicesExpungeDeleted(this.clusterName, this.indexName).then((resp) => {
             this.Notification.success({message: `Expunge deleted operation triggered.`, delay: 3000});
+        }, (err) => {
+            this.Notification.error({message: 'Error in operation!'});
+            console.log('---- get clusters error: ', err)
+        })
+    }
+
+    closeIndex() {
+        this.ClusterIndices.clusterIndicesClose(this.clusterName, this.indexName).then((resp) => {
+            this.Notification.success({message: `Index closed successfully.`, delay: 3000});
+            // TODO: trigger index summary view.
         }, (err) => {
             this.Notification.error({message: 'Error in operation!'});
             console.log('---- get clusters error: ', err)

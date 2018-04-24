@@ -176,3 +176,13 @@ class IndicesService:
         connection = ConnectionService().get_connection(cluster_name)
         connection.reindex(body=body, wait_for_completion=False)
         return
+
+    def get_closed_indices(self, cluster_name):
+        connection = ConnectionService().get_connection(cluster_name)
+        cat_indices = connection.cat.indices(format='json')
+        indices = []
+        if cat_indices:
+            for index in cat_indices:
+                if index.get('status', "").startswith('close'):
+                    indices.append(index)
+        return indices
