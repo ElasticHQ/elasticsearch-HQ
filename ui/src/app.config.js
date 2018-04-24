@@ -63,6 +63,12 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider,
             controller: 'clusterIndicesClosedController',
             controllerAs: 'clusterIndicesClosedCtrl'
         })
+        .state('clusterDeletedIndices', {
+            url: '/clusters/:clusterName/indices/deleted',
+            template: require('./containers/cluster-indices-deleted/cluster-indices-deleted.view.html'),
+            controller: 'clusterIndicesDeletedController',
+            controllerAs: 'clusterIndicesDeletedCtrl'
+        })
         .state('clusterIndiceDetails', {
             url: '/clusters/:clusterName/indices/:indexName',
             template: require('./containers/cluster-indice-details/cluster-indice-details.view.html'),

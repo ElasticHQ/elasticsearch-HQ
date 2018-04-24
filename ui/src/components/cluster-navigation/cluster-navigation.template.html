@@ -40,6 +40,11 @@
                                                    ui-sref="clusterClosedIndices({ clusterName: clusterNavCtrl.clusterName })"
                                                    tooltip-placement="left"
                                                    uib-tooltip="Closed Indices">Closed Indices</a></li>
+                            <li role="menuitem" ng-if="clusterNavCtrl.showDeleted"><a ui-sref-active="active"
+                                                   ui-sref="clusterDeletedIndices({ clusterName: clusterNavCtrl.clusterName })"
+                                                   tooltip-placement="left"
+                                                   uib-tooltip="View deleted indices.">Deleted Indices</a></li>
+
 
                         </ul>
                     </div>

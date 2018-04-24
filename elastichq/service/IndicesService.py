@@ -186,3 +186,23 @@ class IndicesService:
                 if index.get('status', "").startswith('close'):
                     indices.append(index)
         return indices
+
+    def get_deleted_indices(self, cluster_name):
+        """
+        Only supported in ES v5+
+        :param cluster_name:
+        :return:
+        """
+        cluster_state = ClusterService().get_cluster_state(cluster_name, metric="metadata")
+
+        state_indices = jmespath.search("metadata", cluster_state)
+        graveyard = state_indices.get('index-graveyard', None)
+        indices = []
+        if graveyard is not None:
+            if graveyard.get('tombstones', None) is not None:
+                for tombstone in graveyard.get('tombstones'):
+                    indices.append(
+                        {"index": jmespath.search("index.index_name", tombstone),
+                         "deleted": tombstone.get("delete_date_in_millis")})
+
+        return indices

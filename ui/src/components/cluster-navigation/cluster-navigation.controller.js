@@ -2,7 +2,7 @@ import './cluster-navigation.style.scss'
 
 class clusterNavigationController {
 
-    constructor($stateParams, ClusterSummaryFactory, $timeout){
+    constructor($stateParams, ClusterSummaryFactory, $timeout) {
         'ngInject';
 
         this.clusterName = $stateParams.clusterName
@@ -13,21 +13,23 @@ class clusterNavigationController {
 
     }
 
-    fetchClusterInfo(){
+    fetchClusterInfo() {
         this.summary = undefined;
         this.fetched = false;
         this.fetching = true;
         this.factory.getSummary(this.clusterName).then((resp) => {
             this.summary = resp;
         })
-        .catch((err) => {
-            console.log('----- err: ', err);
-        })
-        .finally(() => {
-            this.fetching = false;
-            this.fetched = true;
-        });
+            .catch((err) => {
+                console.log('----- err: ', err);
+            })
+            .finally(() => {
+                this.fetching = false;
+                this.fetched = true;
+                this.showDeleted = !this.summary.version.startsWith("2");
+            });
     }
+
 
     statusColor() {
         if (!this.summary) return;

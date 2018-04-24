@@ -1,0 +1,62 @@
+<div class="cluster-indices-deleted">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation></eshq-cluster-navigation>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Deleted Indices</h4>
+        </div>
+    </div>
+
+    <table ts-wrapper class="table table-condensed table-hover"
+           ts-per-page-default="10"
+           ts-display-filtering="false"
+           ts-filter-function="clusterIndicesDeletedCtrl.filterFn">
+        <thead>
+        <tr>
+            <th colspan="2">
+                <input type="text" placeholder="Search" class="form-control"
+                       ng-model="clusterIndicesDeletedCtrl.search.text"/>
+            </th>
+        </tr>
+        <tr>
+            <th ng-repeat="c in clusterIndicesDeletedCtrl.columns"
+                colspan="{{($index == 0) ? 1 : 0}}"
+                ts-criteria="{{c.key}}">
+                {{c.label}}
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="index in clusterIndicesDeletedCtrl.indices_deleted" ts-repeat ts-hide-no-data>
+            <td class="index_info">{{index.index}}
+            </td>
+            <td>{{index.deleted | moment : 'MM-DD-YYYY hh:mm:ss ZZ'}}
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+
+            <td colspan="{{clusterIndicesDeletedCtrl.columns.length + 1 }}" class="text-center">
+                <ul uib-pagination ng-show="clusterIndicesDeletedCtrl.numPages > 1"
+                    total-items="clusterIndicesDeletedCtrl.totalItems"
+                    ng-model="clusterIndicesDeletedCtrl.currentPage"
+                    max-size="clusterIndicesDeletedCtrl.maxSize"
+                    items-per-page="clusterIndicesDeletedCtrl.itemsPerPage"
+                    ng-change="clusterIndicesDeletedCtrl.shouldResize()"
+                    num-pages="clusterIndicesDeletedCtrl.numPages"
+                    boundary-link-numbers="true"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;"></ul>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+</div>

@@ -298,6 +298,13 @@ class IndicesClosed(Resource):
         return APIResponse(response, HTTP_Status.OK, None)
 
 
+class IndicesDeleted(Resource):
+    @request_wrapper
+    def get(self, cluster_name):
+        response = IndicesService().get_deleted_indices(cluster_name)
+        return APIResponse(response, HTTP_Status.OK, None)
+
+
 api.add_resource(ReIndex, '/indices/<string:cluster_name>/_reindex', endpoint='index_reindex', methods=['POST'])
 api.add_resource(IndexAction, '/indices/<string:cluster_name>/<string:index_name>/action/<string:action>',
                  '/indices/<string:cluster_name>/action/<string:action>', endpoint='index_command', methods=['PUT'])
@@ -306,6 +313,7 @@ api.add_resource(Index, '/indices/<string:cluster_name>/<string:index_name>', '/
 api.add_resource(IndexStats, '/indices/<string:cluster_name>/<string:index_names>/_stats',
                  '/indices/<string:cluster_name>/_stats', endpoint='indices_stats', methods=['GET'])
 api.add_resource(IndicesClosed, '/indices/<string:cluster_name>/_closed', endpoint='indices_closed', methods=['GET'])
+api.add_resource(IndicesDeleted, '/indices/<string:cluster_name>/_deleted', endpoint='indices_deleted', methods=['GET'])
 api.add_resource(IndexShards, '/indices/<string:cluster_name>/<string:index_names>/_shards',
                  '/indices/<string:cluster_name>/_shards', endpoint='indices_shards', methods=['GET'])
 api.add_resource(IndexSummary, '/indices/<string:cluster_name>/<string:index_names>/_summary',

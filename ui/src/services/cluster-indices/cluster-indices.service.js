@@ -30,6 +30,15 @@ class ClusterIndicesService {
         });
     }
 
+
+    clusterIndicesListDeleted(cluster_name) {
+        // api/indices/[cluster_name]/[index_name]
+        return this.que.add({
+            url: 'api/indices/' + cluster_name + '/_deleted',
+            method: 'GET'
+        });
+    }
+
     clusterIndexReindex(cluster_name, settings) {
         return this.que.add({
             url: 'api/indices/' + cluster_name + '/_reindex',
