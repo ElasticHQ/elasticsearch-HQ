@@ -6,12 +6,13 @@ import numaral from 'numeral';
 class clusterIndiceDetailsController {
 
     // Imports go here
-    constructor($stateParams, ClusterIndices, Notification) {
+    constructor($stateParams, ClusterIndices, Notification, $state) {
         'ngInject';
 
         this.clusterName = $stateParams.clusterName;
         this.indexName = $stateParams.indexName;
 
+        this.$state = $state;
         this.ClusterIndices = ClusterIndices;
         this.Notification = Notification;
         // Default to this
@@ -142,8 +143,8 @@ class clusterIndiceDetailsController {
 
     closeIndex() {
         this.ClusterIndices.clusterIndicesClose(this.clusterName, this.indexName).then((resp) => {
+            this.$state.go('clusterIndices', {clusterName: this.clusterName});
             this.Notification.success({message: `Index closed successfully.`, delay: 3000});
-            // TODO: trigger index summary view.
         }, (err) => {
             this.Notification.error({message: 'Error in operation!'});
             console.log('---- get clusters error: ', err)
