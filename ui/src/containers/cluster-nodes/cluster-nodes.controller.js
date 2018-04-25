@@ -1,6 +1,7 @@
 import './cluster-nodes.style.scss';
 
 import * as d3 from 'd3';
+import _ from 'lodash';
 import io from 'socket.io-client';
 
 class clusterNodesController {
@@ -55,8 +56,92 @@ class clusterNodesController {
 
     this.$scope = $scope;
     this.colors = d3.scaleOrdinal(d3.schemeCategory10);
+  
+    let groupedGraphs = [
+      {
+        label: 'Summary',
+        graphs: [
+          {
+            header: 'Heap Used',
+            numFormat: '0[.][0] b',
+            key: 'heap_used_in_bytes'
+          },
+          {
+            header: 'Doduments Count',
+            numFormat: '0[.][0] a',
+            key: 'docs_count'
+          }
+        ]
+      },
+      {
+        label: 'JVM',
+        graphs: [
+          {
+            header: 'CPU Load',
+            numFormat: '0[.][0]',
+            key: 'cpu_percent'
+          },
+          {
+            header: 'Field Data Cache',
+            numFormat: '0[.][0] b',
+            key: 'field_data_cache_in_bytes'
+          }
+        ]
+      },
+      {
+        label: 'Thread Pools',
+        graphs: []
+      },
+      {
+        label: 'Transport',
+        graphs: []
+      },
+      {
+        label: 'Indices',
+        graphs: [
+          {
+            header: 'Index Operations',
+            numFormat: '0[.][0] a',
+            key: 'index_total'
+          }
+        ]
+      },
+      {
+        label: 'OS',
+        graphs: []
+      },
+      {
+        label: 'Filesystem',
+        graphs: [
+          {
+            header: 'FS Used',
+            numFormat: '0[.][0] b',
+            key: 'fs_used_in_bytes'
+          },
+          {
+            header: 'Documents Deleted',
+            numFormat: '0[.][0] a',
+            key: 'docs_deleted'
+          },
+          {
+            header: 'FS Free',
+            numFormat: '0[.][0] b',
+            key: 'fs_free_in_bytes'
+          }
+        ]
+      }
+    ];
 
+    // Doing it like this because if we want to change the grouping
+    //   later on, it's easier.
+    this.groupedGraphs = groupedGraphs.map(grp => {
+      grp.graphs = _.chunk(grp.graphs, 2);
+      return grp;
+    });
 
+    this.selectedGraph = this.groupedGraphs[0];
+
+    console.log('---- this.groupedGraphs: ', this.groupedGraph)
 
   }
 

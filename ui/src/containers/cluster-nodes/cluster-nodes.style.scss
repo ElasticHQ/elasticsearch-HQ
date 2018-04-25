@@ -5,4 +5,10 @@
         margin-left: 10px;
         margin-bottom: 10px;
     }
+    .select-graphs-btn-group {
+        width: 50%;
+        > #select-graph-group {
+            width: 100%;
+        }
+    }
 }
