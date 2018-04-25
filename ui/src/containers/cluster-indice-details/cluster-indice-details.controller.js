@@ -6,12 +6,13 @@ import numaral from 'numeral';
 class clusterIndiceDetailsController {
 
     // Imports go here
-    constructor($stateParams, ClusterIndices, Notification) {
+    constructor($stateParams, ClusterIndices, Notification, $state) {
         'ngInject';
 
         this.clusterName = $stateParams.clusterName;
         this.indexName = $stateParams.indexName;
 
+        this.$state = $state;
         this.ClusterIndices = ClusterIndices;
         this.Notification = Notification;
         // Default to this
@@ -103,6 +104,7 @@ class clusterIndiceDetailsController {
             console.log('---- get clusters error: ', err)
         })
     }
+
     clearCache() {
         this.ClusterIndices.clusterIndicesClearCache(this.clusterName, this.indexName).then((resp) => {
             this.Notification.success({message: `Cache clear operation triggered.`, delay: 3000});
@@ -111,6 +113,7 @@ class clusterIndiceDetailsController {
             console.log('---- get clusters error: ', err)
         })
     }
+
     refreshIndex() {
         this.ClusterIndices.clusterIndicesRefresh(this.clusterName, this.indexName).then((resp) => {
             this.Notification.success({message: `Index refresh operation triggered.`, delay: 3000});
@@ -119,6 +122,7 @@ class clusterIndiceDetailsController {
             console.log('---- get clusters error: ', err)
         })
     }
+
     forceMergeIndex() {
         this.ClusterIndices.clusterIndicesForceMerge(this.clusterName, this.indexName).then((resp) => {
             this.Notification.success({message: `Segment merging operation triggered.`, delay: 3000});
@@ -127,9 +131,20 @@ class clusterIndiceDetailsController {
             console.log('---- get clusters error: ', err)
         })
     }
+
     expungeDeleted() {
         this.ClusterIndices.clusterIndicesExpungeDeleted(this.clusterName, this.indexName).then((resp) => {
             this.Notification.success({message: `Expunge deleted operation triggered.`, delay: 3000});
+        }, (err) => {
+            this.Notification.error({message: 'Error in operation!'});
+            console.log('---- get clusters error: ', err)
+        })
+    }
+
+    closeIndex() {
+        this.ClusterIndices.clusterIndicesClose(this.clusterName, this.indexName).then((resp) => {
+            this.$state.go('clusterIndices', {clusterName: this.clusterName});
+            this.Notification.success({message: `Index closed successfully.`, delay: 3000});
         }, (err) => {
             this.Notification.error({message: 'Error in operation!'});
             console.log('---- get clusters error: ', err)

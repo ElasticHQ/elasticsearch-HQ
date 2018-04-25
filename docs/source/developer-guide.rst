@@ -13,6 +13,16 @@ Please read the `Contributing guidelines <https://github.com/ElasticHQ/elasticse
 
 Note that new features and bug fixes should be performed from `develop` and on a new feature branch for the pull request to be manageable.
 
+Developer Environment
+---------------------
+
+Set Debug to True
+~~~~~~~~~~~~~~~~~
+
+It is preferred that while developing, ``debug`` be set to True, by starting the application with ``python application.py -d True``. 
+
+This will guarantee that any code changes will immediately refresh the application and cause it to start again with the new changes.
+
 Building Pre-Releases
 ---------------------
 

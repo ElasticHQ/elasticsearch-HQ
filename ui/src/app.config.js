@@ -1,4 +1,6 @@
-export default ($urlRouterProvider, $stateProvider, $locationProvider, 
+import clusterIndicesClosedController from "./containers/cluster-indices-closed/cluster-indices-closed.controller";
+
+export default ($urlRouterProvider, $stateProvider, $locationProvider,
                 tableSortConfigProvider, NotificationProvider) => {
     'use strict';
     'ngInject';
@@ -54,6 +56,18 @@ export default ($urlRouterProvider, $stateProvider, $locationProvider,
             template: require('./containers/cluster-aliases/cluster-aliases.view.html'),
             controller: 'clusterAliasesController',
             controllerAs: 'clusterAliasesCtrl'
+        })
+        .state('clusterClosedIndices', {
+            url: '/clusters/:clusterName/indices/closed',
+            template: require('./containers/cluster-indices-closed/cluster-indices-closed.view.html'),
+            controller: 'clusterIndicesClosedController',
+            controllerAs: 'clusterIndicesClosedCtrl'
+        })
+        .state('clusterDeletedIndices', {
+            url: '/clusters/:clusterName/indices/deleted',
+            template: require('./containers/cluster-indices-deleted/cluster-indices-deleted.view.html'),
+            controller: 'clusterIndicesDeletedController',
+            controllerAs: 'clusterIndicesDeletedCtrl'
         })
         .state('clusterIndiceDetails', {
             url: '/clusters/:clusterName/indices/:indexName',

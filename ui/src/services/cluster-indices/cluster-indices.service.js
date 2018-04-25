@@ -22,6 +22,23 @@ class ClusterIndicesService {
         });
     }
 
+    clusterIndicesListClosed(cluster_name) {
+        // api/indices/[cluster_name]/[index_name]
+        return this.que.add({
+            url: 'api/indices/' + cluster_name + '/_closed',
+            method: 'GET'
+        });
+    }
+
+
+    clusterIndicesListDeleted(cluster_name) {
+        // api/indices/[cluster_name]/[index_name]
+        return this.que.add({
+            url: 'api/indices/' + cluster_name + '/_deleted',
+            method: 'GET'
+        });
+    }
+
     clusterIndexReindex(cluster_name, settings) {
         return this.que.add({
             url: 'api/indices/' + cluster_name + '/_reindex',
@@ -75,6 +92,20 @@ class ClusterIndicesService {
         return this.que.add({
             url: 'api/indices/' + cluster_name + '/' + index_name + '/_aliases',
             method: 'GET'
+        });
+    }
+
+
+    clusterIndicesOpen(cluster_name, index_name) {
+        return this.que.add({
+            url: 'api/indices/' + cluster_name + '/' + index_name + '/action/_open',
+            method: 'PUT'
+        });
+    }
+    clusterIndicesClose(cluster_name, index_name) {
+        return this.que.add({
+            url: 'api/indices/' + cluster_name + '/' + index_name + '/action/_close',
+            method: 'PUT'
         });
     }
 
