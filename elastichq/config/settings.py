@@ -19,7 +19,7 @@ class BaseSettings:
 
     @property
     def SQLALCHEMY_DATABASE_URI(self):
-        return self._user_config().get('SQLALCHEMY_DATABSE_URI', self._sqlalchemy_database_uri)
+        return self._user_config().get('SQLALCHEMY_DATABASE_URI', self._sqlalchemy_database_uri)
 
     @property
     def SCHEDULER_API_ENABLED(self):

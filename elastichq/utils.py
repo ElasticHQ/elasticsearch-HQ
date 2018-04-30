@@ -19,7 +19,7 @@ def find_config(name, paths=None, etc=True, user=True, cwd=True, module=True, co
 
     if paths is None:
         paths = []
-    ifadd(etc, '/etc/elastichq')
+    ifadd(etc, '/etc/elastic-hq')
     ifadd(user, '~')
     ifadd(cwd, os.getcwd())
     base = os.path.dirname(os.path.abspath(__file__))
