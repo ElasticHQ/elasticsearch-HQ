@@ -6,8 +6,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
-                <span>Select which graph to view: </span>
+        <div class="col-md-2">
+                <!--<span>Select which graph to view: </span>-->
                 <div class="btn-group select-graphs-btn-group" uib-dropdown is-open="cNodesCtrl.selectGraphOpen">
                     <button id="select-graph-group" type="button" class="btn btn-info" uib-dropdown-toggle ng-disabled="!cNodesCtrl.groupedGraphs">
                         {{cNodesCtrl.selectedGraph.label}} <span class="caret"></span>
@@ -19,7 +19,7 @@
                     </ul>
                 </div>
         </div>
-        <div class="col-md-6 ">
+        <div class="col-md-10">
             <div class="pull-right">
 
                 <a href ng-click="value.active = !value.active" class="legend-item"
