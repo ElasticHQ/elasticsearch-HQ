@@ -4,7 +4,7 @@
 .. moduleauthor:: Roy Russo <royrusso@gmail.com>
 """
 
-from flask import request
+from flask import request, current_app
 from flask_restful import Resource
 from requests.exceptions import ConnectionError
 
@@ -111,10 +111,14 @@ class ClusterConnection(Resource):
             scheme = 'https'
 
         try:
+            enable_ssl = current_app.config.get('ENABLE_SSL', False)
+            ca_certs = current_app.config.get('CA_CERTS', None)
+
             response = ConnectionService().create_connection(ip=params['ip'], port=params.get('port', "9200"),
                                                              scheme=scheme, username=params.get('username', None),
                                                              password=params.get('password', None),
-                                                             fail_on_exception=True)
+                                                             fail_on_exception=True,
+                                                             enable_ssl=enable_ssl, ca_certs=ca_certs)
 
             schema = ClusterDTO(many=False)
             result = schema.dump(response)
