@@ -50,8 +50,8 @@ Pre-release versions are made available as branches in the github repository. We
 
 Our branching organization is as follows:
 
-* ``master``: contains Latest Stable
-* ``develop``: contains latest features and fixes. **Not stable.**
+* ``master``: contains Latest Stable release.
+* ``develop``: contains latest features. **Not stable.**
 * ``#.#.#RC-#``: Release candidates are pre-release versions. **Not stable.**
 
 Initial Login
@@ -166,6 +166,8 @@ Read the `Gunicorn Docs <http://docs.gunicorn.org/en/stable/configure.html>`_ fo
 
 .. note:: For the *Metrics* section to broadcast via websocket, you must have gunicorn set to 1 worker.
 
+.. note:: The Docker container available on DockerHub is pre-configured to run with gunicorn.
+
 Troubleshooting
 ---------------
 
@@ -176,7 +178,7 @@ Failure in connecting initially to an Elasticsearch cluster, can happen for seve
 
 * **Basic Authentication:** If you did not enter in the security credentials in the connection URL, HQ will fail to connect. The proper format is ``http://USERNAME:PASSWORD@DOMAIN:PORT``
 * **X-Pack License Expiration:** X-Pack comes with a #-day license that will silently expire. Expiration of the license may cause connectivity issues, so it is advised to either purchase an X-Pack license or uninstall X-Pack.
-* **No Route to ES cluster:** Confirm that the server running HQ has access to ES via network. You can do this by calling ES from withing a terminal window on the HQ server, with a ``curl -XGET http://DOMAIN:PORT``.
+* **No Route to ES cluster:** Confirm that the server running HQ has access to ES via network. You can do this by calling ES from within a terminal window on the HQ server, with a ``curl -XGET http://DOMAIN:PORT``.
 
 
 .. _xpack integration:
@@ -195,6 +197,9 @@ ElasticHQ will store the username and password in the database, so future connec
 Viewing Logs
 ^^^^^^^^^^^^
 
+In the base installation, the logs are available under the ``/install/path/application.log``.
+
+For docker images, the application logging can be found under ``/src/application.log``.
 
 License
 -------

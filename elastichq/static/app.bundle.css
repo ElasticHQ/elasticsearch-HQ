@@ -1,4 +1,10 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700);.top-nav .cluster-item .cluster-name-success {
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700);.cluster-indices-closed table.table thead th {
+  cursor: pointer;
+  font-size: 14px; }
+
+.cluster-indices-closed table.table tbody tr td {
+  font-size: 14px; }
+.top-nav .cluster-item .cluster-name-success {
   font-size: 1.2em;
   display: block;
   color: #43ac6a; }
@@ -91,6 +97,16 @@
 
 .clusters .table tbody td.index_info {
   font-size: 14px; }
+
+.edit-cluster-settings-modal .checkbox {
+  margin-top: 0; }
+  .edit-cluster-settings-modal .checkbox label {
+    display: flex;
+    align-items: center; }
+
+.edit-cluster-settings-modal label, .edit-cluster-settings-modal .checkbox label {
+  font-size: 14px;
+  font-weight: bold; }
 .cluster-summary .panel-info {
   color: #FFF;
   font-family: 'Oswald', sans-serif;
@@ -432,6 +448,14 @@ hue-6-2: #e6c07b
   padding: 5px 10px;
   margin-left: 10px;
   margin-bottom: 10px; }
+
+.cluster-nodes .select-graphs-btn-group {
+  width: 50%; }
+  .cluster-nodes .select-graphs-btn-group > #select-graph-group {
+    width: 100%; }
+
+.cluster-nodes .dropdown-menu {
+  font-size: 14px; }
 .cluster-aliases table.table thead th {
   cursor: pointer;
   font-size: 14px; }
@@ -444,6 +468,12 @@ hue-6-2: #e6c07b
 
 .cluster-snapshots-details table.table tbody tr td {
   cursor: pointer;
+  font-size: 14px; }
+.cluster-indices-deleted table.table thead th {
+  cursor: pointer;
+  font-size: 14px; }
+
+.cluster-indices-deleted table.table tbody tr td {
   font-size: 14px; }
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating

@@ -1,8 +1,19 @@
+@import '../../styles/yeti-variables';
+
 .cluster-nodes {
-    .legend-item {
-        display: inline-block;
-        padding: 5px 10px;
-        margin-left: 10px;
-        margin-bottom: 10px;
+  .legend-item {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+  .select-graphs-btn-group {
+    width: 50%;
+    > #select-graph-group {
+      width: 100%;
     }
+  }
+  .dropdown-menu {
+    font-size: $font-size-medium;
+  }
 }

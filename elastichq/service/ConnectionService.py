@@ -1,5 +1,6 @@
 __author__ = 'royrusso'
 
+import os
 import json
 
 import requests
@@ -34,7 +35,8 @@ class ConnectionService:
         except Exception as e:
             return False
 
-    def create_connection(self, ip, port, scheme='http', username=None, password=None, fail_on_exception=False):
+    def create_connection(self, ip, port, scheme='http', username=None, password=None,
+                          fail_on_exception=False, enable_ssl=False, ca_certs=None):
         """
         Creates a connection with a cluster and place the connection inside of a connection pool, using the cluster_name as an alias.
         :param ip: 
@@ -55,10 +57,17 @@ class ConnectionService:
 
             # determine version first
             if is_basic_auth is True:
-                response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
-                                        timeout=REQUEST_TIMEOUT)
+                if enable_ssl:
+                    response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
+                                            timeout=REQUEST_TIMEOUT, verify=ca_certs)
+                else:
+                    response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
+                                            timeout=REQUEST_TIMEOUT)
             else:
-                response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
+                if enable_ssl:
+                    response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT, verify=ca_certs)
+                else:
+                    response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
 
             if response.status_code == 401:
                 message = "Unable to create connection! Server returned 401 - UNAUTHORIZED: " + scheme + "://" + ip + ":" + port
@@ -68,11 +77,22 @@ class ConnectionService:
 
             # SAVE to Connection Pools
             if is_basic_auth is True:
-                conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                     version=content.get('version').get('number'), http_auth=(username, password))
+                if enable_ssl:
+                    conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                         use_ssl=True, verify_certs=True, ca_certs=ca_certs,
+                                         version=content.get('version').get('number'), http_auth=(username, password))
+                else:
+                    conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                         version=content.get('version').get('number'), http_auth=(username, password))
+
             else:
-                conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                     version=content.get('version').get('number'))
+                if enable_ssl:
+                    conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                         use_ssl=True, verify_certs=True, ca_certs=ca_certs,
+                                         version=content.get('version').get('number'))
+                else:
+                    conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                         version=content.get('version').get('number'))
 
             self.add_connection(content.get('cluster_name'), conn=conn)
 

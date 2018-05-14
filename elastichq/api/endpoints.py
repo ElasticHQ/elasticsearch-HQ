@@ -18,5 +18,7 @@ from . import socket
 from . import snapshot
 # noinspection PyUnresolvedReferences
 from . import query
+# noinspection PyUnresolvedReferences
+from . import hq
 
 

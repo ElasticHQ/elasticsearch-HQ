@@ -1,0 +1,64 @@
+<div class="edit-cluster-settings-modal">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            Edit Cluster Settings
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div>
+            <form name="ciForm">
+<!--                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="formData.store_metrics">
+                                        Store Metrics
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Days to store: </label>
+                            <input type="number" 
+                                    ng-model="formData.historic_days_to_store" 
+                                    class="form-control" 
+                                    ng-disabled="!formData.store_metrics"
+                                    ng-required="!!formData.store_metrics">
+                            <span class="help-block">How many days to store before data is discarded.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Poll interval: </label>
+                            <input type="number" 
+                                    ng-model="formData.historic_poll_interval" 
+                                    class="form-control" 
+                                    ng-disabled="!formData.store_metrics"
+                                    ng-required="!!formData.store_metrics">
+                            <span class="help-block">How often to poll in seconds. i.e. For every 5 min, then enter 300. </span>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <div class="col-md-offset-8 col-md-4">
+                        <div class="form-group">
+                            <label>Websocket interval: </label>
+                            <input type="number" 
+                                    ng-model="formData.websocket_interval" 
+                                    class="form-control" 
+                                    required>
+                            <span class="help-block">In seconds. Polling frequency for live data stream for the <b>Metrics</b> charts.</span>
+                        </div>
+                    </div>
+                </div>
+    
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="!ciForm.$valid" type="button" ng-click="save()">Save</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

@@ -16,6 +16,8 @@ import clusterAliasesController from "./cluster-aliases/cluster-aliases.controll
 import diagnosticsController from './diagnostics/diagnostics.controller'
 import restApiController from'./rest-api/rest-api.controller';
 import clusterSnapshotsDetailsController from "./cluster-snapshots-details/cluster-snapshots-details.controller";
+import clusterIndicesClosedController from "./cluster-indices-closed/cluster-indices-closed.controller";
+import clusterIndicesDeletedController from "./cluster-indices-deleted/cluster-indices-deleted.controller";
 
 const CommonContainers = angular.module('commonContainers', [])
                             .controller('homeController', homeController)
@@ -23,6 +25,8 @@ const CommonContainers = angular.module('commonContainers', [])
                             .controller('clusterIndicesController', clusterIndicesController)
                             .controller('clusterIndexQueryController', clusterIndexQueryController)
                             .controller('clusterAliasesController', clusterAliasesController)
+                            .controller('clusterIndicesClosedController', clusterIndicesClosedController)
+                            .controller('clusterIndicesDeletedController', clusterIndicesDeletedController)
                             .controller('clusterIndiceDetailsController', clusterIndiceDetailsController)
                             .controller('clusterNodeDetailsController', clusterNodeDetailsController)
                             .controller('clusterNodesController', clusterNodesController)

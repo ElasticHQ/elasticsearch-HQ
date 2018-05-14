@@ -35,3 +35,11 @@ class QueryService:
             es_results = search.execute()
 
         return es_results.to_dict()
+
+    def get_by_id(self, cluster_name, index_name, doc_id, doc_type='_all'):
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.get(index_name, doc_type=doc_type, id=doc_id)
+
+    def get_source_by_id(self, cluster_name, index_name, doc_id, doc_type='_all'):
+        connection = ConnectionService().get_connection(cluster_name)
+        return connection.get_source(index_name, doc_type=doc_type, id=doc_id)

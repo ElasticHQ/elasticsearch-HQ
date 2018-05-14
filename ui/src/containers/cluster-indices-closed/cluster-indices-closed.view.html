@@ -1,0 +1,70 @@
+<div class="cluster-indices-closed">
+    <div class="row">
+        <div class="col-md-12">
+            <eshq-cluster-navigation></eshq-cluster-navigation>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Closed Indices</h4>
+        </div>
+    </div>
+
+    <table ts-wrapper class="table table-condensed table-hover"
+           ts-per-page-default="10"
+           ts-display-filtering="false"
+           ts-filter-function="clusterIndicesClosedCtrl.filterFn">
+        <thead>
+        <tr>
+            <th colspan="2">
+                <input type="text" placeholder="Search" class="form-control"
+                       ng-model="clusterIndicesClosedCtrl.search.text"/>
+            </th>
+        </tr>
+        <tr>
+            <th ng-repeat="c in clusterIndicesClosedCtrl.columns"
+                colspan="{{($index == 0) ? 1 : 0}}"
+                ts-criteria="{{c.key}}">
+                {{c.label}}
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="index in clusterIndicesClosedCtrl.indices_closed" ts-repeat ts-hide-no-data>
+            <td class="index_info">{{index.index}}
+            </td>
+            <td>
+                <button class="btn btn-success"
+                        ng-click="clusterIndicesClosedCtrl.openIndex(index.index)"
+                        tooltip-placement="top"
+                        uib-tooltip="Open Index">Open
+                </button>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+
+            <td colspan="{{clusterIndicesClosedCtrl.columns.length + 1 }}" class="text-center">
+                <ul uib-pagination ng-show="clusterIndicesClosedCtrl.numPages > 1"
+                    total-items="clusterIndicesClosedCtrl.totalItems"
+                    ng-model="clusterIndicesClosedCtrl.currentPage"
+                    max-size="clusterIndicesClosedCtrl.maxSize"
+                    items-per-page="clusterIndicesClosedCtrl.itemsPerPage"
+                    ng-change="clusterIndicesClosedCtrl.shouldResize()"
+                    num-pages="clusterIndicesClosedCtrl.numPages"
+                    boundary-link-numbers="true"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;"></ul>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+</div>

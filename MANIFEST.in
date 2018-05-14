@@ -1,0 +1,4 @@
+recursive-include elastichq/templates *
+recursive-include elastichq/static *
+include elastichq/config/logger.json
+include requirements.txt

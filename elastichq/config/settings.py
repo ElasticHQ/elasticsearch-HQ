@@ -1,17 +1,10 @@
-import json
 import os
 from functools import lru_cache
-from datetime import datetime
+
 from apscheduler.jobstores.memory import MemoryJobStore
+from ..utils import find_config
 
 __author__ = 'wmcginnis'
-
-_search_paths = [
-    './elastichq.json',
-    './elastichq/elastichq.json',
-    './elastichq/config/elastichq.json',
-    '~/elastichq.json'
-]
 
 
 class BaseSettings:
@@ -22,18 +15,11 @@ class BaseSettings:
 
     @lru_cache(1)
     def _user_config(self):
-        for sp in _search_paths:
-            try:
-                with open(sp, 'r') as f:
-                    config = json.load(f)
-                    return config
-            except FileNotFoundError:
-                pass
-        return dict()
+        return find_config('settings.json', default=dict())
 
     @property
     def SQLALCHEMY_DATABASE_URI(self):
-        return self._user_config().get('SQLALCHEMY_DATABSE_URI', self._sqlalchemy_database_uri)
+        return self._user_config().get('SQLALCHEMY_DATABASE_URI', self._sqlalchemy_database_uri)
 
     @property
     def SCHEDULER_API_ENABLED(self):
@@ -53,10 +39,29 @@ class TestSettings(BaseSettings):
     _scheduler_api_enabled = False
     _sqlalchemy_track_modifications = False
 
+    # CACHE
+    DEFAULT_CACHE_BACKEND = "dogpile.cache.memory"
+    DEFAULT_CACHE_EXPIRE_TIME = 60 * 60 * 2
+    DEFAULT_CACHE_ARGUMENTS = {
+        'distributed_lock': True
+    }
+
+    # cluster settings
+    HQ_CLUSTER_SETTINGS = {
+        'doc_id': 'hqsettings',
+        'index_name': '.elastichq',
+        'version': 1,
+        'doc_type': 'data',
+        'store_metrics': True,
+        'websocket_interval': 5,
+        'historic_poll_interval': 60,
+        'historic_days_to_store': 7
+    }
+
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = 'v3.3.0'
+    API_VERSION = 'v3.4.0'
     ES_V2_HOST = '127.0.0.1'
     ES_V2_PORT = '9200'
     ES_V5_HOST = '127.0.0.1'
@@ -116,19 +121,55 @@ class ProdSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = '3.3.0'
+    API_VERSION = '3.4.0'
     SERVER_NAME = None
 
-    SCHEDULER_EXECUTORS = {
-        'default': {'type': 'threadpool', 'max_workers': 20}
+    # cluster settings: specific settings for each cluster and how HQ should handle it.
+    HQ_CLUSTER_SETTINGS = {
+        'doc_id': 'hqsettings',
+        'index_name': '.elastichq',
+        'version': 1,
+        'doc_type': 'data',
+        'store_metrics': True,  # whether to store metrics for this cluster
+        'websocket_interval': 5,  # seconds
+        'historic_poll_interval': 60 * 5,  # seconds
+        'historic_days_to_store': 7  # num days to keep historical metrics data
     }
 
-    SCHEDULER_JOB_DEFAULTS = {
-        'coalesce': False,
-        'max_instances': 3
+    # CACHE
+    DEFAULT_CACHE_BACKEND = "dogpile.cache.memory"
+    DEFAULT_CACHE_EXPIRE_TIME = 60 * 60 * 2
+    DEFAULT_CACHE_ARGUMENTS = {
+        'distributed_lock': True
     }
 
-    SCHEDULER_API_ENABLED = True
+    REDIS_CACHE_CONFIG = {
+        "cache.local.backend": "dogpile.cache.redis",
+        "cache.local.expiration_time": 3600,
+        "cache.local.arguments.host": 'localhost',
+        "cache.local.arguments.port": 6379,
+        "cache.local.arguments.db": 0,
+        "cache.local.arguments.redis_expiration_time": 3600,
+        "cache.local.arguments.distributed_lock": True
+    }
+
+    # METRICS
+    METRICS_INDEX_NAME = '.elastichq_metrics'
+
     SCHEDULER_JOBSTORES = {
         'default': MemoryJobStore()
     }
+    # SCHEDULER_JOBSTORES = {
+    #     'default': SQLAlchemyJobStore(url='sqlite:///flask_context.db')
+    # }
+
+    SCHEDULER_EXECUTORS = {
+        'default': {'type': 'threadpool', 'max_workers': 10}
+    }
+
+    # SCHEDULER_JOB_DEFAULTS = {
+    #     'coalesce': False,
+    #     'max_instances': 3
+    # }
+
+    SCHEDULER_API_ENABLED = True

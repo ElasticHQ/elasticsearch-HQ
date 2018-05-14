@@ -4,8 +4,22 @@
             <eshq-cluster-navigation></eshq-cluster-navigation>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-md-12 ">
+        <div class="col-md-2">
+                <!--<span>Select which graph to view: </span>-->
+                <div class="btn-group select-graphs-btn-group" uib-dropdown is-open="cNodesCtrl.selectGraphOpen">
+                    <button id="select-graph-group" type="button" class="btn btn-info" uib-dropdown-toggle ng-disabled="!cNodesCtrl.groupedGraphs">
+                        {{cNodesCtrl.selectedGraph.label}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="select-graph-group">
+                        <li role="menuitem" ng-repeat="grp in cNodesCtrl.groupedGraphs">
+                            <a href ng-click="cNodesCtrl.selectedGraph = grp">{{grp.label}}</a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+        <div class="col-md-10">
             <div class="pull-right">
 
                 <a href ng-click="value.active = !value.active" class="legend-item"
@@ -17,68 +31,13 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
+    <div class="row" ng-repeat="grp in cNodesCtrl.selectedGraph.graphs track by $index" ng-init="grpIndex = $index">
+        <div class="col-md-6" ng-repeat="graph in grp track by $index" ng-init="graphIndex = $index">
             <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
-                                            allow-rendering="cNodesCtrl.allow_rendering"
-                                           key="'heap_used_in_bytes'"
-                                           num-format="'0[.][0] b'"
-                                           header="'Heap Used'"></eshq-cluster-nodes-line-graph>
-        </div>
-        <div class="col-md-4">
-            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
-                                            allow-rendering="cNodesCtrl.allow_rendering"
-                                           key="'docs_count'"
-                                           num-format="'0[.][0] a'"
-                                           header="'Documents Count'"></eshq-cluster-nodes-line-graph>
-        </div>
-        <div class="col-md-4">
-            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
-                                            allow-rendering="cNodesCtrl.allow_rendering"
-                                           key="'fs_used_in_bytes'"
-                                           num-format="'0[.][0] b'"
-                                           header="'FS Used'"></eshq-cluster-nodes-line-graph>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
-                                            allow-rendering="cNodesCtrl.allow_rendering"
-                                           key="'cpu_percent'"
-                                           num-format="'0[.][0]'"
-                                           header="'CPU Load'"></eshq-cluster-nodes-line-graph>
-        </div>
-        <div class="col-md-4">
-            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
-                                            allow-rendering="cNodesCtrl.allow_rendering"
-                                           key="'docs_deleted'"
-                                           num-format="'0[.][0] a'"
-                                           header="'Documents Deleted'"></eshq-cluster-nodes-line-graph>
-        </div>
-        <div class="col-md-4">
-            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
-                                            allow-rendering="cNodesCtrl.allow_rendering"
-                                           key="'fs_free_in_bytes'"
-                                           num-format="'0[.][0] b'"
-                                           header="'FS Free'"></eshq-cluster-nodes-line-graph>
-        </div>
-    <div class="row">
-        <div class="col-md-4">
-            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
-                                            allow-rendering="cNodesCtrl.allow_rendering"
-                                           key="'index_total'"
-                                           num-format="'0[.][0] a'"
-                                           header="'Index Operations'"></eshq-cluster-nodes-line-graph>
-        </div>
-        <div class="col-md-4">
-            <eshq-cluster-nodes-line-graph data="cNodesCtrl._nodes"
-                                            allow-rendering="cNodesCtrl.allow_rendering"
-                                           key="'field_data_cache_in_bytes'"
-                                           num-format="'0[.][0] b'"
-                                           header="'Field Data Cache'"></eshq-cluster-nodes-line-graph>
-
-        </div>
-        <div class="col-md-4">
+                    allow-rendering="cNodesCtrl.allow_rendering"
+                key="graph.key"
+                num-format="graph.numFormat"
+                header="graph.header"></eshq-cluster-nodes-line-graph>
         </div>
     </div>
 </div>
