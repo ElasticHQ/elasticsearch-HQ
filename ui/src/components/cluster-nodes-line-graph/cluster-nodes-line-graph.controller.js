@@ -184,8 +184,10 @@ class clusterNodesLineGraphController {
 
         paths.exit().remove()
 
-        // We draw circles to make it easier to see the actual entries
-        let circles = groups.merge(groupEnter).selectAll('circle').data((d) => d.values);
+        // Commenting out the circles because they seem a bit much
+        //   but without them, it's hard to see what is an entry on the timeline
+        // // We draw circles to make it easier to see the actual entries
+        // let circles = groups.merge(groupEnter).selectAll('circle').data((d) => d.values);
 
         // FIXME
         // Should really consider making a shared directive for this.
@@ -215,22 +217,22 @@ class clusterNodesLineGraphController {
                             .style('left', `${extraX}px`);
         }
 
-        circles
-            .enter()
-                .append('circle')
-                .attr('r', 2)
-                .attr('cx', (d) => x(d.date))
-                .attr('cy', (d, i) => y(d.value))
-                .attr('fill', (d) => d.color)
-                .attr('pointer-events', 'none')
-            .merge(circles)
-                .transition()
-                .duration(350)
-                .attr('cx', (d) => x(d.date))
-                .attr('cy', (d, i) => y(d.value))
-                .attr('fill', (d) => d.color)
+        // circles
+        //     .enter()
+        //         .append('circle')
+        //         .attr('r', 2)
+        //         .attr('cx', (d) => x(d.date))
+        //         .attr('cy', (d, i) => y(d.value))
+        //         .attr('fill', (d) => d.color)
+        //         .attr('pointer-events', 'none')
+        //     .merge(circles)
+        //         .transition()
+        //         .duration(350)
+        //         .attr('cx', (d) => x(d.date))
+        //         .attr('cy', (d, i) => y(d.value))
+        //         .attr('fill', (d) => d.color)
 
-        circles.exit().remove();
+        // circles.exit().remove();
 
 
         // We use flattenData for not only pulling the unique dates
