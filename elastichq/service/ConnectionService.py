@@ -1,7 +1,7 @@
 __author__ = 'royrusso'
 
-import os
 import json
+import urllib
 
 import requests
 from requests.exceptions import ConnectionError
@@ -54,6 +54,7 @@ class ConnectionService:
 
             if username is not None and password is not None:
                 is_basic_auth = True
+                password = urllib.parse.unquote(password)
 
             # determine version first
             if is_basic_auth is True:
@@ -116,7 +117,6 @@ class ConnectionService:
                 LOG.error(message, ex)
                 raise ex
             return None
-
 
     def add_connection(self, cluster_name, conn):
         CONNECTIONS.add_connection(alias=cluster_name, conn=conn)
