@@ -76,14 +76,16 @@ Command line Parameters
 
 The ``application.py`` start script takes parameters passed in as arguments from the command line:
 
-    ===========  =========================  ====================================================================
-    Arg          Default Value              Definition
-    ===========  =========================  ====================================================================
-    ``--host``   127.0.0.1                  Host the HQ server should be reachable on.
-    ``--port``   5000                       Port to reach HQ server.
-    ``--debug``  False                      If True, exposes debug data to UI and causes reload on code changes.
-    ``--url``    ``http://localhost:9200``  Default URL displayed on the initial connection screen.
-    ===========  =========================  ====================================================================
+    ================ =========================  ====================================================================
+    Arg               Default Value              Definition
+    ================ =========================  ====================================================================
+    ``--host``       127.0.0.1                  Host the HQ server should be reachable on.
+    ``--port``       5000                       Port to reach HQ server.
+    ``--debug``      False                      If True, exposes debug data to UI and causes reload on code changes.
+    ``--url``        ``http://localhost:9200``  Default URL displayed on the initial connection screen.
+    ``--enable-ssl`` False                      If flag is passed, assumes ssl cert will be used.
+    ``--ca-certs``   /path/to/your/ca.crt       Path to your CA Certificate. Required if enable-ssl is passed.
+    ================ =========================  ====================================================================
 
 .. _environment variables:
 
@@ -94,6 +96,8 @@ Environment Variables
     Arg                 Default Value              Definition
     ==================  =========================  ====================================================================
     ``HQ_DEFAULT_URL``  ``http://localhost:9200``  Default URL displayed on the initial connection screen.
+    ``HQ_ENABLE_SSL``   False                      If flag is passed, assumes ssl cert will be used.
+    ``HQ_CA_CERTS``     /path/to/your/ca.crt       Path to your CA Certificate. Required if enable-ssl is passed.
     ==================  =========================  ====================================================================
 
 
@@ -105,6 +109,16 @@ ElasticHQ logs out to console AND file by default. The application log file is l
 Advanced users that want to have control over the logging output, can adjust it by altering the configuration file kept under ``elastichq/config/logger.json``.
 
 Docker users will find the logfile location under ``/src/application.log``
+
+Connecting with SSL
+^^^^^^^^^^^^^^^^^^^
+
+Thanks to a community contribution, SSL Cert support has been added: `SSL Support  <https://github.com/ElasticHQ/elasticsearch-HQ/issues/376>`_.
+
+Enable SSL Cert support by starting HQ as so:
+
+``python -m application --enable-ssl --ca-certs /path/to/your/ca.crt``
+ 
 
 Database
 ^^^^^^^^
@@ -200,6 +214,17 @@ Viewing Logs
 In the base installation, the logs are available under the ``/install/path/application.log``.
 
 For docker images, the application logging can be found under ``/src/application.log``.
+
+.. _ssl_trouble:
+
+SSL Cert not working
+~~~~~~~~~~~~~~~~~~~~
+
+**NOTE: Your CA file must be the same signer of your Elasticsearch node, for HQ to connect as a trusted source.**
+
+Verify that the certificate works by connecting directly from the HQ instance to the ES node in question, using the cert:
+
+``curl -u admin:password --ca-certs /path/to/ca.crt https://localhost:9200/_cluster/settings?pretty``
 
 License
 -------
