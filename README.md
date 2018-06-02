@@ -39,7 +39,7 @@ For **full** installation and configuration instructions, see [Getting Started](
 
 1. Download or clone the repository. 
 2. Open terminal and point to root of repository. Type: ``pip install -r requirements.txt``
-3. Run server with: `` python application.py ``. Alternatively: ``./manage.py runserver``
+3. Run server with: `` python3 application.py ``. Alternatively: ``./manage.py runserver``
 4. Access HQ with: `` http://localhost:5000 ``
 
 For further installation and configuration help, please read the docs: [ElasticHQ Documentation](http://docs.elastichq.org)
