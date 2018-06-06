@@ -1,6 +1,5 @@
 __author__ = 'royrusso'
 
-
 class TestIndices:
     def test_get_index_summary(self, fixture):
         """
@@ -15,40 +14,43 @@ class TestIndices:
 
         assert 200 == response.status_code
         res = fixture.get_response_data(response)
-        index = res.get('data')[0]
-        assert index['docs'] == 155
-        assert index['docs_deleted'] == 0
-        assert index['health'] == 'yellow'
-        assert index['index_name'] == 'cars'
-        assert index['state'] == 'open'
-        assert index['settings']['number_of_shards'] == 5
-        assert index['settings']['number_of_replicas'] == 1
+        for index in res['data']:
+            if index.get('index_name') == fixture.config.ES_TEST_INDEX_NAME:
+                assert index['docs'] == 155
+                assert index['docs_deleted'] == 0
+                assert index['health'] == 'yellow'
+                assert index['index_name'] == 'cars'
+                assert index['state'] == 'open'
+                assert index['settings']['number_of_shards'] == 5
+                assert index['settings']['number_of_replicas'] == 1
 
         response = fixture.app.get('/api/indices/%s/_summary' % fixture.cluster_v5_name)
 
         assert 200 == response.status_code
         res = fixture.get_response_data(response)
-        index = res.get('data')[0]
-        assert index['docs'] == 155
-        assert index['docs_deleted'] == 0
-        assert index['health'] == 'yellow'
-        assert index['index_name'] == 'cars'
-        assert index['state'] == 'open'
-        assert index['settings']['number_of_shards'] == 5
-        assert index['settings']['number_of_replicas'] == 1
+        for index in res['data']:
+            if index.get('index_name') == fixture.config.ES_TEST_INDEX_NAME:
+                assert index['docs'] == 155
+                assert index['docs_deleted'] == 0
+                assert index['health'] == 'yellow'
+                assert index['index_name'] == 'cars'
+                assert index['state'] == 'open'
+                assert index['settings']['number_of_shards'] == 5
+                assert index['settings']['number_of_replicas'] == 1
 
         response = fixture.app.get('/api/indices/%s/_summary' % fixture.cluster_v6_name)
 
         assert 200 == response.status_code
         res = fixture.get_response_data(response)
-        index = res.get('data')[0]
-        assert index['docs'] == 155
-        assert index['docs_deleted'] == 0
-        assert index['health'] == 'yellow'
-        assert index['index_name'] == 'cars'
-        assert index['state'] == 'open'
-        assert index['settings']['number_of_shards'] == 5
-        assert index['settings']['number_of_replicas'] == 1
+        for index in res['data']:
+            if index.get('index_name') == fixture.config.ES_TEST_INDEX_NAME:
+                assert index['docs'] == 155
+                assert index['docs_deleted'] == 0
+                assert index['health'] == 'yellow'
+                assert index['index_name'] == 'cars'
+                assert index['state'] == 'open'
+                assert index['settings']['number_of_shards'] == 5
+                assert index['settings']['number_of_replicas'] == 1
 
     def test_get_aliases(self, fixture):
         """

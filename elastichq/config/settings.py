@@ -71,6 +71,8 @@ class TestSettings(BaseSettings):
     ES_V6_USERNAME = 'elastic'
     ES_V6_PASSWORD = 'new_password'
 
+    ES_TEST_INDEX_NAME = 'cars'
+
     # Cluster URL is used in the text fixture, for easy connections using lib requests.
     ES_V2_CLUSTER_URL = 'http://%s:%s' % (ES_V2_HOST, ES_V2_PORT)
     ES_V5_CLUSTER_URL = 'http://%s:%s' % (ES_V5_HOST, ES_V5_PORT)
