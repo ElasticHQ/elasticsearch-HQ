@@ -26,7 +26,7 @@ Install ElasticHQ
 
 1. Download or clone the repository https://github.com/ElasticHQ/elasticsearch-HQ
 2. Navigate to the root of the repository: ``pip install -r requirements.txt``
-3. Start the server: ``python application.py``
+3. Start the server: ``python3 application.py``
 4. Point your browser to: http://localhost:5000
 
 .. note:: Alternatively, you can start the server with ``python manage.py runserver``
