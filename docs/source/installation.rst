@@ -127,6 +127,35 @@ ElasticHQ ships with SQLLite integration to store clusters you have connected to
 
 .. note:: In the event you want to start with a clean slate, simply delete the ``elastichq.db`` file. ElasticHQ will recreate it at next startup.
 
+External Configuration
+^^^^^^^^^^^^^^^^^^^^^^
+
+External configuration files are supported for those wanting to preserve their user-specified settings between upgrades.
+
+On startup, HQ checks the following locations for a file named ``settings.json``:
+
+* `/etc/elastic-hq/settings.json`
+* `~/settings.json`
+* CURRENT WORKING DIRECTORY + ``/settings.json``
+* CURRENT WORKING DIRECTORY + ``/elastichq/settings.json``
+* CURRENT WORKING DIRECTORY + ``/config/settings.json``
+ 
+Current supported parameters are:
+
+    =========================== ====================================================================
+    Key                         Definition
+    =========================== ====================================================================
+    ``SQLALCHEMY_DATABASE_URI`` Location and Name of ElasticHQ database file.
+    =========================== ====================================================================
+
+The settings file should be in standard JSON:
+
+.. code-block:: json
+
+    {
+      "SQLALCHEMY_DATABASE_URI" :  "sqlite:////SOME/PATH/TO/DB_NAME.db"
+    }
+
 Upgrading
 ---------
 
