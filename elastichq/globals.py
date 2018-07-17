@@ -1,11 +1,8 @@
 import logging
 import logging.config
-import os
 
-from apscheduler.schedulers.background import BackgroundScheduler
 from dogpile.cache import make_region
 from dogpile.cache.proxy import ProxyBackend
-from flask_apscheduler import APScheduler
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_socketio import SocketIO
