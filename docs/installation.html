@@ -104,14 +104,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#running-in-production">Running in Production</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#diagnosing-connection-errors">Diagnosing connection errors</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#x-pack-integration">X-Pack Integration</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#viewing-logs">Viewing Logs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#ssl-cert-not-working">SSL Cert not working</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#diagnosing-connection-errors">Diagnosing connection errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#x-pack-integration">X-Pack Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewing-logs">Viewing Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-cert-not-working">SSL Cert not working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preserving-database-across-docker-container-restarts">Preserving Database across Docker container restarts</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
@@ -183,17 +180,14 @@
 </li>
 <li><a class="reference internal" href="#running-in-production" id="id19">Running in Production</a></li>
 <li><a class="reference internal" href="#troubleshooting" id="id20">Troubleshooting</a><ul>
-<li><a class="reference internal" href="#diagnosing-connection-errors" id="id21">Diagnosing connection errors</a><ul>
+<li><a class="reference internal" href="#diagnosing-connection-errors" id="id21">Diagnosing connection errors</a></li>
 <li><a class="reference internal" href="#x-pack-integration" id="id22">X-Pack Integration</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#viewing-logs" id="id23">Viewing Logs</a><ul>
+<li><a class="reference internal" href="#viewing-logs" id="id23">Viewing Logs</a></li>
 <li><a class="reference internal" href="#ssl-cert-not-working" id="id24">SSL Cert not working</a></li>
+<li><a class="reference internal" href="#preserving-database-across-docker-container-restarts" id="id25">Preserving Database across Docker container restarts</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a class="reference internal" href="#license" id="id25">License</a></li>
+<li><a class="reference internal" href="#license" id="id26">License</a></li>
 </ul>
 </div>
 <div class="section" id="quick-start-guide">
@@ -440,8 +434,9 @@
 <li><strong>X-Pack License Expiration:</strong> X-Pack comes with a #-day license that will silently expire. Expiration of the license may cause connectivity issues, so it is advised to either purchase an X-Pack license or uninstall X-Pack.</li>
 <li><strong>No Route to ES cluster:</strong> Confirm that the server running HQ has access to ES via network. You can do this by calling ES from within a terminal window on the HQ server, with a <code class="docutils literal"><span class="pre">curl</span> <span class="pre">-XGET</span> <span class="pre">http://DOMAIN:PORT</span></code>.</li>
 </ul>
+</div>
 <div class="section" id="x-pack-integration">
-<span id="xpack-integration"></span><h4><a class="toc-backref" href="#id22">X-Pack Integration</a><a class="headerlink" href="#x-pack-integration" title="Permalink to this headline">¶</a></h4>
+<span id="xpack-integration"></span><h3><a class="toc-backref" href="#id22">X-Pack Integration</a><a class="headerlink" href="#x-pack-integration" title="Permalink to this headline">¶</a></h3>
 <p>X-Pack is configured with authentication. To connect, you must pass along the username and password in the connection URL
 using the format <code class="docutils literal"><span class="pre">http://USERNAME:PASSWORD&#64;DOMAIN:PORT</span></code></p>
 <p>ElasticHQ will store the username and password in the database, so future connectivity is not an issue.</p>
@@ -450,21 +445,33 @@ using the format <code class="docutils literal"><span class="pre">http://USERNAM
 <p class="last">We do realize that the username and passwords are stored plain text in the ElasticHQ DB, but this is a necessary evil that allows for easy reconnection.</p>
 </div>
 </div>
-</div>
 <div class="section" id="viewing-logs">
 <h3><a class="toc-backref" href="#id23">Viewing Logs</a><a class="headerlink" href="#viewing-logs" title="Permalink to this headline">¶</a></h3>
 <p>In the base installation, the logs are available under the <code class="docutils literal"><span class="pre">/install/path/application.log</span></code>.</p>
 <p>For docker images, the application logging can be found under <code class="docutils literal"><span class="pre">/src/application.log</span></code>.</p>
+</div>
 <div class="section" id="ssl-cert-not-working">
-<span id="ssl-trouble"></span><h4><a class="toc-backref" href="#id24">SSL Cert not working</a><a class="headerlink" href="#ssl-cert-not-working" title="Permalink to this headline">¶</a></h4>
+<span id="ssl-trouble"></span><h3><a class="toc-backref" href="#id24">SSL Cert not working</a><a class="headerlink" href="#ssl-cert-not-working" title="Permalink to this headline">¶</a></h3>
 <p><strong>NOTE: Your CA file must be the same signer of your Elasticsearch node, for HQ to connect as a trusted source.</strong></p>
 <p>Verify that the certificate works by connecting directly from the HQ instance to the ES node in question, using the cert:</p>
 <p><code class="docutils literal"><span class="pre">curl</span> <span class="pre">-u</span> <span class="pre">admin:password</span> <span class="pre">--ca-certs</span> <span class="pre">/path/to/ca.crt</span> <span class="pre">https://localhost:9200/_cluster/settings?pretty</span></code></p>
 </div>
+<div class="section" id="preserving-database-across-docker-container-restarts">
+<h3><a class="toc-backref" href="#id25">Preserving Database across Docker container restarts</a><a class="headerlink" href="#preserving-database-across-docker-container-restarts" title="Permalink to this headline">¶</a></h3>
+<p>The following code block originated as an issue (<a class="reference external" href="https://github.com/ElasticHQ/elasticsearch-HQ/issues/409">https://github.com/ElasticHQ/elasticsearch-HQ/issues/409</a>) for those wanting to preserve the HQ SQLLite DB between container restarts.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker run --detach
+--restart<span class="o">=</span>always
+--net host
+--volume elastichq:/src/db
+--name elastichq
+elastichq/elasticsearch-hq
+sh -x -c <span class="s1">&#39;sed -i -r -e &quot;s/_sqlalchemy_database_uri =.*/_sqlalchemy_database_uri = &quot;sqlite:///&quot; + os.path.join(BASEPATH, &quot;db&quot; , &quot;elastichq.db&quot;)/&quot; /src/elastichq/config/settings.py &amp;&amp; exec supervisord -c /etc/supervisor/supervisord.conf&#39;</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="license">
-<h2><a class="toc-backref" href="#id25">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id26">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p>Copyright 2013-2018 Roy Russo and Authors</p>
 <p>Licensed under the Apache License, Version 2.0 (the &#8220;License&#8221;);
 you may not use this file except in compliance with the License.

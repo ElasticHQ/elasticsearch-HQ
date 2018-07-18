@@ -227,7 +227,7 @@ Failure in connecting initially to an Elasticsearch cluster, can happen for seve
 .. _xpack integration:
 
 X-Pack Integration
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 X-Pack is configured with authentication. To connect, you must pass along the username and password in the connection URL
 using the format ``http://USERNAME:PASSWORD@DOMAIN:PORT``
@@ -247,13 +247,28 @@ For docker images, the application logging can be found under ``/src/application
 .. _ssl_trouble:
 
 SSL Cert not working
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 **NOTE: Your CA file must be the same signer of your Elasticsearch node, for HQ to connect as a trusted source.**
 
 Verify that the certificate works by connecting directly from the HQ instance to the ES node in question, using the cert:
 
 ``curl -u admin:password --ca-certs /path/to/ca.crt https://localhost:9200/_cluster/settings?pretty``
+
+Preserving Database across Docker container restarts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following code block originated as an issue (https://github.com/ElasticHQ/elasticsearch-HQ/issues/409) for those wanting to preserve the HQ SQLLite DB between container restarts.
+
+.. code-block:: bash
+
+    docker run --detach 
+    --restart=always 
+    --net host 
+    --volume elastichq:/src/db 
+    --name elastichq 
+    elastichq/elasticsearch-hq 
+    sh -x -c 'sed -i -r -e "s/_sqlalchemy_database_uri =.*/_sqlalchemy_database_uri = "sqlite:///" + os.path.join(BASEPATH, "db" , "elastichq.db")/" /src/elastichq/config/settings.py && exec supervisord -c /etc/supervisor/supervisord.conf'
 
 License
 -------
