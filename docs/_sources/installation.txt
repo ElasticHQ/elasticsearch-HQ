@@ -26,7 +26,7 @@ Install ElasticHQ
 
 1. Download or clone the repository https://github.com/ElasticHQ/elasticsearch-HQ
 2. Navigate to the root of the repository: ``pip install -r requirements.txt``
-3. Start the server: ``python application.py``
+3. Start the server: ``python3 application.py``
 4. Point your browser to: http://localhost:5000
 
 .. note:: Alternatively, you can start the server with ``python manage.py runserver``
@@ -76,14 +76,16 @@ Command line Parameters
 
 The ``application.py`` start script takes parameters passed in as arguments from the command line:
 
-    ===========  =========================  ====================================================================
-    Arg          Default Value              Definition
-    ===========  =========================  ====================================================================
-    ``--host``   127.0.0.1                  Host the HQ server should be reachable on.
-    ``--port``   5000                       Port to reach HQ server.
-    ``--debug``  False                      If True, exposes debug data to UI and causes reload on code changes.
-    ``--url``    ``http://localhost:9200``  Default URL displayed on the initial connection screen.
-    ===========  =========================  ====================================================================
+    ================ =========================  ====================================================================
+    Arg               Default Value              Definition
+    ================ =========================  ====================================================================
+    ``--host``       127.0.0.1                  Host the HQ server should be reachable on.
+    ``--port``       5000                       Port to reach HQ server.
+    ``--debug``      False                      If True, exposes debug data to UI and causes reload on code changes.
+    ``--url``        ``http://localhost:9200``  Default URL displayed on the initial connection screen.
+    ``--enable-ssl`` False                      If flag is passed, assumes ssl cert will be used.
+    ``--ca-certs``   /path/to/your/ca.crt       Path to your CA Certificate. Required if enable-ssl is passed.
+    ================ =========================  ====================================================================
 
 .. _environment variables:
 
@@ -94,6 +96,8 @@ Environment Variables
     Arg                 Default Value              Definition
     ==================  =========================  ====================================================================
     ``HQ_DEFAULT_URL``  ``http://localhost:9200``  Default URL displayed on the initial connection screen.
+    ``HQ_ENABLE_SSL``   False                      If flag is passed, assumes ssl cert will be used.
+    ``HQ_CA_CERTS``     /path/to/your/ca.crt       Path to your CA Certificate. Required if enable-ssl is passed.
     ==================  =========================  ====================================================================
 
 
@@ -106,12 +110,51 @@ Advanced users that want to have control over the logging output, can adjust it 
 
 Docker users will find the logfile location under ``/src/application.log``
 
+Connecting with SSL
+^^^^^^^^^^^^^^^^^^^
+
+Thanks to a community contribution, SSL Cert support has been added: `SSL Support  <https://github.com/ElasticHQ/elasticsearch-HQ/issues/376>`_.
+
+Enable SSL Cert support by starting HQ as so:
+
+``python -m application --enable-ssl --ca-certs /path/to/your/ca.crt``
+ 
+
 Database
 ^^^^^^^^
 
 ElasticHQ ships with SQLLite integration to store clusters you have connected to and other meta information. This database is kept under the root directory as ``elastichq.db``.
 
 .. note:: In the event you want to start with a clean slate, simply delete the ``elastichq.db`` file. ElasticHQ will recreate it at next startup.
+
+External Configuration
+^^^^^^^^^^^^^^^^^^^^^^
+
+External configuration files are supported for those wanting to preserve their user-specified settings between upgrades.
+
+On startup, HQ checks the following locations for a file named ``settings.json``:
+
+* `/etc/elastic-hq/settings.json`
+* `~/settings.json`
+* CURRENT WORKING DIRECTORY + ``/settings.json``
+* CURRENT WORKING DIRECTORY + ``/elastichq/settings.json``
+* CURRENT WORKING DIRECTORY + ``/config/settings.json``
+ 
+Current supported parameters are:
+
+    =========================== ====================================================================
+    Key                         Definition
+    =========================== ====================================================================
+    ``SQLALCHEMY_DATABASE_URI`` Location and Name of ElasticHQ database file.
+    =========================== ====================================================================
+
+The settings file should be in standard JSON:
+
+.. code-block:: json
+
+    {
+      "SQLALCHEMY_DATABASE_URI" :  "sqlite:////SOME/PATH/TO/DB_NAME.db"
+    }
 
 Upgrading
 ---------
@@ -184,7 +227,7 @@ Failure in connecting initially to an Elasticsearch cluster, can happen for seve
 .. _xpack integration:
 
 X-Pack Integration
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 X-Pack is configured with authentication. To connect, you must pass along the username and password in the connection URL
 using the format ``http://USERNAME:PASSWORD@DOMAIN:PORT``
@@ -200,6 +243,32 @@ Viewing Logs
 In the base installation, the logs are available under the ``/install/path/application.log``.
 
 For docker images, the application logging can be found under ``/src/application.log``.
+
+.. _ssl_trouble:
+
+SSL Cert not working
+^^^^^^^^^^^^^^^^^^^^
+
+**NOTE: Your CA file must be the same signer of your Elasticsearch node, for HQ to connect as a trusted source.**
+
+Verify that the certificate works by connecting directly from the HQ instance to the ES node in question, using the cert:
+
+``curl -u admin:password --ca-certs /path/to/ca.crt https://localhost:9200/_cluster/settings?pretty``
+
+Preserving Database across Docker container restarts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following code block originated as an issue (https://github.com/ElasticHQ/elasticsearch-HQ/issues/409) for those wanting to preserve the HQ SQLLite DB between container restarts.
+
+.. code-block:: bash
+
+    docker run --detach 
+    --restart=always 
+    --net host 
+    --volume elastichq:/src/db 
+    --name elastichq 
+    elastichq/elasticsearch-hq 
+    sh -x -c 'sed -i -r -e "s/_sqlalchemy_database_uri =.*/_sqlalchemy_database_uri = "sqlite:///" + os.path.join(BASEPATH, "db" , "elastichq.db")/" /src/elastichq/config/settings.py && exec supervisord -c /etc/supervisor/supervisord.conf'
 
 License
 -------

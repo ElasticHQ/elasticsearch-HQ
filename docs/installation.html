@@ -92,7 +92,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#command-line-parameters">Command line Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connecting-with-ssl">Connecting with SSL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#database">Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#external-configuration">External Configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#upgrading">Upgrading</a><ul>
@@ -102,11 +104,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#running-in-production">Running in Production</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#diagnosing-connection-errors">Diagnosing connection errors</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#x-pack-integration">X-Pack Integration</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#diagnosing-connection-errors">Diagnosing connection errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#x-pack-integration">X-Pack Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#viewing-logs">Viewing Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-cert-not-working">SSL Cert not working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preserving-database-across-docker-container-restarts">Preserving Database across Docker container restarts</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
@@ -166,24 +168,26 @@
 <li><a class="reference internal" href="#command-line-parameters" id="id10">Command line Parameters</a></li>
 <li><a class="reference internal" href="#environment-variables" id="id11">Environment Variables</a></li>
 <li><a class="reference internal" href="#logging" id="id12">Logging</a></li>
-<li><a class="reference internal" href="#database" id="id13">Database</a></li>
+<li><a class="reference internal" href="#connecting-with-ssl" id="id13">Connecting with SSL</a></li>
+<li><a class="reference internal" href="#database" id="id14">Database</a></li>
+<li><a class="reference internal" href="#external-configuration" id="id15">External Configuration</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#upgrading" id="id14">Upgrading</a><ul>
-<li><a class="reference internal" href="#latest-version" id="id15">Latest Version</a></li>
-<li><a class="reference internal" href="#upgrading-minor-and-patch-versions" id="id16">Upgrading Minor and Patch versions</a></li>
+<li><a class="reference internal" href="#upgrading" id="id16">Upgrading</a><ul>
+<li><a class="reference internal" href="#latest-version" id="id17">Latest Version</a></li>
+<li><a class="reference internal" href="#upgrading-minor-and-patch-versions" id="id18">Upgrading Minor and Patch versions</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#running-in-production" id="id17">Running in Production</a></li>
-<li><a class="reference internal" href="#troubleshooting" id="id18">Troubleshooting</a><ul>
-<li><a class="reference internal" href="#diagnosing-connection-errors" id="id19">Diagnosing connection errors</a><ul>
-<li><a class="reference internal" href="#x-pack-integration" id="id20">X-Pack Integration</a></li>
+<li><a class="reference internal" href="#running-in-production" id="id19">Running in Production</a></li>
+<li><a class="reference internal" href="#troubleshooting" id="id20">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#diagnosing-connection-errors" id="id21">Diagnosing connection errors</a></li>
+<li><a class="reference internal" href="#x-pack-integration" id="id22">X-Pack Integration</a></li>
+<li><a class="reference internal" href="#viewing-logs" id="id23">Viewing Logs</a></li>
+<li><a class="reference internal" href="#ssl-cert-not-working" id="id24">SSL Cert not working</a></li>
+<li><a class="reference internal" href="#preserving-database-across-docker-container-restarts" id="id25">Preserving Database across Docker container restarts</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#viewing-logs" id="id21">Viewing Logs</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#license" id="id22">License</a></li>
+<li><a class="reference internal" href="#license" id="id26">License</a></li>
 </ul>
 </div>
 <div class="section" id="quick-start-guide">
@@ -203,7 +207,7 @@
 <ol class="arabic simple">
 <li>Download or clone the repository <a class="reference external" href="https://github.com/ElasticHQ/elasticsearch-HQ">https://github.com/ElasticHQ/elasticsearch-HQ</a></li>
 <li>Navigate to the root of the repository: <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></li>
-<li>Start the server: <code class="docutils literal"><span class="pre">python</span> <span class="pre">application.py</span></code></li>
+<li>Start the server: <code class="docutils literal"><span class="pre">python3</span> <span class="pre">application.py</span></code></li>
 <li>Point your browser to: <a class="reference external" href="http://localhost:5000">http://localhost:5000</a></li>
 </ol>
 <div class="admonition note">
@@ -249,9 +253,9 @@
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="24%" />
-<col width="65%" />
+<col width="15%" />
+<col width="23%" />
+<col width="62%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Arg</th>
@@ -275,6 +279,14 @@
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">--url</span></code></td>
 <td><code class="docutils literal"><span class="pre">http://localhost:9200</span></code></td>
 <td>Default URL displayed on the initial connection screen.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">--enable-ssl</span></code></td>
+<td>False</td>
+<td>If flag is passed, assumes ssl cert will be used.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">--ca-certs</span></code></td>
+<td>/path/to/your/ca.crt</td>
+<td>Path to your CA Certificate. Required if enable-ssl is passed.</td>
 </tr>
 </tbody>
 </table>
@@ -300,6 +312,14 @@
 <td><code class="docutils literal"><span class="pre">http://localhost:9200</span></code></td>
 <td>Default URL displayed on the initial connection screen.</td>
 </tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">HQ_ENABLE_SSL</span></code></td>
+<td>False</td>
+<td>If flag is passed, assumes ssl cert will be used.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">HQ_CA_CERTS</span></code></td>
+<td>/path/to/your/ca.crt</td>
+<td>Path to your CA Certificate. Required if enable-ssl is passed.</td>
+</tr>
 </tbody>
 </table>
 </div></blockquote>
@@ -310,20 +330,63 @@
 <p>Advanced users that want to have control over the logging output, can adjust it by altering the configuration file kept under <code class="docutils literal"><span class="pre">elastichq/config/logger.json</span></code>.</p>
 <p>Docker users will find the logfile location under <code class="docutils literal"><span class="pre">/src/application.log</span></code></p>
 </div>
+<div class="section" id="connecting-with-ssl">
+<h3><a class="toc-backref" href="#id13">Connecting with SSL</a><a class="headerlink" href="#connecting-with-ssl" title="Permalink to this headline">¶</a></h3>
+<p>Thanks to a community contribution, SSL Cert support has been added: <a class="reference external" href="https://github.com/ElasticHQ/elasticsearch-HQ/issues/376">SSL Support</a>.</p>
+<p>Enable SSL Cert support by starting HQ as so:</p>
+<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">application</span> <span class="pre">--enable-ssl</span> <span class="pre">--ca-certs</span> <span class="pre">/path/to/your/ca.crt</span></code></p>
+</div>
 <div class="section" id="database">
-<h3><a class="toc-backref" href="#id13">Database</a><a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Database</a><a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
 <p>ElasticHQ ships with SQLLite integration to store clusters you have connected to and other meta information. This database is kept under the root directory as <code class="docutils literal"><span class="pre">elastichq.db</span></code>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">In the event you want to start with a clean slate, simply delete the <code class="docutils literal"><span class="pre">elastichq.db</span></code> file. ElasticHQ will recreate it at next startup.</p>
 </div>
 </div>
+<div class="section" id="external-configuration">
+<h3><a class="toc-backref" href="#id15">External Configuration</a><a class="headerlink" href="#external-configuration" title="Permalink to this headline">¶</a></h3>
+<p>External configuration files are supported for those wanting to preserve their user-specified settings between upgrades.</p>
+<p>On startup, HQ checks the following locations for a file named <code class="docutils literal"><span class="pre">settings.json</span></code>:</p>
+<ul class="simple">
+<li><cite>/etc/elastic-hq/settings.json</cite></li>
+<li><cite>~/settings.json</cite></li>
+<li>CURRENT WORKING DIRECTORY + <code class="docutils literal"><span class="pre">/settings.json</span></code></li>
+<li>CURRENT WORKING DIRECTORY + <code class="docutils literal"><span class="pre">/elastichq/settings.json</span></code></li>
+<li>CURRENT WORKING DIRECTORY + <code class="docutils literal"><span class="pre">/config/settings.json</span></code></li>
+</ul>
+<p>Current supported parameters are:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Definition</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">SQLALCHEMY_DATABASE_URI</span></code></td>
+<td>Location and Name of ElasticHQ database file.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>The settings file should be in standard JSON:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;SQLALCHEMY_DATABASE_URI&quot;</span> <span class="p">:</span>  <span class="s2">&quot;sqlite:////SOME/PATH/TO/DB_NAME.db&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="upgrading">
-<h2><a class="toc-backref" href="#id14">Upgrading</a><a class="headerlink" href="#upgrading" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">Upgrading</a><a class="headerlink" href="#upgrading" title="Permalink to this headline">¶</a></h2>
 <p>We adhere to semantic versioning, so as long as the Major version hasn&#8217;t changed, you can expect everything to work well enough. ;-)</p>
 <div class="section" id="latest-version">
-<h3><a class="toc-backref" href="#id15">Latest Version</a><a class="headerlink" href="#latest-version" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">Latest Version</a><a class="headerlink" href="#latest-version" title="Permalink to this headline">¶</a></h3>
 <p>ElasticHQ checks against the Elastichq.org website, to retrieve the latest stable version number. You can see the check in the footer:</p>
 <p><strong>Versions Match:</strong></p>
 <div class="figure align-center">
@@ -335,7 +398,7 @@
 </div>
 </div>
 <div class="section" id="upgrading-minor-and-patch-versions">
-<h3><a class="toc-backref" href="#id16">Upgrading Minor and Patch versions</a><a class="headerlink" href="#upgrading-minor-and-patch-versions" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">Upgrading Minor and Patch versions</a><a class="headerlink" href="#upgrading-minor-and-patch-versions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>To upgrade, simply download or clone the repository master branch.</li>
 <li>Upgrade the database: <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">db</span> <span class="pre">upgrade</span></code></li>
@@ -345,7 +408,7 @@
 </div>
 </div>
 <div class="section" id="running-in-production">
-<h2><a class="toc-backref" href="#id17">Running in Production</a><a class="headerlink" href="#running-in-production" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id19">Running in Production</a><a class="headerlink" href="#running-in-production" title="Permalink to this headline">¶</a></h2>
 <p>We advise that under any considerable usage/load, this application should be run with a multithreaded server. The current flask implemenation by itself should not be run in production without this, as it is a single-threaded process.</p>
 <p>We recommend running this WSGI application with gunicorn. Install gunicorn by either commenting out the line in the <code class="docutils literal"><span class="pre">requirements.txt</span></code> file or simply running <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">gunicorn</span></code></p>
 <p>In console, run gunicorn with:</p>
@@ -362,17 +425,18 @@
 </div>
 </div>
 <div class="section" id="troubleshooting">
-<h2><a class="toc-backref" href="#id18">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="diagnosing-connection-errors">
-<h3><a class="toc-backref" href="#id19">Diagnosing connection errors</a><a class="headerlink" href="#diagnosing-connection-errors" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">Diagnosing connection errors</a><a class="headerlink" href="#diagnosing-connection-errors" title="Permalink to this headline">¶</a></h3>
 <p>Failure in connecting initially to an Elasticsearch cluster, can happen for several reason:</p>
 <ul class="simple">
 <li><strong>Basic Authentication:</strong> If you did not enter in the security credentials in the connection URL, HQ will fail to connect. The proper format is <code class="docutils literal"><span class="pre">http://USERNAME:PASSWORD&#64;DOMAIN:PORT</span></code></li>
 <li><strong>X-Pack License Expiration:</strong> X-Pack comes with a #-day license that will silently expire. Expiration of the license may cause connectivity issues, so it is advised to either purchase an X-Pack license or uninstall X-Pack.</li>
 <li><strong>No Route to ES cluster:</strong> Confirm that the server running HQ has access to ES via network. You can do this by calling ES from within a terminal window on the HQ server, with a <code class="docutils literal"><span class="pre">curl</span> <span class="pre">-XGET</span> <span class="pre">http://DOMAIN:PORT</span></code>.</li>
 </ul>
+</div>
 <div class="section" id="x-pack-integration">
-<span id="xpack-integration"></span><h4><a class="toc-backref" href="#id20">X-Pack Integration</a><a class="headerlink" href="#x-pack-integration" title="Permalink to this headline">¶</a></h4>
+<span id="xpack-integration"></span><h3><a class="toc-backref" href="#id22">X-Pack Integration</a><a class="headerlink" href="#x-pack-integration" title="Permalink to this headline">¶</a></h3>
 <p>X-Pack is configured with authentication. To connect, you must pass along the username and password in the connection URL
 using the format <code class="docutils literal"><span class="pre">http://USERNAME:PASSWORD&#64;DOMAIN:PORT</span></code></p>
 <p>ElasticHQ will store the username and password in the database, so future connectivity is not an issue.</p>
@@ -381,15 +445,33 @@ using the format <code class="docutils literal"><span class="pre">http://USERNAM
 <p class="last">We do realize that the username and passwords are stored plain text in the ElasticHQ DB, but this is a necessary evil that allows for easy reconnection.</p>
 </div>
 </div>
-</div>
 <div class="section" id="viewing-logs">
-<h3><a class="toc-backref" href="#id21">Viewing Logs</a><a class="headerlink" href="#viewing-logs" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">Viewing Logs</a><a class="headerlink" href="#viewing-logs" title="Permalink to this headline">¶</a></h3>
 <p>In the base installation, the logs are available under the <code class="docutils literal"><span class="pre">/install/path/application.log</span></code>.</p>
 <p>For docker images, the application logging can be found under <code class="docutils literal"><span class="pre">/src/application.log</span></code>.</p>
 </div>
+<div class="section" id="ssl-cert-not-working">
+<span id="ssl-trouble"></span><h3><a class="toc-backref" href="#id24">SSL Cert not working</a><a class="headerlink" href="#ssl-cert-not-working" title="Permalink to this headline">¶</a></h3>
+<p><strong>NOTE: Your CA file must be the same signer of your Elasticsearch node, for HQ to connect as a trusted source.</strong></p>
+<p>Verify that the certificate works by connecting directly from the HQ instance to the ES node in question, using the cert:</p>
+<p><code class="docutils literal"><span class="pre">curl</span> <span class="pre">-u</span> <span class="pre">admin:password</span> <span class="pre">--ca-certs</span> <span class="pre">/path/to/ca.crt</span> <span class="pre">https://localhost:9200/_cluster/settings?pretty</span></code></p>
+</div>
+<div class="section" id="preserving-database-across-docker-container-restarts">
+<h3><a class="toc-backref" href="#id25">Preserving Database across Docker container restarts</a><a class="headerlink" href="#preserving-database-across-docker-container-restarts" title="Permalink to this headline">¶</a></h3>
+<p>The following code block originated as an issue (<a class="reference external" href="https://github.com/ElasticHQ/elasticsearch-HQ/issues/409">https://github.com/ElasticHQ/elasticsearch-HQ/issues/409</a>) for those wanting to preserve the HQ SQLLite DB between container restarts.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker run --detach
+--restart<span class="o">=</span>always
+--net host
+--volume elastichq:/src/db
+--name elastichq
+elastichq/elasticsearch-hq
+sh -x -c <span class="s1">&#39;sed -i -r -e &quot;s/_sqlalchemy_database_uri =.*/_sqlalchemy_database_uri = &quot;sqlite:///&quot; + os.path.join(BASEPATH, &quot;db&quot; , &quot;elastichq.db&quot;)/&quot; /src/elastichq/config/settings.py &amp;&amp; exec supervisord -c /etc/supervisor/supervisord.conf&#39;</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="license">
-<h2><a class="toc-backref" href="#id22">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id26">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p>Copyright 2013-2018 Roy Russo and Authors</p>
 <p>Licensed under the Apache License, Version 2.0 (the &#8220;License&#8221;);
 you may not use this file except in compliance with the License.

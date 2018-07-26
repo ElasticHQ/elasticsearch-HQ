@@ -60,13 +60,16 @@ class HQService:
         return current_app.config.get('HQ_CLUSTER_SETTINGS')
 
     def save_settings(self, cluster_name, body=None):
-        if body is None:
-            body = current_app.config.get('HQ_CLUSTER_SETTINGS')
-        connection = ConnectionService().get_connection(cluster_name)
-        connection.index(index=current_app.config.get('HQ_CLUSTER_SETTINGS')['index_name'],
-                         doc_type=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_type'],
-                         id=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_id'],
-                         body=body, refresh=True)
+        try:
+            if body is None:
+                body = current_app.config.get('HQ_CLUSTER_SETTINGS')
+            connection = ConnectionService().get_connection(cluster_name)
+            connection.index(index=current_app.config.get('HQ_CLUSTER_SETTINGS')['index_name'],
+                             doc_type=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_type'],
+                             id=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_id'],
+                             body=body, refresh=True)
+        except NotFoundError as nfe:
+            LOG.error("Unable to save index. Is action.auto_create_index disabled in the ES configuration file?", nfe)
 
     def update_settings(self, cluster_name, body=None):
         if body is None:

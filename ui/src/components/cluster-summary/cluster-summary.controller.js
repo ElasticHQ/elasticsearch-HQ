@@ -27,7 +27,7 @@ class clusterSummaryController {
                 value: numeral(this.summary.number_of_nodes).format(formatNum)
             },
             {
-                label: 'Indicies',
+                label: 'Indices',
                 value: numeral(this.summary.indices_count).format(formatNum)
             },
             {

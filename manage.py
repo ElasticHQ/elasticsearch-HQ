@@ -76,7 +76,7 @@ class Server(_Server):
                      host=host,
                      port=port,
                      debug=use_debugger,
-                     use_reloader=use_reloader
+                     use_reloader=use_reloader,
                      **self.server_options)
 
 
