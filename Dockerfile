@@ -18,7 +18,7 @@ RUN apk add --no-cache bash \
 # reqs layer
 ADD requirements.txt .
 RUN pip3 install -U -r requirements.txt
-RUN pip3 install gunicorn
+RUN pip3 install gunicorn==19.7.1
 
 # Bundle app source
 ADD . /src
