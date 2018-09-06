@@ -46,9 +46,12 @@ For further installation and configuration help, please read the docs: [ElasticH
 
 ## Docker Installation
 
-We are hosted on Dockerhub: [ElasticHQ on Dockerhub](https://hub.docker.com/r/elastichq/elasticsearch-hq/)
+We are hosted on Dockerhub: [ElasticHQ on Dockerhub](https://hub.docker.com/r/elastichq/elasticsearch-hq/)  
 
-Please see relevant documentation: [Docker Images](http://docs.elastichq.org/installation.html#docker-images).
+1. ``docker run -p 5000:5000 elastichq/elasticsearch-hq``
+2. Access HQ with: `` http://localhost:5000 ``
+
+For further instructions, please see relevant documentation: [Docker Images](http://docs.elastichq.org/installation.html#docker-images).
 
 ## Useful Links
 
