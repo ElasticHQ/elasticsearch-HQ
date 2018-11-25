@@ -5,7 +5,7 @@ import pytest
 from tests.test_fixture import TestFixture
 from elastichq.config.settings import TestSettings
 
- 
+
 def pytest_sessionstart(session):
     pass
 
