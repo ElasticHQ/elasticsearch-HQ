@@ -210,7 +210,7 @@ class clustersController {
         let uri = new URL(connectionUri);
         let tmp = {
             ip: uri.hostname,
-            port: uri.port || (connectionUri.match(/:(\d+)/) ? connectionUri.match(/:(\d+)/)[1] : ""),
+            port: (connectionUri.match(/:(\d+)/) ? connectionUri.match(/:(\d+)/)[1] : uri.port),
             username: uri.username,
             password: uri.password,
             use_ssl: (uri.protocol === 'https:')

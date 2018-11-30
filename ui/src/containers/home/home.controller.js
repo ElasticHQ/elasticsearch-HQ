@@ -47,7 +47,7 @@ class homeController {
         console.log('---- uri: ', uri);
         let tmp = {
             ip: uri.hostname,
-            port: uri.port || (this.connection.match(/:(\d+)/) ? this.connection.match(/:(\d+)/)[1] : ""),
+            port: (this.connection.match(/:(\d+)/) ? this.connection.match(/:(\d+)/)[1] : uri.port),
             username: uri.username,
             password: uri.password,
             use_ssl: (uri.protocol === 'https:')
