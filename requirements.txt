@@ -1,7 +1,7 @@
 jmespath==0.9.3
 
 # Flask
-Flask==0.12.2
+Flask==0.12.4
 Flask-restful==0.3.6
 Flask-Script==2.0.6
 
