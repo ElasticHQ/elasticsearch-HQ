@@ -3,7 +3,7 @@ __author__ = 'royrusso'
 import jmespath
 
 from elastichq.common.exceptions import BadRequest
-from elastichq.service import ClusterService, ConnectionService
+from elastichq.service import ClusterService, ConnectionService, HQService
 from ..globals import REQUEST_TIMEOUT
 
 
@@ -96,11 +96,16 @@ class IndicesService:
         cluster_state = ClusterService().get_cluster_state(cluster_name, metric="metadata", indices=indices_names)
         state_indices = jmespath.search("metadata.indices", cluster_state)
         cat = connection.cat.indices(format='json')
+        show_dot_indices = HQService().get_settings('utas').get('show_dot_indices')
         indices = []
         if state_indices:
             the_indices = indices_stats.get("indices", None)
             index_keys = list(the_indices.keys())
             for key in index_keys:
+
+                if show_dot_indices is False and key.startswith(".") is True:
+                    continue
+
                 one_index = the_indices.get(key)
                 index = {"index_name": key}
                 index['health'] = [x['health'] for x in cat if x['index'] == key][0]
