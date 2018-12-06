@@ -36,8 +36,9 @@ apscheduler==3.5.0
 Flask-APScheduler== 1.7.1
 
 # Socket
-python-engineio==2.2.0
-Flask-SocketIO==3.0.1
+python-engineio==3.0.0
+python-socketio==2.1.0
+Flask-SocketIO==3.1.0
 eventlet==0.23.0
 
 # Production
