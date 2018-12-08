@@ -1,41 +1,37 @@
 FROM python:3.6-alpine3.7
 
-RUN apk update
-RUN apk add supervisor
-RUN apk add --update py2-pip
-
 # Upgrade and install basic Python dependencies
 # This block added because of the trouble installing gevent on many systems
 # https://hub.docker.com/r/openwhisk/dockerskeleton/~/dockerfile/
-RUN apk add --no-cache bash \
- && apk add --no-cache --virtual .build-deps \
-        bzip2-dev \
-        gcc \
-        libc-dev
-#  && pip install --no-cache-dir gevent \
-#  && apk del .build-deps
+RUN apk update && \
+    apk add supervisor && \
+    apk add --update py2-pip && \
+    apk add --no-cache bash && \
+    apk add --no-cache --virtual .build-deps bzip2-dev gcc libc-dev
 
-# reqs layer
-ADD requirements.txt .
-RUN pip3 install -U -r requirements.txt
-RUN pip3 install gunicorn==19.7.1
+# Copy project sources
+COPY . /src
 
-# Bundle app source
-ADD . /src
+# Set working directory
+WORKDIR /src
 
-COPY ./deployment/logging.conf /src/logging.conf
-COPY ./deployment/gunicorn.conf /src/gunicorn.conf
+# Install app dependencies and create supervisord dirs
+RUN pip3 install -U -r requirements.txt && \
+    pip3 install gunicorn==19.7.1 && \
+    mkdir -p /etc/supervisor/conf.d /var/log/supervisor /var/run/supervisor
 
+# Copy configuration files
+RUN cp /src/deployment/logging.conf /src/logging.conf && \
+    cp /src/deployment/gunicorn.conf /src/gunicorn.conf && \
+    cp /src/deployment/supervisord.conf /etc/supervisor/supervisord.conf && \
+    cp /src/deployment/gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
+
+# Fix permissions
+RUN chgrp -R 0 /src /var/log/supervisor /var/run/supervisor && \
+    chmod -R g=u  /src /var/log/supervisor /var/run/supervisor
+
+# Expose service port
 EXPOSE 5000
-
-# Setup supervisord
-RUN mkdir -p /var/log/supervisor
-COPY ./deployment/supervisord.conf /etc/supervisor/supervisord.conf
-COPY ./deployment/gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
 
 # Start processes
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
-
-
-#ENTRYPOINT ["python"]
-#CMD ["src/application.py"]
