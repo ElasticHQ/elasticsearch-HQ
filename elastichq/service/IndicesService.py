@@ -96,7 +96,7 @@ class IndicesService:
         cluster_state = ClusterService().get_cluster_state(cluster_name, metric="metadata", indices=indices_names)
         state_indices = jmespath.search("metadata.indices", cluster_state)
         cat = connection.cat.indices(format='json')
-        show_dot_indices = HQService().get_settings('utas').get('show_dot_indices')
+        show_dot_indices = HQService().get_settings(cluster_name).get('show_dot_indices')
         indices = []
         if state_indices:
             the_indices = indices_stats.get("indices", None)
