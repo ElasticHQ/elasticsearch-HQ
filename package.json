@@ -43,7 +43,7 @@
     "ng-animate": "^0.3.1",
     "numeral": "^2.0.6",
     "semver-parser": "^1.0.14",
-    "socket.io": "^2.0.4"
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.39",
