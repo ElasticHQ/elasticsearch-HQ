@@ -1,6 +1,8 @@
 <div class="indices-table ">
         <table ts-wrapper class="table table-striped table-hover"  
-                ts-per-page-default="10"
+                ts-per-page-options="indicesTableCtrl.perPageOptions"
+                ts-per-page-default="indicesTableCtrl.perPageDefault"
+                ts-current-page="indicesTableCtrl.currentPage"
                 ts-display-filtering="false" 
                 ts-filter-function="indicesTableCtrl.filterFn">
             <thead>
@@ -12,7 +14,8 @@
                   <tr>
                     <th ng-repeat="c in indicesTableCtrl.columns" 
                         colspan="{{($index == 0) ? 2 : 1}}"
-                        ts-criteria="{{c.key}}">
+                        ts-criteria="{{c.key}}"
+                        ng-attr-ts-default="{{indicesTableCtrl.currentSort.name === c.key ? indicesTableCtrl.currentSort.order : undefined}}">
                         {{c.label}}
                     </th>
                   </tr>
