@@ -10,22 +10,6 @@ class NodeService:
         connection = ConnectionService().get_connection(cluster_name)
 
         node_stats = connection.nodes.stats(node_id=nodes_list, request_timeout=request_timeout)
-        #
-        # nodes = node_stats.get('nodes')
-        #
-        # for node in nodes:
-        #     node_data = nodes.get(node)
-        #     fs_data = jmespath.search('fs.data', node_data)
-        #     for fs in fs_data:
-        #         available_in_bytes = jmespath.search('available_in_bytes',fs)
-        #         free_in_bytes = jmespath.search('free_in_bytes',fs)
-        #         total_in_bytes = jmespath.search('total_in_bytes',fs)
-        #
-        #         percentage_available_in_bytes = 100 * float(available_in_bytes) / float(total_in_bytes)
-        #         percentage_free_in_bytes = 100 * float(free_in_bytes) / float(total_in_bytes)
-        #
-        #         fs['available_in_percent'] = percentage_available_in_bytes
-        #         fs['free_in_percent'] = percentage_free_in_bytes
 
         return node_stats
 
@@ -51,7 +35,7 @@ class NodeService:
         connection = ConnectionService().get_connection(cluster_name)
 
         # https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html
-        cat_nodes = connection.cat.nodes(format="json", h="id,m,n,u,role,hp,ip,disk.avail,l", full_id=True,
+        cat_nodes = connection.cat.nodes(format="json", h="id,m,n,u,role,hc,hm,hp,ip,dt,du,disk.avail,l", full_id=True,
                                          request_timeout=REQUEST_TIMEOUT)
 
         nodes = []
@@ -61,6 +45,8 @@ class NodeService:
                     "name": cnode.get('n', None),
                     "fsFree": cnode.get('disk.avail', None),
                     "heapPercent": cnode.get('hp', None),
+                    "heapMax": cnode.get('hm', None),
+                    "heapCurrent": cnode.get('hc', None),
                     "host": cnode.get('ip', None),
                     "load": cnode.get('l', None)
                     }
