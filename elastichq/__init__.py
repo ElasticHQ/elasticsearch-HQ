@@ -19,7 +19,7 @@ def create_app(env='PROD'):
     else:
         raise ValueError('Unknown environment: %s' % (env,))
 
-    init_log()
+    init_log(app)
 
     app.register_blueprint(api_blueprint)
     app.register_blueprint(public_blueprint)

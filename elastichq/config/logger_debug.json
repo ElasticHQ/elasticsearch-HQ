@@ -30,7 +30,7 @@
       "propagate": "no"
     },
     "sqlalchemy": {
-      "level": "WARN",
+      "level": "DEBUG",
       "handlers": [],
       "qualname": "sqlalchemy",
       "propagate": "no"
@@ -48,7 +48,7 @@
       "propagate": "no"
     },
     "requests": {
-      "level": "WARN",
+      "level": "DEBUG",
       "handlers": [],
       "qualname": "requests",
       "propagate": "no"
@@ -60,7 +60,7 @@
       "propagate": "no"
     },
     "elasticsearch.trace": {
-      "level": "INFO",
+      "level": "DEBUG",
       "handlers": [],
       "qualname": "elasticsearch",
       "propagate": "no"
