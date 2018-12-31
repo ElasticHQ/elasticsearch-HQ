@@ -49,19 +49,20 @@ class TestSettings(BaseSettings):
     # cluster settings
     HQ_CLUSTER_SETTINGS = {
         'doc_id': 'hqsettings',
-        'index_name': '.elastichq',
-        'version': 1,
-        'doc_type': 'data',
-        'store_metrics': True,
-        'websocket_interval': 5,
-        'historic_poll_interval': 60,
-        'historic_days_to_store': 7
+        'index_name': '.elastichq',  # internal elastichq settings index. one per cluster.
+        'version': 1,  # version of this json settings doc
+        'doc_type': 'data',  # mapping name
+        'store_metrics': True,  # store the metrics being polled.
+        'websocket_interval': 5,  # interval, in seconds, to poll cluster for metrics data.
+        'historic_poll_interval': 60,  # number of seconds between poll calls to retrieve and store historical metrics.
+        'historic_days_to_store': 7,  # days to store historic metrics
+        'show_dot_indices': True  # filter dot-prefixed indices from display
     }
 
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = 'v3.4.1'
+    API_VERSION = 'v3.5.0'
     ES_V2_HOST = '127.0.0.1'
     ES_V2_PORT = '9200'
     ES_V5_HOST = '127.0.0.1'
@@ -123,19 +124,20 @@ class ProdSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = '3.4.1'
+    API_VERSION = '3.5.0'
     SERVER_NAME = None
 
     # cluster settings: specific settings for each cluster and how HQ should handle it.
     HQ_CLUSTER_SETTINGS = {
         'doc_id': 'hqsettings',
-        'index_name': '.elastichq',
-        'version': 1,
-        'doc_type': 'data',
+        'index_name': '.elastichq',  # internal elastichq settings index. one per cluster.
+        'version': 1,  # version of this json settings doc
+        'doc_type': 'data',  # mapping name
         'store_metrics': True,  # whether to store metrics for this cluster
-        'websocket_interval': 5,  # seconds
-        'historic_poll_interval': 60 * 5,  # seconds
-        'historic_days_to_store': 7  # num days to keep historical metrics data
+        'websocket_interval': 5,  # interval, in seconds, to poll cluster for metrics data.
+        'historic_poll_interval': 60 * 5,  # number of seconds between poll calls to retrieve/store historical metrics.
+        'historic_days_to_store': 7,  # num days to keep historical metrics data
+        'show_dot_indices': True  # filter dot-prefixed indices from display
     }
 
     # CACHE

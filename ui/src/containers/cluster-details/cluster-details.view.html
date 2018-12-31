@@ -20,23 +20,47 @@
     <div class="row">
         <div class="col-md-6 node-details">
             <h3>Nodes</h3>
-            <table ts-wrapper class="table table-striped table-hover" ts-per-page-default="10"
-                   ng-if="clusterDetailsCtrl.nodes.length">
+            <table id="node-table" ts-wrapper class="table table-striped table-hover" 
+                    ts-per-page-options="clusterDetailsCtrl.perPageOptions"
+                    ts-per-page-default="clusterDetailsCtrl.perPageDefault"
+                    ng-if="clusterDetailsCtrl.nodes.length"
+                    ts-current-page="clusterDetailsCtrl.currentPage">
                 <thead>
                 <tr>
-                    <th ts-criteria="name">Name</th>
-                    <th ts-criteria="is_master_node">Master</th>
-                    <th ts-criteria="is_data_node">Data</th>
-                    <th ts-criteria="host">HTTP Addr</th>
-                    <th ts-criteria="heapPercent">Heap Used</th>
-                    <th ts-criteria="fsFree">Free Space</th>
-                    <th ts-criteria="load">Load</th>
+                    <th ts-criteria="name" 
+                        ng-attr-ts-default="{{clusterDetailsCtrl.currentSort.name === 'name' ? clusterDetailsCtrl.currentSort.order : undefined}}">
+                        Name
+                    </th>
+                    <th ts-criteria="is_master_node"
+                        ng-attr-ts-default="{{clusterDetailsCtrl.currentSort.name === 'is_master_node' ? clusterDetailsCtrl.currentSort.order : undefined}}">
+                        Master
+                    </th>
+                    <th ts-criteria="is_data_node"
+                        ng-attr-ts-default="{{clusterDetailsCtrl.currentSort.name === 'is_data_node' ? clusterDetailsCtrl.currentSort.order : undefined}}">
+                        Data
+                    </th>
+                    <th ts-criteria="host"
+                        ng-attr-ts-default="{{clusterDetailsCtrl.currentSort.name === 'host' ? clusterDetailsCtrl.currentSort.order : undefined}}">
+                        HTTP Addr
+                    </th>
+                    <th ts-criteria="heapPercent"
+                        ng-attr-ts-default="{{clusterDetailsCtrl.currentSort.name === 'heapPercent' ? clusterDetailsCtrl.currentSort.order : undefined}}">
+                        Heap Used
+                    </th>
+                    <th ts-criteria="fsFree"
+                        ng-attr-ts-default="{{clusterDetailsCtrl.currentSort.name === 'fsFree' ? clusterDetailsCtrl.currentSort.order : undefined}}">
+                        Free Space
+                    </th>
+                    <th ts-criteria="load"
+                        ng-attr-ts-default="{{clusterDetailsCtrl.currentSort.name === 'load' ? clusterDetailsCtrl.currentSort.order : undefined}}">
+                        Load
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="node in clusterDetailsCtrl.nodes" ts-repeat ts-hide-no-data>
+                <tr ng-repeat="node in clusterDetailsCtrl.nodes" ts-repeat ts-hide-no-data >
                     <td>
-                        <a ui-sref="clusterNodeDetails({clusterName: clusterDetailsCtrl.clusterName, nodeId: node.node_id})">{{node['name']}}</a>
+                        <a ui-sref="clusterNodeDetails({clusterName: clusterDetailsCtrl.clusterName, nodeId: node.node_id})" uib-tooltip="Uptime: {{ node['uptime'] }}">{{node['name']}}</a>
                     </td>
                     <td><i class="fa" ng-class="{{node.is_master_node}} ? 'fa-check-square' : ''"
                            tooltip-placement="bottom"
@@ -47,7 +71,7 @@
                     <td><i class="fa" ng-class="{{node.is_data_node}} ? 'fa-check-square' : ''"></i></td>
 
                     <td>{{node.host}}</td>
-                    <td>{{node.heapPercent}}%
+                    <td><span uib-tooltip="{{ node.heapCurrent }} / {{ node.heapMax }}">{{node.heapPercent}}%</span>
                     </td>
                     <td>{{node.fsFree}}</td>
                     <td>{{node.load}}</td>

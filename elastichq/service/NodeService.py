@@ -2,13 +2,17 @@ __author__ = 'royrusso'
 
 from .ConnectionService import ConnectionService
 from ..globals import REQUEST_TIMEOUT
+import jmespath
 
 
 class NodeService:
     def get_node_stats(self, cluster_name, nodes_list=None, request_timeout=REQUEST_TIMEOUT):
         connection = ConnectionService().get_connection(cluster_name)
 
-        return connection.nodes.stats(node_id=nodes_list, request_timeout=request_timeout)
+        node_stats = connection.nodes.stats(node_id=nodes_list, request_timeout=request_timeout)
+
+        return node_stats
+
 
     def get_node_info(self, cluster_name, nodes_list=None):
         connection = ConnectionService().get_connection(cluster_name)
@@ -31,7 +35,8 @@ class NodeService:
         connection = ConnectionService().get_connection(cluster_name)
 
         # https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html
-        cat_nodes = connection.cat.nodes(format="json", h="id,m,n,u,role,hp,ip,disk.avail,l", full_id=True, request_timeout=REQUEST_TIMEOUT)
+        cat_nodes = connection.cat.nodes(format="json", h="id,m,n,u,role,hc,hm,hp,ip,dt,du,disk.avail,l", full_id=True,
+                                         request_timeout=REQUEST_TIMEOUT)
 
         nodes = []
         for cnode in cat_nodes:
@@ -40,6 +45,8 @@ class NodeService:
                     "name": cnode.get('n', None),
                     "fsFree": cnode.get('disk.avail', None),
                     "heapPercent": cnode.get('hp', None),
+                    "heapMax": cnode.get('hm', None),
+                    "heapCurrent": cnode.get('hc', None),
                     "host": cnode.get('ip', None),
                     "load": cnode.get('l', None)
                     }
@@ -48,7 +55,8 @@ class NodeService:
             if cnode.get('m', None) is not None:
                 if cnode['m'] == '*':
                     node.update({"is_master_node": True})
-                    node.update({"is_electable_master": False}) # technically this node is electable, but since it has already been elected, we set as false for the ui.
+                    node.update({
+                        "is_electable_master": False})  # technically this node is electable, but since it has already been elected, we set as false for the ui.
                 elif cnode['m'] == '-':
                     node.update({"is_master_node": False})
                     node.update({"is_electable_master": False})

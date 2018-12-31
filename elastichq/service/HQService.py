@@ -87,7 +87,9 @@ class HQService:
             'historic_poll_interval': body.get('historic_poll_interval',
                                                current_settings.get('historic_poll_interval')),
             'historic_days_to_store': body.get('historic_days_to_store',
-                                               current_settings.get('historic_days_to_store'))
+                                               current_settings.get('historic_days_to_store')),
+            'show_dot_indices': body.get('show_dot_indices',
+                                         current_settings.get('show_dot_indices'))
         }
 
         connection = ConnectionService().get_connection(cluster_name)

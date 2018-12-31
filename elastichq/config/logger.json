@@ -30,7 +30,7 @@
       "propagate": "no"
     },
     "sqlalchemy": {
-      "level": "INFO",
+      "level": "WARN",
       "handlers": [],
       "qualname": "sqlalchemy",
       "propagate": "no"

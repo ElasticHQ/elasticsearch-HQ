@@ -28,7 +28,7 @@ def init_marshmallow(app):
     ma.init_app(app)
 
 
-def init_log():
+def init_log(app):
     """
     Initializes log format and console/file appenders
     :return:
