@@ -47,6 +47,10 @@ if __name__ == '__main__':
     application.config['CA_CERTS'] = os.environ.get('HQ_CA_CERTS', options.ca_certs)
 
     if is_gunicorn:
+        if options.debug:
+            config = find_config('logger_debug.json')
+            logging.config.dictConfig(config)
+
         # we set reloader False so gunicorn doesn't call two instances of all the Flask init functions.
         socketio.run(application, host=options.host, port=options.port, debug=options.debug, use_reloader=False)
     else:
