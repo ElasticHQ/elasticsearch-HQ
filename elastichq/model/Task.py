@@ -160,7 +160,7 @@ class Task:
                         nodes.append(node)
                     LOG.debug("Broadcast to room: " + self.room_name)
 
-                    socketio.emit('event', {'data': json.dumps(nodes)}, room=self.room_name, namespace="/ws")
+                    socketio.emit('event', {'data': json.dumps(nodes)}, room=self.room_name, namespace="/websocket/ws")
 
                 except Exception as ex:
                     LOG.error("Error fetching node metrics!", ex)

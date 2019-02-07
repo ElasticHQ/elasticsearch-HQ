@@ -45,7 +45,7 @@ def task_procesor(room_name, cluster_name, metric):
     taskPool.create_task(task=task, sid=request.sid)
 
 
-@socketio.on('join', namespace='/ws')
+@socketio.on('join', namespace='/websocket/ws')
 def joined(json):
     """
     Sent by clients when they enter a room.
@@ -61,7 +61,7 @@ def joined(json):
     task_procesor(room_name, cluster_name=cluster_name, metric=metric)
 
 
-@socketio.on('leave', namespace='/ws')
+@socketio.on('leave', namespace='/websocket/ws')
 def on_leave(json):
     """
     Sent by client to leave a room
@@ -77,12 +77,12 @@ def on_leave(json):
     print(rooms())
 
 
-@socketio.on('connect', namespace='/ws')
+@socketio.on('connect', namespace='/websocket/ws')
 def connect():
     emit('event', {'connected': True})
 
 
-@socketio.on('message', namespace='/ws')
+@socketio.on('message', namespace='/websocket/ws')
 def do_msg(message):
     """
     This will echo out a message sent here:
@@ -96,7 +96,7 @@ def do_msg(message):
     emit('event', {'data': 'MESSAGE ECHO: ' + message})
 
 
-@socketio.on('disconnect', namespace='/ws')
+@socketio.on('disconnect', namespace='/websocket/ws')
 def disconnect():
     LOG.debug('Client disconnected')
 

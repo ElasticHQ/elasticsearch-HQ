@@ -24,10 +24,15 @@ class clusterNodesController {
         // Websockets do not work with relative paths, so get absolute and append the WS portion
         //  upgrade from HTTP to WS should be automatic
         // baseUrl = baseUrl += `/ws/nodes/${this.clusterName}/nodes`;
-        baseUrl = baseUrl += `/ws`;
+        baseUrl = baseUrl += `/websocket/ws`;
         // console.log('---- baseUrl: ', baseUrl)
 
-        this.socket = io(baseUrl);
+        const path = window.location.pathname === "/" ? 
+                        "/socket.io" : 
+                        `${window.location.pathname.replace(/\/$/, "")}/socket.io`
+
+        this.socket = io(baseUrl, { path: path });
+
         this.socket.on('connect', () => {
             this.connected = true;
             this.socket.emit('join', {"room_name": this.clusterName + "::nodes"});
