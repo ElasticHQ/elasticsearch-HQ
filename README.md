@@ -55,7 +55,7 @@ For further instructions, please see relevant documentation: [Docker Images](htt
 
 ## OpenShift Installation
 
-Please see relevant documentation: [ElasticHQ on OpenShift](openshif/README.md).
+Please see relevant documentation: [ElasticHQ on OpenShift](openshift/README.md).
 
 ## Useful Links
 
