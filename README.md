@@ -53,6 +53,10 @@ We are hosted on Dockerhub: [ElasticHQ on Dockerhub](https://hub.docker.com/r/el
 
 For further instructions, please see relevant documentation: [Docker Images](http://docs.elastichq.org/installation.html#docker-images).
 
+## OpenShift Installation
+
+Please see relevant documentation: [ElasticHQ on OpenShift](openshif/README.md).
+
 ## Useful Links
 
 * [Documentation](http://docs.elastichq.org)
