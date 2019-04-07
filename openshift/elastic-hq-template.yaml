@@ -10,7 +10,7 @@ parameters:
   - name: LOGGING_NAMESPACE
     displayName: Logging namespace
     description: The name of where the logging ElasticSearch is deployed.
-    value: logging
+    value: openshift-logging
     required: true
   - name: ES_SECRET_NAME
     displayName: ElasticSearch Logging secret name
