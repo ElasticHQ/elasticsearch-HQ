@@ -1,0 +1,23 @@
+.cluster-navigation {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 1em;
+  padding: 10px;
+  border-bottom: solid rgba(91, 141, 176, 0.15) thin;
+  border-top: solid rgba(91, 141, 176, 0.15) thin;
+  background-color: rgba(242, 242, 242, 0.58); }
+  .cluster-navigation .cluster-name {
+    font-size: 1.6em; }
+  .cluster-navigation .nodes > a.btn {
+    margin-right: 0.5em; }
+
+.status_color_red {
+  color: red; }
+
+.status_color_yellow {
+  color: #ffb02a; }
+
+.status_color_green {
+  color: green; }
+
+/*# sourceMappingURL=cluster-navigation.style.css.map */

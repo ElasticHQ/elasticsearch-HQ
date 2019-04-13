@@ -1,0 +1,15 @@
+.navbar-brand {
+  background-color: #1C2B36;
+  display: block;
+  font-size: 28px !important;
+  white-space: nowrap;
+  float: left;
+  font-family: 'Roboto', sans-serif;
+  outline: none !important;
+  line-height: 60px; }
+  .navbar-brand span {
+    color: #FFFFFF; }
+  .navbar-brand .a {
+    font-size: 50px; }
+
+/*# sourceMappingURL=top-nav.style.css.map */

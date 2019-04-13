@@ -1,0 +1,17 @@
+.indices-table .table thead th > a.sorter {
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.2em; }
+.indices-table .table tbody td.health {
+  padding: 8px 0px;
+  width: 6px; }
+  .indices-table .table tbody td.health.green {
+    background: #43ac6a; }
+  .indices-table .table tbody td.health.yellow {
+    background: #ffc107; }
+  .indices-table .table tbody td.health.red {
+    background: #dc3545; }
+.indices-table .table tbody td.index_info {
+  font-size: 14px; }
+
+/*# sourceMappingURL=indices-table.style.css.map */
