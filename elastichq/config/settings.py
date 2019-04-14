@@ -62,7 +62,7 @@ class TestSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = 'v3.5.0'
+    API_VERSION = 'v3.5.1'
     ES_V2_HOST = '127.0.0.1'
     ES_V2_PORT = '9200'
     ES_V5_HOST = '127.0.0.1'
@@ -124,7 +124,7 @@ class ProdSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = '3.5.0'
+    API_VERSION = '3.5.1'
     SERVER_NAME = None
 
     # cluster settings: specific settings for each cluster and how HQ should handle it.

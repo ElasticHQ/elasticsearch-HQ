@@ -2,7 +2,6 @@ __author__ = 'royrusso'
 
 from .ConnectionService import ConnectionService
 from ..globals import REQUEST_TIMEOUT
-import jmespath
 
 
 class NodeService:
@@ -13,11 +12,22 @@ class NodeService:
 
         return node_stats
 
-
     def get_node_info(self, cluster_name, nodes_list=None):
         connection = ConnectionService().get_connection(cluster_name)
 
-        return connection.nodes.info(node_id=nodes_list, metric="_all", request_timeout=REQUEST_TIMEOUT)
+        node_infos = connection.nodes.info(node_id=nodes_list, metric="_all", request_timeout=REQUEST_TIMEOUT)
+
+        # breaking change == miserable hack. v7 is missing the settings block that used to contain master/data designations
+        if connection.version.startswith("7"):
+            for node_id in node_infos['nodes']:
+                node_settings = node_infos.get("nodes").get(node_id)['settings']
+                node_roles = node_infos.get("nodes").get(node_id)['roles']
+                if 'master' in node_roles:
+                    node_settings['node']['master'] = True
+                if 'data' in node_roles:
+                    node_settings['node']['data'] = True
+
+        return node_infos
 
     def get_node_cat(self, cluster_name, flags="*", request_timeout=REQUEST_TIMEOUT):
         connection = ConnectionService().get_connection(cluster_name)
@@ -25,7 +35,7 @@ class NodeService:
         cat_nodes = connection.cat.nodes(format="json", h=flags, full_id=True, request_timeout=request_timeout)
         return cat_nodes
 
-    def get_node_summary(self, cluster_name, node_ids=None):
+    def get_node_summary(self, cluster_name):
         """
         Given a node(s), consolidates data from several Node APIs in a human-readable format.
         :param cluster_name:
@@ -72,6 +82,10 @@ class NodeService:
                     node.update({"is_data_node": True})
                 else:
                     node.update({"is_data_node": False})
+                if cnode['role'] == 'i' or 'i' in cnode['role']:
+                    node.update({"is_ingest_node": True})
+                else:
+                    node.update({"is_ingest_node": False})
 
             nodes.append(node)
         return nodes

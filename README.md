@@ -15,7 +15,7 @@ Simplified Monitoring and Management for ElasticSearch clusters.
   
 ## Key Features
 
-* Works with 2.x, 5.x, 6.x and current versions of Elasticsearch. 
+* Works with 2.x, 5.x, 6.x, 7.x and current versions of Elasticsearch. 
 * Monitor **many** clusters at once.
 * Monitor Nodes, Indices, Shards, and general cluster metrics.
 * Create and maintain Elasticsearch Indices.
