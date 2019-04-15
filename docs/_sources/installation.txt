@@ -54,6 +54,12 @@ Our branching organization is as follows:
 * ``develop``: contains latest features. **Not stable.**
 * ``#.#.#RC-#``: Release candidates are pre-release versions. **Not stable.**
 
+OpenShift
+^^^^^^^^^
+
+Information for running on openshift, can be found here: `ElasticHQ OpenShift <https://github.com/ElasticHQ/elasticsearch-HQ/blob/master/openshift/README.md>`_
+
+
 Initial Login
 -------------
 
