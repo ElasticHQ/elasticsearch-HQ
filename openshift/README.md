@@ -11,6 +11,8 @@ oc import-image nginx-114-rhel7 --from=registry.access.redhat.com/rhscl/nginx-11
 oc import-image elastic-hq-proxy --from=elastichq/elasticsearch-hq -n openshift-logging --confirm
 ```
 
+Please note that in some OpenShift 3.x installations the logging namespace may vary. Make sure to use the correct one when importing this template. The templates and files in this repository are using the default `openshift-logging` namespace, if you are using a different one make sure to add the parameter `-p LOGGING_NAMESPACE=<your-logging-namespace-name>` and to alter the [NGINX file configuration appropriately](https://github.com/ElasticHQ/elasticsearch-HQ/blob/develop/openshift/proxy/nginx.conf#L41).
+
 2. Clone this repository
 
 ```shell
@@ -20,15 +22,15 @@ git clone https://github.com/ElasticHQ/elasticsearch-HQ
 3. Process and create the application inside your `logging` namespace. Your cluster must have access to the GitHub. If not, just import this repository to your internal one and parameterize the template.
 
 ```shell
-oc project logging
-oc process -f elasticsearch-HQ/openshift/elastic-hq-template.yaml | oc apply -f -
+oc project openshift-logging
+oc process -f elasticsearch-HQ/openshift/elastic-hq-template.yaml -p LOGGING_NAMESPACE=openshift-logging | oc apply -f -
 ```
 
 Without GitHub access:
 
 ```shell
-oc project logging
-oc process -f elasticsearch-HQ/openshift/elastic-hq-template.yaml PROXY_GIT_REPO=<your-repo-url> | oc apply -f -
+oc project openshift-logging
+oc process -f elasticsearch-HQ/openshift/elastic-hq-template.yaml PROXY_GIT_REPO=<your-repo-url> -p LOGGING_NAMESPACE=openshift-logging | oc apply -f -
 ```
 
 4. A new build should start, otherwise just run
