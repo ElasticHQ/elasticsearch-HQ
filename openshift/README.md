@@ -7,9 +7,9 @@ In this directory you'll find a ready to use [ElasticHQ](https://github.com/Elas
 1. Import all required images to your `logging` namespace. Just make sure that your cluster have access to the docker public registry:
 
 ```shell
-oc import-image nginx-114-rhel7 --from=registry.access.redhat.com/rhscl/nginx-114-rhel7 -n logging --confirm
-oc import-image elastic-hq-proxy --from=elastichq/elasticsearch-hq -n logging --confirm
-``` 
+oc import-image nginx-114-rhel7 --from=registry.access.redhat.com/rhscl/nginx-114-rhel7 -n openshift-logging --confirm
+oc import-image elastic-hq-proxy --from=elastichq/elasticsearch-hq -n openshift-logging --confirm
+```
 
 2. Clone this repository
 
