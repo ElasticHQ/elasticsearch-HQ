@@ -14,7 +14,7 @@ class HQService:
 
     def get_status(self):
 
-        version_str = ""
+        version_str = "{\"version\":\"Err: unable to reach elastichq.org\"}"
         try:
             fp = request.urlopen("http://www.elastichq.org/currversion.json", timeout=10)
             mbyte = fp.read()
