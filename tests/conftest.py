@@ -5,6 +5,7 @@ import pytest
 from tests.test_fixture import TestFixture
 from elastichq.config.settings import TestSettings
 
+pytest_plugins = ["docker_compose"]
 
 def pytest_sessionstart(session):
     pass
