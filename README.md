@@ -31,7 +31,7 @@ Simplified Monitoring and Management for ElasticSearch clusters.
 
 ### Requirements
 
-* Python 3.4+
+* Python 3.6
 
 ### Instructions
 

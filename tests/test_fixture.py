@@ -12,7 +12,6 @@ class TestFixture:
     _app = None  # Flask app
     app = None  # Flask test client
     headers = None  # In case we need to pass custom headers
-
     cluster_v2_name = None
     cluster_v5_name = None
     cluster_v6_name = None
@@ -21,19 +20,17 @@ class TestFixture:
     def __init__(self, config):
         try:
             from elastichq import create_app
-
             self._app = create_app(env='test')
             self.app = self._app.test_client()
             self.config = config
             self.indices_definitions = self.get_index_definitions()
+            # self.clear_indices()
+            # self.clear_aliases()
+            #
+            # self.create_indices()
+            # self.create_aliases()
 
-            self.clear_indices()
-            self.clear_aliases()
-
-            self.create_indices()
-            self.create_aliases()
-
-            self.refresh()
+            # self.refresh()
 
         except Exception as e:
             raise e
@@ -61,14 +58,14 @@ class TestFixture:
         response = self.app.post('/api/clusters/_connect', data=self.config.ES_V2_CLUSTER_CONNECT,
                                  content_type='application/json')
         self.cluster_v2_name = self.get_response_data(response)['data'][0]['cluster_name']
-
-        response = self.app.post('/api/clusters/_connect', data=self.config.ES_V5_CLUSTER_CONNECT,
-                                 content_type='application/json')
-        self.cluster_v5_name = self.get_response_data(response)['data'][0]['cluster_name']
-
-        response = self.app.post('/api/clusters/_connect', data=self.config.ES_V6_CLUSTER_CONNECT,
-                                 content_type='application/json')
-        self.cluster_v6_name = self.get_response_data(response)['data'][0]['cluster_name']
+        #
+        # response = self.app.post('/api/clusters/_connect', data=self.config.ES_V5_CLUSTER_CONNECT,
+        #                          content_type='application/json')
+        # self.cluster_v5_name = self.get_response_data(response)['data'][0]['cluster_name']
+        #
+        # response = self.app.post('/api/clusters/_connect', data=self.config.ES_V6_CLUSTER_CONNECT,
+        #                          content_type='application/json')
+        # self.cluster_v6_name = self.get_response_data(response)['data'][0]['cluster_name']
 
     def create_indices(self):
         """
@@ -154,7 +151,6 @@ class TestFixture:
         """
 
         for row in self.indices_definitions:
-
             v2_index_url = self.config.ES_V2_CLUSTER_URL + "/_all"
             self.http_request(v2_index_url, method='DELETE')
 

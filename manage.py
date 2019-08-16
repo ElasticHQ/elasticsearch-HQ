@@ -4,6 +4,7 @@
 __author__ = 'royrusso'
 
 import os
+import sys
 
 from flask_migrate import MigrateCommand
 from flask_script import Command, Manager, Option, Server as _Server
@@ -96,10 +97,40 @@ class PyTest(Command):
     """
 
     def run(self):
-        tests_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'tests')
         import pytest
-        exit_code = pytest.main([tests_path, '--verbose'])
-        return exit_code
+
+        tests_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'tests')
+        sys.path.append(os.path.abspath(tests_path))
+
+        pytest.main(
+            [
+                tests_path,
+                '--verbose',
+                '--color=yes',
+                '-c=' + tests_path + '/pytest.ini',
+                '--docker-compose=' + tests_path + '/hq_docker-compose.yml',
+                '--docker-compose-remove-volumes',
+                '-m=hq_ops',
+                '-s',  # verbose logging
+                '--maxfail=5',
+                '--cov=tests',
+            ])
+
+        pytest.main(
+            [
+                tests_path,
+                '--verbose',
+                '--color=yes',
+                '-c=' + tests_path + '/pytest.ini',
+                '--docker-compose=' + tests_path + '/v2_docker-compose.yml',
+                '--docker-compose-remove-volumes',
+                '-m=es_versions',
+                '-s',  # verbose logging
+                '--maxfail=5',
+                '--cov=tests'
+            ])
+
+        return None
 
 
 manager.add_command("runserver", Server())
