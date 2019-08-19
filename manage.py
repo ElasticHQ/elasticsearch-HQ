@@ -112,8 +112,10 @@ class PyTest(Command):
                 '--docker-compose-remove-volumes',
                 '-m=hq_ops',
                 '-s',  # verbose logging
-                '--maxfail=5',
-                '--cov=tests',
+                '--cov=' + tests_path,
+                '--cov-report=html:' + tests_path + '/htmlcov',
+                '--html=' + tests_path + '/htmlout/hq_ops.html',
+                '--self-contained-html'
             ])
 
         pytest.main(
@@ -126,8 +128,24 @@ class PyTest(Command):
                 '--docker-compose-remove-volumes',
                 '-m=es_versions',
                 '-s',  # verbose logging
-                '--maxfail=5',
-                '--cov=tests'
+                '--cov=' + tests_path,
+                '--html=' + tests_path + '/htmlout/es_2.html',
+                '--self-contained-html'
+            ])
+
+        pytest.main(
+            [
+                tests_path,
+                '--verbose',
+                '--color=yes',
+                '-c=' + tests_path + '/pytest.ini',
+                '--docker-compose=' + tests_path + '/v5_docker-compose.yml',
+                '--docker-compose-remove-volumes',
+                '-m=es_versions',
+                '-s',  # verbose logging
+                '--cov=' + tests_path,
+                '--html=' + tests_path + '/htmlout/es_5.html',
+                '--self-contained-html'
             ])
 
         return None

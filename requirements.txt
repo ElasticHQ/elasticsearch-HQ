@@ -31,6 +31,7 @@ pytest==5.0.1
 pytest-cov==2.7.1
 pytest-ordering==0.6
 pytest-docker-compose==3.0.0
+pytest-html==1.22.0
 
 # Scheduler
 apscheduler==3.5.0

@@ -4,8 +4,8 @@ services:
     image: elasticsearch:2.4.6
     container_name: elasticsearch_2_4_6
     environment:
-      - cluster.name=es_2_4_6
-      - node.name=2_4_6_node_1
+      - cluster.name=elasticsearch
+      - node.name=node_1
       - network.host=0.0.0.0
       - network.publish_host=0.0.0.0
       - http.cors.allow-headers=Authorization

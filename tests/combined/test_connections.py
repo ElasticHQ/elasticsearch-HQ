@@ -3,9 +3,6 @@ __author__ = 'royrusso'
 import logging
 
 import pytest
-import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
 
 pytest_plugins = ["docker_compose"]
 LOGGER = logging.getLogger(__name__)
@@ -23,23 +20,7 @@ def test_get_clusters(session_scoped_container_getter, fixture):
 
 
 @pytest.mark.hq_ops
-@pytest.fixture(scope="function")
-def wait_for_api(session_scoped_container_getter):
-    """Wait for the api from elasticsearch to become responsive"""
-    request_session = requests.Session()
-    retries = Retry(total=20,
-                    backoff_factor=0.1,
-                    status_forcelist=[500, 502, 503, 504])
-    request_session.mount('http://', HTTPAdapter(max_retries=retries))
-
-    service = session_scoped_container_getter.get("elasticsearch").network_info[0]
-    api_url = "http://%s:%s/" % (service.hostname, service.host_port)
-    assert request_session.get(api_url)
-    return request_session, api_url
-
-
-@pytest.mark.hq_ops
-def test_connect_to_clusters(wait_for_api, session_scoped_container_getter, fixture):
+def test_connect_to_clusters(session_scoped_container_getter, fixture):
     fixture.clear_all_clusters()
 
     container = session_scoped_container_getter.get('elasticsearch').network_info[0]
@@ -59,7 +40,7 @@ def test_connect_to_clusters(wait_for_api, session_scoped_container_getter, fixt
 
 @pytest.mark.hq_ops
 def test_delete_connection(session_scoped_container_getter, fixture):
-    fixture.add_all_clusters(clear_first=True)
+    fixture.add_all_clusters(session_scoped_container_getter, clear_first=True)
 
     response = fixture.app.get('/api/clusters')
 
