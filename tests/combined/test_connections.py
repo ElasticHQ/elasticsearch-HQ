@@ -1,15 +1,12 @@
 __author__ = 'royrusso'
 
-import logging
-
 import pytest
 
 pytest_plugins = ["docker_compose"]
-LOGGER = logging.getLogger(__name__)
 
 
 @pytest.mark.hq_ops
-def test_get_clusters(session_scoped_container_getter, fixture):
+def test_get_clusters(fixture):
     fixture.clear_all_clusters()
 
     response = fixture.app.get('/api/clusters')

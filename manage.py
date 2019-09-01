@@ -95,60 +95,67 @@ class PyTest(Command):
     """
     Runs all unittests. You MUST make sure that all clusters configured are running for the tests to pass!
     """
+    version = None
 
-    def run(self):
+    def get_options(self):
+        options = (
+            Option('-E', '--esv',
+                   dest='version',
+                   default=self.version),
+
+        )
+        return options
+
+    def run(self, version):
         import pytest
 
         tests_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'tests')
         sys.path.append(os.path.abspath(tests_path))
 
-        pytest.main(
-            [
-                tests_path,
-                '--verbose',
-                '--color=yes',
-                '-c=' + tests_path + '/pytest.ini',
+        default_test_args = [
+            tests_path,
+            '--ignore=node_modules',
+            '--verbose',
+            '--color=yes',
+            '-c=' + tests_path + '/pytest.ini',
+            '--docker-compose-remove-volumes',
+            # '-s',  # WARNING: Turning this on, breaks the tests on a Mac.
+            '--cov=' + tests_path,
+            '--cov-report=html:' + tests_path + '/htmlcov',
+            '--self-contained-html'
+        ]
+
+        sig = None
+        if version is None:
+            hq_args = [
                 '--docker-compose=' + tests_path + '/hq_docker-compose.yml',
-                '--docker-compose-remove-volumes',
-                '-m=hq_ops',
-                '-s',  # verbose logging
-                '--cov=' + tests_path,
-                '--cov-report=html:' + tests_path + '/htmlcov',
                 '--html=' + tests_path + '/htmlout/hq_ops.html',
-                '--self-contained-html'
-            ])
+                '-m=hq_ops'
+            ]
+            sig = pytest.main(default_test_args + hq_args)
 
-        pytest.main(
-            [
-                tests_path,
-                '--verbose',
-                '--color=yes',
-                '-c=' + tests_path + '/pytest.ini',
-                '--docker-compose=' + tests_path + '/v2_docker-compose.yml',
-                '--docker-compose-remove-volumes',
-                '-m=es_versions',
-                '-s',  # verbose logging
-                '--cov=' + tests_path,
-                '--html=' + tests_path + '/htmlout/es_2.html',
-                '--self-contained-html'
-            ])
+        if version is not None:
+            if "2" in version:
+                v2_args = ['--docker-compose=' + tests_path + '/v2_docker-compose.yml', '-m=es_versions',
+                           '--html=' + tests_path + '/htmlout/es_2.html']
+                sig = pytest.main(default_test_args + v2_args)
 
-        pytest.main(
-            [
-                tests_path,
-                '--verbose',
-                '--color=yes',
-                '-c=' + tests_path + '/pytest.ini',
-                '--docker-compose=' + tests_path + '/v5_docker-compose.yml',
-                '--docker-compose-remove-volumes',
-                '-m=es_versions',
-                '-s',  # verbose logging
-                '--cov=' + tests_path,
-                '--html=' + tests_path + '/htmlout/es_5.html',
-                '--self-contained-html'
-            ])
+            if "5" in version:
+                v5_args = ['--docker-compose=' + tests_path + '/v5_docker-compose.yml', '-m=es_versions',
+                           '--html=' + tests_path + '/htmlout/es_5.html']
+                sig = pytest.main(default_test_args + v5_args)
 
-        return None
+            if "6" in version:
+                v6_args = ['--docker-compose=' + tests_path + '/v6_docker-compose.yml', '-m=es_versions',
+                           '--html=' + tests_path + '/htmlout/es_6.html']
+                sig = pytest.main(default_test_args + v6_args)
+
+            if "7" in version:
+                v7_args = ['--docker-compose=' + tests_path + '/v7_docker-compose.yml', '-m=es_versions',
+                           '--html=' + tests_path + '/htmlout/es_7.html']
+                sig = pytest.main(default_test_args + v7_args)
+
+        return sig
 
 
 manager.add_command("runserver", Server())

@@ -19,6 +19,7 @@ LOGGER = logging.getLogger(__name__)
 @pytest.fixture(scope="session", autouse=True)
 def wait_for_api(session_scoped_container_getter):
     """Wait for the api from elasticsearch to become responsive"""
+    LOGGER.info("Waiting on API...")
     request_session = requests.Session()
     retries = Retry(total=20,
                     backoff_factor=0.1,
@@ -60,7 +61,7 @@ def create_indices(session_scoped_container_getter):
     Creates indices for testing. Applies mapping and populates with test data.
     :return:
     """
-    LOGGER.info("******** Creating Indices...")
+    print("******** Creating Indices...")
     try:
         cur_path = os.path.dirname(__file__)
         test_data_path = os.path.join(cur_path, 'data')

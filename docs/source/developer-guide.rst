@@ -57,27 +57,25 @@ Once the distribution is built, you can start the server with ``python applicati
 Running Tests
 -------------
 
-1. ``/tests/scripts`` contains ``start_clusters.sh`` which will start up 3 ES clusters on ports 9200, 8200, 7200. These are versions 2.x, 5.x, and 6.x respectively.
-2. Edit ``start_clusters.sh`` to point to your local ES binaries.
-3. Source the virtual environment:
+All tests run using docker containers for specific versions of ES. Running the entire suite will run against all containers, one at a time.
+
+To run all tests across all ES major versions:
 
 .. code-block:: bash
 
-    source ../environments/elastichq/bin/activate
+    ./run-tests.sh
 
-4. To run tests:
+To run tests for a specific major version of ES:
 
 .. code-block:: bash
 
-    elastichq/run_tests
-
+    python manage.py run-tests --esv=<MAJOR_VERSION>
 
 Notes
 ~~~~~
 
-* Coverage report will be appear under ``/tests/cover``.
-* All tests will fail without those 3 clusters running. They are the 3 major versions that HQ currently supports.
-* The scripts under ``/tests/scripts`` allow for starting, stopping, and listing all clusters. You will need to edit those for the tests to run.
+* Coverage report will be appear under ``/tests/htmlcov``.
+* HTML report of pytest output will appear under ``/tests/htmlout11.
 
 Building Documentation
 ----------------------
