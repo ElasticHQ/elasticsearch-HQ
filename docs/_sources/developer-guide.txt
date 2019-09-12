@@ -71,11 +71,37 @@ To run tests for a specific major version of ES:
 
     python manage.py run-tests --esv=<MAJOR_VERSION>
 
-The code repo contains docker compose files for testing against different Elasticsearch versions. As a developer wanting to test against specific versions, do:
+Manual Testing
+--------------
+
+The code repo contains docker compose files for testing against different Elasticsearch versions.
+
+You can run these individually and then use the applicaiton to test against it:
 
 .. code-block:: bash
 
-    docker-compose -f v5_docker-compose.yml up
+    cd /tests/local/v2
+    docker-compose up
+
+Or you can run them all at once and test against them:
+
+.. code-block:: bash
+
+    cd /tests/local
+    ./run_es_versions.sh
+
+To bring the containers down:
+
+.. code-block:: bash
+
+    ./kill_es_versions.sh
+
+In the event of errors to the effect of "container name in use", list the containers and remove them. This will remove all stopped containers:
+
+.. code-block:: bash
+
+    docker container ls
+    docker container prune
 
 Notes
 ~~~~~

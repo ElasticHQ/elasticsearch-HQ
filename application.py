@@ -13,6 +13,7 @@ default_debug = False
 default_enable_ssl = False
 default_ca_certs = None
 default_url = 'http://localhost:9200'
+is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
 
 application = create_app()
 
@@ -22,7 +23,7 @@ application.config['ENABLE_SSL'] = os.environ.get('HQ_ENABLE_SSL', default_enabl
 application.config['CA_CERTS'] = os.environ.get('HQ_CA_CERTS', default_ca_certs)
 application.config['DEBUG'] = os.environ.get('HQ_DEBUG', default_debug)
 
-if os.environ.get('HQ_DEBUG')=='True':
+if os.environ.get('HQ_DEBUG') == 'True':
     config = find_config('logger_debug.json')
     logging.config.dictConfig(config)
 
@@ -49,7 +50,20 @@ if __name__ == '__main__':
 
     options, _ = parser.parse_args()
 
-    if options.debug:
-        config = find_config('logger_debug.json')
-        logging.config.dictConfig(config)
-    socketio.run(application, host=options.host, port=options.port, debug=options.debug)
+    # set default url, override with env for docker
+    application.config['DEFAULT_URL'] = os.environ.get('HQ_DEFAULT_URL', options.url)
+    application.config['ENABLE_SSL'] = os.environ.get('HQ_ENABLE_SSL', options.enable_ssl)
+    application.config['CA_CERTS'] = os.environ.get('HQ_CA_CERTS', options.ca_certs)
+
+    if is_gunicorn:
+        if options.debug:
+            config = find_config('logger_debug.json')
+            logging.config.dictConfig(config)
+
+        # we set reloader False so gunicorn doesn't call two instances of all the Flask init functions.
+        socketio.run(application, host=options.host, port=options.port, debug=options.debug, use_reloader=False)
+    else:
+        if options.debug:
+            config = find_config('logger_debug.json')
+            logging.config.dictConfig(config)
+        socketio.run(application, host=options.host, port=options.port, debug=options.debug)
