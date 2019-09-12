@@ -63,6 +63,8 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+:memory
+
 
 # Translations
 *.mo
