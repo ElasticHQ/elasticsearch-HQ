@@ -44,7 +44,7 @@ Flask-SocketIO==3.1.0
 eventlet==0.25.0
 
 # Production
-#gunicorn==19.7.1
+gunicorn==19.7.1
 
 # Elasticsearch
 six==1.11.0
