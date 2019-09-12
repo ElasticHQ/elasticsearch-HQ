@@ -1,8 +1,8 @@
 # import argparse
+import logging.config
 import optparse
 import os
-import logging
-import logging.config
+
 from elastichq import create_app
 from elastichq.globals import socketio
 from elastichq.utils import find_config
@@ -37,7 +37,6 @@ if __name__ == '__main__':
     parser.add_option("-c", "--ca-certs", default=default_ca_certs,
                       help='Required when --use-ssl is set. ' + \
                            'Path to CA file or directory [default %s]' % default_ca_certs)
-
 
     options, _ = parser.parse_args()
 

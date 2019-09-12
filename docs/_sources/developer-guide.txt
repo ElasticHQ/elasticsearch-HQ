@@ -71,11 +71,17 @@ To run tests for a specific major version of ES:
 
     python manage.py run-tests --esv=<MAJOR_VERSION>
 
+The code repo contains docker compose files for testing against different Elasticsearch versions. As a developer wanting to test against specific versions, do:
+
+.. code-block:: bash
+
+    docker-compose -f v5_docker-compose.yml up
+
 Notes
 ~~~~~
 
 * Coverage report will be appear under ``/tests/htmlcov``.
-* HTML report of pytest output will appear under ``/tests/htmlout11.
+* HTML report of pytest output will appear under ``/tests/htmlout``
 
 Building Documentation
 ----------------------
