@@ -104,6 +104,7 @@ Environment Variables
     ``HQ_DEFAULT_URL``  ``http://localhost:9200``  Default URL displayed on the initial connection screen.
     ``HQ_ENABLE_SSL``   False                      If flag is passed, assumes ssl cert will be used.
     ``HQ_CA_CERTS``     /path/to/your/ca.crt       Path to your CA Certificate. Required if enable-ssl is passed.
+    ``HQ_DEBUG``        False                      If True, enables debug level on logging.
     ==================  =========================  ====================================================================
 
 
