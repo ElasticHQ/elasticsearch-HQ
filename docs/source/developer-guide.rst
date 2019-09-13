@@ -54,6 +54,15 @@ This will create an ``index.html`` that the Flask server will serve, under ``/el
 
 Once the distribution is built, you can start the server with ``python application.py`` and view the application at ``http://localhost:5000``
 
+Pulling a tag from DockerHub
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``develop`` branch is automatically built on dockerhub. If you wish to test using this tag, which is latest unstable:
+
+.. code-block:: bash
+
+    docker run -p 5000:5000 elastichq/elasticsearch-hq:develop
+
 Running Tests
 -------------
 

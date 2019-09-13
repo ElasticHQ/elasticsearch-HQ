@@ -31,6 +31,8 @@ Install ElasticHQ
 
 .. note:: Alternatively, you can start the server with ``python manage.py runserver``
 
+.. _docker images:
+
 Docker Images
 ^^^^^^^^^^^^^
 
@@ -209,7 +211,7 @@ Running in Production
 
 We advise that under any considerable usage/load, this application should be run with a multithreaded server. The current flask implementation by itself should not be run in production without this, as it is a single-threaded process.
 
-We recommend running this WSGI application with gunicorn. The Docker container available on DockerHub is pre-configured to run with gunicorn, and is preferred. See the Docker Images section in this document for details.
+We recommend running this WSGI application with gunicorn. The Docker container available on DockerHub is pre-configured to run with gunicorn, and is preferred. See the :any:`docker images`
 
 If you wish to run without a container, install gunicorn by either commenting out the line in the ``requirements.txt`` file or simply running ``pip install gunicorn``
 

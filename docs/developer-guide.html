@@ -138,20 +138,21 @@
 <li><a class="reference internal" href="#building-pre-releases" id="id4">Building Pre-Releases</a><ul>
 <li><a class="reference internal" href="#install-build-the-ui" id="id5">Install/Build the UI</a></li>
 <li><a class="reference internal" href="#building-a-distribution" id="id6">Building a Distribution</a></li>
+<li><a class="reference internal" href="#pulling-a-tag-from-dockerhub" id="id7">Pulling a tag from DockerHub</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#running-tests" id="id7">Running Tests</a></li>
-<li><a class="reference internal" href="#manual-testing" id="id8">Manual Testing</a><ul>
-<li><a class="reference internal" href="#notes" id="id9">Notes</a></li>
+<li><a class="reference internal" href="#running-tests" id="id8">Running Tests</a></li>
+<li><a class="reference internal" href="#manual-testing" id="id9">Manual Testing</a><ul>
+<li><a class="reference internal" href="#notes" id="id10">Notes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#building-documentation" id="id10">Building Documentation</a></li>
-<li><a class="reference internal" href="#http-responses" id="id11">HTTP Responses</a><ul>
-<li><a class="reference internal" href="#http-status" id="id12">HTTP Status</a></li>
-<li><a class="reference internal" href="#response-headers" id="id13">Response Headers</a></li>
+<li><a class="reference internal" href="#building-documentation" id="id11">Building Documentation</a></li>
+<li><a class="reference internal" href="#http-responses" id="id12">HTTP Responses</a><ul>
+<li><a class="reference internal" href="#http-status" id="id13">HTTP Status</a></li>
+<li><a class="reference internal" href="#response-headers" id="id14">Response Headers</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#issues-bugs" id="id14">Issues/Bugs</a></li>
+<li><a class="reference internal" href="#issues-bugs" id="id15">Issues/Bugs</a></li>
 </ul>
 </div>
 <div class="section" id="contributing">
@@ -192,9 +193,16 @@ pre-release versions have to be built manually - with the UI and API working in 
 <p>This will create an <code class="docutils literal"><span class="pre">index.html</span></code> that the Flask server will serve, under <code class="docutils literal"><span class="pre">/elastichq/templates</span></code> and static file bundles under <code class="docutils literal"><span class="pre">/elastichq/static</span></code>.</p>
 <p>Once the distribution is built, you can start the server with <code class="docutils literal"><span class="pre">python</span> <span class="pre">application.py</span></code> and view the application at <code class="docutils literal"><span class="pre">http://localhost:5000</span></code></p>
 </div>
+<div class="section" id="pulling-a-tag-from-dockerhub">
+<h3><a class="toc-backref" href="#id7">Pulling a tag from DockerHub</a><a class="headerlink" href="#pulling-a-tag-from-dockerhub" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">develop</span></code> branch is automatically built on dockerhub. If you wish to test using this tag, which is latest unstable:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker run -p <span class="m">5000</span>:5000 elastichq/elasticsearch-hq:develop
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="running-tests">
-<h2><a class="toc-backref" href="#id7">Running Tests</a><a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Running Tests</a><a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
 <p>All tests run using docker containers for specific versions of ES. Running the entire suite will run against all containers, one at a time.</p>
 <p>To run all tests across all ES major versions:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>./run-tests.sh
@@ -206,7 +214,7 @@ pre-release versions have to be built manually - with the UI and API working in 
 </div>
 </div>
 <div class="section" id="manual-testing">
-<h2><a class="toc-backref" href="#id8">Manual Testing</a><a class="headerlink" href="#manual-testing" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Manual Testing</a><a class="headerlink" href="#manual-testing" title="Permalink to this headline">¶</a></h2>
 <p>The code repo contains docker compose files for testing against different Elasticsearch versions.</p>
 <p>You can run these individually and then use the applicaiton to test against it:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> /tests/local/v2
@@ -228,7 +236,7 @@ docker container prune
 </pre></div>
 </div>
 <div class="section" id="notes">
-<h3><a class="toc-backref" href="#id9">Notes</a><a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">Notes</a><a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Coverage report will be appear under <code class="docutils literal"><span class="pre">/tests/htmlcov</span></code>.</li>
 <li>HTML report of pytest output will appear under <code class="docutils literal"><span class="pre">/tests/htmlout</span></code></li>
@@ -236,16 +244,16 @@ docker container prune
 </div>
 </div>
 <div class="section" id="building-documentation">
-<h2><a class="toc-backref" href="#id10">Building Documentation</a><a class="headerlink" href="#building-documentation" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">Building Documentation</a><a class="headerlink" href="#building-documentation" title="Permalink to this headline">¶</a></h2>
 <p>Sphinx requires specific libraries that are not in the default <code class="docutils literal"><span class="pre">requirements.txt</span></code>.</p>
 <p>First install the sphinx requirements: <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">sphinx-requirements.txt</span></code></p>
 <p>To generate the documentation:</p>
 <p><code class="docutils literal"><span class="pre">./sphinx-build</span> <span class="pre">-b</span> <span class="pre">html</span> <span class="pre">/path/to/docs/source</span> <span class="pre">/path/to/docs</span></code></p>
 </div>
 <div class="section" id="http-responses">
-<h2><a class="toc-backref" href="#id11">HTTP Responses</a><a class="headerlink" href="#http-responses" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">HTTP Responses</a><a class="headerlink" href="#http-responses" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="http-status">
-<h3><a class="toc-backref" href="#id12">HTTP Status</a><a class="headerlink" href="#http-status" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">HTTP Status</a><a class="headerlink" href="#http-status" title="Permalink to this headline">¶</a></h3>
 <p>All response codes are included in the HTTP Status response header. There are method-specific responses to take note of:</p>
 <ul class="simple">
 <li>POST - Returns <code class="docutils literal"><span class="pre">201</span></code></li>
@@ -254,7 +262,7 @@ docker container prune
 </ul>
 </div>
 <div class="section" id="response-headers">
-<h3><a class="toc-backref" href="#id13">Response Headers</a><a class="headerlink" href="#response-headers" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Response Headers</a><a class="headerlink" href="#response-headers" title="Permalink to this headline">¶</a></h3>
 <p>Standard header response below:</p>
 <div class="highlight-http"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Access-Control-Allow-Credentials</span><span class="o">:</span> <span class="l">true</span>
@@ -277,7 +285,7 @@ docker container prune
 </div>
 </div>
 <div class="section" id="issues-bugs">
-<h2><a class="toc-backref" href="#id14">Issues/Bugs</a><a class="headerlink" href="#issues-bugs" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">Issues/Bugs</a><a class="headerlink" href="#issues-bugs" title="Permalink to this headline">¶</a></h2>
 <p>Patches, bug reports, and feature requests are all welcome through the <a class="reference external" href="https://github.com/ElasticHQ/elasticsearch-HQ/">GitHub site</a>. Contributions in the form of patches or pull requests are easier to integrate and will receive priority attention.</p>
 </div>
 </div>
