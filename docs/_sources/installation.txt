@@ -42,6 +42,11 @@ When starting with Docker, see :any:`environment variables` for passing startup 
 
 ie. ``-e HQ_DEFAULT_URL='http://aa.com:1212'``
 
+To run/install container:
+
+``docker run -p 5000:5000 elastichq/elasticsearch-hq``
+
+Access HQ with: http://localhost:5000
 
 Pre-Releases
 ^^^^^^^^^^^^
@@ -202,9 +207,11 @@ Upgrading Minor and Patch versions
 Running in Production
 ---------------------
 
-We advise that under any considerable usage/load, this application should be run with a multithreaded server. The current flask implemenation by itself should not be run in production without this, as it is a single-threaded process.
+We advise that under any considerable usage/load, this application should be run with a multithreaded server. The current flask implementation by itself should not be run in production without this, as it is a single-threaded process.
 
-We recommend running this WSGI application with gunicorn. Install gunicorn by either commenting out the line in the ``requirements.txt`` file or simply running ``pip install gunicorn``
+We recommend running this WSGI application with gunicorn. The Docker container available on DockerHub is pre-configured to run with gunicorn, and is preferred. See the Docker Images section in this document for details.
+
+If you wish to run without a container, install gunicorn by either commenting out the line in the ``requirements.txt`` file or simply running ``pip install gunicorn``
 
 In console, run gunicorn with:
 
@@ -215,8 +222,6 @@ The application will be accessible under http://127.0.0.1:5000
 Read the `Gunicorn Docs <http://docs.gunicorn.org/en/stable/configure.html>`_ for further command line options.
 
 .. note:: For the *Metrics* section to broadcast via websocket, you must have gunicorn set to 1 worker.
-
-.. note:: The Docker container available on DockerHub is pre-configured to run with gunicorn.
 
 Troubleshooting
 ---------------
