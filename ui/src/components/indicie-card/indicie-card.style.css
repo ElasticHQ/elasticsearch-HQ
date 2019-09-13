@@ -1,0 +1,38 @@
+.indicie-card {
+  border: 1px solid #d3cdcd;
+  margin-bottom: 1em;
+  color: rgba(0, 0, 0, 0.6); }
+  .indicie-card .flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px; }
+    .indicie-card .flex-container .index-name {
+      text-align: center;
+      font-size: 1.4em;
+      font-weight: 300;
+      padding: 4px 8px;
+      color: #202020;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+    .indicie-card .flex-container .base-info {
+      flex-direction: row;
+      font-size: 1.2em;
+      display: flex;
+      padding: 4px 8px; }
+      .indicie-card .flex-container .base-info > div {
+        flex: 1; }
+        .indicie-card .flex-container .base-info > div .base-info-data {
+          font-size: 1.4em;
+          color: #202020; }
+    .indicie-card .flex-container .bottom-section {
+      flex-direction: row;
+      display: flex;
+      justify-content: space-evenly; }
+      .indicie-card .flex-container .bottom-section .bottom-item {
+        flex: 1;
+        padding: 4px 8px;
+        text-align: center; }
+        .indicie-card .flex-container .bottom-section .bottom-item:hover {
+          cursor: pointer; }
+
+/*# sourceMappingURL=indicie-card.style.css.map */

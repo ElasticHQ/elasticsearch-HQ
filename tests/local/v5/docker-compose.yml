@@ -1,0 +1,37 @@
+version: '2'
+services:
+  elasticsearch:
+    image: elasticsearch:5.6.16
+    container_name: elasticsearch5
+    environment:
+      - cluster.name=elasticsearch5
+      - node.name=node_1
+      - network.host=0.0.0.0
+      - network.publish_host=0.0.0.0
+      - http.cors.allow-headers=Authorization
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.host=0.0.0.0
+      - transport.host=0.0.0.0
+      - bootstrap.system_call_filter=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - esdata5:/usr/share/elasticsearch5/data
+      #- ./elasticsearch_2_4_6.yml:/usr/share/elasticsearch/config/elasticsearch_2_4_6.yml
+    ports:
+      - 8200:9200
+      - 8300:9300
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - esnet5
+
+volumes:
+  esdata5:
+    driver: local
+networks:
+  esnet5:
+    driver: bridge

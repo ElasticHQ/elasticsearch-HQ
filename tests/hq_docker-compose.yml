@@ -1,0 +1,119 @@
+version: '2'
+services:
+  elasticsearch:
+    image: elasticsearch:2.4.6
+    container_name: elasticsearch_2_4_6
+    environment:
+      - cluster.name=elasticsearch
+      - node.name=node_1
+      - network.host=0.0.0.0
+      - network.publish_host=0.0.0.0
+      - http.cors.allow-headers=Authorization
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.host=0.0.0.0
+      - transport.host=0.0.0.0
+      - bootstrap.system_call_filter=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+      #- ./elasticsearch_2_4_6.yml:/usr/share/elasticsearch/config/elasticsearch_2_4_6.yml
+    ports:
+      - 9200:9200
+      - 9300:9300
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - esnet
+#  elasticsearch_5_6_16:
+#    image: elasticsearch:5.6.16
+#    container_name: elasticsearch_5_6_16
+#    environment:
+#      - cluster.name=es_5_6_16
+#      - node.name=5_6_16_node_1
+#      - network.host=0.0.0.0
+#      - network.publish_host=0.0.0.0
+#      - http.cors.allow-headers=Authorization
+#      - bootstrap.memory_lock=true
+#      - http.cors.enabled=true
+#      - http.cors.allow-origin=*
+#      - http.host=0.0.0.0
+#      - http.port=9200
+#      - transport.host=127.0.0.1
+#      - bootstrap.system_call_filter=false
+#      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+#    volumes:
+#      - esdata2:/usr/share/elasticsearch/data
+#      #- ./elasticsearch_5_6_16.yml:/usr/share/elasticsearch/config/elasticsearch_5_6_16.yml
+#    ports:
+#      - 8200:9200
+#      - 8300:9300
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    networks:
+#      - esnet
+#  elasticsearch_6_8_2:
+#    image: elasticsearch:6.8.2
+#    container_name: elasticsearch_6_8_2
+#    environment:
+##      - cluster.name=es_6_8_2
+##      - node.name=6_8_2_node_1
+##      - network.host=0.0.0.0
+##      - network.publish_host=0.0.0.0
+##      - http.cors.allow-headers=Authorization
+##      - bootstrap.memory_lock=true
+##      - http.cors.enabled=true
+##      - http.cors.allow-origin=*
+##      - http.host=0.0.0.0
+#      - http.port=9200
+##      - transport.host=0.0.0.0
+##      - bootstrap.system_call_filter=false
+#      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+#    volumes:
+#    - esdata3:/usr/share/elasticsearch/data
+#      #- ./elasticsearch_6_8_2.yml:/usr/share/elasticsearch/config/elasticsearch_6_8_2.yml
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    ports:
+#      - 7200:9200
+#      - 7300:9300
+#    networks:
+#      - esnet
+#  elasticsearch_7_3_0:
+#    image: elasticsearch:7.3.0
+#    container_name: elasticsearch_7_3_0
+#    environment:
+#      - cluster.name=es_7_3_0
+#      - node.name=7_3_0_node_1
+#      - network.host=0.0.0.0
+#      - network.publish_host=0.0.0.0
+#      - http.cors.allow-headers=Authorization
+#      - bootstrap.memory_lock=true
+#      - http.cors.enabled=true
+#      - http.cors.allow-origin=*
+#      - http.port=6200
+#      - transport.host=0.0.0.0
+#      - bootstrap.system_call_filter=false
+#      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+#    volumes:
+#      - esdata4:/usr/share/elasticsearch/data
+#      #- ./elasticsearch_7_3_0.yml:/usr/share/elasticsearch/config/elasticsearch_7_3_0.yml
+#    ports:
+#      - 6200:9200
+#      - 6300:9300
+#    networks:
+#      - esnet
+
+volumes:
+  esdata1:
+    driver: local
+networks:
+  esnet:
+    driver: bridge

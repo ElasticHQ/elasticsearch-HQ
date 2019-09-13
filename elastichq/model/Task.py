@@ -112,8 +112,17 @@ class Task:
                                 "http_total_opened": jmespath.search("http.total_opened", node_dict),
 
                                 # OS
-                                "os_load_average": jmespath.search("os.load_average", node_dict),
-                                "os_cpu_percent": jmespath.search("os.cpu_percent", node_dict),
+                                ## BEGIN: Fixes for #456
+                                "os_load_average": jmespath.search("os.load_average", node_dict) if jmespath.search(
+                                    "os.load_average", node_dict) is not None else jmespath.search(
+                                    "os.cpu.load_average", node_dict),
+                                "os_cpu_percent": jmespath.search("os.cpu_percent", node_dict) if jmespath.search(
+                                    "os.cpu_percent", node_dict) is not None else jmespath.search("os.cpu.percent",
+                                                                                                  node_dict),
+                                ## END: Fixes for #456
+
+                                # "os_load_average": jmespath.search("os.load_average", node_dict),
+                                # "os_cpu_percent": jmespath.search("os.cpu_percent", node_dict),
                                 "os_mem_free_in_bytes": jmespath.search("os.mem.free_in_bytes", node_dict),
                                 "os_mem_used_in_bytes": jmespath.search("os.mem.used_in_bytes", node_dict),
                                 "os_swap_free_in_bytes": jmespath.search("os.swap.free_in_bytes", node_dict),

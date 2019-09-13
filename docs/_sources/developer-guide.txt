@@ -54,30 +54,69 @@ This will create an ``index.html`` that the Flask server will serve, under ``/el
 
 Once the distribution is built, you can start the server with ``python application.py`` and view the application at ``http://localhost:5000``
 
+Pulling a tag from DockerHub
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``develop`` branch is automatically built on dockerhub. If you wish to test using this tag, which is latest unstable:
+
+.. code-block:: bash
+
+    docker run -p 5000:5000 elastichq/elasticsearch-hq:develop
+
 Running Tests
 -------------
 
-1. ``/tests/scripts`` contains ``start_clusters.sh`` which will start up 3 ES clusters on ports 9200, 8200, 7200. These are versions 2.x, 5.x, and 6.x respectively.
-2. Edit ``start_clusters.sh`` to point to your local ES binaries.
-3. Source the virtual environment:
+All tests run using docker containers for specific versions of ES. Running the entire suite will run against all containers, one at a time.
+
+To run all tests across all ES major versions:
 
 .. code-block:: bash
 
-    source ../environments/elastichq/bin/activate
+    ./run-tests.sh
 
-4. To run tests:
+To run tests for a specific major version of ES:
 
 .. code-block:: bash
 
-    elastichq/run_tests
+    python manage.py run-tests --esv=<MAJOR_VERSION>
 
+Manual Testing
+--------------
+
+The code repo contains docker compose files for testing against different Elasticsearch versions.
+
+You can run these individually and then use the applicaiton to test against it:
+
+.. code-block:: bash
+
+    cd /tests/local/v2
+    docker-compose up
+
+Or you can run them all at once and test against them:
+
+.. code-block:: bash
+
+    cd /tests/local
+    ./run_es_versions.sh
+
+To bring the containers down:
+
+.. code-block:: bash
+
+    ./kill_es_versions.sh
+
+In the event of errors to the effect of "container name in use", list the containers and remove them. This will remove all stopped containers:
+
+.. code-block:: bash
+
+    docker container ls
+    docker container prune
 
 Notes
 ~~~~~
 
-* Coverage report will be appear under ``/tests/cover``.
-* All tests will fail without those 3 clusters running. They are the 3 major versions that HQ currently supports.
-* The scripts under ``/tests/scripts`` allow for starting, stopping, and listing all clusters. You will need to edit those for the tests to run.
+* Coverage report will be appear under ``/tests/htmlcov``.
+* HTML report of pytest output will appear under ``/tests/htmlout``
 
 Building Documentation
 ----------------------

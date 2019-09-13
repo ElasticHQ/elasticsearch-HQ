@@ -35,7 +35,7 @@ class TestSettings(BaseSettings):
     BASEPATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
     # user configurable
-    _sqlalchemy_database_uri = 'sqlite:///' + os.path.join(BASEPATH, 'test_elastichq.db')
+    _sqlalchemy_database_uri = 'sqlite:///:memory' #'sqlite:///' + os.path.join(BASEPATH, 'test_elastichq.db')
     _scheduler_api_enabled = False
     _sqlalchemy_track_modifications = False
 
@@ -62,28 +62,9 @@ class TestSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = 'v3.5.0'
-    ES_V2_HOST = '127.0.0.1'
-    ES_V2_PORT = '9200'
-    ES_V5_HOST = '127.0.0.1'
-    ES_V5_PORT = '8200'
-    ES_V6_HOST = '127.0.0.1'
-    ES_V6_PORT = '7200'
-    ES_V6_USERNAME = 'elastic'
-    ES_V6_PASSWORD = 'new_password'
+    API_VERSION = 'v3.5.1'
 
     ES_TEST_INDEX_NAME = 'cars'
-
-    # Cluster URL is used in the text fixture, for easy connections using lib requests.
-    ES_V2_CLUSTER_URL = 'http://%s:%s' % (ES_V2_HOST, ES_V2_PORT)
-    ES_V5_CLUSTER_URL = 'http://%s:%s' % (ES_V5_HOST, ES_V5_PORT)
-    ES_V6_CLUSTER_URL = 'http://%s:%s@%s:%s' % (ES_V6_USERNAME, ES_V6_PASSWORD, ES_V6_HOST, ES_V6_PORT)
-
-    # Cluster connect strings are passed to /_connect endpoint to initiate pools
-    ES_V2_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s"}' % (ES_V2_HOST, ES_V2_PORT)
-    ES_V5_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s"}' % (ES_V5_HOST, ES_V5_PORT)
-    ES_V6_CLUSTER_CONNECT = '{"ip": "%s", "port": "%s", "username" : "%s", "password" : "%s"}' % (
-        ES_V6_HOST, ES_V6_PORT, ES_V6_USERNAME, ES_V6_PASSWORD)
 
     # Key matching: For tests, we enforce that all responses, regardless of ES version contain the same keys.
     KEYS_CLUSTER_HEALTH = ['active_primary_shards', 'number_of_in_flight_fetch', 'number_of_data_nodes',
@@ -124,7 +105,7 @@ class ProdSettings(BaseSettings):
     # static
     HQ_SITE_URL = 'http://elastichq.org'
     HQ_GH_URL = 'https://github.com/ElasticHQ/elasticsearch-HQ'
-    API_VERSION = '3.5.0'
+    API_VERSION = '3.5.1'
     SERVER_NAME = None
 
     # cluster settings: specific settings for each cluster and how HQ should handle it.

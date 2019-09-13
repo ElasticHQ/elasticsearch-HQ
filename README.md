@@ -15,7 +15,7 @@ Simplified Monitoring and Management for ElasticSearch clusters.
   
 ## Key Features
 
-* Works with 2.x, 5.x, 6.x and current versions of Elasticsearch. 
+* Works with 2.x, 5.x, 6.x, 7.x and current versions of Elasticsearch. 
 * Monitor **many** clusters at once.
 * Monitor Nodes, Indices, Shards, and general cluster metrics.
 * Create and maintain Elasticsearch Indices.
@@ -31,7 +31,7 @@ Simplified Monitoring and Management for ElasticSearch clusters.
 
 ### Requirements
 
-* Python 3.4+
+* Python 3.6
 
 ### Instructions
 
@@ -52,6 +52,10 @@ We are hosted on Dockerhub: [ElasticHQ on Dockerhub](https://hub.docker.com/r/el
 2. Access HQ with: `` http://localhost:5000 ``
 
 For further instructions, please see relevant documentation: [Docker Images](http://docs.elastichq.org/installation.html#docker-images).
+
+## OpenShift Installation
+
+Please see relevant documentation: [ElasticHQ on OpenShift](openshift/README.md).
 
 ## Useful Links
 

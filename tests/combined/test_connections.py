@@ -1,96 +1,77 @@
 __author__ = 'royrusso'
 
+import pytest
 
-class TestConnections:
-    def test_get_clusters(self, fixture):
-        fixture.clear_all_clusters()
+pytest_plugins = ["docker_compose"]
 
-        response = fixture.app.get('/api/clusters')
 
-        assert 200 == response.status_code
-        res = fixture.get_response_data(response)
-        assert res['data'] == []
+@pytest.mark.hq_ops
+def test_get_clusters(fixture):
+    fixture.clear_all_clusters()
 
-    def test_connect_to_clusters(self, fixture):
-        fixture.clear_all_clusters()
+    response = fixture.app.get('/api/clusters')
 
-        response = fixture.app.post('/api/clusters/_connect', data=fixture.config.ES_V2_CLUSTER_CONNECT, content_type='application/json')
-        assert 201 == response.status_code
-        res = fixture.get_response_data(response)
-        assert res['data'][0]['cluster_version'].startswith("2")
+    assert 200 == response.status_code
+    res = fixture.get_response_data(response)
+    assert res['data'] == []
 
-        response = fixture.app.get('/api/clusters')
 
-        assert 200 == response.status_code
-        res = fixture.get_response_data(response)
-        assert len(res['data']) == 1
+@pytest.mark.hq_ops
+def test_connect_to_clusters(session_scoped_container_getter, fixture):
+    fixture.clear_all_clusters()
 
-        response = fixture.app.post('/api/clusters/_connect', data=fixture.config.ES_V5_CLUSTER_CONNECT, content_type='application/json')
-        assert 201 == response.status_code
-        res = fixture.get_response_data(response)
-        assert res['data'][0]['cluster_version'].startswith("5")
+    container = session_scoped_container_getter.get('elasticsearch').network_info[0]
+    es_cluster_connect = '{"ip": "%s", "port": "%s"}' % (container.hostname, container.host_port)
+    response = fixture.app.post('/api/clusters/_connect', data=es_cluster_connect,
+                                content_type='application/json')
+    assert 201 == response.status_code
+    res = fixture.get_response_data(response)
+    assert res['data'][0]['cluster_version'].startswith("2")
 
-        response = fixture.app.get('/api/clusters')
+    response = fixture.app.get('/api/clusters')
 
-        assert 200 == response.status_code
-        res = fixture.get_response_data(response)
-        assert len(res['data']) == 2
+    assert 200 == response.status_code
+    res = fixture.get_response_data(response)
+    assert len(res['data']) == 1
 
-        response = fixture.app.post('/api/clusters/_connect', data=fixture.config.ES_V6_CLUSTER_CONNECT, content_type='application/json')
-        assert 201 == response.status_code
-        res = fixture.get_response_data(response)
-        assert res['data'][0]['cluster_version'].startswith("6")
 
-        response = fixture.app.get('/api/clusters')
+@pytest.mark.hq_ops
+def test_delete_connection(session_scoped_container_getter, fixture):
+    fixture.add_all_clusters(session_scoped_container_getter, clear_first=True)
 
-        assert 200 == response.status_code
-        res = fixture.get_response_data(response)
-        assert len(res['data']) == 3
+    response = fixture.app.get('/api/clusters')
 
-    def test_delete_connection(self, fixture):
-        fixture.add_all_clusters(clear_first=True)
+    assert 200 == response.status_code
+    res = fixture.get_response_data(response)
+    assert len(res['data']) == 1
 
-        response = fixture.app.get('/api/clusters')
+    # lets deletes a specific version
+    for c in res['data']:
+        if c['cluster_version'].startswith("2"):
+            response = fixture.app.delete('/api/clusters/' + c['cluster_name'] + '/_connect')
+            assert 200 == response.status_code
+            break
 
-        assert 200 == response.status_code
-        res = fixture.get_response_data(response)
-        assert len(res['data']) == 3
+    response = fixture.app.get('/api/clusters')
 
-        # lets deletes a specific version
-        for c in res['data']:
-            if c['cluster_version'].startswith("6"):
-                response = fixture.app.delete('/api/clusters/' + c['cluster_name'] + '/_connect')
-                assert 200 == response.status_code
-                break
+    assert 200 == response.status_code
+    res = fixture.get_response_data(response)
+    assert len(res['data']) == 0
 
-        response = fixture.app.get('/api/clusters')
 
-        assert 200 == response.status_code
-        res = fixture.get_response_data(response)
-        assert len(res['data']) == 2
+@pytest.mark.hq_ops
+def test_delete_all_connections(session_scoped_container_getter, fixture):
+    fixture.clear_all_clusters()
 
-        # now add it back
-        response = fixture.app.post('/api/clusters/_connect', data=fixture.config.ES_V6_CLUSTER_CONNECT, content_type='application/json')
-        assert 201 == response.status_code
-        res = fixture.get_response_data(response)
-        assert res['data'][0]['cluster_version'].startswith("6")
+    container = session_scoped_container_getter.get('elasticsearch').network_info[0]
+    es_cluster_connect = '{"ip": "%s", "port": "%s"}' % (container.hostname, container.host_port)
+    fixture.app.post('/api/clusters/_connect', data=es_cluster_connect,
+                     content_type='application/json')
 
-        response = fixture.app.get('/api/clusters')
+    response = fixture.app.delete('/api/clusters/_all/_connect')
+    assert 200 == response.status_code
+    response = fixture.app.get('/api/clusters')
 
-        assert 200 == response.status_code
-        res = fixture.get_response_data(response)
-        assert len(res['data']) == 3
-
-    def test_delete_all_connections(self, fixture):
-        fixture.clear_all_clusters()
-
-        fixture.app.post('/api/clusters/_connect', data=fixture.config.ES_V2_CLUSTER_CONNECT, content_type='application/json')
-        fixture.app.post('/api/clusters/_connect', data=fixture.config.ES_V5_CLUSTER_CONNECT, content_type='application/json')
-        fixture.app.post('/api/clusters/_connect', data=fixture.config.ES_V6_CLUSTER_CONNECT, content_type='application/json')
-        response = fixture.app.delete('/api/clusters/_all/_connect')
-        assert 200 == response.status_code
-        response = fixture.app.get('/api/clusters')
-
-        assert 200 == response.status_code
-        res = fixture.get_response_data(response)
-        assert len(res['data']) == 0
+    assert 200 == response.status_code
+    res = fixture.get_response_data(response)
+    assert len(res['data']) == 0

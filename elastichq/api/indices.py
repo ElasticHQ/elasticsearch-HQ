@@ -106,7 +106,8 @@ class Index(Resource):
         params = request.values.to_dict()
         params.update(json_data)
 
-        response = IndicesService().create_index(cluster_name, index_name, settings=params.get('settings'))
+        response = IndicesService().create_index(cluster_name, index_name,
+                                                 settings={'settings': params.get('settings')})
         return APIResponse(response, HTTP_Status.OK, None)
 
 

@@ -1,8 +1,8 @@
 # import argparse
+import logging.config
 import optparse
 import os
-import logging
-import logging.config
+
 from elastichq import create_app
 from elastichq.globals import socketio
 from elastichq.utils import find_config
@@ -16,6 +16,16 @@ default_url = 'http://localhost:9200'
 is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
 
 application = create_app()
+
+# set default url, override with env for docker
+application.config['DEFAULT_URL'] = os.environ.get('HQ_DEFAULT_URL', default_url)
+application.config['ENABLE_SSL'] = os.environ.get('HQ_ENABLE_SSL', default_enable_ssl)
+application.config['CA_CERTS'] = os.environ.get('HQ_CA_CERTS', default_ca_certs)
+application.config['DEBUG'] = os.environ.get('HQ_DEBUG', default_debug)
+
+if os.environ.get('HQ_DEBUG') == 'True':
+    config = find_config('logger_debug.json')
+    logging.config.dictConfig(config)
 
 if __name__ == '__main__':
     # Set up the command-line options
@@ -37,7 +47,6 @@ if __name__ == '__main__':
     parser.add_option("-c", "--ca-certs", default=default_ca_certs,
                       help='Required when --use-ssl is set. ' + \
                            'Path to CA file or directory [default %s]' % default_ca_certs)
-
 
     options, _ = parser.parse_args()
 

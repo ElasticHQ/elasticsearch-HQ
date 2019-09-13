@@ -1,0 +1,37 @@
+version: '2'
+services:
+  elasticsearch:
+    image: elasticsearch:6.8.2
+    container_name: elasticsearch
+    environment:
+      - cluster.name=elasticsearch
+      - node.name=node_1
+      - network.host=0.0.0.0
+      - network.publish_host=0.0.0.0
+      - http.cors.allow-headers=Authorization
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.host=0.0.0.0
+      - transport.host=0.0.0.0
+      - bootstrap.system_call_filter=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+      #- ./elasticsearch_2_4_6.yml:/usr/share/elasticsearch/config/elasticsearch_2_4_6.yml
+    ports:
+      - 9200:9200
+      - 9300:9300
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - esnet
+
+volumes:
+  esdata1:
+    driver: local
+networks:
+  esnet:
+    driver: bridge

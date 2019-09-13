@@ -54,6 +54,7 @@ pip-delete-this-directory.txt
 
 # Unit test / coverage reports
 htmlcov/
+htmlout/
 .tox/
 .coverage
 .coverage.*
@@ -62,6 +63,8 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+:memory
+
 
 # Translations
 *.mo
@@ -98,7 +101,7 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env
+#.env
 .venv
 env/
 venv/

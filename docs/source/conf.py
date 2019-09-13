@@ -23,8 +23,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinxcontrib.httpdomain',
     'sphinxcontrib.autohttp.flask',
-    'sphinxcontrib.autohttp.flaskqref',
-    'sphinxcontrib.fulltoc'
+    'sphinxcontrib.autohttp.flaskqref'
+    #'sphinxcontrib.fulltoc'
 ]
 
 # http://sphinxcontrib-httpdomain.readthedocs.io/en/stable/#module-sphinxcontrib.httpdomain

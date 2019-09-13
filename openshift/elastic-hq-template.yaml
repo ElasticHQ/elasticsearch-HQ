@@ -1,0 +1,217 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: elastic-hq-openshift-template
+parameters:
+  - name: NAME
+    displayName: The application name
+    value: elastic-hq
+    required: true
+  - name: LOGGING_NAMESPACE
+    displayName: Logging namespace
+    description: The name of where the logging ElasticSearch is deployed.
+    value: openshift-logging
+    required: true
+  - name: ES_SECRET_NAME
+    displayName: ElasticSearch Logging secret name
+    value: logging-elasticsearch
+    required: true
+  - name: PROXY_GIT_REPO
+    displayName: Git repo for NGINX Proxy application
+    value: https://github.com/ElasticHQ/elasticsearch-HQ
+    required: true
+  - name: PROXY_GIT_REF
+    displayName: Git reference branch
+    value: master
+    required: true
+  - name: PROXY_GIT_CONTEXT
+    displayName: Context dir where the application are.
+    value: openshift/proxy
+    required: true
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+    namespace: ${LOGGING_NAMESPACE}
+  spec:
+    ports:
+    - name: 5000-tcp
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+    selector:
+      app: ${NAME}
+      deploymentconfig: ${NAME}
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+    namespace: ${LOGGING_NAMESPACE}
+  spec:
+    replicas: 1
+    selector:
+      app: ${NAME}
+      deploymentconfig: ${NAME}
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          app: ${NAME}
+          deploymentconfig: ${NAME}
+      spec:
+        containers:
+        - image: elastichq/elasticsearch-hq
+          imagePullPolicy: Always
+          name: ${NAME}
+          ports:
+          - containerPort: 5000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        - image: ${NAME}-proxy:latest 
+          imagePullPolicy: Always
+          name: ${NAME}-proxy
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 8443
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/app-root/src/elasticsearch/secret
+            name: elasticsearch-credentials
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+          - name: elasticsearch-credentials
+            secret:
+              defaultMode: 420
+              secretName: ${ES_SECRET_NAME}
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${NAME}
+        from:
+          kind: ImageStreamTag
+          name: ${NAME}:latest
+          namespace: ${LOGGING_NAMESPACE}        
+      type: ImageChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${NAME}-proxy
+        from:
+          kind: ImageStreamTag
+          name: ${NAME}-proxy:latest
+          namespace: ${LOGGING_NAMESPACE}        
+      type: ImageChange
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+    namespace: ${LOGGING_NAMESPACE}
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: elastichq/elasticsearch-hq
+      from:
+        kind: DockerImage
+        name: elastichq/elasticsearch-hq
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}-proxy
+    namespace: ${LOGGING_NAMESPACE}
+  spec:
+    lookupPolicy:
+      local: false
+  tags: latest
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}-proxy
+    namespace: ${LOGGING_NAMESPACE}
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${NAME}-proxy:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      type: Git
+      git:
+        uri: "${PROXY_GIT_REPO}"
+        ref: "${PROXY_GIT_REF}"
+      contextDir: "${PROXY_GIT_CONTEXT}"
+    strategy:
+      type: Source
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: nginx-114-rhel7:latest
+    successfulBuildsHistoryLimit: 5
+    triggers:
+    - type: ConfigChange
+    - imageChange:
+      type: ImageChange
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+    namespace: ${LOGGING_NAMESPACE}
+  spec:
+    port:
+      targetPort: 5000-tcp
+    tls:
+      termination: edge
+    to:
+      kind: Service
+      name: ${NAME}
+      weight: 100
+    wildcardPolicy: None
