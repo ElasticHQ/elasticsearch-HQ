@@ -114,6 +114,122 @@
   <div class="section" id="elastichq-documentation">
 <h1>ElasticHQ Documentation<a class="headerlink" href="#elastichq-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#quick-start-guide">Quick-Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#install-elastichq">Install ElasticHQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#docker-images">Docker Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#pre-releases">Pre-Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#openshift">OpenShift</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#initial-login">Initial Login</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#command-line-parameters">Command line Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#connecting-with-ssl">Connecting with SSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#database">Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#external-configuration">External Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#upgrading">Upgrading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#latest-version">Latest Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#upgrading-minor-and-patch-versions">Upgrading Minor and Patch versions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#running-in-production">Running in Production</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#diagnosing-connection-errors">Diagnosing connection errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#x-pack-integration">X-Pack Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#viewing-logs">Viewing Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#ssl-cert-not-working">SSL Cert not working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#preserving-database-across-docker-container-restarts">Preserving Database across Docker container restarts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-api.html">REST API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rest-api.html#connection-apis">Connection APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#connections">Connections</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rest-api.html#cluster-apis">Cluster APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#cluster-list">Cluster List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#cluster-health">Cluster Health</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#cluster-summary">Cluster Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#cluster-state">Cluster State</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rest-api.html#node-apis">Node APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#nodes-summary">Nodes Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#node-info">Node Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#nodes-stats">Nodes Stats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rest-api.html#index-apis">Index APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#indices">Indices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#indices-summary">Indices Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#index-stats">Index Stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#index-command">Index Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#index-shards">Index Shards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#index-alias">Index Alias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#index-mapping">Index Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#reindex">Reindex</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rest-api.html#diagnostics">Diagnostics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#cluster-diagnostics">Cluster Diagnostics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rest-api.html#snapshots-repositories">Snapshots &amp; Repositories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#repositories">Repositories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#snapshots">Snapshots</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rest-api.html#hq-apis">HQ APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#hq-status">HQ Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#hq-routes">HQ Routes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rest-api.html#es-rest">ES REST</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer-guide.html">For Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developer-guide.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guide.html#developer-environment">Developer Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer-guide.html#set-debug-to-true">Set Debug to True</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guide.html#building-pre-releases">Building Pre-Releases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer-guide.html#install-build-the-ui">Install/Build the UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer-guide.html#building-a-distribution">Building a Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer-guide.html#pulling-a-tag-from-dockerhub">Pulling a tag from DockerHub</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guide.html#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guide.html#manual-testing">Manual Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer-guide.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guide.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guide.html#http-responses">HTTP Responses</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer-guide.html#http-status">HTTP Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer-guide.html#response-headers">Response Headers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guide.html#issues-bugs">Issues/Bugs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i">How do I...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#using-elastichq-with">Using ElasticHQ with...</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
