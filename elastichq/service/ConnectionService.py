@@ -35,14 +35,18 @@ class ConnectionService:
         except Exception as e:
             return False
 
-    def create_connection(self, ip, port, scheme='http', username=None, password=None,
-                          fail_on_exception=False, enable_ssl=False, ca_certs=None):
+    def create_connection(self, ip, port, scheme='http', username=None, password=None, fail_on_exception=False,
+                          enable_ssl=False, ca_certs=None, verify_certs=True):
         """
         Creates a connection with a cluster and place the connection inside of a connection pool, using the cluster_name as an alias.
-        :param ip: 
+        :param verify_certs:
+        :param ip:
         :param port: 
         :param scheme:
         :param fail_on_exception: If we should raise an exception on a failed connection
+        :param ca_certs: Frome the requests docs: "verify: (optional) Either a boolean, in which case it controls whether we verify
+            the server's TLS certificate, or a string, in which case it must be a path
+            to a CA bundle to use. Defaults to ``True``."
         :return:
         """
         try:
@@ -80,7 +84,7 @@ class ConnectionService:
             if is_basic_auth is True:
                 if enable_ssl:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                         use_ssl=True, verify_certs=True, ca_certs=ca_certs,
+                                         use_ssl=True, verify_certs=verify_certs, ca_certs=ca_certs,
                                          version=content.get('version').get('number'), http_auth=(username, password))
                 else:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
@@ -89,7 +93,7 @@ class ConnectionService:
             else:
                 if enable_ssl:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                         use_ssl=True, verify_certs=True, ca_certs=ca_certs,
+                                         use_ssl=True, verify_certs=verify_certs, ca_certs=ca_certs,
                                          version=content.get('version').get('number'))
                 else:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
