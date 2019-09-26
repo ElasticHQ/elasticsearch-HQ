@@ -27,7 +27,16 @@ Simplified Monitoring and Management for ElasticSearch clusters.
 * Active project used by Fortune 100 companies around the world.
 * Free and (Real) Open Source. ;-)
 
-## Installation
+## Quickstart: Docker
+
+We are hosted on Dockerhub: [ElasticHQ on Dockerhub](https://hub.docker.com/r/elastichq/elasticsearch-hq/)  
+
+1. ``docker run -p 5000:5000 elastichq/elasticsearch-hq``
+2. Access HQ with: `` http://localhost:5000 ``
+
+For further instructions on docker commands and configuration, please see relevant documentation: [Docker Images](http://docs.elastichq.org/installation.html#docker-images).
+
+## Source Installation
 
 ### Requirements
 
@@ -43,15 +52,6 @@ For **full** installation and configuration instructions, see [Getting Started](
 4. Access HQ with: `` http://localhost:5000 ``
 
 For further installation and configuration help, please read the docs: [ElasticHQ Documentation](http://docs.elastichq.org)
-
-## Docker Installation
-
-We are hosted on Dockerhub: [ElasticHQ on Dockerhub](https://hub.docker.com/r/elastichq/elasticsearch-hq/)  
-
-1. ``docker run -p 5000:5000 elastichq/elasticsearch-hq``
-2. Access HQ with: `` http://localhost:5000 ``
-
-For further instructions, please see relevant documentation: [Docker Images](http://docs.elastichq.org/installation.html#docker-images).
 
 ## OpenShift Installation
 

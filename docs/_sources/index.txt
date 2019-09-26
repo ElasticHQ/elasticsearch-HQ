@@ -4,7 +4,7 @@ ElasticHQ Documentation
 
 
 .. toctree::
-    :includehidden:
+    :hidden:
 
     installation
     rest-api

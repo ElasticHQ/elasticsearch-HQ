@@ -66,10 +66,8 @@
         <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
       </div>
   <div id="left-column">
-    <div class="sphinxsidebar">
-        <a href="
+    <div class="sphinxsidebar"><a href="
     index.html" class="text-logo">ElasticHQ</a>
-        
 <div class="sidebar-block">
   <div class="sidebar-wrapper">
     <h2>Table Of Contents</h2>
@@ -80,12 +78,38 @@
       <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#quick-start-guide">Quick-Start Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-with-docker">Running with Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-from-source">Install from Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-elastichq">Install ElasticHQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-releases">Pre-Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#openshift">OpenShift</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#initial-login">Initial Login</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#upgrading">Upgrading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#command-line-parameters">Command line Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connecting-with-ssl">Connecting with SSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database">Database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#external-configuration">External Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#upgrading">Upgrading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#latest-version">Latest Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upgrading-minor-and-patch-versions">Upgrading Minor and Patch versions</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#running-in-production">Running in Production</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#diagnosing-connection-errors">Diagnosing connection errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#x-pack-integration">X-Pack Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewing-logs">Viewing Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-cert-not-working">SSL Cert not working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preserving-database-across-docker-container-restarts">Preserving Database across Docker container restarts</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
 </ul>
 </li>
@@ -97,7 +121,6 @@
     
   </div>
 </div>
-        
 <div class="sidebar-block">
   <div class="sidebar-wrapper">
     <div id="main-search">
@@ -111,6 +134,7 @@
     </div>
   </div>
 </div>
+      
     </div>
   </div>
         <div id="right-column">
@@ -131,10 +155,10 @@
 <p class="topic-title first">Table of Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#quick-start-guide" id="id4">Quick-Start Guide</a></li>
-<li><a class="reference internal" href="#installation" id="id5">Installation</a><ul>
-<li><a class="reference internal" href="#requirements" id="id6">Requirements</a></li>
-<li><a class="reference internal" href="#install-elastichq" id="id7">Install ElasticHQ</a></li>
-<li><a class="reference internal" href="#docker-images" id="id8">Docker Images</a></li>
+<li><a class="reference internal" href="#running-with-docker" id="id5">Running with Docker</a></li>
+<li><a class="reference internal" href="#install-from-source" id="id6">Install from Source</a><ul>
+<li><a class="reference internal" href="#requirements" id="id7">Requirements</a></li>
+<li><a class="reference internal" href="#install-elastichq" id="id8">Install ElasticHQ</a></li>
 <li><a class="reference internal" href="#pre-releases" id="id9">Pre-Releases</a></li>
 <li><a class="reference internal" href="#openshift" id="id10">OpenShift</a></li>
 </ul>
@@ -168,18 +192,37 @@
 </div>
 <div class="section" id="quick-start-guide">
 <h2><a class="toc-backref" href="#id4">Quick-Start Guide</a><a class="headerlink" href="#quick-start-guide" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><a class="reference internal" href="#docker-images"><span class="std std-ref">Running with Docker</span></a></li>
+<li><a class="reference internal" href="#run-from-source"><span class="std std-ref">Install from Source</span></a></li>
+</ol>
 </div>
-<div class="section" id="installation">
-<h2><a class="toc-backref" href="#id5">Installation</a><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="running-with-docker">
+<span id="docker-images"></span><h2><a class="toc-backref" href="#id5">Running with Docker</a><a class="headerlink" href="#running-with-docker" title="Permalink to this headline">¶</a></h2>
+<p>Docker images are offered on the <a class="reference external" href="https://hub.docker.com/r/elastichq/elasticsearch-hq/">ElasticHQ Dockerhub</a>.</p>
+<p>Run with:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker run -p <span class="m">5000</span>:5000 elastichq/elasticsearch-hq
+</pre></div>
+</div>
+<p>Access HQ with: <a class="reference external" href="http://localhost:5000">http://localhost:5000</a></p>
+<p>When starting with Docker, see <a class="reference internal" href="#environment-variables"><span class="std std-ref">Environment Variables</span></a> for passing startup args. Environment variables are passed to docker using the <cite>-e</cite> flag.</p>
+<p>ie. <code class="docutils literal"><span class="pre">-e</span> <span class="pre">HQ_DEFAULT_URL='http://aa.com:1212'</span></code></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">latest</span></code> tag deploys the latest stable release. Where <code class="docutils literal"><span class="pre">develop</span></code> is the latest unstable working branch.</p>
+</div>
+</div>
+<div class="section" id="install-from-source">
+<span id="run-from-source"></span><h2><a class="toc-backref" href="#id6">Install from Source</a><a class="headerlink" href="#install-from-source" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="requirements">
-<h3><a class="toc-backref" href="#id6">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Python 3.4+</li>
-<li>Elasticsearch. Supported versions: 2.x, 5.x, 6.x</li>
+<li>Elasticsearch. Supported versions: 2.x, 5.x, 6.x, 7.x</li>
 </ul>
 </div>
 <div class="section" id="install-elastichq">
-<h3><a class="toc-backref" href="#id7">Install ElasticHQ</a><a class="headerlink" href="#install-elastichq" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Install ElasticHQ</a><a class="headerlink" href="#install-elastichq" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Download or clone the repository <a class="reference external" href="https://github.com/ElasticHQ/elasticsearch-HQ">https://github.com/ElasticHQ/elasticsearch-HQ</a></li>
 <li>Navigate to the root of the repository: <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></li>
@@ -190,16 +233,6 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Alternatively, you can start the server with <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">runserver</span></code></p>
 </div>
-</div>
-<div class="section" id="docker-images">
-<span id="id1"></span><h3><a class="toc-backref" href="#id8">Docker Images</a><a class="headerlink" href="#docker-images" title="Permalink to this headline">¶</a></h3>
-<p>Docker images are offered on the <a class="reference external" href="https://hub.docker.com/r/elastichq/elasticsearch-hq/">ElasticHQ Dockerhub</a>.</p>
-<p>The <code class="docutils literal"><span class="pre">latest</span></code> tag deploys the latest stable release. Where <code class="docutils literal"><span class="pre">develop</span></code> is the latest unstable working branch.</p>
-<p>When starting with Docker, see <a class="reference internal" href="#environment-variables"><span class="std std-ref">Environment Variables</span></a> for passing startup args. Environment variables are passed to docker using the <cite>-e</cite> flag.</p>
-<p>ie. <code class="docutils literal"><span class="pre">-e</span> <span class="pre">HQ_DEFAULT_URL='http://aa.com:1212'</span></code></p>
-<p>To run/install container:</p>
-<p><code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-p</span> <span class="pre">5000:5000</span> <span class="pre">elastichq/elasticsearch-hq</span></code></p>
-<p>Access HQ with: <a class="reference external" href="http://localhost:5000">http://localhost:5000</a></p>
 </div>
 <div class="section" id="pre-releases">
 <h3><a class="toc-backref" href="#id9">Pre-Releases</a><a class="headerlink" href="#pre-releases" title="Permalink to this headline">¶</a></h3>
@@ -231,7 +264,7 @@
 <div class="section" id="configuration">
 <h2><a class="toc-backref" href="#id12">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="command-line-parameters">
-<span id="id2"></span><h3><a class="toc-backref" href="#id13">Command line Parameters</a><a class="headerlink" href="#command-line-parameters" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3><a class="toc-backref" href="#id13">Command line Parameters</a><a class="headerlink" href="#command-line-parameters" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">application.py</span></code> start script takes parameters passed in as arguments from the command line:</p>
 <blockquote>
 <div><table border="1" class="docutils">
@@ -278,9 +311,17 @@
 </tbody>
 </table>
 </div></blockquote>
+<div class="section" id="example">
+<h4>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>python -m application
+--enable-ssl
+--ca-certs /path/to/your/ca.crt
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="environment-variables">
-<span id="id3"></span><h3><a class="toc-backref" href="#id14">Environment Variables</a><a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3><a class="toc-backref" href="#id14">Environment Variables</a><a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
@@ -318,6 +359,14 @@
 </tbody>
 </table>
 </div></blockquote>
+<div class="section" id="id3">
+<h4>Example:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>docker run -p <span class="m">5000</span>:5000 elastichq/elasticsearch-hq
+-e <span class="nv">HQ_DEFAULT_URL</span><span class="o">=</span><span class="s1">&#39;http://aa.com:1212&#39;</span>
+-e <span class="nv">HQ_ENABLE_SSL</span><span class="o">=</span>False
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="logging">
 <h3><a class="toc-backref" href="#id15">Logging</a><a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
@@ -409,7 +458,7 @@
 <div class="section" id="running-in-production">
 <h2><a class="toc-backref" href="#id22">Running in Production</a><a class="headerlink" href="#running-in-production" title="Permalink to this headline">¶</a></h2>
 <p>We advise that under any considerable usage/load, this application should be run with a multithreaded server. The current flask implementation by itself should not be run in production without this, as it is a single-threaded process.</p>
-<p>We recommend running this WSGI application with gunicorn. The Docker container available on DockerHub is pre-configured to run with gunicorn, and is preferred. See the <a class="reference internal" href="#docker-images"><span class="std std-ref">Docker Images</span></a></p>
+<p>We recommend running this WSGI application with gunicorn. The Docker container available on DockerHub is pre-configured to run with gunicorn, and is preferred. See the <a class="reference internal" href="#docker-images"><span class="std std-ref">Running with Docker</span></a></p>
 <p>If you wish to run without a container, install gunicorn by either commenting out the line in the <code class="docutils literal"><span class="pre">requirements.txt</span></code> file or simply running <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">gunicorn</span></code></p>
 <p>In console, run gunicorn with:</p>
 <p><code class="docutils literal"><span class="pre">gunicorn</span> <span class="pre">-w</span> <span class="pre">1</span> <span class="pre">-b</span> <span class="pre">:5000</span> <span class="pre">--worker-class</span> <span class="pre">eventlet</span> <span class="pre">application:application</span></code></p>
