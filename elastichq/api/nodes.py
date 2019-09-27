@@ -17,7 +17,7 @@ class NodesSummary(Resource):
         both the info and stats APIs.
         """
 
-        response = NodeService().get_node_summary(cluster_name, node_ids)
+        response = NodeService().get_node_summary(cluster_name)
         return APIResponse(response, HTTP_Status.OK, None)
 
 
