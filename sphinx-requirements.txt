@@ -1,6 +1,6 @@
 # Docs
 Sphinx>=1.3.0,<1.5.0
-guzzle_sphinx_theme>=0.7.8,<0.8.0
+guzzle_sphinx_theme
 sphinxcontrib-httpdomain==1.6.0
 
 ### Removed fulltoc - not working with py3.6

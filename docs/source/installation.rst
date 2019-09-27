@@ -3,23 +3,46 @@ Getting Started
 ===============
 
 .. contents:: Table of Contents
-    :depth: 3
+    :depth: 2
     :local:
-
-
 
 Quick-Start Guide
 -----------------
 
+1. :any:`docker images`
+2. :any:`run from source`
 
-Installation
-------------
+.. _docker images:
+
+Running with Docker
+-------------------
+
+Docker images are offered on the `ElasticHQ Dockerhub <https://hub.docker.com/r/elastichq/elasticsearch-hq/>`_.
+
+Run with:
+
+.. code-block:: bash
+
+    docker run -p 5000:5000 elastichq/elasticsearch-hq
+
+Access HQ with: http://localhost:5000
+
+When starting with Docker, see :any:`environment variables` for passing startup args. Environment variables are passed to docker using the `-e` flag.
+
+ie. ``-e HQ_DEFAULT_URL='http://aa.com:1212'``
+
+.. note:: The ``latest`` tag deploys the latest stable release. Where ``develop`` is the latest unstable working branch.
+
+.. _run from source:
+
+Install from Source
+-------------------
 
 Requirements
 ^^^^^^^^^^^^
 
 * Python 3.4+
-* Elasticsearch. Supported versions: 2.x, 5.x, 6.x
+* Elasticsearch. Supported versions: 2.x, 5.x, 6.x, 7.x
 
 Install ElasticHQ
 ^^^^^^^^^^^^^^^^^
@@ -31,24 +54,6 @@ Install ElasticHQ
 
 .. note:: Alternatively, you can start the server with ``python manage.py runserver``
 
-.. _docker images:
-
-Docker Images
-^^^^^^^^^^^^^
-
-Docker images are offered on the `ElasticHQ Dockerhub <https://hub.docker.com/r/elastichq/elasticsearch-hq/>`_.
-
-The ``latest`` tag deploys the latest stable release. Where ``develop`` is the latest unstable working branch.
-
-When starting with Docker, see :any:`environment variables` for passing startup args. Environment variables are passed to docker using the `-e` flag.
-
-ie. ``-e HQ_DEFAULT_URL='http://aa.com:1212'``
-
-To run/install container:
-
-``docker run -p 5000:5000 elastichq/elasticsearch-hq``
-
-Access HQ with: http://localhost:5000
 
 Pre-Releases
 ^^^^^^^^^^^^
@@ -103,6 +108,15 @@ The ``application.py`` start script takes parameters passed in as arguments from
     ``--verify_certs``  True                       Whether HQ should attempt to validate certs. Set to False for self-signed certs.
     ==================  =========================  ================================================================================
 
+Example:
+========
+
+.. code-block:: bash
+
+    python -m application
+    --enable-ssl
+    --ca-certs /path/to/your/ca.crt
+
 .. _environment variables:
 
 Environment Variables
@@ -118,6 +132,14 @@ Environment Variables
     ``HQ_DEBUG``         False                      If True, enables debug level on logging.
     ===================  =========================  ================================================================================
 
+Example:
+========
+
+.. code-block:: bash
+
+    docker run -p 5000:5000 elastichq/elasticsearch-hq
+    -e HQ_DEFAULT_URL='http://aa.com:1212'
+    -e HQ_ENABLE_SSL=False
 
 Logging
 ^^^^^^^
