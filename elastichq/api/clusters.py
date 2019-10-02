@@ -114,13 +114,19 @@ class ClusterConnection(Resource):
             enable_ssl = current_app.config.get('ENABLE_SSL', False)
             ca_certs = current_app.config.get('CA_CERTS', None)
             verify_certs = current_app.config.get('VERIFY_CERTS', None)
+            client_key = current_app.config.get('CLIENT_KEY', None)
+            client_cert = current_app.config.get('CLIENT_CERT', None)
 
+            print(client_key)
+            print(client_cert)
             response = ConnectionService().create_connection(ip=params['ip'], port=params.get('port', "9200"),
                                                              scheme=scheme, username=params.get('username', None),
                                                              password=params.get('password', None),
                                                              fail_on_exception=True,
                                                              enable_ssl=enable_ssl, ca_certs=ca_certs,
-                                                             verify_certs=verify_certs)
+                                                             verify_certs=verify_certs,
+                                                             client_key=client_key,
+                                                             client_cert=client_cert)
 
             schema = ClusterDTO(many=False)
             result = schema.dump(response)

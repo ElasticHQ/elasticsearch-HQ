@@ -36,9 +36,11 @@ class ConnectionService:
             return False
 
     def create_connection(self, ip, port, scheme='http', username=None, password=None, fail_on_exception=False,
-                          enable_ssl=False, ca_certs=None, verify_certs=True):
+                          enable_ssl=False, ca_certs=None, verify_certs=True, client_cert=None, client_key=None):
         """
         Creates a connection with a cluster and place the connection inside of a connection pool, using the cluster_name as an alias.
+        :param client_cert:
+        :param client_key:
         :param verify_certs:
         :param ip:
         :param port: 
@@ -60,17 +62,19 @@ class ConnectionService:
                 is_basic_auth = True
                 password = urllib.parse.unquote(password)
 
+            client_cert_credentials = None if client_cert is None or client_key is None else (client_cert, client_key)
+
             # determine version first
             if is_basic_auth is True:
                 if enable_ssl:
                     response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
-                                            timeout=REQUEST_TIMEOUT, verify=ca_certs)
+                                            timeout=REQUEST_TIMEOUT, verify=ca_certs, cert=client_cert_credentials)
                 else:
                     response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
                                             timeout=REQUEST_TIMEOUT)
             else:
                 if enable_ssl:
-                    response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT, verify=ca_certs)
+                    response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT, verify=ca_certs, cert=client_cert_credentials)
                 else:
                     response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
 
@@ -85,7 +89,8 @@ class ConnectionService:
                 if enable_ssl:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
                                          use_ssl=True, verify_certs=verify_certs, ca_certs=ca_certs,
-                                         version=content.get('version').get('number'), http_auth=(username, password))
+                                         version=content.get('version').get('number'), http_auth=(username, password),
+                                         client_cert=client_cert, client_key=client_key)
                 else:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
                                          version=content.get('version').get('number'), http_auth=(username, password))
@@ -94,7 +99,8 @@ class ConnectionService:
                 if enable_ssl:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
                                          use_ssl=True, verify_certs=verify_certs, ca_certs=ca_certs,
-                                         version=content.get('version').get('number'))
+                                         version=content.get('version').get('number'),
+                                         client_cert=client_cert, client_key=client_key)
                 else:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
                                          version=content.get('version').get('number'))
