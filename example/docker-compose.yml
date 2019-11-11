@@ -3,7 +3,7 @@
 # Note that the container_name (elasticsearch) is used as a default connection url in the HQ settings.
 ################################################################################################################
 
-version: '2'
+version: '3'
 services:
   elastichq:
     image: elastichq/elasticsearch-hq
@@ -24,7 +24,6 @@ services:
       - node.name=node_1
       - network.host=0.0.0.0
       - network.publish_host=0.0.0.0
-      #- http.cors.allow-headers=Authorization
       - bootstrap.memory_lock=true
       - http.cors.enabled=true
       - http.cors.allow-origin=*
@@ -34,7 +33,6 @@ services:
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     volumes:
       - esdata1:/usr/share/elasticsearch/data
-      #- ./elasticsearch_2_4_6.yml:/usr/share/elasticsearch/config/elasticsearch_2_4_6.yml
     ports:
       - 9200:9200
       - 9300:9300
