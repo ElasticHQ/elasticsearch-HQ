@@ -66,16 +66,22 @@ class ConnectionService:
 
             # determine version first
             if is_basic_auth is True:
+                LOG.info("Basic Auth is True")
                 if enable_ssl:
+                    LOG.info("SSL enabled")
                     response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
                                             timeout=REQUEST_TIMEOUT, verify=ca_certs, cert=client_cert_credentials)
                 else:
+                    LOG.info("SSL disabled")
                     response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
                                             timeout=REQUEST_TIMEOUT)
             else:
+                LOG.info("Basic Auth is False")
                 if enable_ssl:
+                    LOG.info("SSL enabled")
                     response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT, verify=ca_certs, cert=client_cert_credentials)
                 else:
+                    LOG.info("SSL disabled")
                     response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
 
             if response.status_code == 401:
