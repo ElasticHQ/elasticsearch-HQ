@@ -1,0 +1,51 @@
+################################################################################################################
+# Sample docker-compose file that will allow for connecting ES and HQ between separate containers
+# Note that the container_name (elasticsearch) is used as a default connection url in the HQ settings.
+################################################################################################################
+
+version: '3'
+services:
+  elastichq:
+    image: elastichq/elasticsearch-hq
+    container_name: elastichq
+    environment:
+      - HQ_DEFAULT_URL=http://elasticsearch:9200
+      - HQ_DEBUG=False
+    ports:
+      - 5000:5000
+    networks:
+      - esnet
+
+  elasticsearch:
+    image: elasticsearch:2.4.6
+    container_name: elasticsearch
+    environment:
+      - cluster.name=elasticsearch
+      - node.name=node_1
+      - network.host=0.0.0.0
+      - network.publish_host=0.0.0.0
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.host=0.0.0.0
+      - transport.host=0.0.0.0
+      - bootstrap.system_call_filter=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - esnet
+
+volumes:
+  esdata1:
+    driver: local
+networks:
+  esnet:
+    driver: bridge
