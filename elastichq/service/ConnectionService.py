@@ -10,7 +10,7 @@ from elastichq.common.utils import string_to_bool
 from elastichq.model import ClusterModel
 from elastichq.service.persistence import ClusterDBService
 from ..globals import CONNECTIONS, LOG, REQUEST_TIMEOUT
-from ..vendor.elasticsearch import Elasticsearch
+from ..vendor.elasticsearch import Elasticsearch, RequestsHttpConnection
 from ..vendor.elasticsearch.connections import ConnectionNotFoundException
 
 
@@ -118,10 +118,9 @@ class ConnectionService:
                     if verify_certs is False:
                         LOG.info("Verify Certs is False")
                         conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                             use_ssl=True, verify_certs=False, ca_certs=ca_certs,
+                                             use_ssl=True, verify_certs=False,
                                              version=content.get('version').get('number'),
-                                             http_auth=(username, password),
-                                             client_cert=client_cert, client_key=client_key)
+                                             http_auth=(username, password), connection_class=RequestsHttpConnection)
                     else:
                         LOG.info("Verify Certs is True")
                         conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
@@ -139,9 +138,9 @@ class ConnectionService:
                     if verify_certs is False:
                         LOG.info("Verify Certs is False")
                         conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                             use_ssl=True, verify_certs=False, ca_certs=ca_certs,
+                                             use_ssl=True, verify_certs=False,
                                              version=content.get('version').get('number'),
-                                             client_cert=client_cert, client_key=client_key)
+                                             connection_class=RequestsHttpConnection)
                     else:
                         LOG.info("Verify Certs is False")
                         conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
