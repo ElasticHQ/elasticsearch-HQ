@@ -38,7 +38,8 @@ class ConnectionService:
     def create_connection(self, ip, port, scheme='http', username=None, password=None, fail_on_exception=False,
                           enable_ssl=False, ca_certs=None, verify_certs=True, client_cert=None, client_key=None):
         """
-        Creates a connection with a cluster and place the connection inside of a connection pool, using the cluster_name as an alias.
+        Creates a connection with a cluster and place the connection inside of a connection pool, using the
+        cluster_name as an alias.
         :param client_cert:
         :param client_key:
         :param verify_certs:
@@ -46,12 +47,16 @@ class ConnectionService:
         :param port: 
         :param scheme:
         :param fail_on_exception: If we should raise an exception on a failed connection
-        :param ca_certs: Frome the requests docs: "verify: (optional) Either a boolean, in which case it controls whether we verify
+        :param ca_certs: Frome the requests docs: "verify: (optional) Either a boolean, in which case it controls
+        whether we verify
             the server's TLS certificate, or a string, in which case it must be a path
             to a CA bundle to use. Defaults to ``True``."
         :return:
         """
         try:
+            LOG.info('Verify: ' + str(verify_certs))
+            LOG.info('Cert File: ' + str(ca_certs))
+
             is_basic_auth = False
 
             # clean the params
@@ -64,13 +69,19 @@ class ConnectionService:
 
             client_cert_credentials = None if client_cert is None or client_key is None else (client_cert, client_key)
 
-            # determine version first
             if is_basic_auth is True:
                 LOG.info("Basic Auth is True")
                 if enable_ssl:
                     LOG.info("SSL enabled")
-                    response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
-                                            timeout=REQUEST_TIMEOUT, verify=ca_certs, cert=client_cert_credentials)
+                    if verify_certs is False:
+                        LOG.info("Verify Certs is False")
+                        response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
+                                                timeout=REQUEST_TIMEOUT, verify=verify_certs,
+                                                cert=client_cert_credentials)
+                    else:
+                        LOG.info("Verify Certs is True")
+                        response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
+                                                timeout=REQUEST_TIMEOUT, verify=ca_certs, cert=client_cert_credentials)
                 else:
                     LOG.info("SSL disabled")
                     response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
@@ -79,13 +90,21 @@ class ConnectionService:
                 LOG.info("Basic Auth is False")
                 if enable_ssl:
                     LOG.info("SSL enabled")
-                    response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT, verify=ca_certs, cert=client_cert_credentials)
+                    if verify_certs is False:
+                        LOG.info("Verify Certs is False")
+                        response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT,
+                                                verify=verify_certs, cert=client_cert_credentials)
+                    else:
+                        LOG.info("Verify Certs is True")
+                        response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT,
+                                                verify=ca_certs, cert=client_cert_credentials)
                 else:
                     LOG.info("SSL disabled")
                     response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
 
             if response.status_code == 401:
-                message = "Unable to create connection! Server returned 401 - UNAUTHORIZED: " + scheme + "://" + ip + ":" + port
+                message = "Unable to create connection! Server returned 401 - UNAUTHORIZED: " + scheme + "://" + ip +\
+                          ":" + port
                 raise ConnectionNotAuthorized(message=message)
 
             content = json.loads(response.content.decode('utf-8'))
@@ -156,10 +175,12 @@ class ConnectionService:
 
     def get_connection(self, cluster_name, create_if_missing=True):
         """
-        Interface for cluster connection pool object. If a connection does not exist, it will attempt to create it, using what is stored in the database. If it cannot find the connection 
+        Interface for cluster connection pool object. If a connection does not exist, it will attempt to create it,
+        using what is stored in the database. If it cannot find the connection
         or cannot create one from the database, it will throw a ConnectionNotFoundException
         :param cluster_name: 
-        :param create_if_missing: Will create the connection in the connection pool AND the persistence layer if it does not exist.
+        :param create_if_missing: Will create the connection in the connection pool AND the persistence layer if it
+        does not exist.
         :return:
         """
         try:
