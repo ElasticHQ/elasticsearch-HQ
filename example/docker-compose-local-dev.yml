@@ -11,7 +11,7 @@ services:
     build:
       context: ../
       dockerfile: Dockerfile
-    image: elasticsearch-hq:latest
+    image: elasticsearch-hq:develop
     container_name: elastichq
     environment:
       - HQ_DEFAULT_URL=http://elasticsearch:9200
