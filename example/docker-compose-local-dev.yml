@@ -1,5 +1,5 @@
 ################################################################################################################
-# Use this file to build from local source. Note you have to 'docker system prune -a' on code changes.
+# Use this file to build from local source. Note you have to 'docker system prune -a' on code changes or 'docker-compose build'
 # Sample docker-compose file that will allow for connecting ES and HQ between separate containers
 # Note that the container_name (elasticsearch) is used as a default connection url in the HQ settings.
 ################################################################################################################
@@ -14,9 +14,9 @@ services:
     environment:
       - HQ_DEFAULT_URL=http://elasticsearch:9200
       - HQ_DEBUG=True
-#      - HQ_ENABLE_SSL=True
-#      - HQ_VERIFY_CERTS=False
-#      - HQ_CA_CERTS=/usr/local/share/ca-certificates/MYCA.crt
+    #      - HQ_ENABLE_SSL=True
+    #      - HQ_VERIFY_CERTS=False
+    #      - HQ_CA_CERTS=/usr/local/share/ca-certificates/MYCA.crt
     ports:
       - 5000:5000
     networks:
