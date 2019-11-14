@@ -5,7 +5,7 @@ import urllib
 
 import requests
 from requests.exceptions import ConnectionError
-
+from elastichq.common.utils import string_to_bool
 from elastichq.model import ClusterModel
 from elastichq.service.persistence import ClusterDBService
 from ..globals import CONNECTIONS, LOG, REQUEST_TIMEOUT
@@ -54,6 +54,7 @@ class ConnectionService:
         :return:
         """
         try:
+            verify_certs = string_to_bool(verify_certs)
             LOG.info('Verify: ' + str(verify_certs))
             LOG.info('Cert File: ' + str(ca_certs))
 
@@ -76,7 +77,7 @@ class ConnectionService:
                     if verify_certs is False:
                         LOG.info("Verify Certs is False")
                         response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
-                                                timeout=REQUEST_TIMEOUT, verify=verify_certs,
+                                                timeout=REQUEST_TIMEOUT, verify=False,
                                                 cert=client_cert_credentials)
                     else:
                         LOG.info("Verify Certs is True")
@@ -93,7 +94,7 @@ class ConnectionService:
                     if verify_certs is False:
                         LOG.info("Verify Certs is False")
                         response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT,
-                                                verify=verify_certs, cert=client_cert_credentials)
+                                                verify=False, cert=client_cert_credentials)
                     else:
                         LOG.info("Verify Certs is True")
                         response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT,

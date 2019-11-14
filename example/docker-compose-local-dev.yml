@@ -16,9 +16,9 @@ services:
     environment:
       - HQ_DEFAULT_URL=http://elasticsearch:9200
       - HQ_DEBUG=True
-    #      - HQ_ENABLE_SSL=True
-    #      - HQ_VERIFY_CERTS=False
-    #      - HQ_CA_CERTS=/usr/local/share/ca-certificates/MYCA.crt
+      - HQ_ENABLE_SSL=True
+      - HQ_VERIFY_CERTS=False
+      - HQ_CA_CERTS=/usr/local/share/ca-certificates/MYCA.crt
     ports:
       - 5000:5000
     networks:
