@@ -115,20 +115,39 @@ class ConnectionService:
             # SAVE to Connection Pools
             if is_basic_auth is True:
                 if enable_ssl:
-                    conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                         use_ssl=True, verify_certs=verify_certs, ca_certs=ca_certs,
-                                         version=content.get('version').get('number'), http_auth=(username, password),
-                                         client_cert=client_cert, client_key=client_key)
+                    if verify_certs is False:
+                        LOG.info("Verify Certs is False")
+                        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                             use_ssl=True, verify_certs=False, ca_certs=ca_certs,
+                                             version=content.get('version').get('number'),
+                                             http_auth=(username, password),
+                                             client_cert=client_cert, client_key=client_key)
+                    else:
+                        LOG.info("Verify Certs is True")
+                        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                             use_ssl=True, verify_certs=ca_certs, ca_certs=ca_certs,
+                                             version=content.get('version').get('number'),
+                                             http_auth=(username, password),
+                                             client_cert=client_cert, client_key=client_key)
+
                 else:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
                                          version=content.get('version').get('number'), http_auth=(username, password))
 
             else:
                 if enable_ssl:
-                    conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                         use_ssl=True, verify_certs=verify_certs, ca_certs=ca_certs,
-                                         version=content.get('version').get('number'),
-                                         client_cert=client_cert, client_key=client_key)
+                    if verify_certs is False:
+                        LOG.info("Verify Certs is False")
+                        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                             use_ssl=True, verify_certs=False, ca_certs=ca_certs,
+                                             version=content.get('version').get('number'),
+                                             client_cert=client_cert, client_key=client_key)
+                    else:
+                        LOG.info("Verify Certs is False")
+                        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                             use_ssl=True, verify_certs=ca_certs, ca_certs=ca_certs,
+                                             version=content.get('version').get('number'),
+                                             client_cert=client_cert, client_key=client_key)
                 else:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
                                          version=content.get('version').get('number'))
@@ -181,7 +200,7 @@ class ConnectionService:
         Interface for cluster connection pool object. If a connection does not exist, it will attempt to create it,
         using what is stored in the database. If it cannot find the connection
         or cannot create one from the database, it will throw a ConnectionNotFoundException
-        :param cluster_name: 
+        :param cluster_name:
         :param create_if_missing: Will create the connection in the connection pool AND the persistence layer if it
         does not exist.
         :return:
