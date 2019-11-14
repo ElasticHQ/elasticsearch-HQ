@@ -5,6 +5,7 @@ import urllib
 
 import requests
 from requests.exceptions import ConnectionError
+
 from elastichq.common.utils import string_to_bool
 from elastichq.model import ClusterModel
 from elastichq.service.persistence import ClusterDBService
@@ -55,6 +56,7 @@ class ConnectionService:
         """
         try:
             verify_certs = string_to_bool(verify_certs)
+            enable_ssl = string_to_bool(enable_ssl)
             LOG.info('Verify: ' + str(verify_certs))
             LOG.info('Cert File: ' + str(ca_certs))
 
@@ -104,7 +106,7 @@ class ConnectionService:
                     response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
 
             if response.status_code == 401:
-                message = "Unable to create connection! Server returned 401 - UNAUTHORIZED: " + scheme + "://" + ip +\
+                message = "Unable to create connection! Server returned 401 - UNAUTHORIZED: " + scheme + "://" + ip + \
                           ":" + port
                 raise ConnectionNotAuthorized(message=message)
 
