@@ -6,10 +6,11 @@ import urllib
 import requests
 from requests.exceptions import ConnectionError
 
+from elastichq.common.utils import string_to_bool
 from elastichq.model import ClusterModel
 from elastichq.service.persistence import ClusterDBService
 from ..globals import CONNECTIONS, LOG, REQUEST_TIMEOUT
-from ..vendor.elasticsearch import Elasticsearch
+from ..vendor.elasticsearch import Elasticsearch, RequestsHttpConnection
 from ..vendor.elasticsearch.connections import ConnectionNotFoundException
 
 
@@ -54,6 +55,8 @@ class ConnectionService:
         :return:
         """
         try:
+            verify_certs = string_to_bool(verify_certs)
+            enable_ssl = string_to_bool(enable_ssl)
             LOG.info('Verify: ' + str(verify_certs))
             LOG.info('Cert File: ' + str(ca_certs))
 
@@ -76,7 +79,7 @@ class ConnectionService:
                     if verify_certs is False:
                         LOG.info("Verify Certs is False")
                         response = requests.get(scheme + "://" + ip + ":" + port, auth=(username, password),
-                                                timeout=REQUEST_TIMEOUT, verify=verify_certs,
+                                                timeout=REQUEST_TIMEOUT, verify=False,
                                                 cert=client_cert_credentials)
                     else:
                         LOG.info("Verify Certs is True")
@@ -93,7 +96,7 @@ class ConnectionService:
                     if verify_certs is False:
                         LOG.info("Verify Certs is False")
                         response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT,
-                                                verify=verify_certs, cert=client_cert_credentials)
+                                                verify=False, cert=client_cert_credentials)
                     else:
                         LOG.info("Verify Certs is True")
                         response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT,
@@ -103,7 +106,7 @@ class ConnectionService:
                     response = requests.get(scheme + "://" + ip + ":" + port, timeout=REQUEST_TIMEOUT)
 
             if response.status_code == 401:
-                message = "Unable to create connection! Server returned 401 - UNAUTHORIZED: " + scheme + "://" + ip +\
+                message = "Unable to create connection! Server returned 401 - UNAUTHORIZED: " + scheme + "://" + ip + \
                           ":" + port
                 raise ConnectionNotAuthorized(message=message)
 
@@ -112,20 +115,38 @@ class ConnectionService:
             # SAVE to Connection Pools
             if is_basic_auth is True:
                 if enable_ssl:
-                    conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                         use_ssl=True, verify_certs=verify_certs, ca_certs=ca_certs,
-                                         version=content.get('version').get('number'), http_auth=(username, password),
-                                         client_cert=client_cert, client_key=client_key)
+                    if verify_certs is False:
+                        LOG.info("Verify Certs is False")
+                        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                             use_ssl=True, verify_certs=False,
+                                             version=content.get('version').get('number'),
+                                             http_auth=(username, password), connection_class=RequestsHttpConnection)
+                    else:
+                        LOG.info("Verify Certs is True")
+                        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                             use_ssl=True, verify_certs=ca_certs, ca_certs=ca_certs,
+                                             version=content.get('version').get('number'),
+                                             http_auth=(username, password),
+                                             client_cert=client_cert, client_key=client_key)
+
                 else:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
                                          version=content.get('version').get('number'), http_auth=(username, password))
 
             else:
                 if enable_ssl:
-                    conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
-                                         use_ssl=True, verify_certs=verify_certs, ca_certs=ca_certs,
-                                         version=content.get('version').get('number'),
-                                         client_cert=client_cert, client_key=client_key)
+                    if verify_certs is False:
+                        LOG.info("Verify Certs is False")
+                        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                             use_ssl=True, verify_certs=False,
+                                             version=content.get('version').get('number'),
+                                             connection_class=RequestsHttpConnection)
+                    else:
+                        LOG.info("Verify Certs is False")
+                        conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
+                                             use_ssl=True, verify_certs=ca_certs, ca_certs=ca_certs,
+                                             version=content.get('version').get('number'),
+                                             client_cert=client_cert, client_key=client_key)
                 else:
                     conn = Elasticsearch(hosts=[scheme + "://" + ip + ":" + port], maxsize=5,
                                          version=content.get('version').get('number'))
@@ -178,7 +199,7 @@ class ConnectionService:
         Interface for cluster connection pool object. If a connection does not exist, it will attempt to create it,
         using what is stored in the database. If it cannot find the connection
         or cannot create one from the database, it will throw a ConnectionNotFoundException
-        :param cluster_name: 
+        :param cluster_name:
         :param create_if_missing: Will create the connection in the connection pool AND the persistence layer if it
         does not exist.
         :return:
