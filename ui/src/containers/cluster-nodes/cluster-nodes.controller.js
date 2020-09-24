@@ -14,20 +14,25 @@ class clusterNodesController {
         this.clusterName = $stateParams.clusterName;
 
         // Try to get URL
-        //  even if path is being forwared by a Apache / Nginx conf.
+        //  even if path is being forwarded by a Apache / Nginx conf.
         //  i.e. http://my_site.com/my/custom/path is the root of the python app
         console.log('---- window.location', window.location)
-        let baseUrl = window.location.href.split('/#!')[0];
 
-        if (/\:8080/.test(baseUrl)) baseUrl = 'http://localhost:5000';
+        let url = `${window.location.protocol}//${window.location.host}`;
+        let baseUrl = window.location.pathname
+        // console.log('---- baseUrl: ', baseUrl)
+
+        if (/\:8080/.test(url)) {
+            url = 'http://localhost:5000';
+        }
 
         // Websockets do not work with relative paths, so get absolute and append the WS portion
         //  upgrade from HTTP to WS should be automatic
-        // baseUrl = baseUrl += `/ws/nodes/${this.clusterName}/nodes`;
-        baseUrl = baseUrl += `/ws`;
-        // console.log('---- baseUrl: ', baseUrl)
+        // url = url += `/ws/nodes/${this.clusterName}/nodes`;
+        url = url += `/ws`;
+        // console.log('---- url: ', url)
 
-        this.socket = io(baseUrl);
+        this.socket = io(url, { path: baseUrl+"socket.io" });
         this.socket.on('connect', () => {
             this.connected = true;
             this.socket.emit('join', {"room_name": this.clusterName + "::nodes"});
