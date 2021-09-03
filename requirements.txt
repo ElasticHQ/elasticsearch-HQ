@@ -19,8 +19,8 @@ requests>=2.0.0, <3.0.0
 dogpile.cache == 0.6.5
 
 # Database
-SQLAlchemy==1.2.0
-Flask-SQLAlchemy==2.3.2
+SQLAlchemy==1.4.23
+Flask-SQLAlchemy==2.5.1
 Flask-Migrate
 
 # Testing
@@ -41,7 +41,7 @@ Flask-APScheduler== 1.7.1
 python-engineio==3.0.0
 python-socketio==2.1.0
 Flask-SocketIO==3.1.0
-eventlet==0.25.0
+eventlet==0.30.1
 
 # Production
 gunicorn==19.7.1
