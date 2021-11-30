@@ -1,7 +1,7 @@
 # ElasticHQ
 
-## This project is no longer maintained. 
-### It has become too time-consuming to maintain this project with Elastic as a moving target. Elastic's license changes, frequent backwards incompatibilities, and crippling of their "open source" python libs were too much to keep up with. 
+## This project is no longer maintained. Use at your own risk.  
+#### It has become too time-consuming to maintain this project with Elasticsearch acting as a moving target. Elastic's license changes, frequent backwards incompatibilities, and [crippling](https://github.com/elastic/elasticsearch-py/pull/1623) of their "open source" python libs were too much to keep up with. 
 
 Simplified Monitoring and Management for ElasticSearch clusters.
 
