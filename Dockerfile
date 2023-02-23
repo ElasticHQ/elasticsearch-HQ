@@ -7,7 +7,8 @@ RUN apk update && \
     apk add supervisor && \
     apk add --update py2-pip && \
     apk add --no-cache bash && \
-    apk add --no-cache --virtual .build-deps bzip2-dev gcc libc-dev libffi-dev openssl-dev python3-dev make
+    apk add --no-cache --virtual .build-deps bzip2-dev gcc libc-dev libffi-dev openssl-dev python3-dev make && \
+    apk upgrade "expat==2.2.8-r0"
 
 # Copy project sources
 COPY . /src
@@ -16,7 +17,8 @@ COPY . /src
 WORKDIR /src
 
 # Install app dependencies and create supervisord dirs
-RUN pip3 install -U -r requirements.txt && \
+RUN pip3 install --upgrade pip==21.3.1 && \
+    pip3 install -U -r requirements.txt && \
     pip3 install gunicorn==19.7.1 && \
     mkdir -p /etc/supervisor/conf.d /var/log/supervisor /var/run/supervisor
 
