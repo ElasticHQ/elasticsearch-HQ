@@ -16,7 +16,8 @@ COPY . /src
 WORKDIR /src
 
 # Install app dependencies and create supervisord dirs
-RUN pip3 install -U -r requirements.txt && \
+RUN pip3 install --upgrade pip==21.3.1 && \
+    pip3 install -U -r requirements.txt && \
     pip3 install gunicorn==19.7.1 && \
     mkdir -p /etc/supervisor/conf.d /var/log/supervisor /var/run/supervisor
 
