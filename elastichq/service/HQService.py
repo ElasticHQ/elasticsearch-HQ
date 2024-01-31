@@ -48,10 +48,7 @@ class HQService:
             settings_doc = connection.get_source(index=current_app.config.get('HQ_CLUSTER_SETTINGS')[
                 'index_name'],
                                                  id=current_app.config.get('HQ_CLUSTER_SETTINGS')[
-                                                     'doc_id'],
-                                                 doc_type=current_app.config.get('HQ_CLUSTER_SETTINGS')[
-                                                     'doc_type'])
-
+                                                     'doc_id'])
             return settings_doc
         except NotFoundError as nfe:
             if current_app.config.get('HQ_CLUSTER_SETTINGS')['store_metrics']:
@@ -65,7 +62,6 @@ class HQService:
                 body = current_app.config.get('HQ_CLUSTER_SETTINGS')
             connection = ConnectionService().get_connection(cluster_name)
             connection.index(index=current_app.config.get('HQ_CLUSTER_SETTINGS')['index_name'],
-                             doc_type=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_type'],
                              id=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_id'],
                              body=body, refresh=True)
         except NotFoundError as nfe:
@@ -80,7 +76,6 @@ class HQService:
             'doc_id': current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_id'],
             'index_name': current_app.config.get('HQ_CLUSTER_SETTINGS')['index_name'],
             'version': 1,
-            'doc_type': current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_type'],
             'store_metrics': body.get('store_metrics', current_settings.get('store_metrics')),
             'websocket_interval': body.get('websocket_interval',
                                            current_settings.get('websocket_interval')),
@@ -94,7 +89,6 @@ class HQService:
 
         connection = ConnectionService().get_connection(cluster_name)
         connection.update(index=current_app.config.get('HQ_CLUSTER_SETTINGS')['index_name'],
-                          doc_type=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_type'],
                           id=current_app.config.get('HQ_CLUSTER_SETTINGS')['doc_id'],
                           body={"doc": new_settings}, refresh=True)
 
