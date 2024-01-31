@@ -7,8 +7,7 @@ RUN apk update && \
     apk add supervisor && \
     apk add --update py2-pip && \
     apk add --no-cache bash && \
-    apk add --no-cache --virtual .build-deps bzip2-dev gcc libc-dev libffi-dev openssl-dev python3-dev make && \
-    apk upgrade "expat==2.2.8-r0"
+    apk add --no-cache --virtual .build-deps bzip2-dev gcc libc-dev libffi-dev openssl-dev python3-dev make
 
 # Copy project sources
 COPY . /src
